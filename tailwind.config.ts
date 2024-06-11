@@ -23,14 +23,14 @@ const config: Config = {
 		},
 		extend: {
 			animation: {
-				clearFromLeft: transitionStyles.clearFromLeft.animation,
-				clearFromRight: transitionStyles.clearFromRight.animation,
+				openFromLeft: transitionStyles.openFromLeft.animation,
+				openFromRight: transitionStyles.openFromRight.animation,
 				clearFromTop: transitionStyles.clearFromTop.animation,
 				clearFromBottom: transitionStyles.clearFromBottom.animation,
 			},
 			keyframes: {
-				clearFromLeft: transitionStyles.clearFromLeft.keyframes,
-				clearFromRight: transitionStyles.clearFromRight.keyframes,
+				openFromLeft: transitionStyles.openFromLeft.keyframes,
+				openFromRight: transitionStyles.openFromRight.keyframes,
 				clearFromTop: transitionStyles.clearFromTop.keyframes,
 				clearFromBottom: transitionStyles.clearFromBottom.keyframes,
 			},

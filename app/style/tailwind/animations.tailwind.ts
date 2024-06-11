@@ -14,30 +14,30 @@ export const transitionStyles = {
 			},
 		},
 	},
-	clearFromLeft: {
-		animation: "clearFromLeft 1s ease-in forwards",
+	openFromLeft: {
+		animation: "openFromLeft .75s ease-in forwards",
 		keyframes: {
 			"0%": {
-				width: "0%",
+				width: "50%",
 			},
 			"100%": {
-				width: "50%",
+				width: "0%",
 			},
 		},
 	},
-	clearFromRight: {
-		animation: "clearFromRight 1s ease-in forwards",
+	openFromRight: {
+		animation: "openFromRight .75s ease-in forwards",
 		keyframes: {
 			"0%": {
-				width: "0%",
+				width: "50%",
 			},
 			"100%": {
-				width: "50%",
+				width: "0%",
 			},
 		},
 	},
 	clearFromTop: {
-		animation: "clearFromTop 1s ease-in forwards",
+		animation: "clearFromTop .75s ease-in forwards",
 		keyframes: {
 			"0%": {
 				height: "0%",
@@ -48,7 +48,7 @@ export const transitionStyles = {
 		},
 	},
 	clearFromBottom: {
-		animation: "clearFromBottom 1s ease-in forwards",
+		animation: "clearFromBottom .75s ease-in forwards",
 		keyframes: {
 			"0%": {
 				height: "0%",
