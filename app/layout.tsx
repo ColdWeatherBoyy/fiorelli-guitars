@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import BackgroundImage from "./components/BackgroundImage";
-
-const inter = Inter({ subsets: ["latin"] });
+import { inter } from "./style/fonts";
+import "./style/globals.css";
 
 export const metadata: Metadata = {
 	title: "Fiorelli Guitars",

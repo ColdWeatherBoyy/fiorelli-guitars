@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
 const config: Config = {
 	content: [
@@ -7,6 +8,18 @@ const config: Config = {
 		"./app/**/*.{js,ts,jsx,tsx,mdx}",
 	],
 	theme: {
+		textShadow: {
+			white: `
+        .75px .75px 0 #FFF,
+        -.75px -.75px 0 #FFF,
+        -.75px .75px 0 #FFF,
+        .75px -.75px 0 #FFF,
+        .75px 0px 0 #FFF,
+        0px .75px 0 #FFF,
+        -.75px 0px 0 #FFF,
+        0px -.75px 0 #FFF
+      `,
+		},
 		extend: {
 			backgroundImage: {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -15,6 +28,18 @@ const config: Config = {
 			},
 		},
 	},
-	plugins: [],
+	plugins: [
+		// Thanks to https://www.hyperui.dev/blog/text-shadow-with-tailwindcs
+		plugin(function ({ matchUtilities, theme }) {
+			matchUtilities(
+				{
+					"text-shadow": (value: string) => ({
+						textShadow: value,
+					}),
+				},
+				{ values: theme("textShadow") }
+			);
+		}),
+	],
 };
 export default config;
