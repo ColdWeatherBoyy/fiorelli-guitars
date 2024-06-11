@@ -36,8 +36,8 @@ export const transitionStyles = {
 			},
 		},
 	},
-	clearFromTop: {
-		animation: "clearFromTop .75s ease-in forwards",
+	coverFromTop: {
+		animation: "coverFromTop .75s ease-in forwards",
 		keyframes: {
 			"0%": {
 				height: "0%",
@@ -47,8 +47,8 @@ export const transitionStyles = {
 			},
 		},
 	},
-	clearFromBottom: {
-		animation: "clearFromBottom .75s ease-in forwards",
+	coverFromBottom: {
+		animation: "coverFromBottom .75s ease-in forwards",
 		keyframes: {
 			"0%": {
 				height: "0%",

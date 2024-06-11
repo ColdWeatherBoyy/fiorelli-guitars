@@ -25,14 +25,14 @@ const config: Config = {
 			animation: {
 				openFromLeft: transitionStyles.openFromLeft.animation,
 				openFromRight: transitionStyles.openFromRight.animation,
-				clearFromTop: transitionStyles.clearFromTop.animation,
-				clearFromBottom: transitionStyles.clearFromBottom.animation,
+				coverFromTop: transitionStyles.coverFromTop.animation,
+				coverFromBottom: transitionStyles.coverFromBottom.animation,
 			},
 			keyframes: {
 				openFromLeft: transitionStyles.openFromLeft.keyframes,
 				openFromRight: transitionStyles.openFromRight.keyframes,
-				clearFromTop: transitionStyles.clearFromTop.keyframes,
-				clearFromBottom: transitionStyles.clearFromBottom.keyframes,
+				coverFromTop: transitionStyles.coverFromTop.keyframes,
+				coverFromBottom: transitionStyles.coverFromBottom.keyframes,
 			},
 			backgroundImage: {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

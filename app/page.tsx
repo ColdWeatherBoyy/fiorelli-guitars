@@ -3,6 +3,8 @@
 import { useState } from "react";
 import BackgroundImage from "./components/BackgroundImage";
 import { playfair_display } from "./style/fonts";
+import OpenPageTransition from "./components/OpenPageTransition";
+import CoverPageTransition from "./components/CoverPageTransition";
 
 enum PageState {
 	welcome = "welcome",
@@ -33,29 +35,11 @@ export default function Home() {
 							Welcome
 						</div>
 					</div>
-					<div
-						className={`absolute top-0 bg-zinc-100 z-20 w-screen ${
-							pageState === PageState.entering ? "animate-clearFromTop" : ""
-						}`}
-					/>
-					<div
-						className={`absolute bottom-0 bg-zinc-100 z-20 w-screen ${
-							pageState === PageState.entering ? "animate-clearFromBottom" : ""
-						}`}
-					/>
+					{pageState === PageState.entering && <CoverPageTransition cover={true} />}
 				</div>
 			) : (
 				<>
-					{pageState === PageState.entered && (
-						<div className="absolute w-screen h-screen">
-							<div
-								className={`absolute left-0 w-1/2 bg-zinc-100 z-20 h-screen animate-openFromLeft`}
-							/>
-							<div
-								className={`absolute right-0 w-1/2 bg-zinc-100 z-20 h-screen animate-openFromRight`}
-							/>
-						</div>
-					)}
+					{pageState === PageState.entered && <OpenPageTransition />}
 					<div>Hi</div>
 				</>
 			)}
