@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import plugin from "tailwindcss/plugin";
+import { transitionStyles } from "./app/style/tailwind/animations.tailwind";
 
 const config: Config = {
 	content: [
@@ -21,6 +22,18 @@ const config: Config = {
       `,
 		},
 		extend: {
+			animation: {
+				clearFromLeft: transitionStyles.clearFromLeft.animation,
+				clearFromRight: transitionStyles.clearFromRight.animation,
+				clearFromTop: transitionStyles.clearFromTop.animation,
+				clearFromBottom: transitionStyles.clearFromBottom.animation,
+			},
+			keyframes: {
+				clearFromLeft: transitionStyles.clearFromLeft.keyframes,
+				clearFromRight: transitionStyles.clearFromRight.keyframes,
+				clearFromTop: transitionStyles.clearFromTop.keyframes,
+				clearFromBottom: transitionStyles.clearFromBottom.keyframes,
+			},
 			backgroundImage: {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
 				"gradient-conic":

@@ -6,9 +6,14 @@ import { playfair_display } from "./style/fonts";
 
 export default function Home() {
 	const [entered, setEntered] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const handleEnter = () => {
-		setEntered(true);
+		setLoading(true);
+		setTimeout(() => {
+			console.log("new page");
+			// setEntered(true);
+		}, 3000);
 	};
 	return (
 		<>
@@ -23,6 +28,26 @@ export default function Home() {
 							Welcome
 						</div>
 					</div>
+					{/* <div
+						className={`absolute left-0 bg-zinc-100 z-20 h-screen ${
+							loading ? "animate-clearFromLeft" : ""
+						}`}
+					/>
+					<div
+						className={`absolute right-0 bg-zinc-100 z-20 h-screen ${
+							loading ? "animate-clearFromRight" : ""
+						}`}
+					/> */}
+					<div
+						className={`absolute top-0 bg-zinc-100 z-20 w-screen ${
+							loading ? "animate-clearFromTop" : ""
+						}`}
+					/>
+					<div
+						className={`absolute bottom-0 bg-zinc-100 z-20 w-screen ${
+							loading ? "animate-clearFromBottom" : ""
+						}`}
+					/>
 				</div>
 			) : (
 				<div>Hi</div>
