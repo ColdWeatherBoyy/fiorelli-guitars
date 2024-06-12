@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Image } from "./types";
+import { BackgroundImageContext } from "../providers/BackgroundImageProvider";
 
 export const useIsSmallScreen = () => {
 	const [isSmallScreen, setIsSmallScreen] = useState<boolean>(() =>
@@ -20,4 +22,17 @@ export const useIsSmallScreen = () => {
 	}, []);
 
 	return isSmallScreen;
+};
+
+export const useBackgroundImage = (largeImage: Image, smallImage: Image) => {
+	const { currentImage, setCurrentImage } = useContext(BackgroundImageContext);
+	const isSmallScreen = useIsSmallScreen();
+
+	useEffect(() => {
+		if (isSmallScreen && currentImage !== smallImage) {
+			setCurrentImage(smallImage);
+		} else if (!isSmallScreen && currentImage !== largeImage) {
+			setCurrentImage(largeImage);
+		}
+	}, [isSmallScreen, currentImage, largeImage, smallImage]);
 };

@@ -1,18 +1,17 @@
+"use client";
+
 import { FC } from "react";
-import BackgroundImage from "../components/components/BackgroundImage";
 import OpenPageTransition from "../components/transitions/OpenPageTransition";
-import { HomepageState, Image } from "../utilities/types";
+import { backgroundImagesLarge, backgroundImagesSmall } from "../utilities/constants";
+import { useBackgroundImage } from "../utilities/hooks";
 
-interface HomepageProps {
-	currentImage: Image;
-	homepageState: HomepageState;
-}
+const Homepage: FC = () => {
+	useBackgroundImage(backgroundImagesLarge.WS_Shop, backgroundImagesSmall.HB_Detail_1);
 
-const Homepage: FC<HomepageProps> = ({ currentImage, homepageState }) => {
 	return (
 		<>
-			{homepageState === HomepageState.entered && <OpenPageTransition />}
-			<div className="z-30">hi</div>
+			<OpenPageTransition />
+			<div className="z-10 text-7xl">hi</div>
 		</>
 	);
 };

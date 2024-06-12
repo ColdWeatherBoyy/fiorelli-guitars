@@ -10,17 +10,12 @@ const config: Config = {
 	],
 	theme: {
 		textShadow: {
-			white: `
-        .75px .75px 0 #FFF,
-        -.75px -.75px 0 #FFF,
-        -.75px .75px 0 #FFF,
-        .75px -.75px 0 #FFF,
-        .75px 0px 0 #FFF,
-        0px .75px 0 #FFF,
-        -.75px 0px 0 #FFF,
-        0px -.75px 0 #FFF
-      `,
+			white:
+				".75px .75px 0 #FFF, -0.75px -0.75px 0 #FFF, -0.75px .75px 0 #FFF, 0.75px -0.75px 0 #FFF, 0.75px 0px 0 #FFF, 0px .75px 0 #FFF, -0.75px 0px 0 #FFF, 0px -0.75px 0 #FFF",
+			black:
+				".75px .75px 0 #000, -0.75px -0.75px 0 #000, -0.75px .75px 0 #000, 0.75px -0.75px 0 #000, 0.75px 0px 0 #000, 0px .75px 0 #000, -0.75px 0px 0 #000, 0px -0.75px 0 #000",
 		},
+
 		extend: {
 			animation: {
 				openFromLeft: transitionStyles.openFromLeft.animation,
