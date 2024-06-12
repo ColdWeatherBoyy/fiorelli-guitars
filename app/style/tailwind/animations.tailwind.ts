@@ -43,7 +43,7 @@ export const transitionStyles = {
 				height: "0%",
 			},
 			"100%": {
-				height: "50%",
+				height: "51%",
 			},
 		},
 	},
@@ -54,7 +54,7 @@ export const transitionStyles = {
 				height: "0%",
 			},
 			"100%": {
-				height: "50%",
+				height: "51%",
 			},
 		},
 	},
