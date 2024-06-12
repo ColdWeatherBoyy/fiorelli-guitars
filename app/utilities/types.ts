@@ -5,11 +5,11 @@ export enum HomepageState {
 	entering = "entering",
 	entered = "entered",
 }
-export interface PictureIdentifier {
-	[key: string]: Picture;
+export interface ImageIdentifier {
+	[key: string]: Image;
 }
 
-export interface Picture {
+export interface Image {
 	src: StaticImport;
 	alt: string;
 }

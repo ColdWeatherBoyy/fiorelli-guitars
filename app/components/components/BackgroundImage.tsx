@@ -8,20 +8,18 @@ interface BackgroundImageProps {
 }
 const BackgroundImage: FC<BackgroundImageProps> = ({ src, alt }) => {
 	return (
-		<div className="fixed h-screen w-screen overflow-hidden -z-10">
-			<Image
-				src={src}
-				alt={alt}
-				fill
-				placeholder="blur"
-				quality={100}
-				sizes="100vw"
-				style={{
-					objectFit: "cover",
-				}}
-				priority={true}
-			/>
-		</div>
+		<Image
+			src={src}
+			alt={alt}
+			fill
+			placeholder="blur"
+			quality={100}
+			sizes="100vw"
+			style={{
+				objectFit: "cover",
+			}}
+			priority={true}
+		/>
 	);
 };
 

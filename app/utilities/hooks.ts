@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const useIsSmallScreen = () => {
-	const [isSmallScreen, setIsSmallScreen] = useState<boolean>(
-		() => window.innerWidth < 768
+	const [isSmallScreen, setIsSmallScreen] = useState<boolean>(() =>
+		typeof window !== "undefined" ? window.innerWidth < 768 : false
 	);
 
 	useEffect(() => {

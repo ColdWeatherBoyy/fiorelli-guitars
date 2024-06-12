@@ -1,19 +1,19 @@
 import { FC } from "react";
-import { HomepageState, Picture } from "../../utilities/types";
+import { HomepageState, Image } from "../../utilities/types";
 import BackgroundImage from "../components/BackgroundImage";
 import OpenPageTransition from "../transitions/OpenPageTransition";
 
 interface HomepageProps {
-	currentPicture: Picture;
+	currentImage: Image;
 	homepageState: HomepageState;
 }
 
-const Homepage: FC<HomepageProps> = ({ currentPicture, homepageState }) => {
+const Homepage: FC<HomepageProps> = ({ currentImage, homepageState }) => {
 	return (
 		<>
 			{homepageState === HomepageState.entered && <OpenPageTransition />}
 			<div className="h-screen w-full flex justify-center items-center">
-				<BackgroundImage src={currentPicture.src} alt={currentPicture.alt} />
+				<BackgroundImage src={currentImage.src} alt={currentImage.alt} />
 			</div>
 		</>
 	);

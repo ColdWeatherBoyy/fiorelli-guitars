@@ -1,4 +1,4 @@
-import { PictureIdentifier } from "./types";
+import { ImageIdentifier } from "./types";
 import ES_Action_1 from "../../public/guitarShots/EGuit/Horiz_Action_1.jpg";
 import SP_Outdoors_1 from "../../public/jamie/SP_Horiz_Outdoors_1.jpg";
 import SP_Outdoors_2 from "../../public/jamie/SP_Horiz_Outdoors_2.jpg";
@@ -16,7 +16,7 @@ import V_Neck_1 from "../../public/jamie/Vert_Neck_1.jpg";
 import Detail_1 from "../../public/work/Vert_Detail_1.jpg";
 import V_Neck_2 from "../../public/work/Vert_Neck_1.jpg";
 
-export const backgroundPicturesLarge: PictureIdentifier = {
+export const backgroundImagesLarge: ImageIdentifier = {
 	E_Action: {
 		src: ES_Action_1,
 		alt: "Elias playing E guitar",
@@ -51,7 +51,7 @@ export const backgroundPicturesLarge: PictureIdentifier = {
 	},
 };
 
-export const backgroundPicturesSmall: PictureIdentifier = {
+export const backgroundImagesSmall: ImageIdentifier = {
 	J_SP_Hold: {
 		src: SP_Outdoors_1,
 		alt: "Jamie Outdoors with SP guitar",

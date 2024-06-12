@@ -1,32 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Homepage from "./components/pages/Homepage";
+import { useContext, useEffect, useState } from "react";
 import Welcome from "./components/pages/Welcome";
-import { backgroundPicturesLarge, backgroundPicturesSmall } from "./utilities/constants";
+import Homepage from "./homepage/page";
+import { BackgroundImageContext } from "./providers/BackgroundImageProvider";
+import { backgroundImagesLarge, backgroundImagesSmall } from "./utilities/constants";
 import { useIsSmallScreen } from "./utilities/hooks";
-import { HomepageState, Picture } from "./utilities/types";
+import { HomepageState } from "./utilities/types";
 
 export default function Home() {
 	const isSmallScreen = useIsSmallScreen();
 	const [homepageState, setHomepageState] = useState<HomepageState>(
-		// 	HomepageState.welcome
-		// );
-		localStorage.getItem("visited") ? HomepageState.entered : HomepageState.welcome
+		HomepageState.welcome
 	);
-	const [currentPicture, setCurrentPicture] = useState<Picture>(
-		backgroundPicturesLarge.J_SP_Hold
-	);
+	// // 	localStorage.getItem("visited") ? HomepageState.entered : HomepageState.welcome
+	// // );
+	const { currentImage, setCurrentImage } = useContext(BackgroundImageContext);
 
 	const handleEnter = () => {
 		setHomepageState(HomepageState.entering);
 		localStorage.setItem("visited", "true");
 		setTimeout(() => {
-			// detect size of screen for media query
-			setCurrentPicture(
-				isSmallScreen
-					? backgroundPicturesSmall.HB_Detail_1
-					: backgroundPicturesLarge.WS_Shop
+			setCurrentImage(
+				isSmallScreen ? backgroundImagesSmall.HB_Detail_1 : backgroundImagesLarge.WS_Shop
 			);
 			setHomepageState(HomepageState.entered);
 		}, 1000);
@@ -34,24 +30,24 @@ export default function Home() {
 
 	useEffect(() => {
 		if (homepageState === HomepageState.entered) {
-			if (isSmallScreen && currentPicture !== backgroundPicturesSmall.WS_Neck_1) {
-				setCurrentPicture(backgroundPicturesSmall.HB_Detail_1);
-			} else if (!isSmallScreen && currentPicture !== backgroundPicturesLarge.WS_Shop) {
-				setCurrentPicture(backgroundPicturesLarge.WS_Shop);
+			if (isSmallScreen && currentImage !== backgroundImagesSmall.WS_Neck_1) {
+				setCurrentImage(backgroundImagesSmall.HB_Detail_1);
+			} else if (!isSmallScreen && currentImage !== backgroundImagesLarge.WS_Shop) {
+				setCurrentImage(backgroundImagesLarge.WS_Shop);
 			}
 		}
-	}, [isSmallScreen, homepageState, currentPicture]);
+	}, [isSmallScreen, homepageState, currentImage]);
 
 	return (
 		<>
 			{homepageState !== HomepageState.entered ? (
 				<Welcome
 					homepageState={homepageState}
-					currentPicture={currentPicture}
+					currentImage={currentImage}
 					handleEnter={handleEnter}
 				/>
 			) : (
-				<Homepage homepageState={homepageState} currentPicture={currentPicture} />
+				<Homepage homepageState={homepageState} currentImage={currentImage} />
 			)}
 		</>
 	);
