@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import MainWrapper from "./components/layout/MainWrapper";
 import { inter } from "./style/fonts";
 import "./style/globals.css";
-// import { BackgroundImageProvider } from "./providers/BackgroundImageProvider";
 import Header from "./components/layout/Header";
 import BackgroundImageCarousel from "./components/layout/BackgroundImageCarousel";
 
@@ -19,13 +18,11 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				{/* <BackgroundImageProvider> */}
 				<MainWrapper>
 					<BackgroundImageCarousel />
 					<Header />
 					{children}
 				</MainWrapper>
-				{/* </BackgroundImageProvider> */}
 			</body>
 		</html>
 	);
