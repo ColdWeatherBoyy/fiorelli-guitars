@@ -1,26 +1,21 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CoverPageTransition from "./components/transitions/CoverPageTransition";
-import { BackgroundImageContext } from "./providers/BackgroundImageProvider";
 import { playfair_display } from "./style/fonts";
 import { backgroundImagesLarge, backgroundImagesSmall } from "./utilities/constants";
-import { useIsSmallScreen } from "./utilities/hooks";
+import { useBackgroundImage } from "./utilities/hooks";
 
 export default function Home() {
-	const isSmallScreen = useIsSmallScreen();
 	const router = useRouter();
-	const { currentImage, setCurrentImage } = useContext(BackgroundImageContext);
 	const [isClicked, setIsClicked] = useState(false);
+	useBackgroundImage(backgroundImagesLarge.J_SP_Hold, backgroundImagesSmall._SP_Hold);
 
 	const handleEnter = () => {
 		setIsClicked(true);
 		localStorage.setItem("visited", "true");
 		setTimeout(() => {
-			setCurrentImage(
-				isSmallScreen ? backgroundImagesSmall.HB_Detail_1 : backgroundImagesLarge.WS_Shop
-			);
 			router.push("/homepage");
 		}, 1000);
 	};
