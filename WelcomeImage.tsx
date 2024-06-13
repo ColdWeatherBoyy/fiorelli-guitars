@@ -2,11 +2,11 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import { FC } from "react";
 
-interface BackgroundImageProps {
+interface WelcomeImageProps {
 	src: StaticImport;
 	alt: string;
 }
-const BackgroundImage: FC<BackgroundImageProps> = ({ src, alt }) => {
+const WelcomeImage: FC<WelcomeImageProps> = ({ src, alt }) => {
 	return (
 		<div className="fixed h-screen w-screen overflow-hidden -z-10">
 			<Image
@@ -25,4 +25,4 @@ const BackgroundImage: FC<BackgroundImageProps> = ({ src, alt }) => {
 	);
 };
 
-export default BackgroundImage;
+export default WelcomeImage;

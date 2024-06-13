@@ -4,6 +4,7 @@ import { inter } from "./style/fonts";
 import "./style/globals.css";
 // import { BackgroundImageProvider } from "./providers/BackgroundImageProvider";
 import Header from "./components/layout/Header";
+import BackgroundImageCarousel from "./components/layout/BackgroundImageCarousel";
 
 export const metadata: Metadata = {
 	title: "Fiorelli Guitars",
@@ -20,6 +21,7 @@ export default function RootLayout({
 			<body className={inter.className}>
 				{/* <BackgroundImageProvider> */}
 				<MainWrapper>
+					<BackgroundImageCarousel />
 					<Header />
 					{children}
 				</MainWrapper>
