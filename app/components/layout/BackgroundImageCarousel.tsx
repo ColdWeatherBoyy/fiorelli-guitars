@@ -1,9 +1,9 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { FC, useEffect, useState } from "react";
 import { backgroundImageCarousel } from "../../utilities/constants";
-import { AnimatePresence, motion } from "framer-motion";
 
 const BackgroundImageCarousel: FC = () => {
 	const [currentImageIndex, setCurrentImageIndex] = useState(1);
@@ -24,7 +24,7 @@ const BackgroundImageCarousel: FC = () => {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			nextImage();
-		}, 5000);
+		}, 10000);
 		return () => clearInterval(interval);
 	}, []);
 
