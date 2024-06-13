@@ -1,10 +1,8 @@
 import Card from "./components/components/Card";
-import OpenPageTransition from "./components/transitions/OpenPageTransition";
 
 export default function Home() {
 	return (
 		<>
-			<OpenPageTransition />
 			<div className="grid place-items-center w-full h-full">
 				<Card
 					title="Welcome to Fiorelli Guitars"

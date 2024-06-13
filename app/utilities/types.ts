@@ -2,7 +2,8 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 export enum WelcomeState {
 	welcome = "welcome",
-	entering = "entering",
+	covering = "covering",
+	opening = "opening",
 }
 
 export interface ImageIdentifier {
