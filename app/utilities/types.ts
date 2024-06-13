@@ -13,3 +13,9 @@ export interface Image {
 	src: StaticImport;
 	alt: string;
 }
+
+export enum TextSize {
+	small = "small",
+	medium = "medium",
+	large = "large",
+}
