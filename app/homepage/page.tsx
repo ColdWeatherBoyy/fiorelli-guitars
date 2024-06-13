@@ -11,7 +11,7 @@ const Homepage: FC = () => {
 	return (
 		<>
 			<OpenPageTransition />
-			<div className="text-7xl">hi</div>
+			<div className="text-7xl text-black">hi</div>
 		</>
 	);
 };

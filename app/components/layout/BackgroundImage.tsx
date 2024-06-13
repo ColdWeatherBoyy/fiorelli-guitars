@@ -17,7 +17,7 @@ const BackgroundImage: FC<BackgroundImageProps> = ({ src, alt }) => {
 			sizes="100vw"
 			style={{
 				objectFit: "cover",
-				zIndex: -1,
+				zIndex: -10,
 			}}
 			priority={true}
 		/>
