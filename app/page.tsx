@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CoverPageTransition from "./components/transitions/CoverPageTransition";
 import { BackgroundImageContext } from "./providers/BackgroundImageProvider";
 import { playfair_display } from "./style/fonts";
@@ -24,6 +24,12 @@ export default function Home() {
 			router.push("/homepage");
 		}, 1000);
 	};
+
+	useEffect(() => {
+		if (localStorage.getItem("visited")) {
+			handleEnter();
+		}
+	}, []);
 
 	return (
 		<>

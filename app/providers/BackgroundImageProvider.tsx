@@ -18,18 +18,9 @@ export const BackgroundImageContext = createContext<BackgroundImageInterface>({
 export const BackgroundImageProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
-	const currentPath = typeof window !== "undefined" ? window.location.pathname : "/";
 	const [currentImage, setCurrentImage] = useState<Image>(
-		currentPath === "/"
-			? backgroundImagesLarge.J_SP_Hold
-			: useIsSmallScreen()
-			? backgroundImagesLarge.J_SP_Hold
-			: backgroundImagesLarge.J_SP_Hold
+		backgroundImagesLarge.J_SP_Hold
 	);
-
-	useEffect(() => {
-		console.log("currentImage", currentImage);
-	}, [currentImage]);
 
 	return (
 		<BackgroundImageContext.Provider value={{ setCurrentImage, currentImage }}>
