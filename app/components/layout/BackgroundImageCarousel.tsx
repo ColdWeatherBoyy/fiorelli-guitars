@@ -2,14 +2,20 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { backgroundImageCarousel } from "../../utilities/constants";
+import { WelcomeStateContext } from "@/app/context/WelcomeStateContext";
+import { usePathname } from "next/navigation";
 
 const BackgroundImageCarousel: FC = () => {
+	const pathname = usePathname();
+	const { welcomeState } = useContext(WelcomeStateContext);
+	const [animate, setAnimate] = useState(welcomeState === "entering" || pathname === "/");
 	const [currentImageIndex, setCurrentImageIndex] = useState(1);
 	const [currentImage, setCurrentImage] = useState(
 		backgroundImageCarousel[currentImageIndex]
 	);
+	const [hasLoaded, setHasLoaded] = useState(false);
 
 	const nextImage = () => {
 		setCurrentImageIndex((prevIndex) =>
@@ -22,10 +28,19 @@ const BackgroundImageCarousel: FC = () => {
 	}, [currentImageIndex]);
 
 	useEffect(() => {
+		setAnimate(welcomeState === "entering" || pathname === "/");
+	}, [welcomeState, pathname]);
+
+	useEffect(() => {
+		if (animate) return;
 		const interval = setInterval(() => {
 			nextImage();
-		}, 10000);
+		}, 5000);
 		return () => clearInterval(interval);
+	}, [animate]);
+
+	useEffect(() => {
+		setHasLoaded(true);
 	}, []);
 
 	return (
@@ -34,7 +49,7 @@ const BackgroundImageCarousel: FC = () => {
 				<motion.div
 					key={currentImage.alt}
 					className="fixed h-screen w-screen overflow-hidden -z-20"
-					initial={{ x: "100%" }}
+					initial={{ x: currentImageIndex === 1 && !hasLoaded ? "0" : "100%" }}
 					animate={{ x: "0%" }}
 					exit={{ x: "-100%" }}
 					transition={{ duration: 1.25 }}

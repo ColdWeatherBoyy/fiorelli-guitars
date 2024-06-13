@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import BackgroundImageCarousel from "./components/layout/BackgroundImageCarousel";
+import Header from "./components/layout/Header";
 import MainWrapper from "./components/layout/MainWrapper";
 import { inter } from "./style/fonts";
 import "./style/globals.css";
-import Header from "./components/layout/Header";
-import BackgroundImageCarousel from "./components/layout/BackgroundImageCarousel";
+import WelcomeStateProvider from "./context/WelcomeStateContext";
 
 export const metadata: Metadata = {
 	title: "Fiorelli Guitars",
@@ -18,11 +19,13 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<MainWrapper>
-					<BackgroundImageCarousel />
-					<Header />
-					{children}
-				</MainWrapper>
+				<WelcomeStateProvider>
+					<MainWrapper>
+						<BackgroundImageCarousel />
+						<Header />
+						{children}
+					</MainWrapper>
+				</WelcomeStateProvider>
 			</body>
 		</html>
 	);
