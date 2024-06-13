@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import MainWrapper from "./components/layout/MainWrapper";
 import { inter } from "./style/fonts";
 import "./style/globals.css";
-import { BackgroundImageProvider } from "./providers/BackgroundImageProvider";
+// import { BackgroundImageProvider } from "./providers/BackgroundImageProvider";
+import Header from "./components/layout/Header";
 
 export const metadata: Metadata = {
 	title: "Fiorelli Guitars",
@@ -17,9 +18,12 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<BackgroundImageProvider>
-					<MainWrapper>{children}</MainWrapper>
-				</BackgroundImageProvider>
+				{/* <BackgroundImageProvider> */}
+				<MainWrapper>
+					<Header />
+					{children}
+				</MainWrapper>
+				{/* </BackgroundImageProvider> */}
 			</body>
 		</html>
 	);

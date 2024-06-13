@@ -5,6 +5,7 @@ export enum HomepageState {
 	entering = "entering",
 	entered = "entered",
 }
+
 export interface ImageIdentifier {
 	[key: string]: Image;
 }

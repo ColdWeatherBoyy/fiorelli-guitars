@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Image } from "./types";
-import { BackgroundImageContext } from "../providers/BackgroundImageProvider";
 
-export const useIsSmallScreen = () => {
+export const useSmallScreenStatus = () => {
 	const [isSmallScreen, setIsSmallScreen] = useState<boolean>(() =>
 		typeof window !== "undefined" ? window.innerWidth < 768 : false
 	);
@@ -24,15 +23,13 @@ export const useIsSmallScreen = () => {
 	return isSmallScreen;
 };
 
-export const useBackgroundImage = (largeImage: Image, smallImage: Image) => {
-	const { currentImage, setCurrentImage } = useContext(BackgroundImageContext);
-	const isSmallScreen = useIsSmallScreen();
+export const useResponsiveImage = (
+	imagePair: [Image, Image],
+	setImage: React.Dispatch<React.SetStateAction<Image>>
+) => {
+	const isSmallScreen = useSmallScreenStatus();
 
 	useEffect(() => {
-		if (isSmallScreen && currentImage !== smallImage) {
-			setCurrentImage(smallImage);
-		} else if (!isSmallScreen && currentImage !== largeImage) {
-			setCurrentImage(largeImage);
-		}
-	}, [isSmallScreen, currentImage, largeImage, smallImage]);
+		setImage(isSmallScreen ? imagePair[0] : imagePair[1]);
+	}, [isSmallScreen, imagePair, setImage]);
 };
