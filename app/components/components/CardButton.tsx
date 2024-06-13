@@ -2,13 +2,13 @@ import { playfair_display } from "@/app/style/fonts";
 import { TextSize } from "@/app/utilities/types";
 import { FC } from "react";
 
-interface TextButtonProps {
+interface CardButtonProps {
 	text: string;
 	size: TextSize;
 	handleClick: () => void;
 }
 
-const TextButton: FC<TextButtonProps> = ({ text, size, handleClick }) => {
+const CardButton: FC<CardButtonProps> = ({ text, size, handleClick }) => {
 	const textClass =
 		size === TextSize.small
 			? { mobile: "text-2xl", desktop: "md:text-4xl" }
@@ -27,4 +27,4 @@ const TextButton: FC<TextButtonProps> = ({ text, size, handleClick }) => {
 	);
 };
 
-export default TextButton;
+export default CardButton;

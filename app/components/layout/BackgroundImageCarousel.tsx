@@ -2,15 +2,13 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { FC, useContext, useEffect, useState } from "react";
-import { backgroundImageCarousel } from "../../utilities/constants";
-import { WelcomeStateContext } from "@/app/context/WelcomeStateContext";
 import { usePathname } from "next/navigation";
+import { FC, useEffect, useState } from "react";
+import { backgroundImageCarousel } from "../../utilities/constants";
 
 const BackgroundImageCarousel: FC = () => {
 	const pathname = usePathname();
-	const { welcomeState } = useContext(WelcomeStateContext);
-	const [animate, setAnimate] = useState(welcomeState === "entering" || pathname === "/");
+	const [animate, setAnimate] = useState(pathname !== "/welcome");
 	const [currentImageIndex, setCurrentImageIndex] = useState(1);
 	const [currentImage, setCurrentImage] = useState(
 		backgroundImageCarousel[currentImageIndex]
@@ -28,14 +26,16 @@ const BackgroundImageCarousel: FC = () => {
 	}, [currentImageIndex]);
 
 	useEffect(() => {
-		setAnimate(welcomeState === "entering" || pathname === "/");
-	}, [welcomeState, pathname]);
+		if (!animate && pathname !== "/welcome") {
+			setAnimate(true);
+		}
+	}, [pathname]);
 
 	useEffect(() => {
-		if (animate) return;
+		if (!animate) return;
 		const interval = setInterval(() => {
 			nextImage();
-		}, 5000);
+		}, 10000);
 		return () => clearInterval(interval);
 	}, [animate]);
 

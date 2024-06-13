@@ -1,17 +1,16 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import WelcomeImage from "../components/components/WelcomeImage";
 import CoverPageTransition from "../components/transitions/CoverPageTransition";
-import { WelcomeStateContext } from "../context/WelcomeStateContext";
 import { playfair_display } from "../style/fonts";
 import { backgroundImageCarousel } from "../utilities/constants";
 import { TextSize, WelcomeState } from "../utilities/types";
-import TextButton from "../components/components/CardButton";
+import CardButton from "../components/components/CardButton";
 
 export default function Home() {
-	const { welcomeState, setWelcomeState } = useContext(WelcomeStateContext);
+	const [welcomeState, setWelcomeState] = useState<WelcomeState>(WelcomeState.welcome);
 	const router = useRouter();
 
 	const handleEnter = () => {
@@ -28,7 +27,7 @@ export default function Home() {
 				src={backgroundImageCarousel[0].src}
 				alt={backgroundImageCarousel[0].alt}
 			/>
-			<TextButton text="Welcome" size={TextSize.large} handleClick={handleEnter} />
+			<CardButton text="Welcome" size={TextSize.large} handleClick={handleEnter} />
 			{welcomeState === WelcomeState.entering && <CoverPageTransition cover={true} />}
 		</>
 	);
