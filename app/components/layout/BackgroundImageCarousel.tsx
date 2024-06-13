@@ -52,7 +52,7 @@ const BackgroundImageCarousel: FC = () => {
 					initial={{ x: currentImageIndex === 1 && !hasLoaded ? "0" : "100%" }}
 					animate={{ x: "0%" }}
 					exit={{ x: "-100%" }}
-					transition={{ duration: 1.25 }}
+					transition={{ ease: "easeInOut", duration: 0.5 }}
 				>
 					<Image
 						src={currentImage.src}
