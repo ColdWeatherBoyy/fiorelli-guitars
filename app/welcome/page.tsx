@@ -7,7 +7,7 @@ import CoverPageTransition from "../components/transitions/CoverPageTransition";
 import { playfair_display } from "../style/fonts";
 import { backgroundImageCarousel } from "../utilities/constants";
 import { TextSize, WelcomeState } from "../utilities/types";
-import CardButton from "../components/components/CardButton";
+import CardButton from "../components/components/CardButtonLink";
 import OpenPageTransition from "../components/transitions/OpenPageTransition";
 
 export default function Home() {

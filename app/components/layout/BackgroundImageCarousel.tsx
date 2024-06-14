@@ -35,7 +35,7 @@ const BackgroundImageCarousel: FC = () => {
 		if (!animate) return;
 		const interval = setInterval(() => {
 			nextImage();
-		}, 10000);
+		}, 15000);
 		return () => clearInterval(interval);
 	}, [animate]);
 
