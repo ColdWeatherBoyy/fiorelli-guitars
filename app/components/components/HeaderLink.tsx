@@ -1,3 +1,4 @@
+import { playfair_display } from "@/app/style/fonts";
 import Link from "next/link";
 import { FC } from "react";
 
@@ -10,7 +11,7 @@ const HeaderLink: FC<HeaderLinkProps> = ({ href, text }) => {
 	return (
 		<Link
 			href={href}
-			className="text-3xl text-shadow-white dark:text-shadow-black dark:hover:text-shadow-white hover:text-shadow-black hover:text-white dark:hover:text-black"
+			className={`${playfair_display.className} text-2xl md:text-3xl hover:underline hover:text-cyan-800 hover:transform hover:scale-105`}
 		>
 			{text}
 		</Link>

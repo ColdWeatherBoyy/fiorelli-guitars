@@ -9,7 +9,7 @@ interface CardProps {
 
 const Card: FC<CardProps> = ({ title, body, children }) => {
 	return (
-		<div className="overflow-scroll rounded-md bg-gradient-to-br from-cyan-50/80 to-zinc-300/80 shadow shadow-cyan-100/80 backdrop-blur-md px-8 py-6 transform transition">
+		<div className="overflow-scroll rounded-sm bg-gradient-to-br from-cyan-50/80 to-zinc-300/80 shadow shadow-cyan-100/80 backdrop-blur-md px-8 py-6 transform transition">
 			{title && (
 				<div
 					className={`${roboto_mono.className} border-b pb-2 mb-4 border-cyan-800 text-4xl font-semibold`}

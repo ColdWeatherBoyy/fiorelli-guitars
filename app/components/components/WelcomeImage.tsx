@@ -8,7 +8,7 @@ interface WelcomeImageProps {
 }
 const WelcomeImage: FC<WelcomeImageProps> = ({ src, alt }) => {
 	return (
-		<div className="fixed h-screen w-screen overflow-hidden">
+		<div className="fixed h-screen w-screen overflow-hidden z-20">
 			<Image
 				src={src}
 				alt={alt}

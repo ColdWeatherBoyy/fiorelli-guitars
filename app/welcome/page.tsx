@@ -39,7 +39,7 @@ export default function Home() {
 						src={backgroundImageCarousel[0].src}
 						alt={backgroundImageCarousel[0].alt}
 					/>
-					<div className="flex w-full items-center justify-center">
+					<div className="flex w-full items-center justify-center z-30">
 						<CardButton text="Welcome" size={TextSize.large} handleClick={handleEnter} />
 					</div>
 				</>
