@@ -4,9 +4,10 @@ import { FC } from "react";
 interface CardProps {
 	title?: string;
 	body: string[];
+	children?: React.ReactNode;
 }
 
-const Card: FC<CardProps> = ({ title, body }) => {
+const Card: FC<CardProps> = ({ title, body, children }) => {
 	return (
 		<div className="overflow-scroll rounded-md bg-gradient-to-br from-cyan-50/80 to-zinc-300/80 shadow shadow-cyan-100/80 backdrop-blur-md px-8 py-6 transform transition">
 			{title && (
@@ -18,12 +19,13 @@ const Card: FC<CardProps> = ({ title, body }) => {
 			)}
 			{body.map((paragraph, index) => (
 				<div key={index}>
-					<div className="text-lg">{paragraph}</div>
+					<div className={`text-lg ${children && "last:mb-4"}`}>{paragraph}</div>
 					{index < body.length - 1 && (
 						<div className="my-4 h-[1px] w-full bg-cyan-600/40" />
 					)}
 				</div>
 			))}
+			<div className="flex justify-center">{children}</div>
 		</div>
 	);
 };

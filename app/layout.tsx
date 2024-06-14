@@ -4,7 +4,6 @@ import Header from "./components/layout/Header";
 import MainWrapper from "./components/layout/MainWrapper";
 import { inter } from "./style/fonts";
 import "./style/globals.css";
-import MiniWrapper from "./components/layout/MiniWrapper";
 
 export const metadata: Metadata = {
 	title: "Fiorelli Guitars",
@@ -22,7 +21,7 @@ export default function RootLayout({
 				<MainWrapper>
 					<BackgroundImageCarousel />
 					<Header />
-					<MiniWrapper>{children}</MiniWrapper>
+					{children}
 				</MainWrapper>
 			</body>
 		</html>

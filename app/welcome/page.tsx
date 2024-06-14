@@ -26,7 +26,7 @@ export default function Home() {
 		}
 		if (welcomeState === WelcomeState.opening) {
 			setTimeout(() => {
-				router.push("/about");
+				router.push("/");
 			}, 1000);
 		}
 	}, [welcomeState]);
@@ -39,7 +39,9 @@ export default function Home() {
 						src={backgroundImageCarousel[0].src}
 						alt={backgroundImageCarousel[0].alt}
 					/>
-					<CardButton text="Welcome" size={TextSize.large} handleClick={handleEnter} />
+					<div className="flex w-full items-center justify-center">
+						<CardButton text="Welcome" size={TextSize.large} handleClick={handleEnter} />
+					</div>
 				</>
 			)}
 			{welcomeState === WelcomeState.covering && <CoverPageTransition cover={true} />}
