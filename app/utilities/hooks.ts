@@ -1,35 +1,53 @@
 import { useEffect, useState } from "react";
-import { Image } from "./types";
+import { ScreenSize } from "./types";
 
-export const useSmallScreenStatus = () => {
-	const [isSmallScreen, setIsSmallScreen] = useState<boolean>(() =>
-		typeof window !== "undefined" ? window.innerWidth < 768 : false
-	);
+export const useScreenSize = () => {
+	const [screenSize, setScreenSize] = useState<ScreenSize | null>(() => null);
 
 	useEffect(() => {
-		const handleResize = () => {
-			setIsSmallScreen(window.innerWidth < 768);
+		const extraSmallQuery = window.matchMedia("(max-width: 639px)");
+		const smallQuery = window.matchMedia("(min-width:640px) and (max-width: 767px)");
+		const mediumQuery = window.matchMedia("(min-width: 768px) and (max-width: 1023px)");
+		const largeQuery = window.matchMedia("(min-width: 1024px)");
+
+		const updateScreenSize = () => {
+			if (extraSmallQuery.matches) {
+				console.log("extraSmall");
+				setScreenSize(ScreenSize.extraSmall);
+			} else if (smallQuery.matches) {
+				console.log("small");
+				setScreenSize(ScreenSize.small);
+			} else if (mediumQuery.matches) {
+				console.log("medium");
+				setScreenSize(ScreenSize.medium);
+			} else {
+				console.log("large");
+				setScreenSize(ScreenSize.large);
+			}
 		};
 
-		window.addEventListener("resize", handleResize);
+		updateScreenSize();
 
-		handleResize();
-
+		smallQuery.addEventListener("change", updateScreenSize);
+		mediumQuery.addEventListener("change", updateScreenSize);
+		largeQuery.addEventListener("change", updateScreenSize);
 		return () => {
-			window.removeEventListener("resize", handleResize);
+			smallQuery.removeEventListener("change", updateScreenSize);
+			mediumQuery.removeEventListener("change", updateScreenSize);
+			largeQuery.removeEventListener("change", updateScreenSize);
 		};
 	}, []);
 
-	return isSmallScreen;
+	return screenSize;
 };
 
-export const useResponsiveImage = (
-	imagePair: [Image, Image],
-	setImage: React.Dispatch<React.SetStateAction<Image>>
-) => {
-	const isSmallScreen = useSmallScreenStatus();
+// export const useResponsiveImage = (
+// 	imagePair: [Image, Image],
+// 	setImage: React.Dispatch<React.SetStateAction<Image>>
+// ) => {
+// 	const isSmallScreen = useSmallScreenStatus();
 
-	useEffect(() => {
-		setImage(isSmallScreen ? imagePair[0] : imagePair[1]);
-	}, [isSmallScreen, imagePair, setImage]);
-};
+// 	useEffect(() => {
+// 		setImage(isSmallScreen ? imagePair[0] : imagePair[1]);
+// 	}, [isSmallScreen, imagePair, setImage]);
+// };

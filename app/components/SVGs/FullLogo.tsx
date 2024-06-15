@@ -4,23 +4,24 @@ interface FullLogoProps {
 	width?: number;
 	height?: number;
 	color?: string;
+	className?: string;
 }
 
 const FullLogo: React.FC<FullLogoProps> = ({
 	width = 200,
 	height = 100,
 	color = "black",
+	className = "",
 }) => {
 	return (
 		<svg
-			id="Layer_1"
-			data-name="Layer 1"
 			xmlns="http://www.w3.org/2000/svg"
 			xmlnsXlink="http://www.w3.org/1999/xlink"
 			viewBox="0 0 237.16 94.28"
 			width={width}
 			height={height}
 			fill={color}
+			className={className}
 		>
 			<defs>
 				<symbol id="Fiorelli_i" data-name="Fiorelli i" viewBox="0 0 10.05 28.47">

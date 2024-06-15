@@ -4,21 +4,23 @@ interface SmallLogoProps {
 	width?: number;
 	height?: number;
 	color?: string;
+	className?: string;
 }
 
 const SmallLogo: React.FC<SmallLogoProps> = ({
 	width = 60,
 	height = 60,
 	color = "black",
+	className = "",
 }) => {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 110.11 76.34"
-			aria-hidden="true"
 			width={width}
 			height={height}
 			fill={color}
+			className={className}
 		>
 			<path
 				strokeWidth="0px"

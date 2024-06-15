@@ -20,3 +20,10 @@ export enum TextSize {
 	medium = "medium",
 	large = "large",
 }
+
+export enum ScreenSize {
+	extraSmall = "extraSmall",
+	small = "small",
+	medium = "medium",
+	large = "large",
+}
