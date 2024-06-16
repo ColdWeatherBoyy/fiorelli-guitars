@@ -2,18 +2,20 @@
 
 import { useScreenSize } from "@/app/utilities/hooks";
 import { ScreenSize } from "@/app/utilities/types";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FullLogo from "../SVGs/FullLogo";
 import SmallLogo from "../SVGs/SmallLogo";
+import HamburgerMenuButton from "../components/HamburgerMenuButton";
 import HeaderLink from "../components/HeaderLink";
-import HamburgerMenu from "../components/HamburgerMenu";
-import { motion } from "framer-motion";
 
 const Header = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [hoverStyle, setHoverStyle] = useState({ color: "black", translate: "" });
 	const screenSize = useScreenSize();
+	const menuRef = useRef<HTMLDivElement>(null);
+	const menuButtonRef = useRef<HTMLButtonElement>(null);
 
 	const handleHover = (hover: boolean) => {
 		if (hover) {
@@ -25,6 +27,27 @@ const Header = () => {
 			setHoverStyle({ color: "black", translate: "" });
 		}
 	};
+
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+			if (
+				menuRef.current &&
+				menuButtonRef.current &&
+				!menuButtonRef.current.contains(event.target as Node) &&
+				!menuRef.current.contains(event.target as Node)
+			) {
+				console.log("here");
+				setIsOpen(false);
+			}
+		};
+
+		document.addEventListener("mousedown", handleClickOutside);
+		document.addEventListener("touchstart", handleClickOutside);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+			document.removeEventListener("touchstart", handleClickOutside);
+		};
+	}, []);
 
 	return (
 		<div
@@ -51,8 +74,13 @@ const Header = () => {
 					</>
 				) : (
 					<>
-						<HamburgerMenu isOpen={isOpen} setIsOpen={setIsOpen} />
+						<HamburgerMenuButton
+							isOpen={isOpen}
+							setIsOpen={setIsOpen}
+							menuButtonRef={menuButtonRef}
+						/>
 						<motion.div
+							ref={menuRef}
 							initial={false}
 							animate={isOpen ? "open" : "closed"}
 							variants={{

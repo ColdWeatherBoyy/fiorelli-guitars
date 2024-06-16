@@ -1,17 +1,23 @@
 import { motion } from "framer-motion";
-import { Dispatch, FC, SetStateAction, useState } from "react";
+import { Dispatch, FC, RefObject, SetStateAction, useState } from "react";
 
-interface HamburgerMenuProps {
+interface HamburgerMenuButtonProps {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
+	menuButtonRef: RefObject<HTMLButtonElement>;
 }
 
-const HamburgerMenu: FC<HamburgerMenuProps> = ({ isOpen, setIsOpen }) => {
+const HamburgerMenuButton: FC<HamburgerMenuButtonProps> = ({
+	isOpen,
+	setIsOpen,
+	menuButtonRef,
+}) => {
 	const handleClick = () => {
 		setIsOpen((prev) => !prev);
 	};
 	return (
 		<button
+			ref={menuButtonRef}
 			className="rounded-full h-10 w-10 flex flex-col gap-1.5 justify-center items-center"
 			onClick={handleClick}
 		>
@@ -43,4 +49,4 @@ const HamburgerMenu: FC<HamburgerMenuProps> = ({ isOpen, setIsOpen }) => {
 	);
 };
 
-export default HamburgerMenu;
+export default HamburgerMenuButton;
