@@ -1,10 +1,12 @@
-"use client";
-
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 
-const HamburgerMenu = () => {
-	const [isOpen, setIsOpen] = useState(false);
+interface HamburgerMenuProps {
+	isOpen: boolean;
+	setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+const HamburgerMenu: FC<HamburgerMenuProps> = ({ isOpen, setIsOpen }) => {
 	const handleClick = () => {
 		setIsOpen((prev) => !prev);
 	};

@@ -8,8 +8,10 @@ import FullLogo from "../SVGs/FullLogo";
 import SmallLogo from "../SVGs/SmallLogo";
 import HeaderLink from "../components/HeaderLink";
 import HamburgerMenu from "../components/HamburgerMenu";
+import { motion } from "framer-motion";
 
 const Header = () => {
+	const [isOpen, setIsOpen] = useState(false);
 	const [hoverStyle, setHoverStyle] = useState({ color: "black", translate: "" });
 	const screenSize = useScreenSize();
 
@@ -28,7 +30,7 @@ const Header = () => {
 		<div
 			className={`z-10 h-16 md:h-28 fixed flex items-center justify-center lg:justify-start top-0 left:0 p-6 bg-gradient-to-br from-cyan-50/80 to-zinc-300/80 dark:from-cyan-950/80 dark:to-zinc-800/80 backdrop-blur w-screen rounded-sm shadow-sm`}
 		>
-			<div className="flex gap-8 items-center justify-start sm:justify-evenly w-full lg:w-auto">
+			<div className="h-full flex gap-8 items-center justify-start sm:justify-evenly w-full lg:w-auto">
 				<Link
 					href="/"
 					className={`${screenSize === ScreenSize.extraSmall ? "mb-2" : "mb-4"}  -mr-4`}
@@ -48,7 +50,38 @@ const Header = () => {
 						<HeaderLink href="/contact" text="Contact" />
 					</>
 				) : (
-					<HamburgerMenu />
+					<>
+						<HamburgerMenu isOpen={isOpen} setIsOpen={setIsOpen} />
+						<motion.div
+							initial={false}
+							animate={isOpen ? "open" : "closed"}
+							variants={{
+								closed: { opacity: 0, x: "-100%", display: "none" },
+								open: { opacity: 1, x: 0, display: "flex" },
+							}}
+							transition={{ ease: "easeInOut", duration: 0.2 }}
+							className="absolute rounded-sm top-16 border border-cyan-800 border-l-0 w-[40%] left-0 bg-gradient-to-b from-cyan-50 to-zinc-200 dark:bg-cyan-950 flex flex-col items-center gap-6 p-6 z-30"
+							onClick={() => setIsOpen(false)}
+						>
+							<HeaderLink
+								href="/about"
+								text="About"
+								isMobile={screenSize === ScreenSize.extraSmall}
+							/>
+							<div className="h-0.5 w-full rounded-full bg-cyan-700/30" />
+							<HeaderLink
+								href="/gallery"
+								text="Gallery"
+								isMobile={screenSize === ScreenSize.extraSmall}
+							/>
+							<div className="h-0.5 w-full rounded-full bg-cyan-700/30" />
+							<HeaderLink
+								href="/contact"
+								text="Contact"
+								isMobile={screenSize === ScreenSize.extraSmall}
+							/>
+						</motion.div>
+					</>
 				)}
 			</div>
 		</div>
