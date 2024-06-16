@@ -7,6 +7,7 @@ import { useState } from "react";
 import FullLogo from "../SVGs/FullLogo";
 import SmallLogo from "../SVGs/SmallLogo";
 import HeaderLink from "../components/HeaderLink";
+import HamburgerMenu from "../components/HamburgerMenu";
 
 const Header = () => {
 	const [hoverStyle, setHoverStyle] = useState({ color: "black", translate: "" });
@@ -40,12 +41,14 @@ const Header = () => {
 						<FullLogo color={hoverStyle.color} className={hoverStyle.translate} />
 					)}
 				</Link>
-				{screenSize !== ScreenSize.extraSmall && (
+				{screenSize !== ScreenSize.extraSmall ? (
 					<>
 						<HeaderLink href="/about" text="About" />
 						<HeaderLink href="/gallery" text="Gallery" />
 						<HeaderLink href="/contact" text="Contact" />
 					</>
+				) : (
+					<HamburgerMenu />
 				)}
 			</div>
 		</div>
