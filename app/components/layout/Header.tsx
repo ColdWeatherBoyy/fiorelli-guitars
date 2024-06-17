@@ -1,6 +1,6 @@
 "use client";
 
-import { useScreenSize } from "@/app/utilities/hooks";
+import { useDarkMode, useScreenSize } from "@/app/utilities/hooks";
 import { ScreenSize } from "@/app/utilities/types";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -10,20 +10,41 @@ import HamburgerMenuButton from "../components/HamburgerMenuButton";
 import HeaderMenu from "../components/HeaderMenu";
 
 const Header = () => {
-	const [isOpen, setIsOpen] = useState(false);
-	const [hoverStyle, setHoverStyle] = useState({ color: "black", translate: "" });
 	const screenSize = useScreenSize();
+	const isDarkMode = useDarkMode();
+
+	const lightLogoStyle = {
+		color: "black",
+		translate: "",
+	};
+	const lightHoverLogoStyle = {
+		color: "#155e75",
+		translate: "transform scale-[103%]",
+	};
+
+	const darkLogoStyle = {
+		color: "white",
+		translate: "",
+	};
+
+	const darkHoverLogoStyle = {
+		color: "#06b6d4",
+		translate: "transform scale-[103%]",
+	};
+
+	const [isOpen, setIsOpen] = useState(false);
+	const [darkHoverStyle, setDarkHoverStyle] = useState(darkLogoStyle);
+	const [lightHoverStyle, setLightHoverStyle] = useState(lightLogoStyle);
 	const menuRef = useRef<HTMLDivElement>(null);
 	const menuButtonRef = useRef<HTMLButtonElement>(null);
 
 	const handleHover = (hover: boolean) => {
 		if (hover) {
-			setHoverStyle({
-				color: "#155e75",
-				translate: "transform scale-[103%]",
-			});
+			setDarkHoverStyle(darkHoverLogoStyle);
+			setLightHoverStyle(lightHoverLogoStyle);
 		} else {
-			setHoverStyle({ color: "black", translate: "" });
+			setDarkHoverStyle(darkLogoStyle);
+			setLightHoverStyle(lightLogoStyle);
 		}
 	};
 
@@ -47,6 +68,11 @@ const Header = () => {
 		};
 	}, []);
 
+	useEffect(() => {
+		console.log(darkHoverStyle);
+		console.log(lightHoverStyle);
+	}, [darkHoverStyle, lightHoverStyle]);
+
 	return (
 		<div
 			className={`z-10 h-16 md:h-28 fixed flex items-center justify-center lg:justify-start top-0 left:0 p-6 bg-gradient-to-br from-cyan-50/80 to-zinc-300/80 dark:from-cyan-950/80 dark:to-zinc-800/80 backdrop-blur w-screen rounded-sm shadow-sm`}
@@ -59,9 +85,17 @@ const Header = () => {
 					onMouseLeave={() => handleHover(false)}
 				>
 					{screenSize === ScreenSize.small || screenSize === ScreenSize.extraSmall ? (
-						<SmallLogo color={hoverStyle.color} className={hoverStyle.translate} />
+						<SmallLogo
+							color={isDarkMode ? darkHoverStyle.color : lightHoverStyle.color}
+							className={
+								isDarkMode ? darkHoverStyle.translate : lightHoverStyle.translate
+							}
+						/>
 					) : (
-						<FullLogo color={hoverStyle.color} className={hoverStyle.translate} />
+						<FullLogo
+							color={isDarkMode ? darkHoverStyle.color : lightHoverStyle.color}
+							className={isDarkMode ? darkHoverStyle.translate : lightHoverStyle.color}
+						/>
 					)}
 				</Link>
 				{screenSize === ScreenSize.extraSmall && (

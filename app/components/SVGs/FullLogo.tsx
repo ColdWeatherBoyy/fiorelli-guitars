@@ -3,14 +3,14 @@ import React from "react";
 interface FullLogoProps {
 	width?: number;
 	height?: number;
-	color?: string;
+	color: string;
 	className?: string;
 }
 
 const FullLogo: React.FC<FullLogoProps> = ({
 	width = 200,
 	height = 100,
-	color = "black",
+	color,
 	className = "",
 }) => {
 	return (

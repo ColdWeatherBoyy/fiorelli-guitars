@@ -3,14 +3,14 @@ import React from "react";
 interface SmallLogoProps {
 	width?: number;
 	height?: number;
-	color?: string;
+	color: string;
 	className?: string;
 }
 
 const SmallLogo: React.FC<SmallLogoProps> = ({
 	width = 60,
 	height = 60,
-	color = "black",
+	color,
 	className = "",
 }) => {
 	return (

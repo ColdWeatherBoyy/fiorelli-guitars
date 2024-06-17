@@ -37,6 +37,27 @@ export const useScreenSize = () => {
 	return screenSize;
 };
 
+export const useDarkMode = () => {
+	const [isDarkMode, setIsDarkMode] = useState(false);
+
+	useEffect(() => {
+		const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+		const checkDarkMode = () => {
+			setIsDarkMode(darkModeQuery.matches);
+		};
+
+		setIsDarkMode(darkModeQuery.matches);
+
+		darkModeQuery.addEventListener("change", checkDarkMode);
+		return () => {
+			darkModeQuery.removeEventListener("change", checkDarkMode);
+		};
+	}, []);
+
+	return isDarkMode;
+};
+
 // export const useResponsiveImage = (
 // 	imagePair: [Image, Image],
 // 	setImage: React.Dispatch<React.SetStateAction<Image>>
