@@ -28,7 +28,7 @@ const HeaderMenu: FC<MobileHeaderMenuProps> = ({
 						open: { opacity: 1, x: 0, display: "flex" },
 					}}
 					transition={{ ease: "easeInOut", duration: 0.2 }}
-					className="absolute rounded-sm top-16 border border-cyan-800 border-r-0 w-[40%] right-0 bg-gradient-to-b from-cyan-50 to-zinc-200 dark:bg-cyan-950 flex flex-col items-center gap-6 p-6 z-30"
+					className="absolute rounded-sm top-16 border border-cyan-800 dark:border-cyan-500 border-r-0 w-[40%] right-0 bg-gradient-to-b from-cyan-50 dark:from-cyan-900 to-zinc-200 dark:to-zinc-800 dark:bg-cyan-950 flex flex-col items-center gap-6 p-6 z-30"
 					onClick={() => setIsOpen(false)}
 				>
 					<HeaderLink
@@ -36,13 +36,13 @@ const HeaderMenu: FC<MobileHeaderMenuProps> = ({
 						text="About"
 						isMobile={screenSize === ScreenSize.extraSmall}
 					/>
-					<div className="h-0.5 w-full rounded-full bg-cyan-700/30" />
+					<div className="h-0.5 w-full rounded-full dark:bg-cyan-500/30 bg-cyan-700/30" />
 					<HeaderLink
 						href="/gallery"
 						text="Gallery"
 						isMobile={screenSize === ScreenSize.extraSmall}
 					/>
-					<div className="h-0.5 w-full rounded-full bg-cyan-700/30" />
+					<div className="h-0.5 w-full rounded-full dark:bg-cyan-500/30 bg-cyan-700/30" />
 					<HeaderLink
 						href="/contact"
 						text="Contact"

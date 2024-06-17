@@ -27,7 +27,7 @@ const HamburgerMenuButton: FC<HamburgerMenuButtonProps> = ({
 					closed: { rotate: 0, y: 0 },
 					open: { rotate: 45, y: 10 },
 				}}
-				className="rounded-full h-1 w-[70%] bg-cyan-800"
+				className="rounded-full h-1 w-[70%] bg-cyan-800 dark:bg-cyan-500"
 			></motion.div>
 			<motion.div
 				animate={isOpen ? "open" : "closed"}
@@ -35,7 +35,7 @@ const HamburgerMenuButton: FC<HamburgerMenuButtonProps> = ({
 					closed: { opacity: 1 },
 					open: { opacity: 0 },
 				}}
-				className="rounded-full h-1 w-[70%] bg-cyan-800"
+				className="rounded-full h-1 w-[70%] bg-cyan-800 dark:bg-cyan-500"
 			></motion.div>
 			<motion.div
 				animate={isOpen ? "open" : "closed"}
@@ -43,7 +43,7 @@ const HamburgerMenuButton: FC<HamburgerMenuButtonProps> = ({
 					closed: { rotate: 0, y: 0 },
 					open: { rotate: -45, y: -10 },
 				}}
-				className="rounded-full h-1 w-[70%] bg-cyan-800"
+				className="rounded-full h-1 w-[70%] bg-cyan-800 dark:bg-cyan-500"
 			></motion.div>
 		</button>
 	);
