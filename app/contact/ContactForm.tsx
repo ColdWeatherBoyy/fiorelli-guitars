@@ -1,40 +1,10 @@
 import { TextSize } from "@/app/utilities/types";
 import CardButtonLink from "../components/components/CardButtonLink";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
-
-async function createContact(formData: FormData) {
-	"use server";
-
-	let userId;
-	const existingUser = await prisma.user.findUnique({
-		where: {
-			email: formData.get("email") as string,
-		},
-	});
-	if (!existingUser) {
-		const newUser = await prisma.user.create({
-			data: {
-				name: formData.get("name") as string,
-				email: formData.get("email") as string,
-			},
-		});
-		userId = newUser.id;
-	} else {
-		userId = existingUser.id;
-	}
-	const newMessage = await prisma.message.create({
-		data: {
-			content: formData.get("message") as string,
-			userId: userId,
-		},
-	});
-}
+import { createUserAndMessage } from "../utilities/databaseActions";
 
 const ContactForm = () => {
 	return (
-		<form action={createContact} className="flex flex-col w-full">
+		<form action={createUserAndMessage} className="flex flex-col w-full">
 			<label className="mb-2 font-semibold">Name:</label>
 			<input
 				type="text"

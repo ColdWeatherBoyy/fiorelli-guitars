@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client/extension";
 import Card from "../components/components/Card";
 import ContactForm from "./ContactForm";
 

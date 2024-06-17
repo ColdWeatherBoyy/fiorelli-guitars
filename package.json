@@ -7,7 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"prisma-build": "dotenv -e .env.development.local -- npx prisma generate && dotenv -e .env.development.local -- npx prisma migrate deploy && next build"
+		"prisma-build": "npx prisma generate && npx prisma migrate deploy && next build"
 	},
 	"dependencies": {
 		"@prisma/client": "^5.15.0",
