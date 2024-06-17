@@ -8,43 +8,30 @@ import FullLogo from "../SVGs/FullLogo";
 import SmallLogo from "../SVGs/SmallLogo";
 import HamburgerMenuButton from "../components/HamburgerMenuButton";
 import HeaderMenu from "../components/HeaderMenu";
+import {
+	defaultDarkLogoStyle,
+	defaultLightLogoStyle,
+	hoverDarkLogoStyle,
+	hoverLightLogoStyle,
+} from "@/app/style/general";
 
 const Header = () => {
 	const screenSize = useScreenSize();
 	const isDarkMode = useDarkMode();
 
-	const lightLogoStyle = {
-		color: "black",
-		translate: "",
-	};
-	const lightHoverLogoStyle = {
-		color: "#155e75",
-		translate: "transform scale-[103%]",
-	};
-
-	const darkLogoStyle = {
-		color: "white",
-		translate: "",
-	};
-
-	const darkHoverLogoStyle = {
-		color: "#06b6d4",
-		translate: "transform scale-[103%]",
-	};
-
 	const [isOpen, setIsOpen] = useState(false);
-	const [darkHoverStyle, setDarkHoverStyle] = useState(darkLogoStyle);
-	const [lightHoverStyle, setLightHoverStyle] = useState(lightLogoStyle);
+	const [darkLogoStyle, setDarkLogoStyle] = useState(defaultDarkLogoStyle);
+	const [lightLogoStyle, setLightLogoStyle] = useState(defaultLightLogoStyle);
 	const menuRef = useRef<HTMLDivElement>(null);
 	const menuButtonRef = useRef<HTMLButtonElement>(null);
 
 	const handleHover = (hover: boolean) => {
 		if (hover) {
-			setDarkHoverStyle(darkHoverLogoStyle);
-			setLightHoverStyle(lightHoverLogoStyle);
+			setDarkLogoStyle(hoverDarkLogoStyle);
+			setLightLogoStyle(hoverLightLogoStyle);
 		} else {
-			setDarkHoverStyle(darkLogoStyle);
-			setLightHoverStyle(lightLogoStyle);
+			setDarkLogoStyle(defaultDarkLogoStyle);
+			setLightLogoStyle(defaultLightLogoStyle);
 		}
 	};
 
@@ -69,9 +56,9 @@ const Header = () => {
 	}, []);
 
 	useEffect(() => {
-		console.log(darkHoverStyle);
-		console.log(lightHoverStyle);
-	}, [darkHoverStyle, lightHoverStyle]);
+		console.log(darkLogoStyle);
+		console.log(lightLogoStyle);
+	}, [darkLogoStyle, lightLogoStyle]);
 
 	return (
 		<div
@@ -86,15 +73,13 @@ const Header = () => {
 				>
 					{screenSize === ScreenSize.small || screenSize === ScreenSize.extraSmall ? (
 						<SmallLogo
-							color={isDarkMode ? darkHoverStyle.color : lightHoverStyle.color}
-							className={
-								isDarkMode ? darkHoverStyle.translate : lightHoverStyle.translate
-							}
+							color={isDarkMode ? darkLogoStyle.color : lightLogoStyle.color}
+							className={isDarkMode ? darkLogoStyle.translate : lightLogoStyle.translate}
 						/>
 					) : (
 						<FullLogo
-							color={isDarkMode ? darkHoverStyle.color : lightHoverStyle.color}
-							className={isDarkMode ? darkHoverStyle.translate : lightHoverStyle.color}
+							color={isDarkMode ? darkLogoStyle.color : lightLogoStyle.color}
+							className={isDarkMode ? darkLogoStyle.translate : lightLogoStyle.color}
 						/>
 					)}
 				</Link>
