@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function createUserAndMessage(formData: FormData) {
+export const createUserAndMessage = async (formData: FormData) => {
 	let userId;
 	const existingUser = await prisma.user.findUnique({
 		where: {
@@ -28,13 +28,32 @@ export async function createUserAndMessage(formData: FormData) {
 			userId: userId,
 		},
 	});
-}
+	console.log(newMessage);
+};
 
-export async function getUsers(formData: FormData) {
+export const getUsers = async () => {
 	const users = await prisma.user.findMany();
 	console.log(users);
-}
-export async function getMessages(formData: FormData) {
+};
+export const getMessages = async () => {
 	const messages = await prisma.message.findMany();
 	console.log(messages);
-}
+};
+
+export const getMessagesForUser = async (formData: FormData) => {
+	const user = await prisma.user.findUnique({
+		where: {
+			email: formData.get("email") as string,
+		},
+	});
+	if (!user) {
+		console.log("no user");
+		return;
+	}
+	const userMessages = await prisma.message.findMany({
+		where: {
+			userId: user.id,
+		},
+	});
+	console.log(userMessages);
+};
