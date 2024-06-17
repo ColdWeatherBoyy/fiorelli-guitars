@@ -12,16 +12,12 @@ export const useScreenSize = () => {
 
 		const updateScreenSize = () => {
 			if (extraSmallQuery.matches) {
-				console.log("extraSmall");
 				setScreenSize(ScreenSize.extraSmall);
 			} else if (smallQuery.matches) {
-				console.log("small");
 				setScreenSize(ScreenSize.small);
 			} else if (mediumQuery.matches) {
-				console.log("medium");
 				setScreenSize(ScreenSize.medium);
 			} else {
-				console.log("large");
 				setScreenSize(ScreenSize.large);
 			}
 		};
