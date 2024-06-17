@@ -22,7 +22,7 @@ const ContactForm = () => {
 		setUserData((prev) => ({ ...prev, [name]: value }));
 	};
 
-	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const errors = {
 			name: userData.name === "",
@@ -32,11 +32,11 @@ const ContactForm = () => {
 
 		setFormErrors(errors);
 
-		if (Object.values(errors).includes(false)) {
+		if (Object.values(errors).some((error) => error)) {
 			alert("Please fill out all fields.");
 			return;
 		}
-		console.log("Form Submitted");
+		console.log(userData);
 	};
 
 	return (
@@ -44,6 +44,7 @@ const ContactForm = () => {
 			<label className="mb-2 font-semibold">Name:</label>
 			<input
 				type="text"
+				required
 				placeholder="Name"
 				name="name"
 				value={userData.name}
@@ -55,6 +56,7 @@ const ContactForm = () => {
 			<label className="mb-2 font-semibold">Email:</label>
 			<input
 				type="email"
+				required
 				placeholder="Email"
 				name="email"
 				value={userData.email}
@@ -66,6 +68,7 @@ const ContactForm = () => {
 			<label className="mb-2 font-semibold">What are you looking for?</label>
 			<textarea
 				placeholder="Message"
+				required
 				name="message"
 				value={userData.message}
 				onChange={handleChange}
