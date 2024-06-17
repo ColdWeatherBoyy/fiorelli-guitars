@@ -3,7 +3,7 @@ import { FC } from "react";
 
 interface CardProps {
 	title?: string;
-	body: string[];
+	body?: string[];
 	children?: React.ReactNode;
 }
 
@@ -17,16 +17,17 @@ const Card: FC<CardProps> = ({ title, body, children }) => {
 					{title}
 				</div>
 			)}
-			{body.map((paragraph, index) => (
-				<div key={index}>
-					<div className={`text-base md:text-lg ${children && "last:mb-4"}`}>
-						{paragraph}
+			{body &&
+				body.map((paragraph, index) => (
+					<div key={index}>
+						<div className={`text-base md:text-lg ${children && "last:mb-4"}`}>
+							{paragraph}
+						</div>
+						{index < body.length - 1 && (
+							<div className="my-4 h-[1px] w-full bg-cyan-600/40 dark:bg-cyan-300/40" />
+						)}
 					</div>
-					{index < body.length - 1 && (
-						<div className="my-4 h-[1px] w-full bg-cyan-600/40 dark:bg-cyan-300/40" />
-					)}
-				</div>
-			))}
+				))}
 			<div className="flex justify-center">{children}</div>
 		</div>
 	);

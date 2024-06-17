@@ -1,5 +1,10 @@
 import Card from "../components/components/Card";
+import ContactForm from "../components/components/ContactForm";
 
 export default function Contact() {
-	return <Card title="Welcome to Fiorelli Guitars" body={["oh", "man", "test"]} />;
+	return (
+		<Card title={"Contact Fiorelli"}>
+			<ContactForm />
+		</Card>
+	);
 }
