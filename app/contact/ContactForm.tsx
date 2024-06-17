@@ -2,9 +2,6 @@
 
 import { TextSize } from "@/app/utilities/types";
 import CardButtonLink from "../components/components/CardButtonLink";
-// import { createUserAndMessage } from "../utilities/databaseActions";
-import { PrismaClient } from "@prisma/client";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { useFormState } from "react-dom";
 import { createUserAndMessage } from "../utilities/databaseActions";
 
@@ -40,8 +37,10 @@ const ContactForm = () => {
 					<CardButtonLink text="Submit" size={TextSize.small} />
 				</form>
 			) : (
-				<div className="flex flex-col items-center text-center">
-					<p>Thank you for your message!</p> <p>We'll get back to you ASAP.</p>{" "}
+				<div className="flex flex-col items-center text-center gap-1">
+					<p>Thank you for your message!</p>{" "}
+					<p className="mb-2">We'll get back to you ASAP.</p>
+					<CardButtonLink text="Return Home" size={TextSize.small} hrefIfLink="/" />
 				</div>
 			)}
 		</>

@@ -30,7 +30,6 @@ export const createUserAndMessage = async (prevState: boolean, formData: FormDat
 				userId: userId,
 			},
 		});
-		console.log(newMessage);
 		return true;
 	} catch (error) {
 		// To-Do: Handle error more precisely
@@ -41,11 +40,9 @@ export const createUserAndMessage = async (prevState: boolean, formData: FormDat
 
 export const getUsers = async () => {
 	const users = await prisma.user.findMany();
-	console.log(users);
 };
 export const getMessages = async () => {
 	const messages = await prisma.message.findMany();
-	console.log(messages);
 };
 
 export const getMessagesForUser = async (formData: FormData) => {
@@ -63,5 +60,4 @@ export const getMessagesForUser = async (formData: FormData) => {
 			userId: user.id,
 		},
 	});
-	console.log(userMessages);
 };
