@@ -4,9 +4,27 @@ import { TextSize } from "@/app/utilities/types";
 import CardButtonLink from "../components/components/CardButtonLink";
 import { useFormState } from "react-dom";
 import { createUserAndMessage } from "../utilities/databaseActions";
+import { sendEmail } from "../utilities/mailActions";
+
+const handleForm = async (prevState: boolean, formData: FormData) => {
+	try {
+		const response = await createUserAndMessage(formData);
+		if (response.error) {
+			console.error(response.error);
+			return false;
+		}
+		console.log(response);
+		const info = await sendEmail();
+		console.log("Message sent: %s", info.messageId);
+		return true;
+	} catch (error) {
+		console.error(error);
+		return false;
+	}
+};
 
 const ContactForm = () => {
-	const [data, formAction] = useFormState(createUserAndMessage, false);
+	const [data, formAction] = useFormState(handleForm, false);
 	return (
 		<>
 			{!data ? (

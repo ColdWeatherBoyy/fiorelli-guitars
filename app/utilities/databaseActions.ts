@@ -4,8 +4,9 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export const createUserAndMessage = async (prevState: boolean, formData: FormData) => {
+export const createUserAndMessage = async (formData: FormData) => {
 	try {
+		let user;
 		let userId;
 		const existingUser = await prisma.user.findUnique({
 			where: {
@@ -21,8 +22,10 @@ export const createUserAndMessage = async (prevState: boolean, formData: FormDat
 				},
 			});
 			userId = newUser.id;
+			user = newUser;
 		} else {
 			userId = existingUser.id;
+			user = existingUser;
 		}
 		const newMessage = await prisma.message.create({
 			data: {
@@ -30,11 +33,11 @@ export const createUserAndMessage = async (prevState: boolean, formData: FormDat
 				userId: userId,
 			},
 		});
-		return true;
+		return { newMessage, user };
 	} catch (error) {
 		// To-Do: Handle error more precisely
 		console.error(error);
-		return false;
+		return { error: "An error occurred. Please try again." };
 	}
 };
 
