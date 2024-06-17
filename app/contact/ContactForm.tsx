@@ -1,13 +1,11 @@
 import { TextSize } from "@/app/utilities/types";
-import CardButtonLink from "./CardButtonLink";
+import CardButtonLink from "../components/components/CardButtonLink";
 
 const ContactForm = () => {
 	async function createContact(formData: FormData) {
 		"use server";
 
 		const { name, email, message } = Object.fromEntries(formData);
-
-		await new Promise((resolve) => setTimeout(resolve, 30000));
 	}
 
 	return (

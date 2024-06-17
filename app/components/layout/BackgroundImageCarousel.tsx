@@ -29,7 +29,7 @@ const BackgroundImageCarousel: FC = () => {
 		if (!animate && pathname !== "/welcome") {
 			setAnimate(true);
 		}
-	}, [pathname]);
+	}, [animate, pathname]);
 
 	useEffect(() => {
 		if (!animate) return;

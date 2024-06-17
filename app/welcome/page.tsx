@@ -29,7 +29,7 @@ export default function Home() {
 				router.push("/");
 			}, 1000);
 		}
-	}, [welcomeState]);
+	}, [welcomeState, router]);
 
 	return (
 		<>
