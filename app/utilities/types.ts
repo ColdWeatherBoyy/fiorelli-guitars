@@ -1,3 +1,4 @@
+import { User } from "@prisma/client";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 export enum WelcomeState {
@@ -27,3 +28,20 @@ export enum ScreenSize {
 	medium = "medium",
 	large = "large",
 }
+
+export interface newMessage {
+	id: number;
+	content: string;
+	createdAt: Date;
+	userId: number;
+}
+
+export interface ContactFormData {
+	newMessage: newMessage;
+	user: User;
+}
+export interface ErrorResponse {
+	error: string;
+}
+
+export type CreateUserAndMessageResponse = ContactFormData | ErrorResponse;

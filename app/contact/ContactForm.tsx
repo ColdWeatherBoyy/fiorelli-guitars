@@ -5,20 +5,19 @@ import CardButtonLink from "../components/components/CardButtonLink";
 import { useFormState } from "react-dom";
 import { createUserAndMessage } from "../utilities/databaseActions";
 import { sendEmail } from "../utilities/mailActions";
+import { isContactFormData } from "../utilities/typeguardFunctions";
 
 const handleForm = async (prevState: boolean, formData: FormData) => {
 	try {
 		const response = await createUserAndMessage(formData);
-		if (response.error) {
+		if (isContactFormData(response) === false) {
 			console.error(response.error);
 			return false;
 		}
-		console.log(response);
-		const info = await sendEmail();
+		const info = await sendEmail(response);
 		console.log("Message sent: %s", info.messageId);
 		return true;
 	} catch (error) {
-		console.error(error);
 		return false;
 	}
 };
