@@ -1,26 +1,9 @@
 "use client";
 
 import { TextSize } from "@/app/utilities/types";
-import CardButtonLink from "../components/components/CardButtonLink";
 import { useFormState } from "react-dom";
-import { createUserAndMessage } from "../utilities/databaseActions";
-import { sendEmail } from "../utilities/mailActions";
-import { isContactFormData } from "../utilities/typeguardFunctions";
-
-const handleForm = async (prevState: boolean, formData: FormData) => {
-	try {
-		const response = await createUserAndMessage(formData);
-		if (isContactFormData(response) === false) {
-			console.error(response.error);
-			return false;
-		}
-		const info = await sendEmail(response);
-		console.log("Message sent: %s", info.messageId);
-		return true;
-	} catch (error) {
-		return false;
-	}
-};
+import CardButtonLink from "../components/components/CardButtonLink";
+import { handleForm } from "../utilities/helpers";
 
 const ContactForm = () => {
 	const [data, formAction] = useFormState(handleForm, false);

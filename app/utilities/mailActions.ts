@@ -1,27 +1,33 @@
 "use server";
 
+import { ReactElement } from "react";
+import { Resend } from "resend";
+import { CustomerEmailTemplate } from "../components/components/CustomerEmailTemplate";
 import { ContactFormData } from "./types";
 
-const nodemailer = require("nodemailer");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-const transporter = nodemailer.createTransport({
-	host: "smtp.ethereal.email",
-	port: 587,
-	secure: false,
-	auth: {
-		user: process.env.EMAIL,
-		pass: process.env.PASSWORD,
-	},
-});
+export const sendEmail = async (contactFormData: ContactFormData) => {
+	const resend = new Resend(process.env.RESEND_API_KEY);
 
-export const sendEmail = async (response: ContactFormData) => {
-	const info = await transporter.sendMail({
-		from: process.env.EMAIL,
-		to: response.user.email,
-		subject: "Thanks for reaching out to Fiorelli!",
-		text: `Hi ${response.user.name},\n\nThank you for reaching out to Fiorelli! We'll get back to you ASAP.\n\nFor your records, your message is included below:\n\n${response.newMessage.content}\n\nBest,\nFiorelli Team`,
-		html: `<p>Hi ${response.user.name},</p><p>Thank you for reaching out to Fiorelli! We'll get back to you ASAP.</p><p>For your records, your message is included below:</p><p>${response.newMessage.content}</p><p>Best,<br>Fiorelli Team</p>`,
-	});
+	try {
+		const { data, error } = await resend.emails.send({
+			from: "Mr. Fiorelli <no-reply@fiorelli-emails.eliassz.com>",
+			to: ["elias.spector.zabusky@gmail.com"],
+			subject: "Thanks for reaching out to Fiorelli!",
+			react: CustomerEmailTemplate({
+				ContactFormData: contactFormData,
+			}) as ReactElement,
+		});
 
-	return info;
+		if (error) {
+			console.error(error);
+			return false;
+		}
+
+		return data;
+	} catch (error) {
+		console.error(error);
+		return false;
+	}
 };
