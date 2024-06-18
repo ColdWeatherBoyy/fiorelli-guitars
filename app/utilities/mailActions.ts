@@ -13,21 +13,21 @@ export const sendEmail = async (contactFormData: ContactFormData) => {
 	try {
 		const { data, error } = await resend.emails.send({
 			from: "Mr. Fiorelli <no-reply@fiorelli-emails.eliassz.com>",
-			to: ["elias.spector.zabusky@gmail.com"],
+			to: [contactFormData.user.email],
 			subject: "Thanks for reaching out to Fiorelli!",
 			react: CustomerEmailTemplate({
-				ContactFormData: contactFormData,
+				contactFormData,
 			}) as ReactElement,
 		});
 
 		if (error) {
-			console.error(error);
+			console.error("failed send", error);
 			return false;
 		}
 
 		return data;
 	} catch (error) {
-		console.error(error);
+		console.error("catch error", error);
 		return false;
 	}
 };

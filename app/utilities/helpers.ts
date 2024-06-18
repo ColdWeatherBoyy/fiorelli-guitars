@@ -11,8 +11,9 @@ export const handleForm = async (prevState: boolean, formData: FormData) => {
 			console.error(contactFormData.error);
 			return false;
 		}
-
+		console.log(contactFormData);
 		const success = await sendEmail(contactFormData);
+		console.log(success);
 
 		if (success === false) {
 			console.error("Error sending email");
