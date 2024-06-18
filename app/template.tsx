@@ -19,7 +19,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
 							animate={{ y: 0, opacity: 1, backdropFilter: "blur(12px)" }}
 							exit={{ y: -20, opacity: 0, backdropFilter: "blur(0px)" }}
 							transition={{ ease: "easeInOut", duration: 0.5 }}
-							className="max-h-fit max-w-[80%] md:max-w-[70%] my-20 md:mt-36"
+							className="max-h-fit max-w-[80%] lg:max-w-[70%] my-20 lg:mt-36"
 						>
 							{children}
 						</motion.div>

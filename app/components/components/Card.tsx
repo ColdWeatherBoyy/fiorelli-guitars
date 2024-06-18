@@ -28,7 +28,7 @@ const Card: FC<CardProps> = ({ title, body, children }) => {
 						)}
 					</div>
 				))}
-			<div className="flex justify-center">{children}</div>
+			<div className="flex justify-center w-full">{children}</div>
 		</div>
 	);
 };
