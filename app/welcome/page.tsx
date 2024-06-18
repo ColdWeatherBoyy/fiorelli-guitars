@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
-import WelcomeImage from "../components/components/WelcomeImage";
+import WelcomeImage from "./components/WelcomeImage";
 import CoverPageTransition from "../components/transitions/CoverPageTransition";
 import { playfair_display } from "../style/fonts";
 import { backgroundImageCarousel } from "../utilities/constants";

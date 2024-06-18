@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import BackgroundImageCarousel from "./components/layout/BackgroundImageCarousel";
-import Header from "./components/layout/Header";
+import Header from "./components/layout/headerComponents/Header";
 import MainWrapper from "./components/layout/MainWrapper";
 import { inter } from "./style/fonts";
 import "./style/globals.css";

@@ -1,8 +1,8 @@
 "use server";
 
-import { createUserAndMessage } from "./databaseActions";
-import { sendEmail } from "./mailActions";
-import { isContactFormData } from "./typeguardFunctions";
+import { createUserAndMessage } from "../../utilities/databaseFunctions";
+import { sendCustomerEmail } from "../../utilities/resendFunctions";
+import { isContactFormData } from "../../utilities/typeguardFunctions";
 
 export const handleForm = async (prevState: boolean, formData: FormData) => {
 	try {
@@ -12,7 +12,7 @@ export const handleForm = async (prevState: boolean, formData: FormData) => {
 			return false;
 		}
 		console.log(contactFormData);
-		const success = await sendEmail(contactFormData);
+		const success = await sendCustomerEmail(contactFormData);
 		console.log(success);
 
 		if (success === false) {
