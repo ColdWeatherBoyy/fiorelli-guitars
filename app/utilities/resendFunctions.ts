@@ -5,8 +5,6 @@ import { Resend } from "resend";
 import { CustomerEmailTemplate } from "../contact/components/CustomerEmailTemplate";
 import { ContactFormData } from "./types";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export const sendCustomerEmail = async (contactFormData: ContactFormData) => {
 	const resend = new Resend(process.env.RESEND_API_KEY);
 

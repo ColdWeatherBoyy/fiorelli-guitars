@@ -50,8 +50,8 @@ export const CustomerEmailTemplate: FC<Readonly<CustomerEmailTemplateProps>> = (
 						color: "white",
 					}}
 				>
-					Thank you for reaching out to Fiorelli! We'll get back to you ASAP. For your
-					records, your message is included below:
+					Thank you for reaching out to Fiorelli! We&apos;ll get back to you ASAP. For
+					your records, your message is included below:
 				</div>
 				<div
 					style={{

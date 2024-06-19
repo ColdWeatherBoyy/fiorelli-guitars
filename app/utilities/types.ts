@@ -45,3 +45,17 @@ export interface ErrorResponse {
 }
 
 export type CreateUserAndMessageResponse = ContactFormData | ErrorResponse;
+
+// export type ImageProps = {
+// 	data: ImageData;
+// 	className?: string;
+// 	pictureClassName?: string;
+// 	fadeInDuration?: number;
+// 	intersectionTreshold?: number;
+// 	intersectionThreshold?: number;
+// 	intersectionMargin?: string;
+// 	lazyLoad?: boolean;
+// 	style?: React.CSSProperties;
+// 	pictureStyle?: React.CSSProperties;
+// 	explicitWidth?: boolean;
+// };
