@@ -1,16 +1,22 @@
+import { CldImage } from "next-cloudinary";
 import { cloudinary } from "../utilities/cloudinary";
+import GallerySlider from "./components/GallerySlider";
+
+export interface CloudinaryResource {
+	public_id: string;
+	secure_url: string;
+}
 
 const Gallery = async () => {
-	const results = await cloudinary.search
+	const { total_count, time, resources } = await cloudinary.search
 		.expression(`folder:fiorelli/backgroundImages/*`)
 		.sort_by(`public_id`, `desc`)
 		.max_results(30)
 		.execute();
-	console.log(results);
 	return (
 		<div>
 			<h1>Gallery</h1>
-			<button> Images</button>
+			<GallerySlider resources={resources} />
 		</div>
 	);
 };
