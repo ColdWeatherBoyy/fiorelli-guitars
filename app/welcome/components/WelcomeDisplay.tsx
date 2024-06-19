@@ -18,8 +18,12 @@ const WelcomeDisplay: FC<WelcomeDisplayProps> = ({ welcomeImage }) => {
 
 	const handleEnter = () => {
 		setWelcomeState(WelcomeState.covering);
-		document.cookie = "visited";
 	};
+
+	useEffect(() => {
+		document.cookie = "visited";
+	}, []);
+
 	useEffect(() => {
 		if (welcomeState === WelcomeState.covering) {
 			setTimeout(() => {
