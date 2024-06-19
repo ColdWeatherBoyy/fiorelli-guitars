@@ -1,19 +1,15 @@
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
-import Image from "next/image";
+import { CloudinaryResource } from "@/app/utilities/types";
+import { CldImage } from "next-cloudinary";
 import { FC } from "react";
 
-interface WelcomeImageProps {
-	src: StaticImport;
-	alt: string;
-}
-const WelcomeImage: FC<WelcomeImageProps> = ({ src, alt }) => {
+const WelcomeImage: FC<CloudinaryResource> = ({ secure_url, public_id }) => {
 	return (
 		<div className="fixed h-screen w-screen overflow-hidden z-20">
-			<Image
-				src={src}
-				alt={alt}
+			<CldImage
+				src={secure_url}
+				alt={public_id}
 				fill
-				placeholder="blur"
+				blurDataURL={secure_url}
 				quality={100}
 				sizes="100vw"
 				style={{

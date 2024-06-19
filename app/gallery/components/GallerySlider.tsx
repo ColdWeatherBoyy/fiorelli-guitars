@@ -7,24 +7,34 @@ import { FC } from "react";
 
 interface GallerySliderProps {
 	resources: CloudinaryResource[];
+	title: string;
 }
 
-const GallerySlider: FC<GallerySliderProps> = ({ resources }) => {
+const GallerySlider: FC<GallerySliderProps> = ({ resources, title }) => {
 	return (
-		<Card title="The Cormorant">
-			<div className="flex overflow-scroll gap-4 items-center">
-				{resources.map((resource) => (
-					<CldImage
-						key={resource.public_id}
-						src={resource.secure_url}
-						alt={resource.public_id}
-						width={80}
-						height={80}
-						blurDataURL={resource.secure_url}
-						quality={100}
-						sizes="50px"
-					/>
-				))}
+		<Card title={title}>
+			<div className="lg:w-[75%] flex overflow-scroll rounded-sm gap-4 items-center bg-zinc-300 p-3 items-center shadow-inner shadow-zinc-500">
+				{resources.map((resource) => {
+					const thumbnailResourceLink = resource.secure_url.replace(
+						"upload/",
+						"upload/c_thumb,h_500,w_500/"
+					);
+					return (
+						<div
+							className="flex flex-col items-center bg-cyan-800 shadow-sm shadow-zinc-500"
+							key={resource.public_id}
+						>
+							<CldImage
+								src={thumbnailResourceLink}
+								alt={resource.public_id}
+								width={80}
+								height={80}
+								blurDataURL={thumbnailResourceLink}
+								quality={100}
+							/>
+						</div>
+					);
+				})}
 			</div>
 		</Card>
 	);

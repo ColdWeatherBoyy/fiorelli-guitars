@@ -1,51 +1,13 @@
-"use client";
+import { cloudinary } from "../utilities/cloudinary";
+import WelcomeDisplay from "./components/WelcomeDisplay";
 
-import { useRouter } from "next/navigation";
-import { useContext, useEffect, useState } from "react";
-import WelcomeImage from "./components/WelcomeImage";
-import CoverPageTransition from "../components/transitions/CoverPageTransition";
-import { playfair_display } from "../style/fonts";
-import { backgroundImageCarousel } from "../utilities/constants";
-import { TextSize, WelcomeState } from "../utilities/types";
-import CardButton from "../components/components/CardButtonLink";
-import OpenPageTransition from "../components/transitions/OpenPageTransition";
+export default async function Home() {
+	const { resources } = await cloudinary.search
+		.expression(`tags=welcome`)
+		.sort_by(`public_id`, `desc`)
+		.max_results(30)
+		.execute();
+	const welcomeImage = resources[0];
 
-export default function Home() {
-	const [welcomeState, setWelcomeState] = useState<WelcomeState>(WelcomeState.welcome);
-	const router = useRouter();
-
-	const handleEnter = () => {
-		setWelcomeState(WelcomeState.covering);
-		document.cookie = "visited";
-	};
-	useEffect(() => {
-		if (welcomeState === WelcomeState.covering) {
-			setTimeout(() => {
-				setWelcomeState(WelcomeState.opening);
-			}, 1000);
-		}
-		if (welcomeState === WelcomeState.opening) {
-			setTimeout(() => {
-				router.push("/");
-			}, 1000);
-		}
-	}, [welcomeState, router]);
-
-	return (
-		<>
-			{welcomeState !== WelcomeState.opening && (
-				<>
-					<WelcomeImage
-						src={backgroundImageCarousel[0].src}
-						alt={backgroundImageCarousel[0].alt}
-					/>
-					<div className="flex w-full items-center justify-center z-30">
-						<CardButton text="Welcome" size={TextSize.large} handleClick={handleEnter} />
-					</div>
-				</>
-			)}
-			{welcomeState === WelcomeState.covering && <CoverPageTransition cover={true} />}
-			{welcomeState === WelcomeState.opening && <OpenPageTransition />}
-		</>
-	);
+	return <WelcomeDisplay welcomeImage={welcomeImage} />;
 }
