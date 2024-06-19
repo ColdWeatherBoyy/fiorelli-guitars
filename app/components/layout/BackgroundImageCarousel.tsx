@@ -1,29 +1,25 @@
 "use client";
 
+import { CloudinaryResource } from "@/app/utilities/types";
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
+import { CldImage } from "next-cloudinary";
 import { usePathname } from "next/navigation";
 import { FC, useEffect, useState } from "react";
-import { backgroundImageCarousel } from "../../utilities/constants";
 
-const BackgroundImageCarousel: FC = () => {
+interface BackgroundImageCarousel {
+	resources: CloudinaryResource[];
+}
+
+const BackgroundImageCarousel: FC<BackgroundImageCarousel> = ({ resources }) => {
 	const pathname = usePathname();
 	const [animate, setAnimate] = useState(pathname !== "/welcome");
 	const [currentImageIndex, setCurrentImageIndex] = useState(1);
-	const [currentImage, setCurrentImage] = useState(
-		backgroundImageCarousel[currentImageIndex]
-	);
+	const [currentImage, setCurrentImage] = useState(resources[currentImageIndex]);
 	const [hasLoaded, setHasLoaded] = useState(false);
 
-	const nextImage = () => {
-		setCurrentImageIndex((prevIndex) =>
-			prevIndex === backgroundImageCarousel.length - 1 ? 0 : prevIndex + 1
-		);
-	};
-
 	useEffect(() => {
-		setCurrentImage(backgroundImageCarousel[currentImageIndex]);
-	}, [currentImageIndex]);
+		setCurrentImage(resources[currentImageIndex]);
+	}, [currentImageIndex, resources]);
 
 	useEffect(() => {
 		if (!animate && pathname !== "/welcome") {
@@ -32,43 +28,45 @@ const BackgroundImageCarousel: FC = () => {
 	}, [animate, pathname]);
 
 	useEffect(() => {
+		const nextImage = () => {
+			setCurrentImageIndex((prevIndex) =>
+				prevIndex === resources.length - 1 ? 0 : prevIndex + 1
+			);
+		};
 		if (!animate) return;
 		const interval = setInterval(() => {
 			nextImage();
 		}, 15000);
 		return () => clearInterval(interval);
-	}, [animate]);
+	}, [animate, resources.length]);
 
 	useEffect(() => {
 		setHasLoaded(true);
 	}, []);
 
 	return (
-		<div className="fixed h-screen w-screen overflow-hidden -z-20">
-			<AnimatePresence>
-				<motion.div
-					key={currentImage.alt}
-					className="fixed h-screen w-screen overflow-hidden -z-20"
-					initial={{ x: currentImageIndex === 1 && !hasLoaded ? "0" : "100%" }}
-					animate={{ x: "0%" }}
-					exit={{ x: "-100%" }}
-					transition={{ ease: "easeInOut", duration: 0.5 }}
-				>
-					<Image
-						src={currentImage.src}
-						alt={currentImage.alt}
-						fill
-						placeholder="blur"
-						quality={100}
-						sizes="100vw"
-						style={{
-							objectFit: "cover",
-						}}
-						priority={true}
-					/>
-				</motion.div>
-			</AnimatePresence>
-		</div>
+		<AnimatePresence>
+			<motion.div
+				key={currentImage.public_id}
+				className="fixed h-screen w-screen overflow-hidden -z-20"
+				initial={{ x: currentImageIndex === 1 && !hasLoaded ? "0" : "100%" }}
+				animate={{ x: "0%" }}
+				exit={{ x: "-100%" }}
+				transition={{ ease: "easeInOut", duration: 0.5 }}
+			>
+				<CldImage
+					src={currentImage.secure_url}
+					alt={currentImage.public_id}
+					fill
+					blurDataURL={currentImage.secure_url}
+					sizes="100vw"
+					style={{
+						objectFit: "cover",
+					}}
+					priority={true}
+				/>
+			</motion.div>
+		</AnimatePresence>
 	);
 };
 

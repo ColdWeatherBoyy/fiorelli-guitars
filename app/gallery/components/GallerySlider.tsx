@@ -1,10 +1,9 @@
 "use client";
 
 import Card from "@/app/components/components/Card";
-import Image from "next/image";
-import { CloudinaryResource } from "../page";
-import { FC } from "react";
+import { CloudinaryResource } from "@/app/utilities/types";
 import { CldImage } from "next-cloudinary";
+import { FC } from "react";
 
 interface GallerySliderProps {
 	resources: CloudinaryResource[];
@@ -14,7 +13,7 @@ const GallerySlider: FC<GallerySliderProps> = ({ resources }) => {
 	return (
 		<Card title="The Cormorant">
 			<div className="flex overflow-scroll gap-4 items-center">
-				{resources.map((resource, index) => (
+				{resources.map((resource) => (
 					<CldImage
 						key={resource.public_id}
 						src={resource.secure_url}

@@ -7,15 +7,6 @@ export enum WelcomeState {
 	opening = "opening",
 }
 
-export interface ImageIdentifier {
-	[key: string]: Image;
-}
-
-export interface Image {
-	src: StaticImport;
-	alt: string;
-}
-
 export enum TextSize {
 	small = "small",
 	medium = "medium",
@@ -46,16 +37,7 @@ export interface ErrorResponse {
 
 export type CreateUserAndMessageResponse = ContactFormData | ErrorResponse;
 
-// export type ImageProps = {
-// 	data: ImageData;
-// 	className?: string;
-// 	pictureClassName?: string;
-// 	fadeInDuration?: number;
-// 	intersectionTreshold?: number;
-// 	intersectionThreshold?: number;
-// 	intersectionMargin?: string;
-// 	lazyLoad?: boolean;
-// 	style?: React.CSSProperties;
-// 	pictureStyle?: React.CSSProperties;
-// 	explicitWidth?: boolean;
-// };
+export interface CloudinaryResource {
+	public_id: string;
+	secure_url: string;
+}

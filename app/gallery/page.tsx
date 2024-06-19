@@ -1,11 +1,5 @@
-import { CldImage } from "next-cloudinary";
 import { cloudinary } from "../utilities/cloudinary";
 import GallerySlider from "./components/GallerySlider";
-
-export interface CloudinaryResource {
-	public_id: string;
-	secure_url: string;
-}
 
 const Gallery = async () => {
 	const { total_count, time, resources } = await cloudinary.search
@@ -15,7 +9,6 @@ const Gallery = async () => {
 		.execute();
 	return (
 		<div>
-			<h1>Gallery</h1>
 			<GallerySlider resources={resources} />
 		</div>
 	);
