@@ -8,11 +8,7 @@ interface PhotoModalProps {
 }
 
 const PhotoModal: React.FC<PhotoModalProps> = ({ params: { photoId } }) => {
-	return (
-		<AnimateWrapper>
-			<Modal>hi:{photoId}</Modal>
-		</AnimateWrapper>
-	);
+	return <Modal>hi:{photoId}</Modal>;
 };
 
 export default PhotoModal;

@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import Header from "./components/layout/headerComponents/Header";
-import MainWrapper from "./components/layout/MainWrapper";
 import { inter } from "./style/fonts";
 import "./style/globals.css";
-import BackgroundImageWrapper from "./components/layout/headerComponents/BackgroundImageWrapper";
-import Link from "next/link";
+import BackgroundImageWrapper from "./components/layout/BackgroundImageWrapper";
 import Wrapper from "./components/layout/Wrapper";
 
 export const metadata: Metadata = {

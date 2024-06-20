@@ -48,7 +48,7 @@ const BackgroundImageCarousel: FC<BackgroundImageCarousel> = ({ resources }) => 
 		<AnimatePresence>
 			<motion.div
 				key={currentImage.public_id}
-				className="fixed h-screen w-screen overflow-hidden -z-20"
+				className="fixed inset-0 -z-20"
 				initial={{ x: currentImageIndex === 1 && !hasLoaded ? "0" : "100%" }}
 				animate={{ x: "0%" }}
 				exit={{ x: "-100%" }}

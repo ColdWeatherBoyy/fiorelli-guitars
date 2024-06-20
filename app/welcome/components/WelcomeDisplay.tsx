@@ -45,7 +45,7 @@ const WelcomeDisplay: FC<WelcomeDisplayProps> = ({ welcomeImage }) => {
 						public_id={welcomeImage.public_id}
 						secure_url={welcomeImage.secure_url}
 					/>
-					<div className="flex w-full items-center justify-center z-30">
+					<div className="flex w-full items-center justify-center z-20">
 						<CardButtonLink
 							text="Welcome"
 							size={TextSize.large}

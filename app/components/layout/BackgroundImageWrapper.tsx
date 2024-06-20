@@ -1,5 +1,5 @@
 import { FC } from "react";
-import BackgroundImageCarousel from "../BackgroundImageCarousel";
+import BackgroundImageCarousel from "./BackgroundImageCarousel";
 import { cloudinary } from "@/app/utilities/cloudinary";
 
 export const BackgroundImageWrapper: FC = async () => {
@@ -8,11 +8,7 @@ export const BackgroundImageWrapper: FC = async () => {
 		.sort_by(`public_id`, `desc`)
 		.max_results(30)
 		.execute();
-	return (
-		<div className="absolute left-0 top-0 h-screen w-screen overflow-hidden -z-20">
-			<BackgroundImageCarousel resources={resources} />
-		</div>
-	);
+	return <BackgroundImageCarousel resources={resources} />;
 };
 
 export default BackgroundImageWrapper;

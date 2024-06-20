@@ -8,12 +8,12 @@ const CoverPageTransition: FC<CoverPageTransitionProps> = ({ cover }) => {
 	return (
 		<>
 			<div
-				className={`absolute top-0 bg-zinc-100 w-screen z-40 ${
+				className={`absolute top-0 bg-zinc-100 w-screen z-20 ${
 					cover ? "animate-coverFromTop" : ""
 				}`}
 			/>
 			<div
-				className={`absolute bottom-0 bg-zinc-100 w-screen z-40 ${
+				className={`absolute bottom-0 bg-zinc-100 w-screen z-20 ${
 					cover ? "animate-coverFromBottom" : ""
 				}`}
 			/>

@@ -4,7 +4,7 @@ import { FC } from "react";
 
 const WelcomeImage: FC<CloudinaryResource> = ({ secure_url, public_id }) => {
 	return (
-		<div className="fixed h-screen w-screen overflow-hidden z-20">
+		<div className="fixed h-screen w-screen overflow-hidden z-10">
 			<CldImage
 				src={secure_url}
 				alt={public_id}
