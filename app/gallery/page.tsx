@@ -37,6 +37,7 @@ const Gallery = async () => {
 		<AnimateWrapper>
 			<Card title="Gallery">
 				<div className="flex flex-col gap-4">
+					<Link href="/photo/d">hi</Link>
 					{/* <GallerySlider title="The Cormorant" resources={cormorantResources} /> */}
 					{/* <GallerySlider title="The Kestrel" resources={kestrelResources} /> */}
 					{/* <GallerySlider title="The Sea Eagle" resources={seaEagleResources} /> */}
