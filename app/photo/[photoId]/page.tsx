@@ -1,18 +1,12 @@
-import AnimateWrapper from "@/app/components/components/AnimateWrapper";
-import Card from "@/app/components/components/Card";
+import { cloudinary } from "@/app/utilities/cloudinary";
+import PhotoCard from "./PhotoCard";
 
-interface PhotoModalProps {
-	params: {
-		photoId: string;
-	};
-}
-
-const PhotoModal: React.FC<PhotoModalProps> = ({ params: { photoId } }) => {
-	return (
-		<AnimateWrapper>
-			<Card>hi main page:{photoId}</Card>
-		</AnimateWrapper>
-	);
+const Photo: React.FC = async () => {
+	const { resources } = await cloudinary.search
+		.expression(`public_id=fiorelli/Vert_Detail_1`)
+		.execute();
+	console.log(resources[0]);
+	return <PhotoCard photoResource={resources[0]} />;
 };
 
-export default PhotoModal;
+export default Photo;

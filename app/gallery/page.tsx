@@ -11,11 +11,11 @@ const Gallery = async () => {
 	// 	.sort_by(`public_id`, `desc`)
 	// 	.max_results(30)
 	// 	.execute();
-	const { resources: kestrelResources } = await cloudinary.search
-		.expression(`tags=SP_Guitar`)
-		.sort_by(`public_id`, `desc`)
-		.max_results(30)
-		.execute();
+	// const { resources: kestrelResources } = await cloudinary.search
+	// 	.expression(`tags=SP_Guitar`)
+	// 	.sort_by(`public_id`, `desc`)
+	// 	.max_results(30)
+	// 	.execute();
 	// const { resources: seaEagleResources } = await cloudinary.search
 	// 	.expression(`tags=HB_Guitar`)
 	// 	.sort_by(`public_id`, `desc`)
@@ -38,7 +38,7 @@ const Gallery = async () => {
 			<Card title="Gallery">
 				<div className="flex flex-col gap-4">
 					{/* <GallerySlider title="The Cormorant" resources={cormorantResources} /> */}
-					<GallerySlider title="The Kestrel" resources={kestrelResources} />
+					{/* <GallerySlider title="The Kestrel" resources={kestrelResources} /> */}
 					{/* <GallerySlider title="The Sea Eagle" resources={seaEagleResources} /> */}
 					{/* <GallerySlider title="The Starling" resources={starlingResources} /> */}
 					{/* <GallerySlider title="Signore Fiorelli" resources={jamieResources} /> */}
