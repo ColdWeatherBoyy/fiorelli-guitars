@@ -10,7 +10,7 @@ interface PhotoModalProps {
 const PhotoModal: React.FC<PhotoModalProps> = ({ params: { photoId } }) => {
 	return (
 		<AnimateWrapper>
-			<Card>hi main page:{photoId}</Card>;
+			<Card>hi main page:{photoId}</Card>
 		</AnimateWrapper>
 	);
 };

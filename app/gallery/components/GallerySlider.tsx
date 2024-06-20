@@ -26,16 +26,20 @@ const GallerySlider: FC<GallerySliderProps> = ({ resources, title }) => {
 						"upload/c_thumb,h_500,w_500/"
 					);
 					return (
-						<CldImage
-							width={`${screenSize === "extraSmall" ? "125" : "150"}`}
-							height={`${screenSize === "extraSmall" ? "125" : "150"}`}
-							src={thumbnailResourceLink}
-							alt={resource.public_id}
-							blurDataURL={thumbnailResourceLink}
-							preserveTransformations
-							className="rounded-sm bg-zinc-100 backdrop-blur shadow shadow-zinc-500c"
-							onClick={() => router.push("/photo/1")}
-						/>
+						<Link
+							href={`/photo/${resource.public_id.split("/")[1]}`}
+							className="contents"
+						>
+							<CldImage
+								width={`${screenSize === "extraSmall" ? "125" : "150"}`}
+								height={`${screenSize === "extraSmall" ? "125" : "150"}`}
+								src={thumbnailResourceLink}
+								alt={resource.public_id}
+								blurDataURL={thumbnailResourceLink}
+								preserveTransformations
+								className="rounded-sm bg-zinc-100 backdrop-blur shadow shadow-zinc-500"
+							/>
+						</Link>
 					);
 				})}
 			</div>
