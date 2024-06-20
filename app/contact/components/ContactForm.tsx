@@ -40,7 +40,7 @@ const ContactForm = () => {
 				<div className="flex flex-col items-center text-center gap-1">
 					<p>Thank you for your message!</p>{" "}
 					<p className="mb-2">We&apos;ll get back to you ASAP.</p>
-					<CardButtonLink text="Return Home" size={TextSize.small} hrefIfLink="/" />
+					<CardButtonLink text="Return Home" size={TextSize.small} href="/" />
 				</div>
 			)}
 		</>

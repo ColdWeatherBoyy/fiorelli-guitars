@@ -2,7 +2,8 @@
 
 import AnimateWrapper from "@/app/components/components/AnimateWrapper";
 import Card from "@/app/components/components/Card";
-import { CloudinaryResource } from "@/app/utilities/types";
+import CardButtonLink from "@/app/components/components/CardButtonLink";
+import { CloudinaryResource, TextSize } from "@/app/utilities/types";
 import { CldImage } from "next-cloudinary";
 import { FC } from "react";
 
@@ -12,16 +13,21 @@ interface PhotoCardProps {
 
 const PhotoCard: FC<PhotoCardProps> = ({ photoResource }) => {
 	return (
-		<AnimateWrapper>
-			<CldImage
-				width={photoResource.width}
-				height={photoResource.height}
-				src={photoResource.secure_url}
-				alt={photoResource.public_id}
-				blurDataURL={photoResource.secure_url}
-				className="max-w-full rounded-sm bg-zinc-100 backdrop-blur shadow shadow-zinc-500"
-			/>
-		</AnimateWrapper>
+		<div>
+			<AnimateWrapper>
+				<Card>
+					<CldImage
+						width={photoResource.width}
+						height={photoResource.height}
+						src={photoResource.secure_url}
+						alt={photoResource.public_id}
+						blurDataURL={photoResource.secure_url}
+						className="object-scale-down lg:max-h-[65vh] w-fit rounded-sm bg-zinc-200 shadow shadow-zinc-500"
+					/>
+					<CardButtonLink href="/gallery" text="Back to Gallery" size={TextSize.small} />
+				</Card>
+			</AnimateWrapper>
+		</div>
 	);
 };
 export default PhotoCard;

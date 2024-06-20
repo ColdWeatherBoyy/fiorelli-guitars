@@ -37,7 +37,7 @@ const GallerySlider: FC<GallerySliderProps> = ({ resources, title }) => {
 								alt={resource.public_id}
 								blurDataURL={thumbnailResourceLink}
 								preserveTransformations
-								className="rounded-sm bg-zinc-100 backdrop-blur shadow shadow-zinc-500"
+								className="rounded-sm bg-zinc-100 shadow shadow-zinc-500"
 							/>
 						</Link>
 					);
