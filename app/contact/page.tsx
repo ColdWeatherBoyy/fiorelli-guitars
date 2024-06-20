@@ -1,10 +1,13 @@
+import AnimateWrapper from "../components/components/AnimateWrapper";
 import Card from "../components/components/Card";
 import ContactForm from "./components/ContactForm";
 
 export default function Contact() {
 	return (
-		<Card title={"Contact Fiorelli"}>
-			<ContactForm />
-		</Card>
+		<AnimateWrapper>
+			<Card title={"Contact Fiorelli"}>
+				<ContactForm />
+			</Card>
+		</AnimateWrapper>
 	);
 }

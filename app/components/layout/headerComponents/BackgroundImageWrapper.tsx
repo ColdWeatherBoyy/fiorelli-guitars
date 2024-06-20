@@ -9,7 +9,7 @@ export const BackgroundImageWrapper: FC = async () => {
 		.max_results(30)
 		.execute();
 	return (
-		<div className="fixed h-screen w-screen overflow-hidden -z-20">
+		<div className="absolute left-0 top-0 h-screen w-screen overflow-hidden -z-20">
 			<BackgroundImageCarousel resources={resources} />
 		</div>
 	);
