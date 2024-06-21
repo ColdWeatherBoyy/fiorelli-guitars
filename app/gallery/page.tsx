@@ -11,6 +11,7 @@ const Gallery = async () => {
 		.sort_by(`public_id`, `desc`)
 		.max_results(30)
 		.execute();
+
 	const { resources: kestrelResources } = await cloudinary.search
 		.expression(`tags=SP_Guitar`)
 		.sort_by(`public_id`, `desc`)
