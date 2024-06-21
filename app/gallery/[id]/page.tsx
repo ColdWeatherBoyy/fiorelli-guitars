@@ -8,7 +8,6 @@ const Photo: React.FC = async () => {
 		.execute();
 	return (
 		<AnimateWrapper>
-			<div>not modal</div>
 			<PhotoCard photoResource={resources[0]} />
 		</AnimateWrapper>
 	);

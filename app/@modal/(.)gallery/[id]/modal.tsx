@@ -1,4 +1,5 @@
 "use client";
+
 import AnimateWrapper from "@/app/components/components/AnimateWrapper";
 import Card from "@/app/components/components/Card";
 import { motion } from "framer-motion";

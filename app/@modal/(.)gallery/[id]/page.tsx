@@ -14,7 +14,6 @@ const PhotoModal: React.FC<PhotoModalProps> = async ({ params: { id } }) => {
 		.execute();
 	return (
 		<Modal>
-			<div>modal</div>
 			<PhotoCard photoResource={resources[0]} isModal />
 		</Modal>
 	);
