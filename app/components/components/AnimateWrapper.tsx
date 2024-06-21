@@ -13,6 +13,7 @@ export default function AnimateWrapper({ children }: { children: React.ReactNode
 				animate={{ y: 0, opacity: 1 }}
 				exit={{ y: -20, opacity: 0 }}
 				transition={{ ease: "easeInOut", duration: 0.35 }}
+				className="flex justify-center"
 			>
 				{children}
 			</motion.div>

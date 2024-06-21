@@ -19,7 +19,9 @@ export function Modal({ children }: { children: React.ReactNode }) {
 				onClick={onDismiss}
 			/>
 			<AnimateWrapper>
-				<Card>{children}</Card>
+				<div className="max-w-[90%] lg:max-w-[70%]">
+					<Card>{children}</Card>
+				</div>
 			</AnimateWrapper>
 		</div>
 	);

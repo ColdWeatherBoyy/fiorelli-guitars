@@ -4,7 +4,7 @@ import Card from "@/app/components/components/Card";
 import CardButtonLink from "@/app/components/components/CardButtonLink";
 import { CloudinaryResource, TextSize } from "@/app/utilities/types";
 import { CldImage } from "next-cloudinary";
-import { FC } from "react";
+import { FC, Suspense } from "react";
 
 interface PhotoCardProps {
 	photoResource: CloudinaryResource;
