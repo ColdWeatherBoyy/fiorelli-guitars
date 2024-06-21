@@ -58,6 +58,7 @@ const BackgroundImageCarousel: FC<BackgroundImageCarousel> = ({ resources }) => 
 					src={currentImage.secure_url}
 					alt={currentImage.public_id}
 					fill
+					placeholder="blur"
 					blurDataURL={currentImage.secure_url}
 					sizes="100vw"
 					style={{

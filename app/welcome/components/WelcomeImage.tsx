@@ -9,6 +9,7 @@ const WelcomeImage: FC<CloudinaryResource> = ({ secure_url, public_id }) => {
 				src={secure_url}
 				alt={public_id}
 				fill
+				placeholder="blur"
 				blurDataURL={secure_url}
 				quality={100}
 				sizes="100vw"

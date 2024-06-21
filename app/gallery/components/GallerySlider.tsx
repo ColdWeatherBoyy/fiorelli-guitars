@@ -36,6 +36,7 @@ const GallerySlider: FC<GallerySliderProps> = ({ resources, title }) => {
 								height={`${screenSize === "extraSmall" ? "125" : "150"}`}
 								src={thumbnailResourceLink}
 								alt={resource.public_id}
+								placeholder="blur"
 								blurDataURL={thumbnailResourceLink}
 								preserveTransformations
 								className="rounded-sm bg-zinc-100 shadow shadow-zinc-500"

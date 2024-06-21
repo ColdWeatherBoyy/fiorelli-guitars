@@ -42,6 +42,7 @@ export interface CloudinaryResource {
 	secure_url: string;
 	width?: number;
 	height?: number;
+	blurDataUrl?: string;
 }
 
 export interface GalleryPhotoProps {
