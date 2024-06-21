@@ -20,7 +20,7 @@ const PhotoCard: FC<PhotoCardProps> = ({ photoResource, isModal = false }) => {
 				src={photoResource.secure_url}
 				alt={photoResource.public_id}
 				blurDataURL={photoResource.secure_url}
-				className="object-scale-down lg:max-h-[65vh] w-fit rounded-sm bg-zinc-200 shadow shadow-zinc-500"
+				className="object-scale-down max-h-[70vh] sm:max-h-[65vh] w-fit rounded-sm bg-zinc-200 shadow shadow-zinc-500"
 			/>
 			<CardButtonLink
 				href={isModal ? "/photo" : "/gallery"}
