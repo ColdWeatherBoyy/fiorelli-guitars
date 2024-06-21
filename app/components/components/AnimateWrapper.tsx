@@ -11,8 +11,8 @@ export default function AnimateWrapper({ children }: { children: React.ReactNode
 				// exit={{ y: -20, opacity: 0, backdropFilter: "blur(0px)" }}
 				initial={{ y: 20, opacity: 0 }}
 				animate={{ y: 0, opacity: 1 }}
-				exit={{ y: -20, opacity: 0 }}
-				transition={{ ease: "easeInOut", duration: 0.35 }}
+				// exit={{ y: -20, opacity: 0 }}
+				transition={{ ease: "easeInOut", duration: 0.4 }}
 				className="flex justify-center"
 			>
 				{children}
