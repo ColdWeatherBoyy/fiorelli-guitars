@@ -14,10 +14,10 @@ export const BackgroundImageWrapper: FC = async () => {
 	const fullResources: CloudinaryResource[] = [...resources];
 	for (let i = 0; i < resources.length; i++) {
 		const resource = resources[i];
-		const dataUrl = await getBlurDataUrl(resource.public_id);
+		const blurDataUrl = await getBlurDataUrl(resource.public_id);
 		fullResources[i] = {
 			...resource,
-			dataUrl,
+			blurDataUrl,
 		};
 	}
 	return <BackgroundImageCarousel resources={fullResources} />;

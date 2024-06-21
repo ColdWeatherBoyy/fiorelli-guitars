@@ -13,18 +13,25 @@ const GallerySliderWrapper: FC<GallerySliderWrapperProps> = async ({ tag, title 
 	const { resources } = await cloudinary.search
 		.expression(`tags=${tag}`)
 		.sort_by(`public_id`, `desc`)
-		.max_results(30)
 		.execute();
 
-	const fullResources: CloudinaryResource[] = [];
-	for (let i = 0; i < resources.length; i++) {
-		const resource = resources[i];
-		const dataUrl = await getBlurDataUrl(resource.public_id);
-		fullResources[i] = {
-			...resource,
-			dataUrl,
-		};
-	}
+	const fullResources = await Promise.all(
+		resources.map(async (resource: CloudinaryResource) => {
+			const thumbnailUrl = resource.secure_url.replace(
+				"upload/",
+				"upload/c_thumb,h_250,w_250/"
+			);
+			const thumbnailBlurDataUrl = await getBlurDataUrl(thumbnailUrl);
+			resource = {
+				...resource,
+				blurDataUrl: thumbnailBlurDataUrl,
+				secure_url: thumbnailUrl,
+			};
+
+			return resource;
+		})
+	);
+
 	return <GallerySlider title={title} resources={fullResources} />;
 };
 

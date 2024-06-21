@@ -22,8 +22,8 @@ const Photo: React.FC<GalleryPhotoProps> = async ({ params: { id } }) => {
 	const arrayBuffer = await response.arrayBuffer();
 	const buffer = Buffer.from(arrayBuffer);
 	const base64 = buffer.toString("base64");
-	const dataUrl = `data:${response.type};base64,${base64}`;
-	const photoResource = { ...resources[0], blurDataUrl: dataUrl };
+	const blurDataUrl = `data:${response.type};base64,${base64}`;
+	const photoResource = { ...resources[0], blurDataUrl };
 
 	return (
 		<AnimateWrapper>

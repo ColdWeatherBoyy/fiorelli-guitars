@@ -59,7 +59,7 @@ const BackgroundImageCarousel: FC<BackgroundImageCarousel> = ({ resources }) => 
 					alt={currentImage.public_id}
 					fill
 					placeholder="blur"
-					blurDataURL={currentImage.secure_url}
+					blurDataURL={currentImage.blurDataUrl}
 					sizes="100vw"
 					style={{
 						objectFit: "cover",

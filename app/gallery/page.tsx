@@ -14,7 +14,6 @@ const Gallery = async () => {
 	return (
 		<AnimateWrapper>
 			<Card title="Gallery">
-				<div className="flex flex-col gap-4"></div>
 				{sliderSections.map((section, index) => (
 					<GallerySliderWrapper
 						key={section.tag + index}

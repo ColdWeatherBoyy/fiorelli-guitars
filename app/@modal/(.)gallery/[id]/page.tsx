@@ -16,10 +16,10 @@ const PhotoModal: React.FC<GalleryPhotoProps> = async ({ params: { id } }) => {
 		.expression(`public_id=${id}`)
 		.execute();
 
-	const dataUrl = await getBlurDataUrl(resources[0].public_id);
+	const blurDataUrl = await getBlurDataUrl(resources[0].public_id);
 	const photoResource = {
 		...resources[0],
-		dataUrl,
+		blurDataUrl,
 	};
 
 	return (
