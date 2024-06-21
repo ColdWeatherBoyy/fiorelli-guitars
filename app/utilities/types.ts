@@ -43,3 +43,9 @@ export interface CloudinaryResource {
 	width: number;
 	height: number;
 }
+
+export interface GalleryPhotoProps {
+	params: {
+		id: string;
+	};
+}

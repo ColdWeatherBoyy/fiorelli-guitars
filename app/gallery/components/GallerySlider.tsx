@@ -16,7 +16,7 @@ interface GallerySliderProps {
 
 const GallerySlider: FC<GallerySliderProps> = ({ resources, title }) => {
 	const screenSize = useScreenSize();
-	const router = useRouter();
+
 	return (
 		<InnerCard title={title}>
 			<div className="overflow-scroll flex rounded-sm gap-5 bg-zinc-50 dark:bg-zinc-300 p-5 shadow-inner shadow-zinc-700">
@@ -27,7 +27,8 @@ const GallerySlider: FC<GallerySliderProps> = ({ resources, title }) => {
 					);
 					return (
 						<Link
-							href={`/photo/${resource.public_id.split("/")[1]}`}
+							key={resource.public_id}
+							href={`/gallery/${encodeURIComponent(resource.public_id)}`}
 							className="contents"
 						>
 							<CldImage
