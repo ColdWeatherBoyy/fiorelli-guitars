@@ -1,6 +1,6 @@
 import PhotoCard from "@/app/components/components/PhotoCard";
 import { cloudinary } from "@/app/utilities/cloudinary";
-import { getBlurDataUrl } from "@/app/utilities/helpers";
+import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
 import { CloudinaryResource, GalleryPhotoProps } from "@/app/utilities/types";
 import ModalWrapper from "./ModalWrapper";
 

@@ -51,19 +51,20 @@ export const createUserAndMessage = async (
 // 	const messages = await prisma.message.findMany();
 // };
 
-// export const getMessagesForUser = async (formData: FormData) => {
-// 	const user = await prisma.user.findUnique({
-// 		where: {
-// 			email: formData.get("email") as string,
-// 		},
-// 	});
-// 	if (!user) {
-// 		console.log("no user");
-// 		return;
-// 	}
-// 	const userMessages = await prisma.message.findMany({
-// 		where: {
-// 			userId: user.id,
-// 		},
-// 	});
-// };
+export const getMessagesForUser = async (email: string) => {
+	const user = await prisma.user.findUnique({
+		where: {
+			email,
+		},
+	});
+	if (!user) {
+		console.log("no user");
+		return;
+	}
+	const userMessages = await prisma.message.findMany({
+		where: {
+			userId: user.id,
+		},
+	});
+	return userMessages;
+};

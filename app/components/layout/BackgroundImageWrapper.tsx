@@ -3,7 +3,7 @@ import BackgroundImageCarousel from "./BackgroundImageCarousel";
 import { cloudinary } from "@/app/utilities/cloudinary";
 import { getCldImageUrl } from "next-cloudinary";
 import { CloudinaryResource } from "@/app/utilities/types";
-import { getBlurDataUrl } from "@/app/utilities/helpers";
+import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
 
 export const BackgroundImageWrapper: FC = async () => {
 	const { total_count, time, resources } = await cloudinary.search

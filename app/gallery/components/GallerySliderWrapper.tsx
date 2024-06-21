@@ -1,5 +1,5 @@
 import { cloudinary } from "@/app/utilities/cloudinary";
-import { getBlurDataUrl } from "@/app/utilities/helpers";
+import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
 import { FC } from "react";
 import GallerySlider from "./GallerySlider";
 import { CloudinaryResource } from "@/app/utilities/types";

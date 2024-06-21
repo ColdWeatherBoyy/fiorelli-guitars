@@ -4,13 +4,14 @@ import { ReactElement } from "react";
 import { Resend } from "resend";
 import { CustomerEmailTemplate } from "../contact/components/CustomerEmailTemplate";
 import { ContactFormData } from "./types";
+import { InboxEmailTemplate } from "../contact/components/InboxEmailTemplate";
 
 export const sendCustomerEmail = async (contactFormData: ContactFormData) => {
 	const resend = new Resend(process.env.RESEND_API_KEY);
 
 	try {
 		const { data, error } = await resend.emails.send({
-			from: "Mr. Fiorelli <no-reply@fiorelli-emails.eliassz.com>",
+			from: "Signore Fiorelli <no-reply@fiorelli-emails.eliassz.com>",
 			to: [contactFormData.user.email],
 			subject: "Thanks for reaching out to Fiorelli!",
 			react: CustomerEmailTemplate({
@@ -19,13 +20,43 @@ export const sendCustomerEmail = async (contactFormData: ContactFormData) => {
 		});
 
 		if (error) {
-			console.error("failed send", error);
+			console.error("failed send customer", error);
 			return false;
 		}
 
 		return data;
 	} catch (error) {
-		console.error("catch error", error);
+		console.error("catch error customer", error);
+		return false;
+	}
+};
+
+export const sendFiorelliEmail = async (contactFormData: ContactFormData) => {
+	const resend = new Resend(process.env.RESEND_API_KEY);
+	const email = process.env.INBOX_EMAIL;
+	if (!email) {
+		console.error("Set an inbox email!");
+		return false;
+	}
+
+	try {
+		const { data, error } = await resend.emails.send({
+			from: "Signore Fiorelli <no-reply@fiorelli-emails.eliassz.com>",
+			to: [email],
+			subject: `New Message from ${contactFormData.user.name}`,
+			react: InboxEmailTemplate({
+				contactFormData,
+			}) as ReactElement,
+		});
+
+		if (error) {
+			console.error("failed send inbox", error);
+			return false;
+		}
+
+		return data;
+	} catch (error) {
+		console.error("catch error inbox", error);
 		return false;
 	}
 };
