@@ -78,7 +78,7 @@ export const InboxEmailTemplate: FC<Readonly<InboxEmailTemplateProps>> = async (
 							color: "white",
 						}}
 					>
-						If they've reached out to you before, those messages will appear here:
+						If they&apos;ve reached out to you before, those messages will appear here:
 					</div>
 					{userMessages?.map((message) => (
 						<div
