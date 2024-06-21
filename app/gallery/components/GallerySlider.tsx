@@ -28,7 +28,7 @@ const GallerySlider: FC<GallerySliderProps> = ({ resources, title }) => {
 					return (
 						<Link
 							key={resource.public_id}
-							href={`/gallery/${encodeURIComponent(resource.public_id)}`}
+							href={`/gallery/${resource.public_id}`}
 							className="contents"
 						>
 							<CldImage
