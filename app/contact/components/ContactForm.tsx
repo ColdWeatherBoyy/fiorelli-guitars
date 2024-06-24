@@ -27,7 +27,7 @@ const ContactForm = () => {
 						name="email"
 						className={`mb-4 p-2 rounded-sm bg-zinc-100 dark:bg-zinc-700 shadow-inner shadow-zinc-400 dark:shadow-zinc-800 focus:shadow focus:shadow-zinc-500 dark:focus:shadow-zinc-900 focus:outline-0 focus:ring-1 focus:ring-cyan-500/50 dark:focus:ring-cyan-600/60 focus:ring-opacity-50`}
 					/>
-					<label className="mb-2 font-semibold">What are you looking for?</label>
+					<label className="mb-2 font-semibold">Message:</label>
 					<textarea
 						placeholder="Message"
 						required
