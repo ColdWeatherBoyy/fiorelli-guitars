@@ -29,6 +29,13 @@ export const InboxEmailTemplate: FC<Readonly<InboxEmailTemplateProps>> = async (
 					margin: "0 auto",
 				}}
 			>
+				{/* <div style={{ textAlign: "center" }}>
+					<img
+						src="https://res.cloudinary.com/ds55z57ju/image/upload/v1718818891/Fiorelli_Logo_Final.svg"
+						alt="Fiorelli Guitars"
+						style={{ width: "200px" }}
+					/>
+				</div> */}
 				<div
 					style={{
 						padding: "20px",
