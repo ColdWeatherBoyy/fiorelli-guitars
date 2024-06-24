@@ -1,7 +1,6 @@
-import Link from "next/link";
 import Card from "./components/components/Card";
-import { TextSize } from "./utilities/types";
 import CardButtonLink from "./components/components/CardButtonLink";
+import { TextSize } from "./utilities/types";
 
 export default function NotFound() {
 	return (

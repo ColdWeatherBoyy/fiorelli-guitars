@@ -1,8 +1,8 @@
-import { cloudinary } from "@/app/utilities/cloudinary";
-import PhotoCard from "../../components/components/PhotoCard";
 import AnimateWrapper from "@/app/components/components/AnimateWrapper";
+import { cloudinary } from "@/app/utilities/cloudinary";
 import { CloudinaryResource, GalleryPhotoProps } from "@/app/utilities/types";
 import { getCldImageUrl } from "next-cloudinary";
+import PhotoCard from "../../components/components/PhotoCard";
 
 export async function generateStaticParams() {
 	const { resources } = await cloudinary.search.expression(`tags=gallery`).execute();

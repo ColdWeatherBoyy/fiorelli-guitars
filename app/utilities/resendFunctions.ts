@@ -3,8 +3,8 @@
 import { ReactElement } from "react";
 import { Resend } from "resend";
 import { CustomerEmailTemplate } from "../contact/components/CustomerEmailTemplate";
-import { ContactFormData } from "./types";
 import { InboxEmailTemplate } from "../contact/components/InboxEmailTemplate";
+import { ContactFormData } from "./types";
 
 export const sendCustomerEmail = async (contactFormData: ContactFormData) => {
 	const resend = new Resend(process.env.RESEND_API_KEY);

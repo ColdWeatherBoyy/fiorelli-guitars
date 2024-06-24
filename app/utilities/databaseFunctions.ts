@@ -1,12 +1,7 @@
 "use server";
 
 import { PrismaClient, User } from "@prisma/client";
-import {
-	ContactFormData,
-	CreateUserAndMessageResponse,
-	ErrorResponse,
-	newMessage,
-} from "./types";
+import { CreateUserAndMessageResponse, newMessage } from "./types";
 
 const prisma = new PrismaClient();
 

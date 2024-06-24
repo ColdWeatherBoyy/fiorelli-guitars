@@ -1,8 +1,8 @@
 import { cloudinary } from "@/app/utilities/cloudinary";
 import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
+import { CloudinaryResource } from "@/app/utilities/types";
 import { FC } from "react";
 import GallerySlider from "./GallerySlider";
-import { CloudinaryResource } from "@/app/utilities/types";
 
 interface GallerySliderWrapperProps {
 	tag: string;

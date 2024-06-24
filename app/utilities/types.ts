@@ -1,5 +1,4 @@
 import { User } from "@prisma/client";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 export enum WelcomeState {
 	welcome = "welcome",

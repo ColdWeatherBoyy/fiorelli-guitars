@@ -2,7 +2,6 @@
 
 import InnerCard from "@/app/components/components/InnerCard";
 import { useScreenSize } from "@/app/utilities/hooks";
-import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
 import { CloudinaryResource } from "@/app/utilities/types";
 import { CldImage } from "next-cloudinary";
 import Link from "next/link";
