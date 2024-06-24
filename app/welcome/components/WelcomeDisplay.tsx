@@ -38,7 +38,7 @@ const WelcomeDisplay: FC<WelcomeDisplayProps> = ({ welcomeImage }) => {
 	}, [welcomeState, router]);
 
 	return (
-		<div className="absolute flex left-0 top-0 w-screen h-screen">
+		<div className="absolute flex left-0 top-0 w-dvw h-dvh">
 			{welcomeState !== WelcomeState.opening && (
 				<>
 					<WelcomeImage
