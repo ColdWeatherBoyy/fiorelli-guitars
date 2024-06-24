@@ -21,7 +21,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={inter.className}>
 				<Header />
-				<BackgroundImageWrapper />
+				{/* <BackgroundImageWrapper /> */}
 				<Wrapper>{children}</Wrapper>
 				<div>{modal}</div>
 			</body>

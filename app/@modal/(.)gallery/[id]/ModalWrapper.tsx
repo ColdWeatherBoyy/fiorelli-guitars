@@ -12,7 +12,7 @@ const ModalWrapper = ({ children }: { children: React.ReactNode }) => {
 	};
 
 	return (
-		<div className="fixed scroll-auto inset-0 flex items-center justify-center z-30">
+		<div className="fixed inset-0 flex items-center justify-center z-30">
 			<motion.div
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
