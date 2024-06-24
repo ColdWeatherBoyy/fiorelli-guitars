@@ -44,6 +44,7 @@ const WelcomeDisplay: FC<WelcomeDisplayProps> = ({ welcomeImage }) => {
 					<WelcomeImage
 						public_id={welcomeImage.public_id}
 						secure_url={welcomeImage.secure_url}
+						blurDataUrl={welcomeImage.blurDataUrl}
 					/>
 					<div className="flex w-full items-center justify-center z-20">
 						<CardButtonLink

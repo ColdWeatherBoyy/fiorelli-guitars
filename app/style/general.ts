@@ -16,3 +16,13 @@ export const hoverDarkLogoStyle = {
 	color: "#06b6d4",
 	translate: "transform scale-[103%]",
 };
+
+export const activeLightLogoStyle = {
+	color: "#155e75",
+	translate: "transform scale-[98%]",
+};
+
+export const activeDarkLogoStyle = {
+	color: "#06b6d4",
+	translate: "transform scale-[98%]",
+};

@@ -50,3 +50,8 @@ export interface GalleryPhotoProps {
 		id: string;
 	};
 }
+
+// export enum DeviceType {
+// 	mobile = "mobile",
+// 	desktop = "desktop",
+// }

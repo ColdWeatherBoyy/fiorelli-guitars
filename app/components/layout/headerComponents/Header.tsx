@@ -1,6 +1,8 @@
 "use client";
 
 import {
+	activeDarkLogoStyle,
+	activeLightLogoStyle,
 	defaultDarkLogoStyle,
 	defaultLightLogoStyle,
 	hoverDarkLogoStyle,
@@ -29,6 +31,16 @@ const Header = () => {
 		if (hover) {
 			setDarkLogoStyle(hoverDarkLogoStyle);
 			setLightLogoStyle(hoverLightLogoStyle);
+		} else {
+			setDarkLogoStyle(defaultDarkLogoStyle);
+			setLightLogoStyle(defaultLightLogoStyle);
+		}
+	};
+
+	const handleClick = (click: boolean) => {
+		if (click) {
+			setDarkLogoStyle(activeDarkLogoStyle);
+			setLightLogoStyle(activeLightLogoStyle);
 		} else {
 			setDarkLogoStyle(defaultDarkLogoStyle);
 			setLightLogoStyle(defaultLightLogoStyle);
@@ -65,6 +77,10 @@ const Header = () => {
 					className={`${screenSize === ScreenSize.extraSmall ? "mb-2" : "mb-4 "}  -mr-4`}
 					onMouseEnter={() => handleHover(true)}
 					onMouseLeave={() => handleHover(false)}
+					onMouseDown={() => handleClick(true)}
+					onMouseUp={() => handleClick(false)}
+					onTouchStart={() => handleClick(true)}
+					onTouchEnd={() => handleClick(false)}
 				>
 					{screenSize === ScreenSize.small || screenSize === ScreenSize.extraSmall ? (
 						<SmallLogo
