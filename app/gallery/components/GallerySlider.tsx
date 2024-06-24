@@ -17,7 +17,7 @@ const GallerySlider: FC<GallerySliderProps> = ({ resources, title }) => {
 
 	return (
 		<InnerCard title={title}>
-			<div className="overflow-scroll flex rounded-sm gap-6 bg-zinc-50 dark:bg-zinc-300 p-5 shadow-inner shadow-zinc-700">
+			<div className="overflow-scroll  flex rounded-sm gap-6 bg-zinc-50 dark:bg-zinc-300 p-5 shadow-inner shadow-zinc-700">
 				{resources.map((resource) => {
 					return (
 						<Link
