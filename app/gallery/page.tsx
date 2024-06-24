@@ -4,10 +4,9 @@ import GallerySliderWrapper from "./components/GallerySliderWrapper";
 
 const sliderSections = [
 	{ title: "The Cormorant", tag: "EJ_Guitar" },
-	{ title: "The Sea Eagle", tag: "HB_Guitar" },
+	// { title: "The Sea Eagle", tag: "HB_Guitar" },
 	{ title: "The Kestrel", tag: "SP_Guitar" },
-	{ title: "The Starling", tag: "E_Guitar" },
-	{ title: "Signore Fiorelli", tag: "jamie" },
+	// { title: "The Starling", tag: "E_Guitar" },
 ];
 
 const Gallery = async () => {

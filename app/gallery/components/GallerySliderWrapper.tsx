@@ -12,6 +12,7 @@ interface GallerySliderWrapperProps {
 const GallerySliderWrapper: FC<GallerySliderWrapperProps> = async ({ tag, title }) => {
 	const { resources } = await cloudinary.search
 		.expression(`tags=${tag}`)
+		.with_field("context")
 		.sort_by(`public_id`, `desc`)
 		.execute();
 

@@ -8,7 +8,7 @@ export const BackgroundImageWrapper: FC = async () => {
 	const { total_count, time, resources } = await cloudinary.search
 		.expression(`tags=background`)
 		.sort_by(`public_id`, `desc`)
-		.max_results(30)
+		.with_field("context")
 		.execute();
 	const fullResources: CloudinaryResource[] = [...resources];
 	for (let i = 0; i < resources.length; i++) {

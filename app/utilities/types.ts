@@ -39,6 +39,7 @@ export type CreateUserAndMessageResponse = ContactFormData | ErrorResponse;
 export interface CloudinaryResource {
 	public_id: string;
 	secure_url: string;
+	context?: { [key: string]: object };
 	width?: number;
 	height?: number;
 	blurDataUrl?: string;

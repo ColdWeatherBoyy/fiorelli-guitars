@@ -3,7 +3,10 @@ import { getBlurDataUrl } from "../utilities/imageHelpers";
 import WelcomeDisplay from "./components/WelcomeDisplay";
 
 export default async function Home() {
-	const { resources } = await cloudinary.search.expression(`tags=welcome`).execute();
+	const { resources } = await cloudinary.search
+		.expression(`tags=welcome`)
+		.with_field("context")
+		.execute();
 
 	const blurDataUrl = await getBlurDataUrl(resources[0].public_id);
 	const welcomeImage = {
