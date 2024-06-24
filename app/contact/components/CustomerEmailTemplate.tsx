@@ -26,13 +26,13 @@ export const CustomerEmailTemplate: FC<Readonly<CustomerEmailTemplateProps>> = a
 					margin: "0 auto",
 				}}
 			>
-				{/* <div style={{ textAlign: "center" }}>
+				<div style={{ textAlign: "center" }}>
 					<img
-						src="https://res.cloudinary.com/ds55z57ju/image/upload/v1718818891/Fiorelli_Logo_Final.svg"
+						src="https://res.cloudinary.com/ds55z57ju/image/upload/v1719246574/Fiorelli_Logo_Email.png"
 						alt="Fiorelli Guitars"
 						style={{ width: "200px" }}
 					/>
-				</div> */}
+				</div>
 				<div
 					style={{
 						padding: "20px",
