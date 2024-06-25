@@ -33,7 +33,7 @@ const GallerySlider: FC<GallerySliderProps> = ({ resources, title }) => {
 								placeholder="blur"
 								blurDataURL={resource.blurDataUrl}
 								preserveTransformations
-								className="rounded-sm bg-zinc-100 shadow shadow-zinc-500"
+								className="rounded-sm bg-zinc-100 shadow shadow-zinc-500 hover:shadow-zinc-500 hover:shadow-md active:shadow-inner active:shadow-zinc-500 transition-all duration-150 ease-in-out cursor-pointer"
 							/>
 						</Link>
 					);

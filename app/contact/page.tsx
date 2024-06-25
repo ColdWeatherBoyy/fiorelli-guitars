@@ -1,3 +1,4 @@
+import Link from "next/link";
 import AnimateWrapper from "../components/components/AnimateWrapper";
 import Card from "../components/components/Card";
 import PhotoCard from "../components/components/PhotoCard";
@@ -22,7 +23,11 @@ export default async function Contact() {
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-6 items-center">
 					<PhotoCard {...contactImage}>
 						<div className="text-center">
-							For all orders, questions, and other inquiries, please reach out!
+							For all orders, questions, and other inquiries, please reach out here, or
+							you can email me at{" "}
+							<Link href="mailto:jamie@fiorelliguitars.com" className="underline">
+								jamie@fiorelliguitars.com
+							</Link>
 						</div>
 					</PhotoCard>
 					<ContactForm />
