@@ -14,6 +14,7 @@ import { useState } from "react";
 import IGLogo from "../../SVGs/IGLogo";
 import SmallLogo from "../../SVGs/SmallLogo";
 import { ScreenSize } from "@/app/utilities/types";
+import EmailLogo from "../../SVGs/EmailLogo";
 
 const Footer = () => {
 	const isDarkMode = useDarkMode();
@@ -22,6 +23,8 @@ const Footer = () => {
 	const [lightLogoStyle, setLightLogoStyle] = useState(defaultLightLogoStyle);
 	const [darkIGLogoStyle, setDarkIGLogoStyle] = useState(defaultDarkLogoStyle);
 	const [lightIGLogoStyle, setLightIGLogoStyle] = useState(defaultLightLogoStyle);
+	const [darkEmailLogoStyle, setDarkEmailLogoStyle] = useState(defaultDarkLogoStyle);
+	const [lightEmailLogoStyle, setLightEmailLogoStyle] = useState(defaultLightLogoStyle);
 
 	const handleLogoHover = (hover: boolean) => {
 		if (hover) {
@@ -63,25 +66,65 @@ const Footer = () => {
 		}
 	};
 
+	const handleEmailLogoHover = (hover: boolean) => {
+		if (hover) {
+			setDarkEmailLogoStyle(hoverDarkLogoStyle);
+			setLightEmailLogoStyle(hoverLightLogoStyle);
+		} else {
+			setDarkEmailLogoStyle(defaultDarkLogoStyle);
+			setLightEmailLogoStyle(defaultLightLogoStyle);
+		}
+	};
+
+	const handleEmailLogoClick = (click: boolean) => {
+		if (click) {
+			setDarkEmailLogoStyle(activeDarkLogoStyle);
+			setLightEmailLogoStyle(activeLightLogoStyle);
+		} else {
+			setDarkEmailLogoStyle(defaultDarkLogoStyle);
+			setLightEmailLogoStyle(defaultLightLogoStyle);
+		}
+	};
+
 	return (
 		<div
 			className={`z-10 h-10 lg:h-16 flex items-center justify-evenly gap-10 bottom-0 p-8 bg-gradient-to-br from-cyan-50/90 to-zinc-300/90 dark:from-cyan-950/80 dark:to-zinc-800/80 backdrop-blur w-dvw rounded-sm rounded-b-0 shadow-sm shadow-zinc-600/60`}
 		>
+			{(screenSize === ScreenSize.large || screenSize === ScreenSize.medium) && (
+				<Link
+					href="/"
+					onMouseEnter={() => handleLogoHover(true)}
+					onMouseLeave={() => handleLogoHover(false)}
+					onMouseDown={() => handleLogoClick(true)}
+					onMouseUp={() => handleLogoClick(false)}
+					onTouchStart={() => handleLogoClick(true)}
+					onTouchEnd={() => handleLogoClick(false)}
+				>
+					<SmallLogo
+						width={50}
+						height={50}
+						color={isDarkMode ? darkLogoStyle.color : lightLogoStyle.color}
+						className={` mb-1 ${
+							isDarkMode ? darkLogoStyle.translate : lightLogoStyle.translate
+						}`}
+					/>
+				</Link>
+			)}
 			<Link
-				href="/"
-				onMouseEnter={() => handleLogoHover(true)}
-				onMouseLeave={() => handleLogoHover(false)}
-				onMouseDown={() => handleLogoClick(true)}
-				onMouseUp={() => handleLogoClick(false)}
-				onTouchStart={() => handleLogoClick(true)}
-				onTouchEnd={() => handleLogoClick(false)}
+				href="mailto:jamie@fiorelliguitars.com"
+				onMouseEnter={() => handleEmailLogoHover(true)}
+				onMouseLeave={() => handleEmailLogoHover(false)}
+				onMouseDown={() => handleEmailLogoClick(true)}
+				onMouseUp={() => handleEmailLogoClick(false)}
+				onTouchStart={() => handleEmailLogoClick(true)}
+				onTouchEnd={() => handleEmailLogoClick(false)}
 			>
-				<SmallLogo
-					width={50}
-					height={50}
-					color={isDarkMode ? darkLogoStyle.color : lightLogoStyle.color}
-					className={` mb-1 ${
-						isDarkMode ? darkLogoStyle.translate : lightLogoStyle.translate
+				<EmailLogo
+					width={35}
+					height={35}
+					color={isDarkMode ? darkEmailLogoStyle.color : lightEmailLogoStyle.color}
+					className={`${
+						isDarkMode ? darkEmailLogoStyle.translate : lightEmailLogoStyle.translate
 					}`}
 				/>
 			</Link>
