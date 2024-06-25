@@ -20,7 +20,7 @@ const ModalWrapper = ({ children }: { children: React.ReactNode }) => {
 				onClick={onDismiss}
 			/>
 			<AnimateWrapper>
-				<Card>{children}</Card>
+				<Card maxHeight="max-h-dvh">{children}</Card>
 			</AnimateWrapper>
 		</div>
 	);

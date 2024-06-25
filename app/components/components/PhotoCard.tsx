@@ -1,22 +1,25 @@
 "use client";
 
 import Card from "@/app/components/components/Card";
-import CardButtonLink from "@/app/components/components/CardButtonLink";
-import { CloudinaryResource, TextSize } from "@/app/utilities/types";
+import { CloudinaryResource } from "@/app/utilities/types";
 import { CldImage } from "next-cloudinary";
 import { FC } from "react";
-import InnerCard from "./InnerCard";
 
-const PhotoCard: FC<CloudinaryResource> = ({
+interface PhotoCardProps extends CloudinaryResource {
+	children?: React.ReactNode;
+}
+
+const PhotoCard: FC<PhotoCardProps> = ({
 	width,
 	height,
 	secure_url,
 	public_id,
 	blurDataUrl,
+	children,
 }) => {
 	return (
-		<Card>
-			<div className="max-h-full flex flex-col gap-6 justify-center items-center">
+		<Card maxHeight="max-h-none">
+			<div className="max-h-full flex flex-col gap-3 justify-center items-center">
 				<CldImage
 					width={width}
 					height={height}
@@ -26,7 +29,7 @@ const PhotoCard: FC<CloudinaryResource> = ({
 					placeholder="blur"
 					className="object-scale-down max-h-[67vh] md:max-h-[63vh] w-fit rounded-sm bg-zinc-200 shadow shadow-zinc-500"
 				/>
-				<CardButtonLink href="/gallery" text="Back to Gallery" size={TextSize.small} />
+				{children}
 			</div>
 		</Card>
 	);

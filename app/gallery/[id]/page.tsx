@@ -1,8 +1,9 @@
 import AnimateWrapper from "@/app/components/components/AnimateWrapper";
 import { cloudinary } from "@/app/utilities/cloudinary";
-import { CloudinaryResource, GalleryPhotoProps } from "@/app/utilities/types";
+import { CloudinaryResource, GalleryPhotoProps, TextSize } from "@/app/utilities/types";
 import { getCldImageUrl } from "next-cloudinary";
 import PhotoCard from "../../components/components/PhotoCard";
+import CardButtonLink from "@/app/components/components/CardButtonLink";
 
 export async function generateStaticParams() {
 	const { resources } = await cloudinary.search
@@ -33,7 +34,9 @@ const Photo: React.FC<GalleryPhotoProps> = async ({ params: { id } }) => {
 
 	return (
 		<AnimateWrapper>
-			<PhotoCard {...photoResource} />
+			<PhotoCard {...photoResource}>
+				<CardButtonLink href="/gallery" text="Back to Gallery" size={TextSize.small} />
+			</PhotoCard>
 		</AnimateWrapper>
 	);
 };

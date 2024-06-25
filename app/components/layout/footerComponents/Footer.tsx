@@ -8,14 +8,16 @@ import {
 	hoverDarkLogoStyle,
 	hoverLightLogoStyle,
 } from "@/app/style/general";
-import { useDarkMode } from "@/app/utilities/hooks";
+import { useDarkMode, useScreenSize } from "@/app/utilities/hooks";
 import Link from "next/link";
 import { useState } from "react";
 import IGLogo from "../../SVGs/IGLogo";
 import SmallLogo from "../../SVGs/SmallLogo";
+import { ScreenSize } from "@/app/utilities/types";
 
 const Footer = () => {
 	const isDarkMode = useDarkMode();
+	const screenSize = useScreenSize();
 	const [darkLogoStyle, setDarkLogoStyle] = useState(defaultDarkLogoStyle);
 	const [lightLogoStyle, setLightLogoStyle] = useState(defaultLightLogoStyle);
 	const [darkIGLogoStyle, setDarkIGLogoStyle] = useState(defaultDarkLogoStyle);
@@ -83,6 +85,7 @@ const Footer = () => {
 					}`}
 				/>
 			</Link>
+
 			<Link
 				href="https://www.instagram.com/fiorelliguitars"
 				onMouseEnter={() => handleIGLogoHover(true)}
