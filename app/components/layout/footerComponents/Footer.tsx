@@ -62,7 +62,6 @@ const Footer = () => {
 	};
 
 	return (
-		// To-Do Fix Z-index
 		<div
 			className={`z-10 h-10 lg:h-16 flex items-center justify-evenly gap-10 bottom-0 p-8 bg-gradient-to-br from-cyan-50/90 to-zinc-300/90 dark:from-cyan-950/80 dark:to-zinc-800/80 backdrop-blur w-dvw rounded-sm rounded-b-0 shadow-sm shadow-zinc-600/60`}
 		>

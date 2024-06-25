@@ -8,10 +8,10 @@ interface CardProps {
 	width?: string;
 }
 
-const Card: FC<CardProps> = ({ title, body, width = "", children }) => {
+const Card: FC<CardProps> = ({ title, body, width = "w-fit", children }) => {
 	return (
 		<div
-			className={`overflow-auto ${width} max-w-[90dvw] sm:max-w-[75dvw] flex flex-col gap-4 items-center rounded-sm bg-gradient-to-br from-cyan-50/95 to-zinc-300/95 dark:from-cyan-950/90 dark:to-zinc-800/90 shadow-sm shadow-zinc-600/60 backdrop-blur-md p-4 md:p-6 transform transition`}
+			className={`overflow-auto ${width} max-w-[90dvw] sm:max-w-[75dvw] max-h-[70dvh] flex flex-col gap-4 items-center rounded-sm bg-gradient-to-br from-cyan-50/95 to-zinc-300/95 dark:from-cyan-950/90 dark:to-zinc-800/90 shadow-sm shadow-zinc-600/60 backdrop-blur-md p-4 md:p-6 transform transition`}
 		>
 			{title && (
 				<div
