@@ -7,7 +7,7 @@ export default function Home() {
 			<Card
 				title="Welcome to Fiorelli Guitars"
 				body={[
-					"At Fiorelli, where craftsmanship meets artistry, we take pride in creating guitars that sing with the soul of nature. Our master luthier, Jamie Hayes – the Fiorelli King – transforms wood into melody, drawing inspiration from the elegance and grace of birds. Each custom guitar is a unique creation, echoing the beauty of avian wonders, from the vibrant hues of a hummingbird to the majestic flight of an eagle. Discover the sound of Fiorelli, where every strum tells a story.",
+					"A musical instrument is both a tool and a work of art. A guitar can be capable of making the most beautiful sounds, but remains silent if it does not inspire the musician to pick it up. At Fiorelli, luthier Jamie Hayes builds custom electric guitars designed to inspire their players to do just that – play!",
 				]}
 			/>
 		</AnimateWrapper>

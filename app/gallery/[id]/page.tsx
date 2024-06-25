@@ -33,7 +33,7 @@ const Photo: React.FC<GalleryPhotoProps> = async ({ params: { id } }) => {
 
 	return (
 		<AnimateWrapper>
-			<PhotoCard photoResource={photoResource} />
+			<PhotoCard {...photoResource} />
 		</AnimateWrapper>
 	);
 };

@@ -69,7 +69,7 @@ const Header = () => {
 
 	return (
 		<div
-			className={`z-10 h-16 md:h-28 fixed flex items-center justify-center lg:justify-start top-0 left:0 p-6 bg-gradient-to-br from-cyan-50/80 to-zinc-300/80 dark:from-cyan-950/80 dark:to-zinc-800/80 backdrop-blur w-dvw rounded-sm rounded-t-0 shadow-sm shadow-zinc-600/60`}
+			className={`z-10 h-16 md:h-28 flex items-center justify-center lg:justify-start top-0 p-6 bg-gradient-to-br from-cyan-50/90 to-zinc-300/90 dark:from-cyan-950/80 dark:to-zinc-800/80 backdrop-blur w-dvw rounded-sm rounded-t-0 shadow-sm shadow-zinc-600/60`}
 		>
 			<div className="h-full flex gap-8 items-center justify-between w-full lg:w-auto">
 				<Link

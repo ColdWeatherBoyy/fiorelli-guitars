@@ -23,7 +23,7 @@ const WelcomeDisplay: FC<WelcomeDisplayProps> = ({ welcomeImage }) => {
 	useEffect(() => {
 		document.cookie = "visited";
 		setTimeout(() => {
-			handleEnter();
+			if (welcomeState === WelcomeState.welcome) handleEnter();
 		}, 4000);
 	}, []);
 
@@ -41,7 +41,7 @@ const WelcomeDisplay: FC<WelcomeDisplayProps> = ({ welcomeImage }) => {
 	}, [welcomeState, router]);
 
 	return (
-		<div className="absolute flex left-0 top-0 w-dvw h-dvh">
+		<div className="z-20 absolute flex left-0 top-0 w-dvw h-dvh">
 			{welcomeState !== WelcomeState.opening && (
 				<>
 					<WelcomeImage

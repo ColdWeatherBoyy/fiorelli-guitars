@@ -9,6 +9,7 @@ export async function generateStaticParams() {
 		.expression(`tags=gallery`)
 		.with_field("context")
 		.execute();
+
 	return resources.map((resource: CloudinaryResource) => ({
 		id: resource.public_id,
 	}));
@@ -28,7 +29,7 @@ const PhotoModal: React.FC<GalleryPhotoProps> = async ({ params: { id } }) => {
 
 	return (
 		<ModalWrapper>
-			<PhotoCard photoResource={photoResource} />
+			<PhotoCard {...photoResource} />
 		</ModalWrapper>
 	);
 };

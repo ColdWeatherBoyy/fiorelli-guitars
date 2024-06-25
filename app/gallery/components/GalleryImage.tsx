@@ -1,6 +1,5 @@
 "use client";
 
-import InnerCard from "@/app/components/components/InnerCard";
 import { CloudinaryResource } from "@/app/utilities/types";
 import { CldImage } from "next-cloudinary";
 import { FC } from "react";

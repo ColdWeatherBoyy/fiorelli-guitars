@@ -3,7 +3,6 @@ import Card from "../components/components/Card";
 import ContactForm from "./components/ContactForm";
 import { cloudinary } from "../utilities/cloudinary";
 import { getBlurDataUrl } from "../utilities/imageHelpers";
-import WelcomeImage from "../welcome/components/WelcomeImage";
 import GalleryImage from "../gallery/components/GalleryImage";
 
 export default async function Contact() {
@@ -13,7 +12,7 @@ export default async function Contact() {
 		.execute();
 
 	const blurDataUrl = await getBlurDataUrl(resources[0].public_id);
-	const welcomeImage = {
+	const contactImage = {
 		...resources[0],
 		blurDataUrl,
 	};
@@ -21,7 +20,13 @@ export default async function Contact() {
 		<AnimateWrapper>
 			<Card title={"Contact Fiorelli"}>
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-6 items-center">
-					<GalleryImage {...welcomeImage} />
+					<GalleryImage
+						width={contactImage.width}
+						height={contactImage.height}
+						secure_url={contactImage.secure_url}
+						public_id={contactImage.public_id}
+						blurDataUrl={contactImage.blurDataUrl}
+					/>
 					<ContactForm />
 				</div>
 			</Card>
