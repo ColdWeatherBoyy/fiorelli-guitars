@@ -20,7 +20,9 @@ const PhotoCard: FC<PhotoCardProps> = ({
 	children,
 }) => {
 	return (
-		<Card maxHeight="max-h-none">
+		<div
+			className={`flex flex-col border border-zinc-400 dark:border-cyan-800 gap-2 items-center rounded-sm bg-cyan-100 dark:bg-cyan-900 shadow-sm shadow-zinc-600/60 backdrop-blur-md p-2 transform transition`}
+		>
 			<div className="max-h-full flex flex-col gap-3 justify-center items-center">
 				<CldImage
 					width={width}
@@ -34,7 +36,7 @@ const PhotoCard: FC<PhotoCardProps> = ({
 				/>
 				{children}
 			</div>
-		</Card>
+		</div>
 	);
 };
 export default PhotoCard;

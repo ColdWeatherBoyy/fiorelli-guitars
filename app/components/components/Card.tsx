@@ -21,7 +21,7 @@ const Card: FC<CardProps> = ({
 }) => {
 	return (
 		<div
-			className={`overflow-auto ${width} max-w-[90dvw] sm:max-w-[75dvw] ${maxHeight} flex flex-col gap-2 items-center rounded-sm bg-gradient-to-br from-cyan-50/95 to-zinc-300/95 dark:from-cyan-950/90 dark:to-zinc-800/90 shadow-sm shadow-zinc-600/60 backdrop-blur-md p-6 transform transition`}
+			className={`overflow-auto ${width} max-w-[90dvw] sm:max-w-[75dvw] ${maxHeight} flex flex-col gap-2 items-center rounded-sm bg-gradient-to-br from-cyan-50/95 to-zinc-300/95 dark:from-cyan-950/95 dark:to-zinc-800/95 shadow-sm shadow-zinc-600/60 backdrop-blur-md p-6 transform transition`}
 		>
 			{title && (
 				<div
@@ -39,10 +39,14 @@ const Card: FC<CardProps> = ({
 								index % 2 === 0
 									? "flex-col-reverse md:flex-row-reverse"
 									: "flex-col-reverse md:flex-row"
-							} gap-2 justify-around items-center`}
+							} gap-2 justify-evenly items-center`}
 						>
 							{images[index] && <PhotoCard {...images[index]} square />}
-							<div className={`text-base md:text-lg ${images[index] && "md:w-1/2"}`}>
+							<div
+								className={`text-base md:text-lg md:leading-relaxed lg:leading-loose ${
+									images[index] && "md:w-2/3"
+								}`}
+							>
 								{paragraph}
 							</div>
 						</div>

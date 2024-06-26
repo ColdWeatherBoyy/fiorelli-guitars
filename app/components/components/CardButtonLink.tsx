@@ -27,10 +27,10 @@ const CardButtonLink: FC<CardButtonLinkProps> = ({ text, size, href, handleClick
 		textClass.desktop
 	} text-center w-fit ${
 		size === TextSize.large ? "p-3" : "py-1 px-1.5"
-	} rounded-sm backdrop-blur-md bg-gradient-to-br from-cyan-50/90 to-zinc-100/90 dark:from-cyan-900/90 dark:to-zinc-700/90 shadow-sm shadow-zinc-600/60 transition-all ease-in-out duration-200 ${
+	} rounded-sm backdrop-blur-md bg-cyan-50 dark:bg-zinc-700 border border-zinc-400 dark:border-cyan-800 shadow-sm shadow-zinc-600 dark:shadow-zinc-800 transition-all ease-in-out duration-200 ${
 		pending
 			? "opacity-50 cursor-not-allowed"
-			: "hover:shadow-md active:shadow-inner hover:shadow-cyan-600/80 dark:hover:shadow-cyan-800/80 active:shadow-cyan-600/80 dark:active:shadow-cyan-800/80 active:shadow-sm hover:transform hover:translate-x-[3px] hover:translate-y-[-3px] hover:scale-[102%] active:scale-[99%] active:translate-x-[0px] active:translate-y-[0px] hover:cursor-pointer active:scale-[99%]"
+			: "hover:shadow-md active:shadow-inner hover:shadow-zinc-700 dark:hover:shadow-cyan-950 active:shadow-zinc-600 dark:active:shadow-cyan-950 active:shadow-sm hover:transform hover:translate-x-[3px] hover:translate-y-[-3px] hover:scale-[102%] active:scale-[99%] active:translate-x-[0px] active:translate-y-[0px] hover:cursor-pointer active:scale-[99%]"
 	}`;
 	return (
 		<>
