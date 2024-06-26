@@ -6,6 +6,7 @@ import { CldImage } from "next-cloudinary";
 import { FC } from "react";
 
 interface PhotoCardProps extends CloudinaryResource {
+	square?: boolean;
 	children?: React.ReactNode;
 }
 
@@ -15,6 +16,7 @@ const PhotoCard: FC<PhotoCardProps> = ({
 	secure_url,
 	public_id,
 	blurDataUrl,
+	square = false,
 	children,
 }) => {
 	return (
@@ -27,7 +29,8 @@ const PhotoCard: FC<PhotoCardProps> = ({
 					alt={public_id}
 					blurDataURL={blurDataUrl}
 					placeholder="blur"
-					className="object-scale-down max-h-[67vh] md:max-h-[63vh] w-fit rounded-sm bg-zinc-200 shadow shadow-zinc-500"
+					preserveTransformations={square ? true : false}
+					className="object-scale-down max-h-[80vh] w-fit rounded-sm bg-zinc-200 shadow shadow-zinc-500"
 				/>
 				{children}
 			</div>
