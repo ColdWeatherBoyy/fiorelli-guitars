@@ -4,17 +4,6 @@ import { cloudinary } from "../utilities/cloudinary";
 import { getBlurDataUrl } from "../utilities/imageHelpers";
 import { CloudinaryResource } from "../utilities/types";
 
-export async function generateStaticParams() {
-	const { resources } = await cloudinary.search
-		.expression(`tags=about`)
-		.with_field("context")
-		.execute();
-
-	return resources.map((resource: CloudinaryResource) => ({
-		id: resource.public_id,
-	}));
-}
-
 export default async function About() {
 	const { time, resources } = await cloudinary.search
 		.expression(`tags=about`)
