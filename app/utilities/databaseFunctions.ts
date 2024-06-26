@@ -39,12 +39,14 @@ export const createUserAndMessage = async (
 	}
 };
 
-// export const getUsers = async () => {
-// 	const users = await prisma.user.findMany();
-// };
-// export const getMessages = async () => {
-// 	const messages = await prisma.message.findMany();
-// };
+export const getUsers = async () => {
+	const users = await prisma.user.findMany();
+	return users;
+};
+
+export const getMessages = async () => {
+	const messages = await prisma.message.findMany();
+};
 
 export const getMessagesForUser = async (email: string) => {
 	const user = await prisma.user.findUnique({

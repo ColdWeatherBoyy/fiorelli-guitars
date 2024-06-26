@@ -1,16 +1,8 @@
-import type { Metadata } from "next";
-
 import "../style/globals.css";
-import { inter } from "../style/fonts";
 import BackgroundImageWrapper from "./components/layout/BackgroundImageWrapper";
-import Wrapper from "./components/layout/Wrapper";
-import Header from "./components/layout/Header";
+import ClientWrapper from "./components/layout/ClientWrapper";
 import Footer from "./components/layout/Footer";
-
-// export const metadata: Metadata = {
-// 	title: "Fiorelli Guitars",
-// 	description: "Custom Guitars for the Custom Guitarist",
-// };
+import Header from "./components/layout/Header";
 
 export default function Layout({
 	children,
@@ -23,11 +15,11 @@ export default function Layout({
 		<>
 			<BackgroundImageWrapper />
 			{modal}
-			<Wrapper>
+			<ClientWrapper>
 				<Header />
 				<div className="flex flex-col justify-start h-full my-12">{children}</div>
 				<Footer />
-			</Wrapper>
+			</ClientWrapper>
 		</>
 	);
 }
