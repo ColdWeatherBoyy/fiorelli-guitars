@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import BackgroundImageWrapper from "./components/layout/BackgroundImageWrapper";
-import Footer from "./components/layout/footerComponents/Footer";
-import Header from "./components/layout/headerComponents/Header";
+import Wrapper from "./components/layout/Wrapper";
+import Footer from "./components/layout/Footer";
+import Header from "./components/layout/Header";
 import { inter } from "./style/fonts";
 import "./style/globals.css";
-import Wrapper from "./components/layout/Wrapper";
 
 export const metadata: Metadata = {
 	title: "Fiorelli Guitars",

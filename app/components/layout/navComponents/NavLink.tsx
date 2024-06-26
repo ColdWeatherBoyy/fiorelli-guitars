@@ -2,13 +2,13 @@ import { playfair_display } from "@/app/style/fonts";
 import Link from "next/link";
 import { FC } from "react";
 
-interface HeaderLinkProps {
+interface NavLinkProps {
 	href: string;
 	text: string;
 	isMobile?: boolean;
 }
 
-const HeaderLink: FC<HeaderLinkProps> = ({ href, text, isMobile }) => {
+const NavLink: FC<NavLinkProps> = ({ href, text, isMobile }) => {
 	return (
 		<Link
 			href={href}
@@ -23,4 +23,4 @@ const HeaderLink: FC<HeaderLinkProps> = ({ href, text, isMobile }) => {
 	);
 };
 
-export default HeaderLink;
+export default NavLink;

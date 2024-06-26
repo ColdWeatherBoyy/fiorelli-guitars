@@ -1,4 +1,4 @@
-import { roboto_mono } from "@/app/style/fonts";
+import { roboto_serif } from "@/app/style/fonts";
 import { CloudinaryResource } from "@/app/utilities/types";
 import { FC } from "react";
 import PhotoCard from "./PhotoCard";
@@ -25,7 +25,7 @@ const Card: FC<CardProps> = ({
 		>
 			{title && (
 				<div
-					className={`${roboto_mono.className} text-center border-b pb-2 border-cyan-800 dark:border-cyan-600 mb-2 text-2xl md:text-4xl font-semibold`}
+					className={`${roboto_serif.className} text-center border-b pb-2 border-cyan-800 dark:border-cyan-600 mb-2 text-2xl md:text-4xl font-semibold`}
 				>
 					{title}
 				</div>

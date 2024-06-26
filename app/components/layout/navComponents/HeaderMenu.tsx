@@ -1,7 +1,7 @@
 import { ScreenSize } from "@/app/utilities/types";
 import { motion } from "framer-motion";
 import { Dispatch, FC, RefObject, SetStateAction } from "react";
-import HeaderLink from "./HeaderLink";
+import NavLink from "../navComponents/NavLink";
 
 interface MobileHeaderMenuProps {
 	isOpen: boolean;
@@ -31,19 +31,19 @@ const HeaderMenu: FC<MobileHeaderMenuProps> = ({
 					className="z-20 absolute rounded-sm top-16 border border-cyan-700/30 dark:border-cyan-500/30 border-r-0 w-[40%] right-0 bg-gradient-to-b from-cyan-100 dark:from-cyan-900 to-zinc-200 dark:to-zinc-800 dark:bg-cyan-950 flex flex-col items-center gap-6 p-6 z-30 shadow-sm shadow-zinc-600/60"
 					onClick={() => setIsOpen(false)}
 				>
-					<HeaderLink
+					<NavLink
 						href="/about"
 						text="About"
 						isMobile={screenSize === ScreenSize.extraSmall}
 					/>
 					<div className="h-0.5 w-full rounded-full dark:bg-cyan-500/30 bg-cyan-700/30" />
-					<HeaderLink
+					<NavLink
 						href="/gallery"
 						text="Gallery"
 						isMobile={screenSize === ScreenSize.extraSmall}
 					/>
 					<div className="h-0.5 w-full rounded-full dark:bg-cyan-500/30 bg-cyan-700/30" />
-					<HeaderLink
+					<NavLink
 						href="/contact"
 						text="Contact"
 						isMobile={screenSize === ScreenSize.extraSmall}
@@ -51,9 +51,9 @@ const HeaderMenu: FC<MobileHeaderMenuProps> = ({
 				</motion.div>
 			) : (
 				<>
-					<HeaderLink href="/about" text="About" />
-					<HeaderLink href="/gallery" text="Gallery" />
-					<HeaderLink href="/contact" text="Contact" />
+					<NavLink href="/about" text="About" />
+					<NavLink href="/gallery" text="Gallery" />
+					<NavLink href="/contact" text="Contact" />
 				</>
 			)}
 		</>

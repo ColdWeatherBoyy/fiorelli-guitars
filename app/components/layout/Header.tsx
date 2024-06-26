@@ -12,10 +12,10 @@ import { useDarkMode, useScreenSize } from "@/app/utilities/hooks";
 import { ScreenSize } from "@/app/utilities/types";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import FullLogo from "../../SVGs/FullLogo";
-import SmallLogo from "../../SVGs/SmallLogo";
-import HamburgerMenuButton from "./HamburgerMenuButton";
-import HeaderMenu from "./HeaderMenu";
+import FullLogo from "../SVGs/FullLogo";
+import SmallLogo from "../SVGs/SmallLogo";
+import HamburgerMenuButton from "./navComponents/HamburgerMenuButton";
+import HeaderMenu from "./navComponents/HeaderMenu";
 
 const Header = () => {
 	const screenSize = useScreenSize();
