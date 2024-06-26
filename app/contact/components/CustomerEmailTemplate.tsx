@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import { ContactFormData } from "@/app/utilities/types";
 import { FC } from "react";
 
@@ -8,6 +10,7 @@ interface CustomerEmailTemplateProps {
 export const CustomerEmailTemplate: FC<Readonly<CustomerEmailTemplateProps>> = async ({
 	contactFormData,
 }) => {
+	// eslint-disable-next-line
 	return (
 		<div
 			style={{

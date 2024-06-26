@@ -16,7 +16,7 @@ const Card: FC<CardProps> = ({
 	body,
 	images = [],
 	width = "w-fit",
-	maxHeight = "max-h-[70dvh]",
+	maxHeight = "max-h-[70dvh] sm:max-h-[63dvh]",
 	children,
 }) => {
 	return (

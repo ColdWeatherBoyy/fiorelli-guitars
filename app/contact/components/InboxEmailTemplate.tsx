@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import { getMessagesForUser } from "@/app/utilities/databaseFunctions";
 import { ContactFormData } from "@/app/utilities/types";
 import { FC } from "react";

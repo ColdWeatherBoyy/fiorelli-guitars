@@ -25,7 +25,7 @@ const WelcomeDisplay: FC<WelcomeDisplayProps> = ({ welcomeImage }) => {
 		setTimeout(() => {
 			if (welcomeState === WelcomeState.welcome) handleEnter();
 		}, 4000);
-	}, []);
+	}, [welcomeState]);
 
 	useEffect(() => {
 		if (welcomeState === WelcomeState.covering) {
