@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-import BackgroundImageWrapper from "./components/layout/BackgroundImageWrapper";
-import Wrapper from "./components/layout/Wrapper";
-import Footer from "./components/layout/Footer";
-import Header from "./components/layout/Header";
-import { inter } from "./style/fonts";
+
 import "./style/globals.css";
+import { inter } from "./style/fonts";
 
 export const metadata: Metadata = {
-	title: "Fiorelli Guitars",
-	description: "Custom Guitars for the Custom Guitarist",
+	title: "Fiorelli Guitar Admin Page",
+	description: "Jamie, This Is Exclusively For You",
 };
 
 export default function RootLayout({
@@ -20,15 +17,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={`${inter.className}`}>
-				<BackgroundImageWrapper />
-				{modal}
-				<Wrapper>
-					<Header />
-					<div className="flex flex-col justify-start h-full my-12">{children}</div>
-					<Footer />
-				</Wrapper>
-			</body>
+			<body className={`${inter.className}`}> {children}</body>
 		</html>
 	);
 }

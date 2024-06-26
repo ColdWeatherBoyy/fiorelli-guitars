@@ -1,11 +1,11 @@
 "use client";
 
-import InnerCard from "@/app/components/components/InnerCard";
 import { useScreenSize } from "@/app/utilities/hooks";
 import { CloudinaryResource } from "@/app/utilities/types";
 import { CldImage } from "next-cloudinary";
 import Link from "next/link";
 import { FC } from "react";
+import InnerCard from "../../components/components/InnerCard";
 
 interface GallerySliderProps {
 	resources: CloudinaryResource[];

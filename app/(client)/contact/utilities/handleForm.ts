@@ -1,8 +1,8 @@
 "use server";
 
-import { createUserAndMessage } from "../../utilities/databaseFunctions";
-import { sendCustomerEmail, sendFiorelliEmail } from "../../utilities/resendFunctions";
-import { isContactFormData } from "../../utilities/typeguardFunctions";
+import { createUserAndMessage } from "@/app/utilities/databaseFunctions";
+import { sendCustomerEmail, sendFiorelliEmail } from "@/app/utilities/resendFunctions";
+import { isContactFormData } from "@/app/utilities/typeguardFunctions";
 
 export const handleForm = async (prevState: boolean, formData: FormData) => {
 	try {

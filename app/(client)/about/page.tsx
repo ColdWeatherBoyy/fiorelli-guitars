@@ -1,8 +1,8 @@
 import AnimateWrapper from "../components/components/AnimateWrapper";
 import Card from "../components/components/Card";
-import { cloudinary } from "../utilities/cloudinary";
-import { getBlurDataUrl } from "../utilities/imageHelpers";
-import { CloudinaryResource } from "../utilities/types";
+import { cloudinary } from "../../utilities/cloudinary";
+import { getBlurDataUrl } from "../../utilities/imageHelpers";
+import { CloudinaryResource } from "../../utilities/types";
 
 export default async function About() {
 	const { time, resources } = await cloudinary.search

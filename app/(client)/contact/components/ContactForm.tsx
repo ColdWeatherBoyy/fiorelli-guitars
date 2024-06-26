@@ -1,8 +1,8 @@
 "use client";
 
-import CardButtonLink from "@/app/components/components/CardButtonLink";
 import { TextSize } from "@/app/utilities/types";
 import { useFormState } from "react-dom";
+import CardButtonLink from "../../components/components/CardButtonLink";
 import { handleForm } from "../utilities/handleForm";
 
 const ContactForm = () => {

@@ -1,9 +1,10 @@
-import AnimateWrapper from "@/app/components/components/AnimateWrapper";
 import { cloudinary } from "@/app/utilities/cloudinary";
 import { CloudinaryResource, GalleryPhotoProps, TextSize } from "@/app/utilities/types";
 import { getCldImageUrl } from "next-cloudinary";
+import AnimateWrapper from "../../components/components/AnimateWrapper";
+import CardButtonLink from "../../components/components/CardButtonLink";
 import PhotoCard from "../../components/components/PhotoCard";
-import CardButtonLink from "@/app/components/components/CardButtonLink";
+import Card from "../../components/components/Card";
 
 export async function generateStaticParams() {
 	const { resources } = await cloudinary.search

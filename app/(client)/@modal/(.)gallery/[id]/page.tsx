@@ -1,9 +1,9 @@
-import PhotoCard from "@/app/components/components/PhotoCard";
+import CardButtonLink from "@/app/(client)/components/components/CardButtonLink";
+import PhotoCard from "@/app/(client)/components/components/PhotoCard";
 import { cloudinary } from "@/app/utilities/cloudinary";
 import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
 import { CloudinaryResource, GalleryPhotoProps, TextSize } from "@/app/utilities/types";
 import ModalWrapper from "./ModalWrapper";
-import CardButtonLink from "@/app/components/components/CardButtonLink";
 
 export async function generateStaticParams() {
 	const { resources } = await cloudinary.search

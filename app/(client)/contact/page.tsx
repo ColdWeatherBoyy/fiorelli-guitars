@@ -1,9 +1,9 @@
+import { cloudinary } from "@/app/utilities/cloudinary";
+import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
 import Link from "next/link";
 import AnimateWrapper from "../components/components/AnimateWrapper";
 import Card from "../components/components/Card";
 import PhotoCard from "../components/components/PhotoCard";
-import { cloudinary } from "../utilities/cloudinary";
-import { getBlurDataUrl } from "../utilities/imageHelpers";
 import ContactForm from "./components/ContactForm";
 
 export default async function Contact() {

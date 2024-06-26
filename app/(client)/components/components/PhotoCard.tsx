@@ -1,6 +1,5 @@
 "use client";
 
-import Card from "@/app/components/components/Card";
 import { CloudinaryResource } from "@/app/utilities/types";
 import { CldImage } from "next-cloudinary";
 import { FC } from "react";
@@ -32,7 +31,7 @@ const PhotoCard: FC<PhotoCardProps> = ({
 					blurDataURL={blurDataUrl}
 					placeholder="blur"
 					preserveTransformations={square ? true : false}
-					className="object-scale-down max-h-[80vh] w-fit rounded-sm bg-zinc-200 shadow shadow-zinc-500"
+					className="object-scale-down max-h-[80dvh] w-fit rounded-sm bg-zinc-200 shadow shadow-zinc-500"
 				/>
 				{children}
 			</div>
