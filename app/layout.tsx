@@ -25,7 +25,7 @@ export default function RootLayout({
 				{modal}
 				<Wrapper>
 					<Header />
-					{children}
+					<div className="flex flex-col justify-start h-full my-12">{children}</div>
 					<Footer />
 				</Wrapper>
 			</body>

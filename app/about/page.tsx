@@ -5,10 +5,12 @@ export default function About() {
 	return (
 		<AnimateWrapper>
 			<Card
-				title="About"
+				title="About Jamie"
 				body={[
-					"Jamie, the master craftsman behind Fiorelli Guitars, is a scrungly man with a deep connection to the natural world. A dedicated surfer and avid bird lover, Jamie draws inspiration from the intricate beauty and freedom of birds for each custom guitar he creates.",
-					"When he's not shaping wood into extraordinary instruments, Jamie finds solace in the rhythmic crash of waves and the company of his dog, Scout, as they explore coastal trails teeming with avian life. A musician himself, Jamie understands the harmonious bond between player and instrument. His love for the grace of birds infuses every Fiorelli guitar with a spirit of flight and freedom, creating instruments that echo the delicate and dynamic melodies of nature. Each guitar Jamie crafts is a tribute to the splendor of the skies, inviting you to explore your own musical horizons with the grace of a bird in flight.",
+					"I have always found satisfaction in making art - as a painter, a musician, a woodworker. After building my woodworking abilities over a decade as a carpenter, I attended the Galloup School, where I had the privilege of learning from master guitar builders and repairers as I trained to be a luthier. My designs draw inspiration from the natural beauty that is so abundant in my adopted home of Northern California - from the endless waves that have traveled across the Pacific, to the giant redwoods that line the coast, to the striking crest of the Stellar’s Jay that adorns the Fiorelli logo.",
+					"Music is communication. Every musician is a unique individual, and I believe their instrument should reflect that. Many players know what they want from a guitar, but not necessarily how to get it. I enjoy working with the musician through the design process to help them realize and define their vision, no matter their previous knowledge. With Fiorelli Guitars, my goal is to build instruments that will meet the particular needs of each player and allow them to more easily amplify their distinct musical voice.",
+					"Reach out! I'd love to help you bring your ideas to life. -Jamie",
+					// To-Do
 				]}
 			/>
 		</AnimateWrapper>

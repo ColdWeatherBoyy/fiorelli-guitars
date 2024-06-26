@@ -30,7 +30,7 @@ const Card: FC<CardProps> = ({
 			{body &&
 				body.map((paragraph, index) => (
 					<div key={index}>
-						<div className={`text-base md:text-lg ${children && "last:mb-4"}`}>
+						<div className={`text-base md:text-xl ${children && "last:mb-4"}`}>
 							{paragraph}
 						</div>
 						{index < body.length - 1 && (
