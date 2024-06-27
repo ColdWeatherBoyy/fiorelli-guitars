@@ -12,7 +12,6 @@ const sliderSections = [
 const Gallery = async () => {
 	return (
 		<AnimateWrapper>
-			{/* Photo on top or left, "For orders, inquiries, or all else, reach out below." */}
 			<Card title="Gallery">
 				{sliderSections.map((section, index) => (
 					<GallerySliderWrapper
