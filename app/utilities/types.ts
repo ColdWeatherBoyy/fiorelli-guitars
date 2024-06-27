@@ -51,13 +51,6 @@ export interface GalleryPhotoProps {
 	};
 }
 
-export interface MessageWithUser {
-	id: number;
-	content: string;
-	email: string;
-	name: string;
-}
-
 // export enum DeviceType {
 // 	mobile = "mobile",
 // 	desktop = "desktop",

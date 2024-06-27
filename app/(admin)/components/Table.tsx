@@ -1,10 +1,8 @@
 import { formatDateTime } from "@/app/utilities/helpers";
-import { MessageWithUser } from "@/app/utilities/types";
-import { Message, User } from "@prisma/client";
 import { FC } from "react";
 
 interface TableProps {
-	data: User[] | Message[];
+	data: Array<Record<string, any>>;
 }
 
 const Table: FC<TableProps> = ({ data }) => {

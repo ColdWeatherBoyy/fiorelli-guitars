@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { getMessagesForUser } from "@/app/utilities/databaseFunctions";
+import { getMessagesByUserByEmail } from "@/app/utilities/databaseFunctions";
 import { ContactFormData } from "@/app/utilities/types";
 import { FC } from "react";
 
@@ -11,7 +11,7 @@ interface InboxEmailTemplateProps {
 export const InboxEmailTemplate: FC<Readonly<InboxEmailTemplateProps>> = async ({
 	contactFormData,
 }) => {
-	const userMessages = await getMessagesForUser(contactFormData.user.email);
+	const userMessages = await getMessagesByUserByEmail(contactFormData.user.email);
 
 	return (
 		<div

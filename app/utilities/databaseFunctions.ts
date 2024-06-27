@@ -75,7 +75,8 @@ export const getMessages = async () => {
 	return flattenedMessages;
 };
 
-export const getMessagesForUser = async (email: string) => {
+// For email response
+export const getMessagesByUserByEmail = async (email: string) => {
 	const userWithMessages = await prisma.user.findUnique({
 		where: {
 			email,
@@ -94,4 +95,37 @@ export const getMessagesForUser = async (email: string) => {
 	}
 
 	return userWithMessages.messages;
+};
+
+// For admin page view, returns user with messages
+export const getMessagesByUserId = async (userId: number) => {
+	const userWithMessages = await prisma.user.findUnique({
+		where: {
+			id: userId,
+		},
+		include: {
+			messages: {
+				orderBy: {
+					createdAt: "desc",
+				},
+				select: {
+					content: true,
+					createdAt: true,
+				},
+			},
+		},
+	});
+
+	if (!userWithMessages) {
+		throw new Error("User not found");
+	}
+	return userWithMessages;
+};
+
+export const getUserIdByEmailOrName = async (query: string) => {
+	const user = await prisma.user.findFirst({
+		where: { OR: [{ email: query }, { name: query }] },
+	});
+	if (!user) throw new Error("User not found");
+	return user.id;
 };
