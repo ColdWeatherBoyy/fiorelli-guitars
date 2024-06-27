@@ -1,11 +1,11 @@
 "use client";
 
-import CardButtonLink from "@/app/components/components/CardButtonLink";
-import CoverPageTransition from "@/app/components/transitions/CoverPageTransition";
-import OpenPageTransition from "@/app/components/transitions/OpenPageTransition";
 import { CloudinaryResource, TextSize, WelcomeState } from "@/app/utilities/types";
 import { useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
+import CardButtonLink from "../../components/components/CardButtonLink";
+import CoverPageTransition from "../../components/transitions/CoverPageTransition";
+import OpenPageTransition from "../../components/transitions/OpenPageTransition";
 import WelcomeImage from "./WelcomeImage";
 
 interface WelcomeDisplayProps {

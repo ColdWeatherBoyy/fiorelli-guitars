@@ -45,23 +45,53 @@ export const getUsers = async () => {
 };
 
 export const getMessages = async () => {
-	const messages = await prisma.message.findMany();
+	const messages = await prisma.message.findMany({
+		select: {
+			id: true,
+			content: true,
+			createdAt: true,
+			user: {
+				select: {
+					id: true,
+					email: true,
+					name: true,
+				},
+			},
+		},
+		orderBy: {
+			createdAt: "desc",
+		},
+	});
+	const flattenedMessages = messages.map((message) => {
+		return {
+			id: message.id,
+			content: message.content,
+			createdAt: message.createdAt,
+			email: message.user.email,
+			name: message.user.name,
+		};
+	});
+
+	return flattenedMessages;
 };
 
 export const getMessagesForUser = async (email: string) => {
-	const user = await prisma.user.findUnique({
+	const userWithMessages = await prisma.user.findUnique({
 		where: {
 			email,
 		},
-	});
-	if (!user) {
-		console.log("no user");
-		return;
-	}
-	const userMessages = await prisma.message.findMany({
-		where: {
-			userId: user.id,
+		include: {
+			messages: {
+				orderBy: {
+					createdAt: "desc",
+				},
+			},
 		},
 	});
-	return userMessages;
+
+	if (!userWithMessages) {
+		throw new Error("User not found");
+	}
+
+	return userWithMessages.messages;
 };

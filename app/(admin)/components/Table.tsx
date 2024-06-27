@@ -1,12 +1,17 @@
-import { User } from "@prisma/client";
+import { formatDateTime } from "@/app/utilities/helpers";
+import { MessageWithUser } from "@/app/utilities/types";
+import { Message, User } from "@prisma/client";
 import { FC } from "react";
 
-interface UserTableProps {
-	users: User[];
+interface TableProps {
+	data: User[] | Message[];
 }
 
-const UserTable: FC<UserTableProps> = ({ users }) => {
-	const headers = Object.keys(users[0]);
+const Table: FC<TableProps> = ({ data }) => {
+	if (!data.length) return <div>No data available</div>;
+
+	const headers = Object.keys(data[0]);
+
 	return (
 		<table className="shadow-lg rounded-md border border-zinc-400">
 			<thead className="bg-zinc-300">
@@ -22,18 +27,18 @@ const UserTable: FC<UserTableProps> = ({ users }) => {
 				</tr>
 			</thead>
 			<tbody>
-				{users.map((user, index) => (
+				{data.map((item, rowIndex) => (
 					<tr
-						key={user.email}
-						className={`${index % 2 === 0 ? "bg-cyan-50" : "bg-zinc-100"}`}
+						key={rowIndex}
+						className={`${rowIndex % 2 === 0 ? "bg-cyan-50" : "bg-zinc-100"}`}
 					>
-						{Object.values(user).map((value, index) => (
+						{Object.values(item).map((value, index) => (
 							<td
 								key={index}
 								className="border border-zinc-400 p-2 text-left text-base text-zinc-950"
 							>
 								{typeof value === "object" && value instanceof Date
-									? value.toDateString()
+									? formatDateTime(value.toString())
 									: value}
 							</td>
 						))}
@@ -44,4 +49,4 @@ const UserTable: FC<UserTableProps> = ({ users }) => {
 	);
 };
 
-export default UserTable;
+export default Table;

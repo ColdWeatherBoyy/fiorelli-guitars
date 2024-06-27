@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { Message, User } from "@prisma/client";
 
 export enum WelcomeState {
 	welcome = "welcome",
@@ -49,6 +49,13 @@ export interface GalleryPhotoProps {
 	params: {
 		id: string;
 	};
+}
+
+export interface MessageWithUser {
+	id: number;
+	content: string;
+	email: string;
+	name: string;
 }
 
 // export enum DeviceType {

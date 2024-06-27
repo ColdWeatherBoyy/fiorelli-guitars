@@ -1,6 +1,6 @@
-import { cloudinary } from "../utilities/cloudinary";
-import { getBlurDataUrl } from "../utilities/imageHelpers";
+import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
 import WelcomeDisplay from "./components/WelcomeDisplay";
+import { cloudinary } from "@/app/utilities/cloudinary";
 
 export default async function Home() {
 	const { resources } = await cloudinary.search
