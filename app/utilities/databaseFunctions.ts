@@ -1,6 +1,6 @@
 "use server";
 
-import { PrismaClient, User } from "@prisma/client";
+import { AuthUser, PrismaClient, User } from "@prisma/client";
 import { CreateUserAndMessageResponse, newMessage } from "./types";
 
 const prisma = new PrismaClient();
@@ -128,4 +128,23 @@ export const getUserIdByEmailOrName = async (query: string) => {
 	});
 	if (!user) throw new Error("User not found");
 	return user.id;
+};
+
+export const getAuthUser = async (email: string): Promise<AuthUser | undefined> => {
+	try {
+		const authUser = await prisma.authUser.findUnique({
+			where: {
+				email,
+			},
+		});
+
+		if (!authUser) {
+			return undefined;
+		}
+
+		return authUser;
+	} catch (error) {
+		console.error(error);
+		throw new Error("An error occurred. Please try again.");
+	}
 };
