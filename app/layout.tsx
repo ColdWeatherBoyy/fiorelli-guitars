@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-import "./style/globals.css";
 import { inter } from "./style/fonts";
+import "./style/globals.css";
 
 export const metadata: Metadata = {
 	title: "Fiorelli Guitar Admin Page",
@@ -10,10 +10,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
 	children,
-	modal,
 }: Readonly<{
 	children: React.ReactNode;
-	modal: React.ReactNode;
 }>) {
 	return (
 		<html lang="en">
