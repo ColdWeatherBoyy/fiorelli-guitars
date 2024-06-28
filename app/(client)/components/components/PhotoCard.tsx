@@ -5,7 +5,7 @@ import { CldImage } from "next-cloudinary";
 import { FC } from "react";
 
 interface PhotoCardProps extends CloudinaryResource {
-	maxHeight: string;
+	maxHeight?: string;
 	square?: boolean;
 	children?: React.ReactNode;
 }
