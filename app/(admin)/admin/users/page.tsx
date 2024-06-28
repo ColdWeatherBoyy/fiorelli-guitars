@@ -7,7 +7,7 @@ export default async function Users() {
 
 	return (
 		<div className="flex flex-col justify-center items-center gap-4">
-			<div className="text-4xl font-semibold text-zinc-950">Messages</div>
+			<div className="text-4xl font-semibold text-zinc-950">Users</div>
 			<Link href="/admin" className="border border-zinc-500 p-1 bg-zinc-100 rounded-lg">
 				Go Back
 			</Link>
