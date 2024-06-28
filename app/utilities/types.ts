@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { Message, User } from "@prisma/client";
 
 export enum WelcomeState {
 	welcome = "welcome",

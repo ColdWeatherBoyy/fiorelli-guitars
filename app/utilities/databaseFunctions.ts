@@ -39,27 +39,93 @@ export const createUserAndMessage = async (
 	}
 };
 
-// export const getUsers = async () => {
-// 	const users = await prisma.user.findMany();
-// };
-// export const getMessages = async () => {
-// 	const messages = await prisma.message.findMany();
-// };
+export const getUsers = async () => {
+	const users = await prisma.user.findMany();
+	return users;
+};
 
-export const getMessagesForUser = async (email: string) => {
-	const user = await prisma.user.findUnique({
+export const getMessages = async () => {
+	const messages = await prisma.message.findMany({
+		select: {
+			id: true,
+			content: true,
+			createdAt: true,
+			user: {
+				select: {
+					id: true,
+					email: true,
+					name: true,
+				},
+			},
+		},
+		orderBy: {
+			createdAt: "desc",
+		},
+	});
+	const flattenedMessages = messages.map((message) => {
+		return {
+			id: message.id,
+			content: message.content,
+			createdAt: message.createdAt,
+			email: message.user.email,
+			name: message.user.name,
+		};
+	});
+
+	return flattenedMessages;
+};
+
+// For email response
+export const getMessagesByUserByEmail = async (email: string) => {
+	const userWithMessages = await prisma.user.findUnique({
 		where: {
 			email,
 		},
-	});
-	if (!user) {
-		console.log("no user");
-		return;
-	}
-	const userMessages = await prisma.message.findMany({
-		where: {
-			userId: user.id,
+		include: {
+			messages: {
+				orderBy: {
+					createdAt: "desc",
+				},
+			},
 		},
 	});
-	return userMessages;
+
+	if (!userWithMessages) {
+		throw new Error("User not found");
+	}
+
+	return userWithMessages.messages;
+};
+
+// For admin page view, returns user with messages
+export const getMessagesByUserId = async (userId: number) => {
+	const userWithMessages = await prisma.user.findUnique({
+		where: {
+			id: userId,
+		},
+		include: {
+			messages: {
+				orderBy: {
+					createdAt: "desc",
+				},
+				select: {
+					content: true,
+					createdAt: true,
+				},
+			},
+		},
+	});
+
+	if (!userWithMessages) {
+		throw new Error("User not found");
+	}
+	return userWithMessages;
+};
+
+export const getUserIdByEmailOrName = async (query: string) => {
+	const user = await prisma.user.findFirst({
+		where: { OR: [{ email: query }, { name: query }] },
+	});
+	if (!user) throw new Error("User not found");
+	return user.id;
 };
