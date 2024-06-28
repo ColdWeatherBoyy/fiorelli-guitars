@@ -4,8 +4,8 @@ import { inter } from "./style/fonts";
 import "./style/globals.css";
 
 export const metadata: Metadata = {
-	title: "Fiorelli Guitar Admin Page",
-	description: "Jamie, This Is Exclusively For You",
+	title: "Fiorelli Guitars",
+	description: "Custom guitars for the custom guitarist",
 };
 
 export default function RootLayout({

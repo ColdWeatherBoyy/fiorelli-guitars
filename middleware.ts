@@ -14,13 +14,14 @@ import { NextResponse } from "next/server";
 // }
 
 export default auth((req) => {
+	console.log("hi");
 	if (req.nextUrl.pathname.includes("/admin")) {
 		if (
 			!req.auth &&
 			req.nextUrl.pathname.includes("/admin") &&
 			!req.nextUrl.pathname.includes("signin")
 		) {
-			return NextResponse.redirect(new URL("/admin/signin?redirect", req.nextUrl.origin));
+			return NextResponse.redirect(new URL("/admin/signin", req.nextUrl.origin));
 		} else if (req.auth && req.nextUrl.pathname.includes("signin")) {
 			return NextResponse.redirect(new URL("/admin", req.nextUrl));
 		}
