@@ -11,7 +11,7 @@ export default async function Users() {
 			<Link href="/admin" className="border border-zinc-500 p-1 bg-zinc-100 rounded-lg">
 				Go Back
 			</Link>
-			<Table data={users} />;
+			<Table data={users} />
 		</div>
 	);
 }

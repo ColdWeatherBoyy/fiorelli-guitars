@@ -1,11 +1,13 @@
+import { auth } from "@/auth";
 import "../style/globals.css";
 import AdminWrapper from "./components/AdminWrapper";
+import SignIn from "./admin/signin/page";
 
-export default function Layout({
+export default async function Layout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
-	modal: React.ReactNode;
 }>) {
-	return <AdminWrapper>{children}</AdminWrapper>;
+	const session = await auth();
+	return <AdminWrapper>{!session ? <SignIn /> : children}</AdminWrapper>;
 }
