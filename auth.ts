@@ -1,8 +1,24 @@
-// // import NextAuth from "next-auth";
+import NextAuth from "next-auth";
+import Google from "next-auth/providers/google";
+import { getAuthUserEmails } from "./app/utilities/databaseFunctions";
 
-// // export const { handlers, signIn, signOut, auth } = NextAuth({
-// // 	providers: [],
-// // });
+export const { handlers, signIn, signOut, auth } = NextAuth({
+	callbacks: {
+		async signIn({ profile }) {
+			if (!profile?.email) {
+				throw new Error("Profile email not found, access denied.");
+			}
+			const normalizedEmail = profile.email.toLowerCase().trim();
+			const authEmails = await getAuthUserEmails();
+			if (!authEmails.includes(normalizedEmail)) {
+				console.error("Unauthorized email, access denied.");
+				return "/admin/unauthorized?email=" + normalizedEmail;
+			}
+			return true;
+		},
+	},
+	providers: [Google],
+});
 
 // // With credentials
 // import bcrypt from "bcrypt";

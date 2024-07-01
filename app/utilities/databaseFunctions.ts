@@ -1,6 +1,6 @@
 "use server";
 
-import { AuthUser, PrismaClient, Customer } from "@prisma/client";
+import { PrismaClient, Customer } from "@prisma/client";
 import { CreateCustomerAndMessageResponse, newMessage } from "./types";
 
 const prisma = new PrismaClient();
@@ -130,24 +130,35 @@ export const getCustomerIdByEmailOrName = async (query: string) => {
 	return customer.id;
 };
 
-export const getAuthUser = async (email: string): Promise<AuthUser | undefined> => {
-	try {
-		const authUser = await prisma.authUser.findUnique({
-			where: {
-				email,
-			},
-		});
+export const getAuthUserEmails = async () => {
+	const authUsers = await prisma.authUserEmails.findMany({
+		select: {
+			email: true,
+		},
+	});
+	const authUserEmails = authUsers.map((authUser) => authUser.email);
 
-		if (!authUser) {
-			return undefined;
-		}
-
-		return authUser;
-	} catch (error) {
-		console.error(error);
-		throw new Error("An error occurred. Please try again.");
-	}
+	return authUserEmails;
 };
+
+// export const getAuthUser = async (email: string): Promise<AuthUser | undefined> => {
+// 	try {
+// 		const authUser = await prisma.authUser.findUnique({
+// 			where: {
+// 				email,
+// 			},
+// 		});
+
+// 		if (!authUser) {
+// 			return undefined;
+// 		}
+
+// 		return authUser;
+// 	} catch (error) {
+// 		console.error(error);
+// 		throw new Error("An error occurred. Please try again.");
+// 	}
+// };
 
 // export const createAuthUser = async (
 // 	email: string,
