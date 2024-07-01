@@ -1,5 +1,7 @@
 // import { signIn } from "@/auth";
 
+import LoginForm from "../../components/LoginForm";
+
 // export default function SignIn() {
 // 	return (
 // 		<div className="w-full flex flex-col items-center justify-start gap-4">
@@ -26,11 +28,5 @@
 // }
 
 export default function LoginPage() {
-	return (
-		<main className="flex items-center justify-center md:h-screen">
-			<div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
-				{/* <LoginForm /> */}
-			</div>
-		</main>
-	);
+	return <LoginForm />;
 }

@@ -1,4 +1,4 @@
-import { getUserIdByEmailOrName } from "@/app/utilities/databaseFunctions";
+import { getCustomerIdByEmailOrName } from "@/app/utilities/databaseFunctions";
 
 export const handleForm = async (
 	prevState: number | null,
@@ -7,8 +7,8 @@ export const handleForm = async (
 	try {
 		const query = formData.get("query");
 		if (!query) throw new Error("No query provided");
-		const userId = await getUserIdByEmailOrName(query.toString());
-		return userId;
+		const customerId = await getCustomerIdByEmailOrName(query.toString());
+		return customerId;
 	} catch (error) {
 		console.error(error);
 		return null;

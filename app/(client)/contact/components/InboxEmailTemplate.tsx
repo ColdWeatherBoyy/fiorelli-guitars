@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { getMessagesByUserByEmail } from "@/app/utilities/databaseFunctions";
+import { getMessagesByCustomerEmail } from "@/app/utilities/databaseFunctions";
 import { ContactFormData } from "@/app/utilities/types";
 import { FC } from "react";
 
@@ -11,7 +11,9 @@ interface InboxEmailTemplateProps {
 export const InboxEmailTemplate: FC<Readonly<InboxEmailTemplateProps>> = async ({
 	contactFormData,
 }) => {
-	const userMessages = await getMessagesByUserByEmail(contactFormData.user.email);
+	const customerMessages = await getMessagesByCustomerEmail(
+		contactFormData.customer.email
+	);
 
 	return (
 		<div
@@ -63,8 +65,8 @@ export const InboxEmailTemplate: FC<Readonly<InboxEmailTemplateProps>> = async (
 							color: "white",
 						}}
 					>
-						Here&apos;s your recent message from {contactFormData.user.name} at{" "}
-						{contactFormData.user.email}. This is the message:
+						Here&apos;s your recent message from {contactFormData.customer.name} at{" "}
+						{contactFormData.customer.email}. This is the message:
 					</div>
 					<div
 						style={{
@@ -79,33 +81,38 @@ export const InboxEmailTemplate: FC<Readonly<InboxEmailTemplateProps>> = async (
 					>
 						{contactFormData.newMessage.content}
 					</div>
-					<div
-						style={{
-							fontSize: "16px",
-							lineHeight: "1.6",
-							marginBottom: "10px",
-							color: "white",
-						}}
-					>
-						If they&apos;ve reached out to you before, those messages will appear here:
-					</div>
-					{userMessages?.map((message) => (
-						<div
-							key={message.id}
-							style={{
-								padding: "10px",
-								margin: "10px 20px",
-								backgroundColor: "#0e7490",
-								borderRadius: "5px",
-								color: "#e4e4e7",
-								fontStyle: "italic",
-								fontSize: "16px",
-							}}
-						>
-							{message.content} at{" "}
-							<span className="bold">{message.createdAt.toDateString()}</span>
-						</div>
-					))}
+					{customerMessages.length > 1 && (
+						<>
+							<div
+								style={{
+									fontSize: "16px",
+									lineHeight: "1.6",
+									marginBottom: "10px",
+									color: "white",
+								}}
+							>
+								If they&apos;ve reached out to you before, those messages will appear
+								here:
+							</div>
+							{customerMessages?.map((message) => (
+								<div
+									key={message.id}
+									style={{
+										padding: "10px",
+										margin: "10px 20px",
+										backgroundColor: "#0e7490",
+										borderRadius: "5px",
+										color: "#e4e4e7",
+										fontStyle: "italic",
+										fontSize: "16px",
+									}}
+								>
+									{message.content} at{" "}
+									<span className="bold">{message.createdAt.toDateString()}</span>
+								</div>
+							))}
+						</>
+					)}
 					<div
 						style={{
 							fontSize: "16px",

@@ -51,7 +51,7 @@ export const CustomerEmailTemplate: FC<Readonly<CustomerEmailTemplateProps>> = a
 							color: "white",
 						}}
 					>
-						Hi {contactFormData.user.name},
+						Hi {contactFormData.customer.name},
 					</div>
 					<div
 						style={{

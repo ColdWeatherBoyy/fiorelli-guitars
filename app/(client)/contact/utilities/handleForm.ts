@@ -1,12 +1,12 @@
 "use server";
 
-import { createUserAndMessage } from "@/app/utilities/databaseFunctions";
+import { createCustomerAndMessage } from "@/app/utilities/databaseFunctions";
 import { sendCustomerEmail, sendFiorelliEmail } from "@/app/utilities/resendFunctions";
 import { isContactFormData } from "@/app/utilities/typeguardFunctions";
 
 export const handleForm = async (prevState: boolean, formData: FormData) => {
 	try {
-		const contactFormData = await createUserAndMessage(formData);
+		const contactFormData = await createCustomerAndMessage(formData);
 		if (isContactFormData(contactFormData) === false) {
 			console.error(contactFormData.error);
 			return false;

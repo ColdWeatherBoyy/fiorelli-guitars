@@ -1,4 +1,4 @@
-import { Message, User } from "@prisma/client";
+import { Customer } from "@prisma/client";
 
 export enum WelcomeState {
 	welcome = "welcome",
@@ -23,18 +23,18 @@ export interface newMessage {
 	id: number;
 	content: string;
 	createdAt: Date;
-	userId: number;
+	customerId: number;
 }
 
 export interface ContactFormData {
 	newMessage: newMessage;
-	user: User;
+	customer: Customer;
 }
 export interface ErrorResponse {
 	error: string;
 }
 
-export type CreateUserAndMessageResponse = ContactFormData | ErrorResponse;
+export type CreateCustomerAndMessageResponse = ContactFormData | ErrorResponse;
 
 export interface CloudinaryResource {
 	public_id: string;

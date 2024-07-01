@@ -7,10 +7,10 @@ export default async function AdminHome() {
 			<div className="text-4xl font-semibold text-zinc-950">Welcome</div>
 			<div className="flex justify-evenly w-full">
 				<Link
-					href="/admin/users"
+					href="/admin/customers"
 					className="border border-zinc-500 p-1 bg-zinc-100 rounded-lg"
 				>
-					Users
+					Customers
 				</Link>
 				<Link
 					href="/admin/messages"
@@ -19,7 +19,7 @@ export default async function AdminHome() {
 					Recent Messages
 				</Link>
 			</div>
-			<SearchBar label="Search for User" placeholder="Email or Name" />
+			<SearchBar label="Search for Customer" placeholder="Email or Name" />
 		</div>
 	);
 }

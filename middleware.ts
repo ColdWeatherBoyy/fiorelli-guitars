@@ -1,16 +1,16 @@
-// import { NextResponse, NextRequest } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
 // No Auth
-// export function middleware(request: NextRequest) {
-// 	if (request.url.includes("/admin")) {
-// 	} else if (request.url.includes("/welcome") && request.cookies.get("visited")) {
-// 		return NextResponse.redirect(new URL("/", request.url));
-// 	} else if (request.cookies.get("visited")) {
-// 		return NextResponse.next();
-// 	} else if (!request.url.includes("/welcome")) {
-// 		return NextResponse.redirect(new URL("/welcome", request.url));
-// 	}
-// }
+export function middleware(request: NextRequest) {
+	if (request.url.includes("/admin")) {
+	} else if (request.url.includes("/welcome") && request.cookies.get("visited")) {
+		return NextResponse.redirect(new URL("/", request.url));
+	} else if (request.cookies.get("visited")) {
+		return NextResponse.next();
+	} else if (!request.url.includes("/welcome")) {
+		return NextResponse.redirect(new URL("/welcome", request.url));
+	}
+}
 
 // With Google
 // export default auth((req) => {
@@ -36,11 +36,11 @@
 // });
 
 // For Credentials Authentication
-import NextAuth from "next-auth";
-import { authConfig } from "./auth.config";
+// import NextAuth from "next-auth";
+// import { authConfig } from "./auth.config";
 
-export default NextAuth(authConfig).auth;
+// export default NextAuth(authConfig).auth;
 
-export const config = {
-	matcher: ["/((?!api|_next/static|_next/image|icon.ico|favicon.ico|.*\\.png$).*)"],
-};
+// export const config = {
+// 	matcher: ["/((?!api|_next/static|_next/image|icon.ico|favicon.ico|.*\\.png$).*)"],
+// };
