@@ -1,14 +1,15 @@
 "use client";
 
 import { useActionState } from "react";
-import { authenticate } from "../utilities/authenticate";
+// import { authenticate } from "../utilities/authenticate";
 import { useFormState } from "react-dom";
 
 const LoginForm = () => {
-	const [errorMessage, formAction, isPending] = useFormState(authenticate, undefined);
+	// const [errorMessage, formAction, isPending] = useFormState(authenticate, undefined);
 
 	return (
-		<form action={formAction} className="flex flex-col w-1/3">
+		// <form action={formAction} className="flex flex-col w-1/3">
+		<form className="flex flex-col w-1/3">
 			<label>Email</label>
 			<input
 				id="email"
@@ -26,9 +27,8 @@ const LoginForm = () => {
 				required
 				minLength={8}
 			/>
-			<button type="submit" aria-disabled={isPending}>
-				Login
-			</button>
+			{/* <button type="submit" aria-disabled={isPending}> */}
+			<button type="submit">Login</button>
 		</form>
 	);
 };
