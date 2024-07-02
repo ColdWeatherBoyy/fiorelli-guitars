@@ -3,11 +3,14 @@
 import RightCaret from "@/app/components/SVGs/RightCaretIcon";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 
-const SideBar = () => {
-	const [open, setOpen] = useState(true);
+interface SideBarProps {
+	open: boolean;
+	setOpen: Dispatch<SetStateAction<boolean>>;
+}
 
+const SideBar: FC<SideBarProps> = ({ open, setOpen }) => {
 	const pageOptions = [
 		{ link: "/admin/dashboard/", text: "Home" },
 		{ link: "/admin/dashboard/customers", text: "Customers" },
@@ -28,7 +31,7 @@ const SideBar = () => {
 					transition={{ ease: "easeInOut", duration: 0.2 }}
 					onClick={() => setOpen((prev) => !prev)}
 				>
-					<RightCaret className="hover:text-cyan-300 dark:hover:text-cyan-500" />
+					<RightCaret className="cursor-pointer hover:text-cyan-300 dark:hover:text-cyan-500" />
 				</motion.div>
 				<div className="flex flex-col gap-1">
 					{pageOptions.map((option) => (
