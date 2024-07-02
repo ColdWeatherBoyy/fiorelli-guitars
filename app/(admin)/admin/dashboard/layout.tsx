@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../../../style/globals.css";
 import SideBar from "../../components/SideBar";
 
@@ -10,15 +10,31 @@ export default function Layout({
 	children: React.ReactNode;
 }>) {
 	const [open, setOpen] = useState(true);
+	const [sideBarWidthMargin, setSideBarWidthMargin] = useState("0px");
+	const sideBarRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const updateSideBarWidthMargin = () => {
+			if (sideBarRef.current) {
+				setSideBarWidthMargin(`${sideBarRef.current.offsetWidth}px`);
+			}
+		};
+
+		updateSideBarWidthMargin();
+
+		window.addEventListener("resize", updateSideBarWidthMargin);
+
+		return () => window.removeEventListener("resize", updateSideBarWidthMargin);
+	}, []);
+
 	return (
 		<div className="flex relative overflow-hidden h-dvh">
-			<div className="absolute h-full w-1/5">
+			<div ref={sideBarRef} className="absolute h-full w-1/5 min-w-fit">
 				<SideBar open={open} setOpen={setOpen} />
 			</div>
 			<div
-				className={`transition-all duration-300 flex-1 ${
-					open ? "ml-[20%]" : ""
-				} flex justify-center items-start`}
+				style={{ marginLeft: open ? sideBarWidthMargin : "0px" }}
+				className={`transition-all duration-300 flex-1 flex justify-center items-start`}
 			>
 				<div className="w-full">{children}</div>
 			</div>
