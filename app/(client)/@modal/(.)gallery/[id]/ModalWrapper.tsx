@@ -1,6 +1,6 @@
 "use client";
 
-import AnimateWrapper from "@/app/(client)/components/components/AnimateWrapper";
+import AnimateWrapper from "@/app/components/AnimateWrapper";
 import Card from "@/app/(client)/components/components/Card";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";

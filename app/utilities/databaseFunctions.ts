@@ -40,20 +40,19 @@ export const createCustomerAndMessage = async (
 };
 
 export const getCustomers = async () => {
-	const customers = await prisma.customer.findMany();
+	const customers = await prisma.customer.findMany({
+		select: { email: true, name: true },
+	});
 	return customers;
 };
 
 export const getMessages = async () => {
 	const messages = await prisma.message.findMany({
 		select: {
-			id: true,
 			content: true,
 			createdAt: true,
 			customer: {
 				select: {
-					id: true,
-					email: true,
 					name: true,
 				},
 			},
@@ -64,10 +63,8 @@ export const getMessages = async () => {
 	});
 	const flattenedMessages = messages.map((message) => {
 		return {
-			id: message.id,
 			content: message.content,
 			createdAt: message.createdAt,
-			email: message.customer.email,
 			name: message.customer.name,
 		};
 	});

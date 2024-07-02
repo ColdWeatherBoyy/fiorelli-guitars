@@ -16,7 +16,7 @@ const SearchBar: FC<SearchBarProps> = ({ label, placeholder }) => {
 	const router = useRouter();
 	useEffect(() => {
 		if (data === null) return;
-		router.push(`/admin/customers/${data}`);
+		router.push(`/admin/${data}`);
 	}, [data, router]);
 	return (
 		<form action={formAction} className="flex flex-col border border-zinc-500 gap-2 p-4">

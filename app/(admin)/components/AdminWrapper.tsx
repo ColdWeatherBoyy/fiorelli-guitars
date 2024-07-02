@@ -3,7 +3,7 @@ import { FC, ReactNode } from "react";
 const AdminWrapper: FC<{ children: ReactNode }> = ({ children }) => {
 	return (
 		<div
-			className={`flex justify-center items-start bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-700 text-zinc-950 dark:text-zinc-50 p-8 min-h-dvh min-w-dvw`}
+			className={`grid grid-cols-2 min-h-dvh bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-700 text-zinc-950 dark:text-zinc-50`}
 		>
 			{children}
 		</div>

@@ -17,9 +17,9 @@ const Table: FC<TableProps> = ({ data }) => {
 					{headers.map((header) => (
 						<th
 							key={header}
-							className="bg-zinc-400 dark:bg-zinc-700 p-4 border border-slate-600 dark:border-slate-400 text-center text-2xl font-semibold"
+							className="bg-zinc-400 dark:bg-zinc-700 p-2 border border-slate-600 dark:border-slate-400 text-center text-2xl font-semibold"
 						>
-							{header === "createdAt" ? "Date Created" : toTitleCase(header)}
+							{header === "createdAt" ? "Sent" : toTitleCase(header)}
 						</th>
 					))}
 				</tr>
@@ -29,7 +29,7 @@ const Table: FC<TableProps> = ({ data }) => {
 					<tr
 						key={rowIndex}
 						className={`${
-							rowIndex % 2 === 0
+							rowIndex % 2 !== 0
 								? "bg-slate-200 dark:bg-slate-500"
 								: "bg-zinc-50 dark:bg-zinc-500"
 						}`}
@@ -37,7 +37,7 @@ const Table: FC<TableProps> = ({ data }) => {
 						{Object.values(item).map((value, index) => (
 							<td
 								key={index}
-								className="border border-slate-600 dark:border-slate-400 p-2 text-left text-base text-zinc-950 dark:text-zinc-50"
+								className="border border-slate-600 dark:border-slate-400 p-1 text-left text-base text-zinc-950 dark:text-zinc-50"
 							>
 								{typeof value === "object" && value instanceof Date
 									? formatDateTime(value.toString())

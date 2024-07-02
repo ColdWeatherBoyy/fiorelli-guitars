@@ -2,7 +2,6 @@ import AdminButtonLink from "@/app/(admin)/components/AdminButtonLink";
 import Table from "@/app/(admin)/components/Table";
 import AnimateWrapper from "@/app/components/AnimateWrapper";
 import { getMessagesByCustomerId } from "@/app/utilities/databaseFunctions";
-import Link from "next/link";
 import { FC } from "react";
 
 interface CustomerProps {

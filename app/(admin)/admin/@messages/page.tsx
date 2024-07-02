@@ -10,7 +10,7 @@ export default async function Messages() {
 		<AnimateWrapper>
 			<div className="flex flex-col justify-center items-center gap-4">
 				<div className="text-4xl font-semibold">Messages</div>
-				<AdminButtonLink href="/admin" text="Go Back" />
+				{/* <AdminButtonLink href="/admin" text="Go Back" /> */}
 				<Table data={messages} />
 			</div>
 		</AnimateWrapper>
