@@ -12,9 +12,9 @@ import { useDarkMode, useScreenSize } from "@/app/utilities/hooks";
 import Link from "next/link";
 import { useState } from "react";
 import { ScreenSize } from "@/app/utilities/types";
-import SmallLogo from "../SVGs/SmallLogo";
-import EmailLogo from "../SVGs/EmailLogo";
-import IGLogo from "../SVGs/IGLogo";
+import SmallLogo from "../../../components/SVGs/SmallLogo";
+import EmailLogo from "../../../components/SVGs/EmailLogo";
+import IGLogo from "../../../components/SVGs/IGLogo";
 
 const Footer = () => {
 	const isDarkMode = useDarkMode();

@@ -1,5 +1,5 @@
+import SearchBar from "@/app/(admin)/components/SearchBar";
 import AnimateWrapper from "@/app/components/AnimateWrapper";
-import SearchBar from "../../../components/SearchBar";
 
 const searchCustomers = () => {
 	return (

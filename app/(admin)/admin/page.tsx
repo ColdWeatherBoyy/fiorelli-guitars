@@ -1,13 +1,16 @@
-import AnimateWrapper from "@/app/components/AnimateWrapper";
-import SearchBar from "../components/SearchBar";
+"use client";
 
-export default async function AdminHome() {
-	return (
-		<AnimateWrapper>
-			<div className="w-full flex flex-col items-center justify-start gap-4">
-				<div className="text-4xl font-semibold">Welcome</div>
-				<SearchBar label="Search for Customer" placeholder="Email or Name" />
-			</div>
-		</AnimateWrapper>
-	);
-}
+import { useSession } from "next-auth/react";
+
+const Admin = () => {
+	const { status } = useSession();
+	if (status === "authenticated") {
+		return <div>Admin Page</div>;
+	} else if (status === "loading") {
+		return <div>Loading...</div>;
+	} else {
+		return <div>Access denied</div>;
+	}
+};
+
+export default Admin;

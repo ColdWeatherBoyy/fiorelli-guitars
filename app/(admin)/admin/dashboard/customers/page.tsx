@@ -1,18 +1,18 @@
-import { getCustomers } from "@/app/utilities/databaseFunctions";
-import Table from "../../components/Table";
-import AdminButtonLink from "../../components/AdminButtonLink";
+import Table from "@/app/(admin)/components/Table";
 import AnimateWrapper from "@/app/components/AnimateWrapper";
+import { getCustomers } from "@/app/utilities/databaseFunctions";
 
-export default async function Customers() {
+const Customers = async () => {
 	const customers = await getCustomers();
 
 	return (
 		<AnimateWrapper>
 			<div className="flex flex-col justify-center items-center gap-4">
 				<div className="text-4xl font-semibold">Customers</div>
-				<AdminButtonLink href="/admin" text="Go Back" />
 				<Table data={customers} />
 			</div>
 		</AnimateWrapper>
 	);
-}
+};
+
+export default Customers;

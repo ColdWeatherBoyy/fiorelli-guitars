@@ -43,12 +43,11 @@ export const getCustomers = async () => {
 	const customers = await prisma.customer.findMany({
 		select: { email: true, name: true, messages: { select: { content: true } } },
 	});
-
 	const flattenedCustomers = customers.map((customer) => {
 		return {
 			email: customer.email,
 			name: customer.name,
-			message: customer.messages.length,
+			messages: customer.messages.length,
 		};
 	});
 	return flattenedCustomers;
