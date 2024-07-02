@@ -12,7 +12,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 			const authEmails = await getAuthUserEmails();
 			if (!authEmails.includes(normalizedEmail)) {
 				console.error("Unauthorized email, access denied.");
-				return "/admin/unauthorized?email=" + normalizedEmail;
+				return "/admin/unauthorized";
 			}
 			return true;
 		},

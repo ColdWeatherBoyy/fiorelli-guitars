@@ -3,7 +3,7 @@
 import { playfair_display } from "@/app/style/fonts";
 import { TextSize } from "@/app/utilities/types";
 import Link from "next/link";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { useFormStatus } from "react-dom";
 
 interface CardButtonLinkProps {
@@ -30,7 +30,7 @@ const CardButtonLink: FC<CardButtonLinkProps> = ({ text, size, href, handleClick
 	} rounded-sm backdrop-blur-md bg-cyan-50 dark:bg-zinc-700 border border-zinc-400 dark:border-cyan-800 shadow-sm shadow-zinc-600 dark:shadow-zinc-800 transition-all ease-in-out duration-200 ${
 		pending
 			? "opacity-50 cursor-not-allowed"
-			: "hover:shadow-md active:shadow-inner hover:shadow-zinc-700 dark:hover:shadow-cyan-950 active:shadow-zinc-600 dark:active:shadow-cyan-950 active:shadow-sm hover:transform hover:translate-x-[3px] hover:translate-y-[-3px] hover:scale-[102%] active:scale-[99%] active:translate-x-[0px] active:translate-y-[0px] hover:cursor-pointer active:scale-[99%]"
+			: "hover:shadow-md active:shadow-inner hover:shadow-zinc-700 dark:hover:shadow-cyan-950 active:shadow-zinc-600 dark:active:shadow-cyan-950 active:shadow-sm hover:transform hover:translate-x-[3px] hover:translate-y-[-3px] active:translate-x-[0px] active:translate-y-[0px] hover:cursor-pointer"
 	}`;
 	return (
 		<>
