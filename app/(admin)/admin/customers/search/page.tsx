@@ -1,5 +1,5 @@
 import AnimateWrapper from "@/app/components/AnimateWrapper";
-import SearchBar from "../../components/SearchBar";
+import SearchBar from "../../../components/SearchBar";
 
 const searchCustomers = () => {
 	return (
