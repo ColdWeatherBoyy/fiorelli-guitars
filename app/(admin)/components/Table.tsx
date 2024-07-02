@@ -1,4 +1,4 @@
-import { formatDateTime } from "@/app/utilities/helpers";
+import { formatDateTime, toTitleCase } from "@/app/utilities/helpers";
 import { FC } from "react";
 
 interface TableProps {
@@ -11,15 +11,15 @@ const Table: FC<TableProps> = ({ data }) => {
 	const headers = Object.keys(data[0]);
 
 	return (
-		<table className="shadow-lg rounded-md border border-zinc-400">
-			<thead className="bg-zinc-300">
+		<table className="shadow-lg rounded-md">
+			<thead>
 				<tr>
 					{headers.map((header) => (
 						<th
 							key={header}
-							className="p-4 border border-zinc-400 text-center text-2xl font-semibold text-zinc-950"
+							className="bg-zinc-400 dark:bg-zinc-700 p-4 border border-slate-600 dark:border-slate-400 text-center text-2xl font-semibold"
 						>
-							{header}
+							{header === "createdAt" ? "Date Created" : toTitleCase(header)}
 						</th>
 					))}
 				</tr>
@@ -28,12 +28,16 @@ const Table: FC<TableProps> = ({ data }) => {
 				{data.map((item, rowIndex) => (
 					<tr
 						key={rowIndex}
-						className={`${rowIndex % 2 === 0 ? "bg-cyan-50" : "bg-zinc-100"}`}
+						className={`${
+							rowIndex % 2 === 0
+								? "bg-slate-200 dark:bg-slate-500"
+								: "bg-zinc-50 dark:bg-zinc-500"
+						}`}
 					>
 						{Object.values(item).map((value, index) => (
 							<td
 								key={index}
-								className="border border-zinc-400 p-2 text-left text-base text-zinc-950"
+								className="border border-slate-600 dark:border-slate-400 p-2 text-left text-base text-zinc-950 dark:text-zinc-50"
 							>
 								{typeof value === "object" && value instanceof Date
 									? formatDateTime(value.toString())

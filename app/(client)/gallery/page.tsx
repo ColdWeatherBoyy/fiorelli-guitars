@@ -1,4 +1,4 @@
-import AnimateWrapper from "../components/components/AnimateWrapper";
+import AnimateWrapper from "../../components/AnimateWrapper";
 import Card from "../components/components/Card";
 import GallerySliderWrapper from "./components/GallerySliderWrapper";
 

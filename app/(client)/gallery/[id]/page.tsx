@@ -1,7 +1,7 @@
 import { cloudinary } from "@/app/utilities/cloudinary";
 import { CloudinaryResource, GalleryPhotoProps, TextSize } from "@/app/utilities/types";
 import { getCldImageUrl } from "next-cloudinary";
-import AnimateWrapper from "../../components/components/AnimateWrapper";
+import AnimateWrapper from "../../../components/AnimateWrapper";
 import CardButtonLink from "../../components/components/CardButtonLink";
 import PhotoCard from "../../components/components/PhotoCard";
 

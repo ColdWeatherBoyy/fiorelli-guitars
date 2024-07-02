@@ -4,6 +4,7 @@ import { FC, useEffect } from "react";
 import { useFormState } from "react-dom";
 import { handleForm } from "../utilities/handleForm";
 import { useRouter } from "next/navigation";
+import AdminButtonLink from "./AdminButtonLink";
 
 interface SearchBarProps {
 	label: string;
@@ -27,12 +28,7 @@ const SearchBar: FC<SearchBarProps> = ({ label, placeholder }) => {
 				name="query"
 				className="p-2"
 			/>
-			<button
-				className="mx-8 border border-zinc-500 p-1 bg-zinc-100 rounded-lg"
-				type="submit"
-			>
-				Search
-			</button>
+			<AdminButtonLink text="Search" />
 		</form>
 	);
 };

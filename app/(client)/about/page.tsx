@@ -1,4 +1,4 @@
-import AnimateWrapper from "../components/components/AnimateWrapper";
+import AnimateWrapper from "../../components/AnimateWrapper";
 import Card from "../components/components/Card";
 import { cloudinary } from "../../utilities/cloudinary";
 import { getBlurDataUrl } from "../../utilities/imageHelpers";

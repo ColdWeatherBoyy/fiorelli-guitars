@@ -13,3 +13,7 @@ export const formatDateTime = (dateTimeStr: string): string => {
 
 	return `${months}/${days}/${years}, ${formattedHours}:${minutes} ${period}`;
 };
+
+export const toTitleCase = (string: string) => {
+	return string.charAt(0).toUpperCase() + string.slice(1);
+};

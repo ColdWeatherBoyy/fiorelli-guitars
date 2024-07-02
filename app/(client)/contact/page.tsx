@@ -1,7 +1,7 @@
 import { cloudinary } from "@/app/utilities/cloudinary";
 import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
 import Link from "next/link";
-import AnimateWrapper from "../components/components/AnimateWrapper";
+import AnimateWrapper from "../../components/AnimateWrapper";
 import Card from "../components/components/Card";
 import PhotoCard from "../components/components/PhotoCard";
 import ContactForm from "./components/ContactForm";

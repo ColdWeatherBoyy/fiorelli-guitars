@@ -1,7 +1,7 @@
 import Card from "./components/components/Card";
 import CardButtonLink from "./components/components/CardButtonLink";
 import { TextSize } from "../utilities/types";
-import AnimateWrapper from "./components/components/AnimateWrapper";
+import AnimateWrapper from "../components/AnimateWrapper";
 
 export default function NotFound() {
 	return (
