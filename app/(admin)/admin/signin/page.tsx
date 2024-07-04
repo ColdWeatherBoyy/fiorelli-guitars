@@ -13,7 +13,7 @@ const SignIn = () => {
 						"use server";
 						await signIn("google", { redirectTo: "/admin/dashboard" });
 					}}
-					className="flex flex-col gap-4 items-center justify-center border border-zinc-500 p-4 bg-zinc-100 rounded-lg shadow-md"
+					className="flex flex-col gap-4 items-center justify-center border border-zinc-500 p-4 bg-zinc-100 rounded-lg shadow-sm shadow-slate-400 dark:shadow-slate-900"
 				>
 					<label>Powered by Google</label>
 					<AdminButtonLink text="Sign In" />

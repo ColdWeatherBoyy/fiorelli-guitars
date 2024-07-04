@@ -24,7 +24,7 @@ const SideBar: FC<SideBarProps> = ({ open, setOpen, isMobile }) => {
 			animate={{ x: open ? 0 : "-100%" }}
 			transition={{ ease: "easeInOut", duration: 0.4 }}
 		>
-			<div className="h-dvh bg-gradient-to-b dark:from-slate-600 dark:to-slate-500 from-slate-400 to-slate-500 px-6 py-10 rounded-sm shadow-sm shadow-zinc-800 dark:shadow-sm dark:shadow-zinc-500">
+			<div className="h-dvh bg-gradient-to-b dark:from-slate-600 dark:to-slate-500 from-slate-400 to-slate-500 px-6 py-10 rounded-sm shadow-sm shadow-slate-400 dark:shadow-slate-900">
 				<motion.div
 					className={`absolute right-0 top-6`}
 					animate={{ scaleX: open ? -1 : 1, x: open ? 10 : 30 }}

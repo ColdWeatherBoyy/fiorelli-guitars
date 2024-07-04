@@ -12,7 +12,7 @@ const Table: FC<TableProps> = ({ data }) => {
 	const headers = Object.keys(data[0]).filter((header) => header !== "id");
 
 	return (
-		<table className="shadow-lg rounded-md">
+		<table className="shadow shadow-slate-400 dark:shadow-slate-900 rounded-md">
 			<thead>
 				<tr>
 					{headers.map((header) => (
