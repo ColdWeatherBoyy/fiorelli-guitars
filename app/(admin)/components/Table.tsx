@@ -1,4 +1,5 @@
-import { formatDateTime, toTitleCase } from "@/app/utilities/helpers";
+import { formatDateTime, sortObjectKeys, toTitleCase } from "@/app/utilities/helpers";
+import { useDeviceType } from "@/app/utilities/hooks.server";
 import Link from "next/link";
 import { FC } from "react";
 
@@ -8,11 +9,13 @@ interface TableProps {
 
 const Table: FC<TableProps> = ({ data }) => {
 	if (!data.length) return <div>No data available</div>;
+	const isMobile = useDeviceType();
 
-	const headers = Object.keys(data[0]).filter((header) => header !== "id");
+	const sortedData = data.map((item) => sortObjectKeys(item, ["name", "content"]));
+	const headers = Object.keys(sortedData[0]).filter((header) => header !== "id");
 
 	return (
-		<table className="shadow shadow-slate-400 dark:shadow-slate-900 rounded-md">
+		<table className={`shadow shadow-slate-400 dark:shadow-slate-900 rounded-md z-20`}>
 			<thead>
 				<tr>
 					{headers.map((header) => (
@@ -20,13 +23,17 @@ const Table: FC<TableProps> = ({ data }) => {
 							key={header}
 							className="bg-zinc-400 dark:bg-zinc-700 p-2 border border-slate-600 dark:border-slate-400 text-center text-2xl font-semibold"
 						>
-							{header === "createdAt" ? "Sent" : toTitleCase(header)}
+							{header === "createdAt"
+								? "Sent"
+								: header === "messages"
+								? "Msgs"
+								: toTitleCase(header)}
 						</th>
 					))}
 				</tr>
 			</thead>
 			<tbody>
-				{data.map((item, rowIndex) => (
+				{sortedData.map((item, rowIndex) => (
 					<tr
 						key={rowIndex}
 						className={`${
@@ -40,19 +47,23 @@ const Table: FC<TableProps> = ({ data }) => {
 							return (
 								<td
 									key={index}
-									className="border border-slate-600 dark:border-slate-400 p-1 text-left text-base text-zinc-950 dark:text-zinc-50"
+									className="whitespace-nowrap text-center border border-slate-600 dark:border-slate-400 p-2 text-left text-base text-zinc-950 dark:text-zinc-50 max-w-[33dvw] overflow-auto"
 								>
-									{item.id === undefined ? (
+									{key !== "name" ? (
 										typeof value === "object" && value instanceof Date ? (
 											formatDateTime(value.toString())
 										) : (
 											value
 										)
 									) : (
-										<Link href={`/admin/dashboard/customers/${item.id}`}>
-											{typeof value === "object" && value instanceof Date
-												? formatDateTime(value.toString())
-												: value}
+										<Link
+											href={`/admin/dashboard/customers/${item.id}`}
+											className={`${
+												!isMobile &&
+												"hover:underline hover:text-cyan-700 dark:hover:text-cyan-400"
+											} active:text-cyan-500 dark:active:text-cyan-300`}
+										>
+											{value}
 										</Link>
 									)}
 								</td>

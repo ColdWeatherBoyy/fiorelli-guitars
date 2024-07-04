@@ -1,9 +1,10 @@
 import AnimateWrapper from "@/app/components/AnimateWrapper";
-import AdminButtonLink from "../../components/AdminButtonLink";
 import { signIn } from "@/auth";
-import { FC } from "react";
+import AdminButtonLink from "../../components/AdminButtonLink";
+import { useDeviceType } from "@/app/utilities/hooks.server";
 
 const SignIn = () => {
+	const isMobile = useDeviceType();
 	return (
 		<AnimateWrapper>
 			<div className="flex flex-col justify-center items-center gap-4">
@@ -16,7 +17,7 @@ const SignIn = () => {
 					className="flex flex-col gap-4 items-center justify-center border border-zinc-500 p-4 bg-zinc-100 rounded-lg shadow-sm shadow-slate-400 dark:shadow-slate-900"
 				>
 					<label>Powered by Google</label>
-					<AdminButtonLink text="Sign In" />
+					<AdminButtonLink text="Sign In" isMobile={isMobile} />
 				</form>
 			</div>
 		</AnimateWrapper>

@@ -18,6 +18,12 @@ const SideBar: FC<SideBarProps> = ({ open, setOpen, isMobile }) => {
 		{ link: "/admin/dashboard/customers/search", text: "Search" },
 	];
 
+	const handleMobileClick = () => {
+		if (isMobile) {
+			setTimeout(() => setOpen(false), 500);
+		}
+	};
+
 	return (
 		<motion.div
 			initial={{ x: "-100%" }}
@@ -42,18 +48,21 @@ const SideBar: FC<SideBarProps> = ({ open, setOpen, isMobile }) => {
 						<Link
 							href={option.link}
 							key={option.text.toLowerCase().replace(/ /g, "-")}
-							className={`w-fit text-base font-semibold transition-all duration-200 ease-in-out active:text-base active:text-cyan-300 dark:active:text-cyan-500 active:underline ${
-								!isMobile &&
-								"hover:text-lg hover:underline hover:text-cyan-300 dark:hover:text-cyan-500 hover:translate-x-2 active:translate-x-0"
+							className={`w-fit font-semibold transition-all duration-200 ease-in-out active:text-cyan-300 dark:active:text-cyan-500 active:underline ${
+								!isMobile
+									? "text-base hover:text-lg hover:underline hover:text-cyan-300 dark:hover:text-cyan-500 hover:translate-x-2 active:translate-x-0 active:text-base"
+									: "text-2xl text-center w-full active:text-xl"
 							}`}
+							onClick={handleMobileClick}
 						>
 							{option.text}
 						</Link>
 					))}
 					<button
-						className={`w-fit text-base font-semibold transition-all duration-200 ease-in-out active:text-base active:text-cyan-300 dark:active:text-cyan-500 active:underline ${
-							!isMobile &&
-							"hover:text-lg hover:underline hover:text-cyan-300 dark:hover:text-cyan-500 hover:translate-x-2 active:translate-x-0"
+						className={`w-fit font-semibold transition-all duration-200 ease-in-out active:text-cyan-300 dark:active:text-cyan-500 active:underline ${
+							!isMobile
+								? "text-base hover:text-lg hover:underline hover:text-cyan-300 dark:hover:text-cyan-500 hover:translate-x-2 active:translate-x-0 active:text-base"
+								: "text-2xl text-center w-full active:text-xl"
 						}`}
 						onClick={() => signOut()}
 					>

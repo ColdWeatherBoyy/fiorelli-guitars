@@ -1,7 +1,9 @@
 import AdminButtonLink from "@/app/(admin)/components/AdminButtonLink";
 import Table from "@/app/(admin)/components/Table";
-import AnimateWrapper from "@/app/components/AnimateWrapper";
+import Title from "@/app/(admin)/components/Title";
 import { getMessagesByCustomerId } from "@/app/utilities/databaseFunctions";
+import { useDeviceType } from "@/app/utilities/hooks.server";
+import Link from "next/link";
 import { FC } from "react";
 
 interface CustomerProps {
@@ -12,16 +14,18 @@ interface CustomerProps {
 
 const Customer: FC<CustomerProps> = async ({ params: { customerId } }) => {
 	const customerWithMessages = await getMessagesByCustomerId(Number(customerId));
+	const isMobile = useDeviceType();
 
 	return (
 		<>
-			<div className="text-4xl font-semibold">
-				Messages from {customerWithMessages.name}
+			<Title title={`Messages from ${customerWithMessages.name}`} />
+			<div className="text-center max-w-16">
+				<span className="font-semibold">Email:</span>{" "}
+				<Link href={`mailto:${customerWithMessages.email}`}>
+					{customerWithMessages.email}
+				</Link>
 			</div>
-			<div>
-				<span className="font-semibold">Email:</span> {customerWithMessages.email}
-			</div>
-			<AdminButtonLink href="/admin" text="Go Back" />
+			<AdminButtonLink text="Go Back" goBack isMobile={isMobile} />
 			<Table data={customerWithMessages.messages} />
 		</>
 	);

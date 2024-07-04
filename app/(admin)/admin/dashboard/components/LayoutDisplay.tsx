@@ -1,7 +1,8 @@
 "use client";
 
-import { FC, useEffect, useRef, useState } from "react";
 import SideBar from "@/app/(admin)/components/SideBar";
+import { useRouter } from "next/navigation";
+import { FC, useEffect, useRef, useState } from "react";
 
 interface LayoutDisplayProps {
 	children: React.ReactNode;
@@ -9,7 +10,8 @@ interface LayoutDisplayProps {
 }
 
 const LayoutDisplay: FC<LayoutDisplayProps> = ({ children, isMobile }) => {
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(isMobile ? false : true);
+
 	const [sideBarWidthMargin, setSideBarWidthMargin] = useState("0px");
 	const sideBarRef = useRef<HTMLDivElement>(null);
 
@@ -29,14 +31,17 @@ const LayoutDisplay: FC<LayoutDisplayProps> = ({ children, isMobile }) => {
 
 	return (
 		<div className="flex relative overflow-hidden h-dvh">
-			<div ref={sideBarRef} className="absolute h-full w-1/6 min-w-36">
+			<div
+				ref={sideBarRef}
+				className={`absolute h-full ${isMobile ? "w-full " : "w-1/6"} min-w-36`}
+			>
 				<SideBar open={open} setOpen={setOpen} isMobile={isMobile} />
 			</div>
 			<div
 				style={{ marginLeft: open ? sideBarWidthMargin : "0px" }}
 				className={`transition-all duration-300 flex-1 flex justify-center items-start`}
 			>
-				<div className="w-full">{children}</div>
+				<div className="mx-5 w-full">{children}</div>
 			</div>
 		</div>
 	);
