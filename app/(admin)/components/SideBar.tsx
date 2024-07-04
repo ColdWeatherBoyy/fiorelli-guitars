@@ -1,9 +1,8 @@
-"use client";
-
 import RightCaret from "@/app/components/SVGs/RightCaretIcon";
 import { motion } from "framer-motion";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { Dispatch, FC, SetStateAction, useState } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 
 interface SideBarProps {
 	open: boolean;
@@ -24,7 +23,7 @@ const SideBar: FC<SideBarProps> = ({ open, setOpen }) => {
 			animate={{ x: open ? 0 : "-100%" }}
 			transition={{ ease: "easeInOut", duration: 0.4 }}
 		>
-			<div className="h-dvh bg-gradient-to-b dark:from-slate-600 dark:to-slate-500 from-slate-400 to-slate-500 pl-6 pr-2 pt-10 rounded-sm shadow-sm shadow-zinc-800 dark:shadow-sm dark:shadow-zinc-500">
+			<div className="h-dvh bg-gradient-to-b dark:from-slate-600 dark:to-slate-500 from-slate-400 to-slate-500 px-6 py-10 rounded-sm shadow-sm shadow-zinc-800 dark:shadow-sm dark:shadow-zinc-500">
 				<motion.div
 					className={`absolute right-0 top-6`}
 					animate={{ scaleX: open ? -1 : 1, x: open ? 10 : 30 }}
@@ -43,6 +42,12 @@ const SideBar: FC<SideBarProps> = ({ open, setOpen }) => {
 							{option.text}
 						</Link>
 					))}
+					<button
+						className="w-fit text-base font-semibold hover:text-lg hover:underline hover:text-cyan-300 dark:hover:text-cyan-500 hover:translate-x-2 transition-all duration-200 ease-in-out"
+						onClick={() => signOut()}
+					>
+						Sign Out
+					</button>
 				</div>
 			</div>
 		</motion.div>

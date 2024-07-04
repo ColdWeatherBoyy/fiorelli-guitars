@@ -29,7 +29,7 @@ export default function Layout({
 
 	return (
 		<div className="flex relative overflow-hidden h-dvh">
-			<div ref={sideBarRef} className="absolute h-full w-1/5 min-w-fit">
+			<div ref={sideBarRef} className="absolute h-full w-1/6 min-w-fit">
 				<SideBar open={open} setOpen={setOpen} />
 			</div>
 			<div

@@ -10,7 +10,7 @@ export default function SignIn() {
 				<form
 					action={async () => {
 						"use server";
-						await signIn("google", { redirectTo: "/admin" });
+						await signIn("google", { redirectTo: "/admin/dashboard" });
 					}}
 					className="flex flex-col gap-4 items-center justify-center border border-zinc-500 p-4 bg-zinc-100 rounded-lg shadow-md"
 				>
