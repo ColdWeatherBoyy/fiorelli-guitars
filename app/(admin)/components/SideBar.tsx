@@ -32,7 +32,7 @@ const SideBar: FC<SideBarProps> = ({ open, setOpen, isMobile }) => {
 					onClick={() => setOpen((prev) => !prev)}
 				>
 					<RightCaret
-						className={`cursor-pointer active:text-cyan-300 dark:active:text-cyan-500${
+						className={`cursor-pointer active:text-cyan-300 dark:active:text-cyan-500 ${
 							!isMobile && "hover:text-cyan-300 dark:hover:text-cyan-500"
 						}`}
 					/>
