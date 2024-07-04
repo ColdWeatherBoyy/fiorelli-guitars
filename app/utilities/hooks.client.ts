@@ -58,35 +58,6 @@ export const useDarkMode = () => {
 	return isDarkMode;
 };
 
-// Thanks to https://medium.com/@josephat94/building-a-custom-hook-to-detect-user-device-in-react-js-e4dd6e0d2d9c for the basic guideline
-// I don't think this ws fully working when i realized i didn't need it
-// export const useDeviceType = () => {
-// 	const [deviceType, setDeviceType] = useState<DeviceType | null>(() => null);
-
-// 	useEffect(() => {
-// 		const handleDeviceDetection = () => {
-// 			const userAgent = navigator.userAgent.toLowerCase();
-// 			const isMobile = /iphone|ipad|ipod|android|blackberry|windows phone/g.test(
-// 				userAgent
-// 			);
-// 			const isTablet = /(ipad|tablet|playbook|silk)|(android(?!.*mobile))/g.test(
-// 				userAgent
-// 			);
-
-// 			if (isMobile || isTablet) setDeviceType(DeviceType.mobile);
-// 			else setDeviceType(DeviceType.desktop);
-// 		};
-
-// 		handleDeviceDetection();
-// 		window.addEventListener("resize", handleDeviceDetection);
-
-// 		return () => {
-// 			window.removeEventListener("resize", handleDeviceDetection);
-// 		};
-// 	}, []);
-// 	return deviceType;
-// };
-
 // export const useResponsiveImage = (
 // 	imagePair: [Image, Image],
 // 	setImage: React.Dispatch<React.SetStateAction<Image>>

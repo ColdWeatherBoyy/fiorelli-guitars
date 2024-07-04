@@ -19,8 +19,7 @@ const SearchBar: FC<SearchBarProps> = ({ label, placeholder }) => {
 		router.push(`/admin/dashboard/customers/${data}`);
 	}, [data, router]);
 	return (
-		<form action={formAction} className="flex flex-col border border-zinc-500 gap-2 p-4">
-			<label className="text-xl ">{label}</label>
+		<form action={formAction} className="flex flex-col gap-2">
 			<input
 				type="text"
 				placeholder={placeholder}

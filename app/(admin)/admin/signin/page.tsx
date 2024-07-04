@@ -1,8 +1,9 @@
 import AnimateWrapper from "@/app/components/AnimateWrapper";
 import AdminButtonLink from "../../components/AdminButtonLink";
 import { signIn } from "@/auth";
+import { FC } from "react";
 
-export default function SignIn() {
+const SignIn = () => {
 	return (
 		<AnimateWrapper>
 			<div className="flex flex-col justify-center items-center gap-4">
@@ -20,4 +21,6 @@ export default function SignIn() {
 			</div>
 		</AnimateWrapper>
 	);
-}
+};
+
+export default SignIn;

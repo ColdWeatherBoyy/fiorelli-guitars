@@ -1,4 +1,3 @@
-import "../../style/globals.css";
 import AdminWrapper from "../components/AdminWrapper";
 
 export default function Layout({

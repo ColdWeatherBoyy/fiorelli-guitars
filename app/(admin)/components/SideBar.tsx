@@ -7,14 +7,15 @@ import { Dispatch, FC, SetStateAction } from "react";
 interface SideBarProps {
 	open: boolean;
 	setOpen: Dispatch<SetStateAction<boolean>>;
+	isMobile: boolean;
 }
 
-const SideBar: FC<SideBarProps> = ({ open, setOpen }) => {
+const SideBar: FC<SideBarProps> = ({ open, setOpen, isMobile }) => {
 	const pageOptions = [
 		{ link: "/admin/dashboard/", text: "Home" },
 		{ link: "/admin/dashboard/customers", text: "Customers" },
 		{ link: "/admin/dashboard/messages", text: "Messages" },
-		{ link: "/admin/dashboard/customers/search", text: "Find Customer" },
+		{ link: "/admin/dashboard/customers/search", text: "Search" },
 	];
 
 	return (
@@ -30,20 +31,30 @@ const SideBar: FC<SideBarProps> = ({ open, setOpen }) => {
 					transition={{ ease: "easeInOut", duration: 0.2 }}
 					onClick={() => setOpen((prev) => !prev)}
 				>
-					<RightCaret className="cursor-pointer hover:text-cyan-300 dark:hover:text-cyan-500" />
+					<RightCaret
+						className={`cursor-pointer active:text-cyan-300 dark:active:text-cyan-500${
+							!isMobile && "hover:text-cyan-300 dark:hover:text-cyan-500"
+						}`}
+					/>
 				</motion.div>
 				<div className="flex flex-col gap-1">
 					{pageOptions.map((option) => (
 						<Link
 							href={option.link}
 							key={option.text.toLowerCase().replace(/ /g, "-")}
-							className="w-fit text-base font-semibold hover:text-lg hover:underline hover:text-cyan-300 dark:hover:text-cyan-500 hover:translate-x-2 transition-all duration-200 ease-in-out"
+							className={`w-fit text-base font-semibold transition-all duration-200 ease-in-out active:text-base active:text-cyan-300 dark:active:text-cyan-500 active:underline ${
+								!isMobile &&
+								"hover:text-lg hover:underline hover:text-cyan-300 dark:hover:text-cyan-500 hover:translate-x-2 active:translate-x-0"
+							}`}
 						>
 							{option.text}
 						</Link>
 					))}
 					<button
-						className="w-fit text-base font-semibold hover:text-lg hover:underline hover:text-cyan-300 dark:hover:text-cyan-500 hover:translate-x-2 transition-all duration-200 ease-in-out"
+						className={`w-fit text-base font-semibold transition-all duration-200 ease-in-out active:text-base active:text-cyan-300 dark:active:text-cyan-500 active:underline ${
+							!isMobile &&
+							"hover:text-lg hover:underline hover:text-cyan-300 dark:hover:text-cyan-500 hover:translate-x-2 active:translate-x-0"
+						}`}
 						onClick={() => signOut()}
 					>
 						Sign Out

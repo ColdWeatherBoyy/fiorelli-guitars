@@ -8,16 +8,20 @@ import {
 	hoverDarkLogoStyle,
 	hoverLightLogoStyle,
 } from "@/app/style/general";
-import { useDarkMode, useScreenSize } from "@/app/utilities/hooks";
+import { useDarkMode, useScreenSize } from "@/app/utilities/hooks.client";
 import { ScreenSize } from "@/app/utilities/types";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import FullLogo from "../../../components/SVGs/FullLogo";
 import SmallLogo from "../../../components/SVGs/SmallLogo";
 import HamburgerMenuButton from "./navComponents/HamburgerMenuButton";
 import HeaderMenu from "./navComponents/HeaderMenu";
 
-const Header = () => {
+interface HeaderProps {
+	isMobile: boolean;
+}
+
+const Header: FC<HeaderProps> = ({ isMobile }) => {
 	const screenSize = useScreenSize();
 	const isDarkMode = useDarkMode();
 
@@ -106,6 +110,7 @@ const Header = () => {
 					setIsOpen={setIsOpen}
 					screenSize={screenSize}
 					menuRef={menuRef}
+					isMobile={isMobile}
 				/>
 			</div>
 		</div>

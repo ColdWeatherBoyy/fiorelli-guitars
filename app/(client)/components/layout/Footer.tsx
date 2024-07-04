@@ -8,7 +8,7 @@ import {
 	hoverDarkLogoStyle,
 	hoverLightLogoStyle,
 } from "@/app/style/general";
-import { useDarkMode, useScreenSize } from "@/app/utilities/hooks";
+import { useDarkMode, useScreenSize } from "@/app/utilities/hooks.client";
 import Link from "next/link";
 import { useState } from "react";
 import { ScreenSize } from "@/app/utilities/types";

@@ -1,11 +1,12 @@
 import SearchBar from "@/app/(admin)/components/SearchBar";
-import AnimateWrapper from "@/app/components/AnimateWrapper";
+import Title from "@/app/(admin)/components/Title";
 
 const searchCustomers = () => {
 	return (
-		<AnimateWrapper>
-			<SearchBar label="Search for Customer" placeholder="Email or Name" />
-		</AnimateWrapper>
+		<>
+			<Title title="Search Customers" />
+			<SearchBar label="Search Customers" placeholder="Email or Name" />
+		</>
 	);
 };
 

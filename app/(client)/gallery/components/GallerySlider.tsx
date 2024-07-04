@@ -1,6 +1,6 @@
 "use client";
 
-import { useScreenSize } from "@/app/utilities/hooks";
+import { useScreenSize } from "@/app/utilities/hooks.client";
 import { CloudinaryResource } from "@/app/utilities/types";
 import { CldImage } from "next-cloudinary";
 import Link from "next/link";
