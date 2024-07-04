@@ -41,13 +41,19 @@ export const createCustomerAndMessage = async (
 
 export const getCustomers = async () => {
 	const customers = await prisma.customer.findMany({
-		select: { email: true, name: true, messages: { select: { content: true } } },
+		select: {
+			email: true,
+			name: true,
+			messages: { select: { content: true } },
+			id: true,
+		},
 	});
 	const flattenedCustomers = customers.map((customer) => {
 		return {
 			email: customer.email,
 			name: customer.name,
 			messages: customer.messages.length,
+			id: customer.id,
 		};
 	});
 	return flattenedCustomers;
@@ -61,6 +67,7 @@ export const getMessages = async () => {
 			customer: {
 				select: {
 					name: true,
+					id: true,
 				},
 			},
 		},
@@ -73,6 +80,7 @@ export const getMessages = async () => {
 			content: message.content,
 			createdAt: message.createdAt,
 			name: message.customer.name,
+			id: message.customer.id,
 		};
 	});
 

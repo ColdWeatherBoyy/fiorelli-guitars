@@ -1,4 +1,5 @@
 import { formatDateTime, toTitleCase } from "@/app/utilities/helpers";
+import Link from "next/link";
 import { FC } from "react";
 
 interface TableProps {
@@ -8,7 +9,7 @@ interface TableProps {
 const Table: FC<TableProps> = ({ data }) => {
 	if (!data.length) return <div>No data available</div>;
 
-	const headers = Object.keys(data[0]);
+	const headers = Object.keys(data[0]).filter((header) => header !== "id");
 
 	return (
 		<table className="shadow-lg rounded-md">
@@ -34,16 +35,29 @@ const Table: FC<TableProps> = ({ data }) => {
 								: "bg-zinc-50 dark:bg-zinc-500"
 						}`}
 					>
-						{Object.values(item).map((value, index) => (
-							<td
-								key={index}
-								className="border border-slate-600 dark:border-slate-400 p-1 text-left text-base text-zinc-950 dark:text-zinc-50"
-							>
-								{typeof value === "object" && value instanceof Date
-									? formatDateTime(value.toString())
-									: value}
-							</td>
-						))}
+						{Object.entries(item).map(([key, value], index) => {
+							if (key === "id") return;
+							return (
+								<td
+									key={index}
+									className="border border-slate-600 dark:border-slate-400 p-1 text-left text-base text-zinc-950 dark:text-zinc-50"
+								>
+									{item.id === undefined ? (
+										typeof value === "object" && value instanceof Date ? (
+											formatDateTime(value.toString())
+										) : (
+											value
+										)
+									) : (
+										<Link href={`/admin/dashboard/customers/${item.id}`}>
+											{typeof value === "object" && value instanceof Date
+												? formatDateTime(value.toString())
+												: value}
+										</Link>
+									)}
+								</td>
+							);
+						})}
 					</tr>
 				))}
 			</tbody>
