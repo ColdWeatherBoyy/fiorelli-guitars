@@ -8,8 +8,9 @@ interface TableProps {
 }
 
 const Table: FC<TableProps> = ({ data }) => {
-	if (!data.length) return <div>No data available</div>;
 	const isMobile = useDeviceType();
+
+	if (!data.length) return <div>No data available</div>;
 
 	const sortedData = data.map((item) => sortObjectKeys(item, ["name", "content"]));
 	const headers = Object.keys(sortedData[0]).filter((header) => header !== "id");

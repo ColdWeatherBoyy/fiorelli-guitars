@@ -2,7 +2,7 @@ import SearchBar from "@/app/(admin)/components/SearchBar";
 import Title from "@/app/(admin)/components/Title";
 import { useDeviceType } from "@/app/utilities/hooks.server";
 
-const searchCustomers = () => {
+const SearchCustomers = () => {
 	const isMobile = useDeviceType();
 	return (
 		<>
@@ -12,4 +12,4 @@ const searchCustomers = () => {
 	);
 };
 
-export default searchCustomers;
+export default SearchCustomers;
