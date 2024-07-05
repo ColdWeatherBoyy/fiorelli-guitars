@@ -25,7 +25,7 @@ const AdminButtonLink: FC<AdminButtonLinkProps> = ({
 
 	if (goBack && !handleClick) handleClick = () => router.back();
 
-	const classStyle = `text-center w-fit text-base sm:text-lg rounded-lg bg-zinc-50 dark:bg-zinc-600 shadow-sm shadow-slate-400 dark:shadow-slate-900 transition-all ease-in-out duration-200 border border-slate-400 dark:border-slate-500 p-1 ${
+	const classStyle = `text-center w-fit text-base rounded-lg bg-zinc-50 dark:bg-zinc-600 shadow-sm shadow-slate-400 dark:shadow-slate-900 transition-all ease-in-out duration-200 border border-slate-400 dark:border-slate-500 p-1 ${
 		pending
 			? "opacity-50 cursor-not-allowed"
 			: `${
