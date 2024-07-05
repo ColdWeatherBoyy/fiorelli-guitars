@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { getMessagesByCustomerEmail } from "@/app/utilities/databaseFunctions";
+import { formatDateTime } from "@/app/utilities/helpers";
 import { ContactFormData } from "@/app/utilities/types";
 import { FC } from "react";
 
@@ -108,7 +109,9 @@ export const InboxEmailTemplate: FC<Readonly<InboxEmailTemplateProps>> = async (
 									}}
 								>
 									{message.content} at{" "}
-									<span className="bold">{message.createdAt.toDateString()}</span>
+									<span className="bold">
+										{formatDateTime(message.createdAt.toDateString())}
+									</span>
 								</div>
 							))}
 						</>
