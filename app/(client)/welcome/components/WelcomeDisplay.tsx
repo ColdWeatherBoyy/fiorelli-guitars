@@ -21,7 +21,7 @@ const WelcomeDisplay: FC<WelcomeDisplayProps> = ({ welcomeImage }) => {
 	};
 
 	useEffect(() => {
-		document.cookie = "visited";
+		document.cookie = "visited=true";
 		setTimeout(() => {
 			if (welcomeState === WelcomeState.welcome) handleEnter();
 		}, 4000);

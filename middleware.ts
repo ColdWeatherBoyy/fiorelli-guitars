@@ -1,4 +1,4 @@
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { auth } from "./auth";
 
 export default auth((req) => {
@@ -10,31 +10,36 @@ export default auth((req) => {
 			(req.nextUrl.pathname.includes("signin") ||
 				req.nextUrl.pathname.includes("unauthorized"))
 		) {
-			return NextResponse.redirect(new URL("/admin/dashboard", req.nextUrl));
-		} else if (req.nextUrl.pathname === "/admin") {
-			if (req.auth) {
-				return NextResponse.redirect(new URL("/admin/dashboard", req.nextUrl));
-			} else {
-				return NextResponse.redirect(new URL("/admin/signin", req.nextUrl));
-			}
+			return NextResponse.redirect(new URL("/admin/dashboard", req.nextUrl.origin));
 		}
 	} else {
-		if (req.url.includes("/welcome") && req.cookies.get("visited")) {
-			return NextResponse.redirect(new URL("/", req.nextUrl));
-		} else if (req.cookies.get("visited")) {
-			return NextResponse.next();
-		} else if (!req.url.includes("/welcome")) {
-			return NextResponse.redirect(new URL("/welcome", req.nextUrl));
+		if (
+			req.nextUrl.pathname.includes("/welcome") &&
+			req.cookies.get("visited")?.value === "true"
+		) {
+			return NextResponse.redirect(new URL("/", req.nextUrl.origin));
+		} else if (
+			!req.nextUrl.pathname.includes("/welcome") &&
+			req.cookies.get("visited")?.value !== "true"
+		) {
+			return NextResponse.redirect(new URL("/welcome", req.nextUrl.origin));
 		}
 	}
 });
 
-// For Credentials Authentication
-// import NextAuth from "next-auth";
-// import { authConfig } from "./auth.config";
-
-// export default NextAuth(authConfig).auth;
+// export function middleware(request: NextRequest) {
+// 	if (request.nextUrl.pathname.includes("/welcome") && request.cookies.get("visited")) {
+// 		return NextResponse.redirect(new URL("/", request.url));
+// 	} else if (request.cookies.get("visited")) {
+// 		return NextResponse.next();
+// 	} else if (!request.nextUrl.pathname.includes("/welcome")) {
+// 		return NextResponse.redirect(new URL("/welcome", request.url));
+// 	}
+// }
 
 // export const config = {
-// 	matcher: ["/((?!api|_next/static|_next/image|icon.ico|favicon.ico|.*\\.png$).*)"],
+// 	matcher: ["/((?!api|admin|_next/static|_next/image|icon.ico|favicon.ico|.*\\.png$).*)"],
 // };
+export const config = {
+	matcher: ["/((?!api|_next/static|_next/image|icon.ico|favicon.ico|.*\\.png$).*)"],
+};
