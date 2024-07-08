@@ -4,17 +4,17 @@ import Title from "@/app/(admin)/components/Title";
 import { getAuthUsers } from "@/app/utilities/databaseFunctions";
 import { useDeviceType } from "@/app/utilities/hooks.server";
 
-const Settings = async () => {
+const AdminUsers = async () => {
 	const isMobile = useDeviceType();
 	const authUsers = await getAuthUsers();
 
 	return (
 		<>
-			<Title title="Settings" />
+			<Title title="Admins" />
 			<AddAuthUserForm isMobile={isMobile} />
 			<Table data={authUsers} />
 		</>
 	);
 };
 
-export default Settings;
+export default AdminUsers;
