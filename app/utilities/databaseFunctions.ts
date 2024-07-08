@@ -142,7 +142,7 @@ export const getCustomerIdByEmailOrName = async (query: string) => {
 	return customer.id;
 };
 
-export const getAuthUsers = async (): Promise<string[]> => {
+export const getAuthUsers = async (): Promise<AuthUser[]> => {
 	try {
 		const authUsers = await prisma.authUser.findMany({});
 
@@ -150,9 +150,7 @@ export const getAuthUsers = async (): Promise<string[]> => {
 			throw new Error("Auth users not found");
 		}
 
-		const authUserEmails = authUsers.map((authUser) => authUser.email);
-
-		return authUserEmails;
+		return authUsers;
 	} catch (error) {
 		console.error(error);
 		throw new Error("An error occurred. Please try again.");
@@ -166,16 +164,24 @@ export const createAuthUser = async (email: string): Promise<AuthUser | Error> =
 				email,
 			},
 		});
-		console.log(authUser);
+
 		if (!authUser) {
 			throw new Error("Failed to create auth user");
 		}
 		return authUser;
 	} catch (error) {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			if (error.code === "P2002") {
+				return {
+					name: "Unique Email Error",
+					message: "This email is already authorized.",
+					cause: `${error.code} - ${error.message}`,
+				};
+			}
 			return {
-				name: "PrismaClientKnownRequestError",
-				message: `Error code: ${error.code} - ${error.message}`,
+				name: "Prisma Known Request Error",
+				message: `A database occured. Please try again.`,
+				cause: `${error.code} - ${error.message}`,
 			};
 		} else if (
 			error instanceof Prisma.PrismaClientInitializationError ||
@@ -183,11 +189,16 @@ export const createAuthUser = async (email: string): Promise<AuthUser | Error> =
 			error instanceof Prisma.PrismaClientRustPanicError ||
 			error instanceof Prisma.PrismaClientUnknownRequestError
 		) {
-			return { name: "PrismaError", message: `Error: ${error.message}` };
+			return {
+				name: "Prisma Database Error",
+				message: `A database occured. Please try again.`,
+				cause: error.message,
+			};
 		} else {
 			return {
-				name: "UnknownCreateAuthUserError",
-				message: `Error: ${error?.toString()}`,
+				name: "Error",
+				message: `An unknown error occured. Please try again.`,
+				cause: error?.toString() || "No error message provided.",
 			};
 		}
 	}

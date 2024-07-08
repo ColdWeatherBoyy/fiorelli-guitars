@@ -52,6 +52,7 @@ export interface GalleryPhotoProps {
 }
 
 export type AuthUserResponse = AuthUser | Error;
+
 // export enum DeviceType {
 // 	mobile = "mobile",
 // 	desktop = "desktop",

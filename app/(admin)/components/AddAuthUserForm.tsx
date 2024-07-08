@@ -1,10 +1,12 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { handleAddAuthUserForm } from "../utilities/formHandlers";
 import AdminButtonLink from "./AdminButtonLink";
 import { isAuthUser } from "@/app/utilities/typeguardFunctions";
+import FormError from "./FormError";
+import FormSuccess from "./FormSuccess";
 
 interface AddAuthUserFormProps {
 	isMobile: boolean;
@@ -12,9 +14,19 @@ interface AddAuthUserFormProps {
 
 const AddAuthUserForm: FC<AddAuthUserFormProps> = ({ isMobile }) => {
 	const [data, formAction] = useFormState(handleAddAuthUserForm, null);
+	const [showMessage, setShowMessage] = useState<boolean>(false);
+
+	useEffect(() => {
+		if (data !== null) {
+			setShowMessage(true);
+			// setTimeout(() => {
+			// 	setShowMessage(false);
+			// }, 5000);
+		}
+	}, [data]);
 
 	return (
-		<div className="flex flex-col gap-4">
+		<div className="flex flex-col gap-4 justify-center items-center">
 			<form action={formAction} className="flex gap-4">
 				<input
 					type="email"
@@ -25,17 +37,12 @@ const AddAuthUserForm: FC<AddAuthUserFormProps> = ({ isMobile }) => {
 				/>
 				<AdminButtonLink text="Search" isMobile={isMobile} />
 			</form>
-			{data === null ? null : isAuthUser(data) ? (
-				<div className="flex flex-col gap-2">
-					<div className="font-semibold">User added!</div>
-					<div className="font-semibold">Email: {data.email}</div>
-				</div>
-			) : (
-				<div className="flex flex-col gap-2">
-					<div className="font-semibold">Error: {data.name}</div>
-					<div className="font-semibold">{data.message}</div>
-				</div>
-			)}
+			{showMessage &&
+				(data === null ? null : isAuthUser(data) ? (
+					<FormSuccess message={`${data.email} now authorized!`} />
+				) : (
+					<FormError error={data} />
+				))}
 		</div>
 	);
 };
