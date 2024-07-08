@@ -24,7 +24,7 @@ model Message {
   customerId    Int
 }
 
-model AuthUserEmails {
+model AuthUser {
   id        Int      @id @default(autoincrement())
   email     String   @unique
 }

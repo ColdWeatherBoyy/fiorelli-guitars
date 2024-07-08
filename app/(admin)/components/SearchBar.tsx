@@ -2,7 +2,7 @@
 
 import { FC, useEffect } from "react";
 import { useFormState } from "react-dom";
-import { handleForm } from "../utilities/handleForm";
+import { handleSearchForm } from "../utilities/formHandlers";
 import { useRouter } from "next/navigation";
 import AdminButtonLink from "./AdminButtonLink";
 
@@ -12,7 +12,7 @@ interface SearchBarProps {
 }
 
 const SearchBar: FC<SearchBarProps> = ({ placeholder, isMobile }) => {
-	const [data, formAction] = useFormState(handleForm, null);
+	const [data, formAction] = useFormState(handleSearchForm, null);
 	const router = useRouter();
 	useEffect(() => {
 		if (data === null) return;

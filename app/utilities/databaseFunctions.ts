@@ -1,6 +1,6 @@
 "use server";
 
-import { PrismaClient, Customer } from "@prisma/client";
+import { AuthUser, Customer, Prisma, PrismaClient } from "@prisma/client";
 import { CreateCustomerAndMessageResponse, newMessage } from "./types";
 
 const prisma = new PrismaClient();
@@ -142,53 +142,53 @@ export const getCustomerIdByEmailOrName = async (query: string) => {
 	return customer.id;
 };
 
-export const getAuthUserEmails = async () => {
-	const authUsers = await prisma.authUserEmails.findMany({
-		select: {
-			email: true,
-		},
-	});
-	const authUserEmails = authUsers.map((authUser) => authUser.email);
+export const getAuthUsers = async (): Promise<string[]> => {
+	try {
+		const authUsers = await prisma.authUser.findMany({});
 
-	return authUserEmails;
+		if (!authUsers) {
+			throw new Error("Auth users not found");
+		}
+
+		const authUserEmails = authUsers.map((authUser) => authUser.email);
+
+		return authUserEmails;
+	} catch (error) {
+		console.error(error);
+		throw new Error("An error occurred. Please try again.");
+	}
 };
 
-// export const getAuthUser = async (email: string): Promise<AuthUser | undefined> => {
-// 	try {
-// 		const authUser = await prisma.authUser.findUnique({
-// 			where: {
-// 				email,
-// 			},
-// 		});
-
-// 		if (!authUser) {
-// 			return undefined;
-// 		}
-
-// 		return authUser;
-// 	} catch (error) {
-// 		console.error(error);
-// 		throw new Error("An error occurred. Please try again.");
-// 	}
-// };
-
-// export const createAuthUser = async (
-// 	email: string,
-// 	password: string
-// ): Promise<AuthUser> => {
-// 	try {
-// 		const hashedPassword = await bcrypt.hash(password, 10);
-
-// 		const authUser = await prisma.authUser.create({
-// 			data: {
-// 				email,
-// 				password: hashedPassword,
-// 			},
-// 		});
-
-// 		return authUser;
-// 	} catch (error) {
-// 		console.error(error);
-// 		throw new Error("An error occurred. Please try again.");
-// 	}
-// };
+export const createAuthUser = async (email: string): Promise<AuthUser | Error> => {
+	try {
+		const authUser = await prisma.authUser.create({
+			data: {
+				email,
+			},
+		});
+		console.log(authUser);
+		if (!authUser) {
+			throw new Error("Failed to create auth user");
+		}
+		return authUser;
+	} catch (error) {
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			return {
+				name: "PrismaClientKnownRequestError",
+				message: `Error code: ${error.code} - ${error.message}`,
+			};
+		} else if (
+			error instanceof Prisma.PrismaClientInitializationError ||
+			error instanceof Prisma.PrismaClientValidationError ||
+			error instanceof Prisma.PrismaClientRustPanicError ||
+			error instanceof Prisma.PrismaClientUnknownRequestError
+		) {
+			return { name: "PrismaError", message: `Error: ${error.message}` };
+		} else {
+			return {
+				name: "UnknownCreateAuthUserError",
+				message: `Error: ${error?.toString()}`,
+			};
+		}
+	}
+};

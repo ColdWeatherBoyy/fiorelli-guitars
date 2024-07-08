@@ -1,4 +1,6 @@
+import { AuthUser } from "@prisma/client";
 import {
+	AuthUserResponse,
 	ContactFormData,
 	CreateCustomerAndMessageResponse,
 	ErrorResponse,
@@ -13,8 +15,8 @@ export const isContactFormData = (
 	);
 };
 
-export const isErrorResponse = (
-	response: CreateCustomerAndMessageResponse
-): response is ErrorResponse => {
-	return (response as ErrorResponse).error !== undefined;
+export const isAuthUser = (response: AuthUserResponse): response is AuthUser => {
+	return (
+		(response as AuthUser).id !== undefined && (response as AuthUser).email !== undefined
+	);
 };

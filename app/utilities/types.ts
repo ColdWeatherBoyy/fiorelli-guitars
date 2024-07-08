@@ -1,4 +1,4 @@
-import { Customer } from "@prisma/client";
+import { AuthUser, Customer } from "@prisma/client";
 
 export enum WelcomeState {
 	welcome = "welcome",
@@ -51,6 +51,7 @@ export interface GalleryPhotoProps {
 	};
 }
 
+export type AuthUserResponse = AuthUser | Error;
 // export enum DeviceType {
 // 	mobile = "mobile",
 // 	desktop = "desktop",

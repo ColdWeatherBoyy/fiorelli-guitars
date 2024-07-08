@@ -16,6 +16,7 @@ const SideBar: FC<SideBarProps> = ({ open, setOpen, isMobile }) => {
 		{ link: "/admin/dashboard/customers", text: "Customers" },
 		{ link: "/admin/dashboard/messages", text: "Messages" },
 		{ link: "/admin/dashboard/customers/search", text: "Search" },
+		{ link: "/admin/dashboard/settings", text: "Settings" },
 	];
 
 	const handleMobileClick = () => {

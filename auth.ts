@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
-import { getAuthUserEmails } from "./app/utilities/databaseFunctions";
+import { getAuthUsers } from "./app/utilities/databaseFunctions";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
 	callbacks: {
@@ -9,7 +9,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 				throw new Error("Profile email not found, access denied.");
 			}
 			const normalizedEmail = profile.email.toLowerCase().trim();
-			const authEmails = await getAuthUserEmails();
+			const authEmails = await getAuthUsers();
 			if (!authEmails.includes(normalizedEmail)) {
 				console.error("Unauthorized email, access denied.");
 				return "/admin/unauthorized";
