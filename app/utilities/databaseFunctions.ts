@@ -164,7 +164,6 @@ export const createAuthUser = async (email: string): Promise<AuthUser | Error> =
 				email,
 			},
 		});
-
 		if (!authUser) {
 			throw new Error("Failed to create auth user");
 		}
@@ -178,6 +177,45 @@ export const createAuthUser = async (email: string): Promise<AuthUser | Error> =
 					cause: `${error.code} - ${error.message}`,
 				};
 			}
+			return {
+				name: "Prisma Known Request Error",
+				message: `A database occured. Please try again.`,
+				cause: `${error.code} - ${error.message}`,
+			};
+		} else if (
+			error instanceof Prisma.PrismaClientInitializationError ||
+			error instanceof Prisma.PrismaClientValidationError ||
+			error instanceof Prisma.PrismaClientRustPanicError ||
+			error instanceof Prisma.PrismaClientUnknownRequestError
+		) {
+			return {
+				name: "Prisma Database Error",
+				message: `A database occured. Please try again.`,
+				cause: error.message,
+			};
+		} else {
+			return {
+				name: "Error",
+				message: `An unknown error occured. Please try again.`,
+				cause: error?.toString() || "No error message provided.",
+			};
+		}
+	}
+};
+
+export const deleteAuthUser = async (id: string): Promise<AuthUser | Error> => {
+	try {
+		const deletedUser = await prisma.authUser.delete({
+			where: {
+				id: parseInt(id),
+			},
+		});
+		if (!deletedUser) {
+			throw new Error("Failed to delete user.");
+		}
+		return deletedUser;
+	} catch (error) {
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
 			return {
 				name: "Prisma Known Request Error",
 				message: `A database occured. Please try again.`,

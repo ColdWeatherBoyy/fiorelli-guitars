@@ -53,6 +53,11 @@ export interface GalleryPhotoProps {
 
 export type AuthUserResponse = AuthUser | Error;
 
+export enum TableInteractionType {
+	delete = "delete",
+	edit = "edit",
+}
+
 // export enum DeviceType {
 // 	mobile = "mobile",
 // 	desktop = "desktop",

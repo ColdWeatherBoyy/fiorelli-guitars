@@ -1,22 +1,27 @@
+import TrashCanIcon from "@/app/components/SVGs/TrashCanIcon";
 import { formatDateTime, sortObjectKeys, toTitleCase } from "@/app/utilities/helpers";
 import { useDeviceType } from "@/app/utilities/hooks.server";
+import { TableInteractionType } from "@/app/utilities/types";
 import Link from "next/link";
 import { FC } from "react";
 
 interface TableProps {
 	data: Array<Record<string, any>>;
+	tableInteractionType?: TableInteractionType;
 }
 
-const Table: FC<TableProps> = ({ data }) => {
+const Table: FC<TableProps> = ({ data, tableInteractionType = null }) => {
 	const isMobile = useDeviceType();
 
 	if (!data.length) return <div>No data available</div>;
 
 	const sortedData = data.map((item) => sortObjectKeys(item, ["name", "content"]));
 	const headers = Object.keys(sortedData[0]).filter((header) => header !== "id");
+	if (tableInteractionType === TableInteractionType.delete)
+		headers.push(TableInteractionType.delete);
 
 	return (
-		<table className={`shadow shadow-slate-400 dark:shadow-slate-900 rounded-md z-20`}>
+		<table className={`shadow shadow-slate-400 dark:shadow-slate-900 z-20`}>
 			<thead>
 				<tr>
 					{headers.map((header) => (
@@ -70,6 +75,13 @@ const Table: FC<TableProps> = ({ data }) => {
 								</td>
 							);
 						})}
+						{tableInteractionType === TableInteractionType.delete && (
+							<td className="border border-slate-600 dark:border-slate-400 p-2 text-zinc-950 dark:text-zinc-50">
+								<div className="cursor-pointer w-fit m-auto">
+									<TrashCanIcon id={item.id} />
+								</div>
+							</td>
+						)}
 					</tr>
 				))}
 			</tbody>
