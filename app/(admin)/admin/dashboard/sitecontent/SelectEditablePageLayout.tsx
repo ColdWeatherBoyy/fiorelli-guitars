@@ -6,11 +6,13 @@ import EditablePageContent from "./EditablePageContent";
 interface SelectEditablePageLayoutProps {
 	pageContentBlocks: [string, string][][];
 	titlesArray: string[];
+	isMobile: boolean;
 }
 
 const SelectEditablePageLayout: FC<SelectEditablePageLayoutProps> = ({
 	pageContentBlocks,
 	titlesArray,
+	isMobile,
 }) => {
 	const [selectedTab, setSelectedTab] = useState(0);
 	return (
@@ -31,12 +33,13 @@ const SelectEditablePageLayout: FC<SelectEditablePageLayoutProps> = ({
 					</div>
 				))}
 			</div>
-			<div className="bg-zinc-50 grid grid-cols-1 sm:grid-cols-2 gap-8 border-x border-b rounded-b-md border-slate-600 dark:border-slate-400 p-2">
+			<div className="bg-zinc-50 grid grid-cols-1 sm:grid-cols-2 border-x border-b rounded-b-md border-slate-600 dark:border-slate-400 p-2">
 				{pageContentBlocks[selectedTab].map((contentBlock, index) => {
 					return (
 						<EditablePageContent
 							key={titlesArray[selectedTab] + index}
 							contentBlock={contentBlock}
+							isMobile={isMobile}
 						/>
 					);
 				})}
