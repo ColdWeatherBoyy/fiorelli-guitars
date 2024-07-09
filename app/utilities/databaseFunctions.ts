@@ -241,3 +241,24 @@ export const deleteAuthUser = async (id: string): Promise<AuthUser | Error> => {
 		}
 	}
 };
+
+export const getPageContent = async (title: string) => {
+	try {
+		const homePageContent = await prisma.page.findUnique({
+			where: {
+				title,
+			},
+			include: {
+				versions: {
+					where: {
+						isBackup: false,
+					},
+				},
+			},
+		});
+		return homePageContent;
+	} catch (error) {
+		console.error(error);
+		throw new Error("An error occurred. Please try again.");
+	}
+};

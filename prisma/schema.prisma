@@ -46,7 +46,7 @@ model PageContent {
 
 model Page {
   id          Int      @id @default(autoincrement())
-  title       String
+  title       String   @unique
   versions    PageContent[]
   version     Int      @default(1)
   createdAt   DateTime @default(now())
