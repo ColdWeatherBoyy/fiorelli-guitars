@@ -31,15 +31,14 @@ model AuthUser {
 
 model PageContent {
   id          Int      @id @default(autoincrement())
-  page        Page     @relation(fields: [pageId], references: [id])  
-  pageId      Int
+  page        Page     @relation(fields: [pageId], references: [id], onDelete:Cascade)  
+  pageId      Int      @unique
   heading     String
   body1       String
   body2       String?
   body3       String?
   signature   String?
   email       String?
-  isBackup    Boolean  @default(false)
   createdAt   DateTime @default(now())
 }
 
@@ -47,7 +46,7 @@ model PageContent {
 model Page {
   id          Int      @id @default(autoincrement())
   title       String   @unique
-  versions    PageContent[]
+  content    PageContent?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

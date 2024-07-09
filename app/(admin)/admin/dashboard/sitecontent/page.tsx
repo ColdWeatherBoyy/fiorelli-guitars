@@ -10,9 +10,9 @@ const SiteContent = async () => {
 	const aboutContent = await getPageContent("About");
 	const contactContent = await getPageContent("Contact");
 
-	const homeContentBlocks = getContentBlocks(homeContent.versions[0]);
-	const aboutContentBlocks = getContentBlocks(aboutContent.versions[0]);
-	const contactContentBlocks = getContentBlocks(contactContent.versions[0]);
+	const homeContentBlocks = getContentBlocks(homeContent.content);
+	const aboutContentBlocks = getContentBlocks(aboutContent.content);
+	const contactContentBlocks = getContentBlocks(contactContent.content);
 
 	const pageContentBlocks = [homeContentBlocks, aboutContentBlocks, contactContentBlocks];
 

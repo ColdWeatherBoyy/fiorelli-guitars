@@ -249,11 +249,7 @@ export const getPageContent = async (title: string) => {
 				title,
 			},
 			include: {
-				versions: {
-					where: {
-						isBackup: false,
-					},
-				},
+				content: true,
 			},
 		});
 		if (!pageContent) {

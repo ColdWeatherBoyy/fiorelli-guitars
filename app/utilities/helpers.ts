@@ -42,8 +42,10 @@ export const divideAndSortDatabaseData = (data: Array<Record<string, any>>) => {
 	return { headers, sortedData };
 };
 
-export const getContentBlocks = (content: PageContent) => {
-	return Object.entries(content).reduce((acc, [key, value]) => {
+export const getContentBlocks = (content: PageContent | null) => {
+	if (!content) return [];
+
+	const data = Object.entries(content).reduce((acc, [key, value]) => {
 		if (
 			value !== null &&
 			Object.values(ContentBlockType).includes(key as unknown as ContentBlockType)
@@ -52,4 +54,5 @@ export const getContentBlocks = (content: PageContent) => {
 		}
 		return acc;
 	}, [] as [string, string][]);
+	return data;
 };
