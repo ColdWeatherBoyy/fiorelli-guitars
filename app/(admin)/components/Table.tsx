@@ -21,6 +21,8 @@ const Table: FC<TableProps> = ({ data, isMobile, tableInteractionProps }) => {
 	if (tableInteractionProps?.extraHeader)
 		headers.push(tableInteractionProps?.extraHeader);
 
+	const handleClick = () => {};
+
 	return (
 		<table className={`shadow shadow-slate-400 dark:shadow-slate-900 z-20`}>
 			<thead>
@@ -79,7 +81,7 @@ const Table: FC<TableProps> = ({ data, isMobile, tableInteractionProps }) => {
 						{tableInteractionProps?.clickableIcon && (
 							<td className="border border-slate-600 dark:border-slate-400 p-2 text-zinc-950 dark:text-zinc-50">
 								<div
-									className="w-fit m-auto cursor-pointer"
+									className={"w-fit m-auto cursor-pointer"}
 									onClick={() => tableInteractionProps.handleClick(item.id)}
 								>
 									{tableInteractionProps.clickableIcon}

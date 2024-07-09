@@ -34,7 +34,6 @@ const AdminUsersLayout: FC<UserLayoutProps> = ({ authUsers, isMobile }) => {
 		try {
 			await deleteAuthUser(id);
 			setData((prevData) => prevData.filter((user) => user.id !== id));
-			console.log("1");
 			setOpen(OpenType.DELETE);
 		} catch (error) {
 			console.error(error);
@@ -61,7 +60,6 @@ const AdminUsersLayout: FC<UserLayoutProps> = ({ authUsers, isMobile }) => {
 
 		if (open !== OpenType.CLOSED) {
 			timeoutRef.current = setTimeout(() => {
-				console.log(open === OpenType.DELETE ? "hey" : "hi");
 				setOpen(OpenType.CLOSED);
 			}, 3000);
 		}

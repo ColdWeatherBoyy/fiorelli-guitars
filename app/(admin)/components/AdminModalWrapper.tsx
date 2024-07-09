@@ -11,7 +11,6 @@ interface AdminModalWrapperProps {
 }
 const AdminModalWrapper: FC<AdminModalWrapperProps> = ({ setOpen, children }) => {
 	const handleClick = () => {
-		console.log("4");
 		setOpen(OpenType.CLOSED);
 	};
 	return (
