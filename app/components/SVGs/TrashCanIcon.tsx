@@ -4,7 +4,6 @@ import { deleteAuthUser } from "@/app/utilities/databaseFunctions";
 import { FC } from "react";
 
 interface TrashCanProps {
-	id: string;
 	width?: number;
 	height?: number;
 	color?: string;
@@ -12,19 +11,11 @@ interface TrashCanProps {
 }
 // Thanks to SVG Repo https://www.svgrepo.com/svg/27641/trash-can-outline
 const TrashCanIcon: FC<TrashCanProps> = ({
-	id,
 	width = 25,
 	height = 25,
 	color = "currentColor",
 	className = "",
 }) => {
-	const handleClick = async () => {
-		try {
-			await deleteAuthUser(id);
-		} catch (error) {
-			console.error(error);
-		}
-	};
 	return (
 		<svg
 			fill={color}
@@ -35,7 +26,6 @@ const TrashCanIcon: FC<TrashCanProps> = ({
 			viewBox="0 0 593.727 593.727"
 			xmlSpace="preserve"
 			className={className}
-			onClick={handleClick}
 		>
 			<g>
 				<g>

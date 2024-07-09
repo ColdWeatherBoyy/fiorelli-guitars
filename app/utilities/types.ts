@@ -53,9 +53,10 @@ export interface GalleryPhotoProps {
 
 export type AuthUserResponse = AuthUser | Error;
 
-export enum TableInteractionType {
-	delete = "delete",
-	edit = "edit",
+export interface TableInteractionProps {
+	extraHeader: string;
+	clickableIcon: React.ReactNode;
+	handleClick: any;
 }
 
 // export enum DeviceType {

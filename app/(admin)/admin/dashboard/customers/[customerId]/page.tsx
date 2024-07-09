@@ -13,8 +13,8 @@ interface CustomerProps {
 }
 
 const Customer: FC<CustomerProps> = async ({ params: { customerId } }) => {
-	const customerWithMessages = await getMessagesByCustomerId(Number(customerId));
 	const isMobile = useDeviceType();
+	const customerWithMessages = await getMessagesByCustomerId(Number(customerId));
 
 	return (
 		<>
@@ -31,7 +31,7 @@ const Customer: FC<CustomerProps> = async ({ params: { customerId } }) => {
 				</Link>
 			</div>
 			<AdminButtonLink text="Go Back" goBack isMobile={isMobile} />
-			<Table data={customerWithMessages.messages} />
+			<Table data={customerWithMessages.messages} isMobile={isMobile} />
 		</>
 	);
 };

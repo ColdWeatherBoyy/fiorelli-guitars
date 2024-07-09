@@ -10,7 +10,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 			}
 			const normalizedEmail = profile.email.toLowerCase().trim();
 			const authEmails = await getAuthUsers();
-			if (!authEmails.includes(normalizedEmail)) {
+			if (
+				!authEmails.some((authEmail) => authEmail.email.toLowerCase() === normalizedEmail)
+			) {
 				console.error("Unauthorized email, access denied.");
 				return "/admin/unauthorized";
 			}

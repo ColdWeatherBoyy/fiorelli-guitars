@@ -32,3 +32,9 @@ export const sortObjectKeys = (obj: Record<string, any>, priority: string[]) => 
 		})
 	);
 };
+
+export const divideAndSortDatabaseData = (data: Array<Record<string, any>>) => {
+	const sortedData = data.map((item) => sortObjectKeys(item, ["name", "content"]));
+	const headers = Object.keys(sortedData[0]).filter((header) => header !== "id");
+	return { headers, sortedData };
+};
