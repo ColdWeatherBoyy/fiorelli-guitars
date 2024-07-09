@@ -244,7 +244,7 @@ export const deleteAuthUser = async (id: string): Promise<AuthUser | Error> => {
 
 export const getPageContent = async (title: string) => {
 	try {
-		const homePageContent = await prisma.page.findUnique({
+		const pageContent = await prisma.page.findUnique({
 			where: {
 				title,
 			},
@@ -256,11 +256,11 @@ export const getPageContent = async (title: string) => {
 				},
 			},
 		});
-		if (!homePageContent) {
+		if (!pageContent) {
 			throw new Error(`${title} page not found`);
 		}
 
-		return homePageContent;
+		return pageContent;
 	} catch (error) {
 		console.error(error);
 		throw new Error("An error occurred. Please try again.");

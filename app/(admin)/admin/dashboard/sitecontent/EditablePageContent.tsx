@@ -1,26 +1,19 @@
 "use client";
 
+import { toTitleCase } from "@/app/utilities/helpers";
 import { FC, useState } from "react";
 
 interface EditablePageContentProps {
-	contentBlocks: [string, string][];
+	contentBlock: [string, string];
 }
 
-const EditablePageContent: FC<EditablePageContentProps> = ({ contentBlocks }) => {
-	const [textareaValue, setTextareaValue] = useState<string>("");
-
+const EditablePageContent: FC<EditablePageContentProps> = ({ contentBlock }) => {
 	return (
-		<div className="grid grid-cols-2 gap-8">
-			{contentBlocks.map(([key, value]) => {
-				return (
-					<div key={key} className="flex flex-col gap-1">
-						<label>{key}</label>
-						<div contentEditable className="w-[33dvw]">
-							{value}
-						</div>
-					</div>
-				);
-			})}
+		<div>
+			<div className="flex flex-col gap-1">
+				<div>{toTitleCase(contentBlock[0])}</div>
+				<textarea defaultValue={contentBlock[1]} />
+			</div>
 		</div>
 	);
 };

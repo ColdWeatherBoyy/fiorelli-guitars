@@ -33,7 +33,6 @@ model PageContent {
   id          Int      @id @default(autoincrement())
   page        Page     @relation(fields: [pageId], references: [id])  
   pageId      Int
-  title       String   
   heading     String
   body1       String
   body2       String?
@@ -44,16 +43,12 @@ model PageContent {
   createdAt   DateTime @default(now())
 }
 
-// Don't think I need title within PageContent, as of now.
-
 
 model Page {
   id          Int      @id @default(autoincrement())
   title       String   @unique
   versions    PageContent[]
-  version     Int      @default(1)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
-// Don't think I need version number, as I'm using the isBackup flag instead

@@ -21,8 +21,6 @@ const Table: FC<TableProps> = ({ data, isMobile, tableInteractionProps }) => {
 	if (tableInteractionProps?.extraHeader)
 		headers.push(tableInteractionProps?.extraHeader);
 
-	const handleClick = () => {};
-
 	return (
 		<table className={`shadow shadow-slate-400 dark:shadow-slate-900 z-20`}>
 			<thead>

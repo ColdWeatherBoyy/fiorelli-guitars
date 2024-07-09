@@ -1,21 +1,28 @@
 import Title from "@/app/(admin)/components/Title";
 import { getPageContent } from "@/app/utilities/databaseFunctions";
 import { getContentBlocks } from "@/app/utilities/helpers";
-import { ContentBlockType } from "@/app/utilities/types";
-import { useState } from "react";
-import EditablePageContent from "./EditablePageContent";
+import SelectEditablePageLayout from "./SelectEditablePageLayout";
 
 const SiteContent = async () => {
-	const homePageContent = await getPageContent("HomePage");
-	// const aboutContent = await getPageContent("About");
-	// const contactContent = await getPageContent("Contact");
+	const homeContent = await getPageContent("Home");
+	const aboutContent = await getPageContent("About");
+	const contactContent = await getPageContent("Contact");
 
-	const homeContentBlocks = getContentBlocks(homePageContent.versions[0]);
+	const homeContentBlocks = getContentBlocks(homeContent.versions[0]);
+	const aboutContentBlocks = getContentBlocks(aboutContent.versions[0]);
+	const contactContentBlocks = getContentBlocks(contactContent.versions[0]);
+
+	const pageContentBlocks = [homeContentBlocks, aboutContentBlocks, contactContentBlocks];
+
+	const titlesArray = [homeContent.title, aboutContent.title, contactContent.title];
 
 	return (
 		<>
 			<Title title="Site Content" />
-			<EditablePageContent contentBlocks={homeContentBlocks} />
+			<SelectEditablePageLayout
+				pageContentBlocks={pageContentBlocks}
+				titlesArray={titlesArray}
+			/>
 		</>
 	);
 };
