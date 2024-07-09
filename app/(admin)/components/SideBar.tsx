@@ -31,46 +31,45 @@ const SideBar: FC<SideBarProps> = ({ open, setOpen, isMobile }) => {
 			initial={{ x: "-100%" }}
 			animate={{ x: open ? 0 : "-100%" }}
 			transition={{ ease: "easeInOut", duration: 0.4 }}
+			className="h-full min-h-dvh bg-gradient-to-b dark:from-slate-600 dark:to-slate-500 from-slate-400 to-slate-500 px-6 py-10 rounded-sm shadow-sm shadow-slate-400 dark:shadow-slate-900"
 		>
-			<div className="h-dvh bg-gradient-to-b dark:from-slate-600 dark:to-slate-500 from-slate-400 to-slate-500 px-6 py-10 rounded-sm shadow-sm shadow-slate-400 dark:shadow-slate-900">
-				<motion.div
-					className={`absolute right-0 top-6`}
-					animate={{ scaleX: open ? -1 : 1, x: open ? 10 : 30 }}
-					transition={{ ease: "easeInOut", duration: 0.2 }}
-					onClick={() => setOpen((prev) => !prev)}
-				>
-					<RightCaret
-						className={`cursor-pointer active:text-cyan-300 dark:active:text-cyan-500 ${
-							!isMobile && "hover:text-cyan-300 dark:hover:text-cyan-500"
-						}`}
-					/>
-				</motion.div>
-				<div className="flex flex-col gap-1">
-					{pageOptions.map((option) => (
-						<Link
-							href={option.link}
-							key={option.text.toLowerCase().replace(/ /g, "-")}
-							className={`w-fit font-semibold transition-all duration-200 ease-in-out active:text-cyan-300 dark:active:text-cyan-500 active:underline ${
-								!isMobile
-									? "text-base hover:text-lg hover:underline hover:text-cyan-300 dark:hover:text-cyan-500 hover:translate-x-2 active:translate-x-0 active:text-base"
-									: "text-2xl text-center w-full active:text-xl"
-							}`}
-							onClick={handleMobileClick}
-						>
-							{option.text}
-						</Link>
-					))}
-					<button
+			<motion.div
+				className={`absolute right-0 top-6`}
+				animate={{ scaleX: open ? -1 : 1, x: open ? 10 : 30 }}
+				transition={{ ease: "easeInOut", duration: 0.2 }}
+				onClick={() => setOpen((prev) => !prev)}
+			>
+				<RightCaret
+					className={`cursor-pointer active:text-cyan-300 dark:active:text-cyan-500 ${
+						!isMobile && "hover:text-cyan-300 dark:hover:text-cyan-500"
+					}`}
+				/>
+			</motion.div>
+			<div className="flex flex-col gap-1">
+				{pageOptions.map((option) => (
+					<Link
+						href={option.link}
+						key={option.text.toLowerCase().replace(/ /g, "-")}
 						className={`w-fit font-semibold transition-all duration-200 ease-in-out active:text-cyan-300 dark:active:text-cyan-500 active:underline ${
 							!isMobile
 								? "text-base hover:text-lg hover:underline hover:text-cyan-300 dark:hover:text-cyan-500 hover:translate-x-2 active:translate-x-0 active:text-base"
 								: "text-2xl text-center w-full active:text-xl"
 						}`}
-						onClick={() => signOut()}
+						onClick={handleMobileClick}
 					>
-						Sign Out
-					</button>
-				</div>
+						{option.text}
+					</Link>
+				))}
+				<button
+					className={`w-fit font-semibold transition-all duration-200 ease-in-out active:text-cyan-300 dark:active:text-cyan-500 active:underline ${
+						!isMobile
+							? "text-base hover:text-lg hover:underline hover:text-cyan-300 dark:hover:text-cyan-500 hover:translate-x-2 active:translate-x-0 active:text-base"
+							: "text-2xl text-center w-full active:text-xl"
+					}`}
+					onClick={() => signOut()}
+				>
+					Sign Out
+				</button>
 			</div>
 		</motion.div>
 	);

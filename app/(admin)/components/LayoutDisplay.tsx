@@ -1,7 +1,6 @@
 "use client";
 
 import SideBar from "@/app/(admin)/components/SideBar";
-import { useRouter } from "next/navigation";
 import { FC, useEffect, useRef, useState } from "react";
 
 interface LayoutDisplayProps {
@@ -26,20 +25,19 @@ const LayoutDisplay: FC<LayoutDisplayProps> = ({ children, isMobile }) => {
 
 		window.addEventListener("resize", updateSideBarWidthMargin);
 
-		return () => window.removeEventListener("resize", updateSideBarWidthMargin);
+		return () => {
+			window.removeEventListener("resize", updateSideBarWidthMargin);
+		};
 	}, []);
 
 	return (
-		<div className="flex relative overflow-hidden h-dvh">
-			<div
-				ref={sideBarRef}
-				className={`absolute h-full ${isMobile ? "w-full " : "w-1/6"} min-w-36`}
-			>
+		<div className="flex min-h-dvh">
+			<div ref={sideBarRef} className={`${isMobile ? "w-full " : "w-1/6"} min-w-36`}>
 				<SideBar open={open} setOpen={setOpen} isMobile={isMobile} />
 			</div>
 			<div
-				style={{ marginLeft: open ? sideBarWidthMargin : "0px" }}
-				className={`transition-all duration-300 flex-1 flex justify-center items-start`}
+				style={{ marginLeft: !open ? `-${sideBarWidthMargin}` : "0px" }}
+				className={`transition-all duration-300 flex-1 flex justify-center items-start mb-8`}
 			>
 				<div className="mx-5 w-full">{children}</div>
 			</div>
