@@ -59,6 +59,16 @@ export interface TableInteractionProps {
 	handleClick: any;
 }
 
+export enum ContentBlockType {
+	TITLE = "title",
+	HEADING = "heading",
+	BODY1 = "body1",
+	BODY2 = "body2",
+	BODY3 = "body3",
+	SIGNATURE = "signature",
+	EMAIL = "email",
+}
+
 // export enum DeviceType {
 // 	mobile = "mobile",
 // 	desktop = "desktop",

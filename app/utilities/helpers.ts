@@ -1,3 +1,6 @@
+import { PageContent } from "@prisma/client";
+import { ContentBlockType } from "./types";
+
 export const formatDateTime = (dateTimeStr: string): string => {
 	const date = new Date(dateTimeStr);
 	const months = (date.getMonth() + 1).toString();
@@ -37,4 +40,16 @@ export const divideAndSortDatabaseData = (data: Array<Record<string, any>>) => {
 	const sortedData = data.map((item) => sortObjectKeys(item, ["name", "content"]));
 	const headers = Object.keys(sortedData[0]).filter((header) => header !== "id");
 	return { headers, sortedData };
+};
+
+export const getContentBlocks = (content: PageContent) => {
+	return Object.entries(content).reduce((acc, [key, value]) => {
+		if (
+			value !== null &&
+			Object.values(ContentBlockType).includes(key as unknown as ContentBlockType)
+		) {
+			acc.push([key, value as string]);
+		}
+		return acc;
+	}, [] as [string, string][]);
 };

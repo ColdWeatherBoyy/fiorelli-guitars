@@ -256,6 +256,10 @@ export const getPageContent = async (title: string) => {
 				},
 			},
 		});
+		if (!homePageContent) {
+			throw new Error(`${title} page not found`);
+		}
+
 		return homePageContent;
 	} catch (error) {
 		console.error(error);
