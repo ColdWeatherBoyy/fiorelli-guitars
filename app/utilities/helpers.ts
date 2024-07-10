@@ -43,16 +43,17 @@ export const divideAndSortDatabaseData = (data: Array<Record<string, any>>) => {
 };
 
 export const getContentBlocks = (content: PageContent | null) => {
-	if (!content) return [];
+	if (!content) return null;
 
-	const data = Object.entries(content).reduce((acc, [key, value]) => {
+	const contentBlocks = Object.entries(content).reduce((acc, [key, value]) => {
 		if (
-			value !== null &&
-			Object.values(ContentBlockType).includes(key as unknown as ContentBlockType)
+			(value !== null &&
+				Object.values(ContentBlockType).includes(key as unknown as ContentBlockType)) ||
+			key === "id"
 		) {
-			acc.push([key, value as string]);
+			acc.push({ [key]: value as string });
 		}
 		return acc;
-	}, [] as [string, string][]);
-	return data;
+	}, [] as Record<string, string>[]);
+	return contentBlocks;
 };

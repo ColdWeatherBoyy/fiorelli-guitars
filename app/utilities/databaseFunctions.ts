@@ -1,6 +1,6 @@
 "use server";
 
-import { AuthUser, Customer, Prisma, PrismaClient } from "@prisma/client";
+import { AuthUser, Customer, PageContent, Prisma, PrismaClient } from "@prisma/client";
 import { CreateCustomerAndMessageResponse, newMessage } from "./types";
 
 const prisma = new PrismaClient();
@@ -257,6 +257,25 @@ export const getPageContent = async (title: string) => {
 		}
 
 		return pageContent;
+	} catch (error) {
+		console.error(error);
+		throw new Error("An error occurred. Please try again.");
+	}
+};
+export const updatePageContent = async (id: number, content: string) => {};
+
+export const updateContentBlock = async (id: string, key: string, value: string) => {
+	try {
+		const updatedContentBlock = await prisma.pageContent.update({
+			where: {
+				id: parseInt(id),
+			},
+			data: {
+				[key]: value,
+			},
+		});
+		console.log(updatedContentBlock);
+		return updatedContentBlock;
 	} catch (error) {
 		console.error(error);
 		throw new Error("An error occurred. Please try again.");

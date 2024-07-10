@@ -6,23 +6,24 @@ import { useDeviceType } from "@/app/utilities/hooks.server";
 
 const SiteContent = async () => {
 	const isMobile = useDeviceType();
-	const homeContent = await getPageContent("Home");
-	const aboutContent = await getPageContent("About");
-	const contactContent = await getPageContent("Contact");
+	const homePageData = await getPageContent("Home");
+	const aboutPageData = await getPageContent("About");
+	const contactPageData = await getPageContent("Contact");
 
-	const homeContentBlocks = getContentBlocks(homeContent.content);
-	const aboutContentBlocks = getContentBlocks(aboutContent.content);
-	const contactContentBlocks = getContentBlocks(contactContent.content);
+	const homeContentData = getContentBlocks(homePageData.content);
+	const aboutContentData = getContentBlocks(aboutPageData.content);
+	const contactContentData = getContentBlocks(contactPageData.content);
+	if (!homeContentData || !aboutContentData || !contactContentData) return null;
 
-	const pageContentBlocks = [homeContentBlocks, aboutContentBlocks, contactContentBlocks];
+	const pageContentData = [homeContentData, aboutContentData, contactContentData];
 
-	const titlesArray = [homeContent.title, aboutContent.title, contactContent.title];
+	const titlesArray = [homePageData.title, aboutPageData.title, contactPageData.title];
 
 	return (
 		<>
 			<Title title="Site Content" />
 			<SelectEditablePageLayout
-				pageContentBlocks={pageContentBlocks}
+				pageContentData={pageContentData}
 				titlesArray={titlesArray}
 				isMobile={isMobile}
 			/>
