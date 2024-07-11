@@ -5,8 +5,12 @@ import AnimateWrapper from "../../components/AnimateWrapper";
 import Card from "../components/components/Card";
 import PhotoCard from "../components/components/PhotoCard";
 import ContactForm from "./components/ContactForm";
+import { getPageContent } from "@/app/utilities/databaseFunctions";
 
 export default async function Contact() {
+	const contactPageData = await getPageContent("Contact");
+	if (!contactPageData.content) throw new Error("Error retrieving site content.");
+
 	const { resources } = await cloudinary.search
 		.expression(`tags=contact_form`)
 		.with_field("context")
@@ -19,14 +23,16 @@ export default async function Contact() {
 	};
 	return (
 		<AnimateWrapper>
-			<Card title={"Contact Fiorelli"}>
+			<Card title={contactPageData.content.heading}>
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-6 items-center">
 					<PhotoCard {...contactImage}>
 						<div className="text-center">
-							For all orders, questions, and other inquiries, please reach out here, or
-							you can email me at{" "}
-							<Link href="mailto:jamie@fiorelliguitars.com" className="underline">
-								jamie@fiorelliguitars.com
+							{contactPageData.content.bodies[0]}
+							<Link
+								href={`mailto:${contactPageData.content.email}`}
+								className="underline"
+							>
+								{contactPageData.content.email}
 							</Link>
 						</div>
 					</PhotoCard>
