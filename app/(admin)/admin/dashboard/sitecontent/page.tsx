@@ -1,21 +1,22 @@
 import Title from "@/app/(admin)/components/Title";
 import { getPageContent } from "@/app/utilities/databaseFunctions";
-import { getContentBlocks } from "@/app/utilities/helpers";
-import SelectEditablePageLayout from "./SelectEditablePageLayout";
+// import { getContentBlocks } from "@/app/utilities/helpers";
 import { useDeviceType } from "@/app/utilities/hooks.server";
+import SelectEditablePageLayout from "./SelectEditablePageLayout";
 
 const SiteContent = async () => {
 	const isMobile = useDeviceType();
 	const homePageData = await getPageContent("Home");
 	const aboutPageData = await getPageContent("About");
 	const contactPageData = await getPageContent("Contact");
+	if (!homePageData.content || !aboutPageData.content || !contactPageData.content)
+		return null;
 
-	const homeContentData = getContentBlocks(homePageData.content);
-	const aboutContentData = getContentBlocks(aboutPageData.content);
-	const contactContentData = getContentBlocks(contactPageData.content);
-	if (!homeContentData || !aboutContentData || !contactContentData) return null;
-
-	const pageContentData = [homeContentData, aboutContentData, contactContentData];
+	const pageContentData = [
+		homePageData.content,
+		aboutPageData.content,
+		contactPageData.content,
+	];
 
 	const titlesArray = [homePageData.title, aboutPageData.title, contactPageData.title];
 

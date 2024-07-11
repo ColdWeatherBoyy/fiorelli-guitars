@@ -34,9 +34,7 @@ model PageContent {
   page        Page     @relation(fields: [pageId], references: [id], onDelete:Cascade)  
   pageId      Int      @unique
   heading     String
-  body1       String
-  body2       String?
-  body3       String?
+  bodies      String[]
   signature   String?
   email       String?
   createdAt   DateTime @default(now())

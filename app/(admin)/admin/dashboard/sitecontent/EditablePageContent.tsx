@@ -8,7 +8,7 @@ import TextareaAutosize from "react-textarea-autosize";
 
 interface EditablePageContentProps {
 	contentBlock: Record<string, string>;
-	pageId: string;
+	pageId: number;
 	isMobile: boolean;
 }
 
@@ -17,7 +17,7 @@ const EditablePageContent: FC<EditablePageContentProps> = ({
 	pageId,
 	isMobile,
 }) => {
-	const [[key, value]] = Object.entries(contentBlock);
+	const [key, value] = Object.entries(contentBlock)[0];
 	const [content, setContent] = useState(value);
 
 	return (
@@ -27,14 +27,15 @@ const EditablePageContent: FC<EditablePageContentProps> = ({
 			<TextareaAutosize
 				className={`resize-none p-2 rounded-sm border border-slate-400 dark:border-slate-500 dark:placeholder-zinc-200 bg-zinc-50 dark:bg-zinc-600 shadow-inner-outer focus:shadow-md shadow-slate-400 dark:shadow-slate-900 focus:shadow-sm focus:shadow-slate-400 dark:focus:shadow-slate-900 focus:outline-0 focus:ring-1 focus:ring-cyan-400 dark:focus:ring-cyan-800 focus:ring-opacity-50 transition-all ease-in-out duration-200`}
 				maxRows={10}
-				defaultValue={value}
+				defaultValue={content}
 				onChange={(event) => setContent(event.target.value)}
 			/>
 			<div className="self-end">
 				<AdminButtonLink
 					text="Save"
 					handleClick={async () => {
-						await updateContentBlock(pageId, key, content);
+						console.log(pageId, key, value);
+						// await updateContentBlock(pageId, key, value);
 					}}
 					isMobile={isMobile}
 				/>

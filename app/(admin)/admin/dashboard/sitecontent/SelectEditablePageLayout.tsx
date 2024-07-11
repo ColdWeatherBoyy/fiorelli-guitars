@@ -1,10 +1,11 @@
 "use client";
 
+import { PageContent } from "@prisma/client";
 import { FC, useState } from "react";
 import EditablePageContent from "./EditablePageContent";
 
 interface SelectEditablePageLayoutProps {
-	pageContentData: Record<string, string>[][];
+	pageContentData: PageContent[];
 	titlesArray: string[];
 	isMobile: boolean;
 }
@@ -15,14 +16,6 @@ const SelectEditablePageLayout: FC<SelectEditablePageLayoutProps> = ({
 	isMobile,
 }) => {
 	const [selectedTab, setSelectedTab] = useState(0);
-	const pageIds = pageContentData.map((page) => {
-		const idEntry = page.find((item) => item.id !== undefined);
-		return idEntry ? idEntry.id : null;
-	});
-
-	const pageContentBlocks = pageContentData.map((page) => {
-		return page.filter((item) => item.id === undefined);
-	});
 
 	return (
 		<div className="w-4/5">
@@ -43,18 +36,37 @@ const SelectEditablePageLayout: FC<SelectEditablePageLayoutProps> = ({
 				))}
 			</div>
 			<div className="bg-zinc-50 grid grid-cols-1 sm:grid-cols-2 border-x border-b rounded-b-md border-slate-600 dark:border-slate-400 p-2">
-				{pageContentBlocks[selectedTab].map((contentBlock, index) => {
-					if (pageIds[selectedTab] === null)
-						return <div key={titlesArray[selectedTab] + index}>No content on page</div>;
+				{Object.entries(pageContentData[selectedTab]).map(([key, value]) => {
+					if (
+						key === "id" ||
+						value === null ||
+						value instanceof Date ||
+						typeof value === "number"
+					)
+						return null;
+					if (Array.isArray(value)) {
+						const bodies = value.map((item, index) => ({
+							[`body${value.length > 1 ? ` ${index + 1}` : ""}`]: item,
+						}));
 
-					return (
-						<EditablePageContent
-							key={titlesArray[selectedTab] + index}
-							contentBlock={contentBlock}
-							pageId={pageIds[selectedTab]}
-							isMobile={isMobile}
-						/>
-					);
+						return bodies.map((content, index) => (
+							<EditablePageContent
+								key={`${key}-${pageContentData[selectedTab].id}-${index}`}
+								contentBlock={content}
+								pageId={pageContentData[selectedTab].id}
+								isMobile={isMobile}
+							/>
+						));
+					} else {
+						return (
+							<EditablePageContent
+								key={`${key}-${pageContentData[selectedTab].id}`}
+								contentBlock={{ [key]: value }}
+								pageId={pageContentData[selectedTab].id}
+								isMobile={isMobile}
+							/>
+						);
+					}
 				})}
 			</div>
 		</div>
