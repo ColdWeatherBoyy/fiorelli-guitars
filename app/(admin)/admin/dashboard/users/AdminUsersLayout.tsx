@@ -1,32 +1,31 @@
 "use client";
 
 import AddAuthUserForm from "@/app/(admin)/components/AddAuthUserForm";
-import AdminModalWrapper from "@/app/(admin)/components/AdminModalWrapper";
-import FormError from "@/app/(admin)/components/FormError";
-import FormSuccess from "@/app/(admin)/components/FormSuccess";
 import Table from "@/app/(admin)/components/Table";
 import Title from "@/app/(admin)/components/Title";
 import { handleAddAuthUserForm } from "@/app/(admin)/utilities/formHandlers";
 import TrashCanIcon from "@/app/components/SVGs/TrashCanIcon";
 import { deleteAuthUser } from "@/app/utilities/databaseFunctions";
 import { isAuthUser } from "@/app/utilities/typeguardFunctions";
+import { NotificationContentType, OpenType } from "@/app/utilities/types";
 import { FC, useEffect, useRef, useState } from "react";
 import { useFormState } from "react-dom";
+import NotificationModal from "../components/NotificationModal";
 
 interface UserLayoutProps {
 	authUsers: Array<Record<string, any>>;
 	isMobile: boolean;
 }
 
-export enum OpenType {
-	DELETE = "delete",
-	ADD = "add",
-	CLOSED = "closed",
-}
-
 const AdminUsersLayout: FC<UserLayoutProps> = ({ authUsers, isMobile }) => {
 	const [data, setData] = useState(authUsers);
 	const [formData, formAction] = useFormState(handleAddAuthUserForm, null);
+	const [notificationContent, setNotificationContent] = useState<NotificationContentType>(
+		{
+			key: "string",
+			content: "",
+		}
+	);
 	const [open, setOpen] = useState<OpenType>(OpenType.CLOSED);
 	const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
@@ -34,9 +33,14 @@ const AdminUsersLayout: FC<UserLayoutProps> = ({ authUsers, isMobile }) => {
 		try {
 			await deleteAuthUser(id);
 			setData((prevData) => prevData.filter((user) => user.id !== id));
-			setOpen(OpenType.DELETE);
+			setNotificationContent({ key: "string", content: "Admin User deleted." });
+			setOpen(OpenType.OPEN);
 		} catch (error) {
-			console.error(error);
+			setNotificationContent({
+				key: "error",
+				content: new Error("Failed to delete user."),
+			});
+			setOpen(OpenType.OPEN);
 		}
 	};
 
@@ -50,7 +54,14 @@ const AdminUsersLayout: FC<UserLayoutProps> = ({ authUsers, isMobile }) => {
 		if (formData !== null) {
 			if (isAuthUser(formData)) {
 				setData((prevData) => [...prevData, formData]);
-				setOpen(OpenType.ADD);
+				setNotificationContent({
+					key: "string",
+					content: `${formData.email} now authorized!`,
+				});
+				setOpen(OpenType.OPEN);
+			} else {
+				setNotificationContent({ key: "error", content: formData });
+				setOpen(OpenType.OPEN);
 			}
 		}
 	}, [formData]);
@@ -77,19 +88,11 @@ const AdminUsersLayout: FC<UserLayoutProps> = ({ authUsers, isMobile }) => {
 				isMobile={isMobile}
 				tableInteractionProps={tableInteractionProps}
 			/>
-			{open !== OpenType.CLOSED && (
-				<AdminModalWrapper setOpen={setOpen}>
-					{open === OpenType.ADD ? (
-						formData === null ? null : isAuthUser(formData) ? (
-							<FormSuccess message={`${formData.email} now authorized!`} />
-						) : (
-							<FormError error={formData} />
-						)
-					) : (
-						<FormSuccess message={`Admin User deleted.`} />
-					)}
-				</AdminModalWrapper>
-			)}
+			<NotificationModal
+				open={open}
+				setOpen={setOpen}
+				notificationContent={notificationContent}
+			/>
 		</>
 	);
 };

@@ -1,9 +1,9 @@
 "use client";
 
 import AnimateWrapper from "@/app/components/AnimateWrapper";
+import { OpenType, OpenType } from "@/app/utilities/types";
 import { motion } from "framer-motion";
 import React, { Dispatch, FC, SetStateAction } from "react";
-import { OpenType } from "../admin/dashboard/users/AdminUsersLayout";
 
 interface AdminModalWrapperProps {
 	setOpen: Dispatch<SetStateAction<OpenType>>;
