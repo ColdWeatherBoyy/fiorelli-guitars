@@ -30,6 +30,10 @@ const AdminUsersLayout: FC<UserLayoutProps> = ({ authUsers, isMobile }) => {
 	const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
 	const handleDeleteUser = async (id: string) => {
+		const deleteError = new Error(
+			"Failed to delete user. If problem persists, please contact site admin."
+		);
+		deleteError.name = "Delete Error";
 		try {
 			await deleteAuthUser(id);
 			setData((prevData) => prevData.filter((user) => user.id !== id));
@@ -38,7 +42,7 @@ const AdminUsersLayout: FC<UserLayoutProps> = ({ authUsers, isMobile }) => {
 		} catch (error) {
 			setNotificationContent({
 				key: "error",
-				content: new Error("Failed to delete user."),
+				content: (error as Error) || deleteError,
 			});
 			setOpen(true);
 		}

@@ -14,15 +14,13 @@ const NotificationModal: FC<NotificationModalProps> = ({
 	notificationContent,
 }) => {
 	return (
-		<>
-			<AdminModalWrapper setOpen={setOpen}>
-				{notificationContent.key === "error" ? (
-					<FormError error={notificationContent.content} />
-				) : (
-					<FormSuccess message={notificationContent.content} />
-				)}
-			</AdminModalWrapper>
-		</>
+		<AdminModalWrapper setOpen={setOpen}>
+			{notificationContent.key === "error" ? (
+				<FormError error={notificationContent.content} />
+			) : (
+				<FormSuccess message={notificationContent.content} />
+			)}
+		</AdminModalWrapper>
 	);
 };
 
