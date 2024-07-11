@@ -1,17 +1,16 @@
 "use client";
 
 import AnimateWrapper from "@/app/components/AnimateWrapper";
-import { OpenType, OpenType } from "@/app/utilities/types";
 import { motion } from "framer-motion";
 import React, { Dispatch, FC, SetStateAction } from "react";
 
 interface AdminModalWrapperProps {
-	setOpen: Dispatch<SetStateAction<OpenType>>;
+	setOpen: Dispatch<SetStateAction<boolean>>;
 	children: React.ReactNode;
 }
 const AdminModalWrapper: FC<AdminModalWrapperProps> = ({ setOpen, children }) => {
 	const handleClick = () => {
-		setOpen(OpenType.CLOSED);
+		setOpen(false);
 	};
 	return (
 		<div className={`fixed inset-0 flex items-start justify-center z-30`}>
