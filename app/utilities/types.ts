@@ -59,11 +59,6 @@ export interface TableInteractionProps {
 	handleClick: any;
 }
 
-export enum OpenType {
-	OPEN = "open",
-	CLOSED = "closed",
-}
-
 export type NotificationContentType =
 	| { key: "string"; content: string }
 	| { key: "error"; content: Error };

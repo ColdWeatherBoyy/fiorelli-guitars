@@ -7,7 +7,7 @@ import { handleAddAuthUserForm } from "@/app/(admin)/utilities/formHandlers";
 import TrashCanIcon from "@/app/components/SVGs/TrashCanIcon";
 import { deleteAuthUser } from "@/app/utilities/databaseFunctions";
 import { isAuthUser } from "@/app/utilities/typeguardFunctions";
-import { NotificationContentType, OpenType } from "@/app/utilities/types";
+import { NotificationContentType } from "@/app/utilities/types";
 import { FC, useEffect, useRef, useState } from "react";
 import { useFormState } from "react-dom";
 import NotificationModal from "../components/NotificationModal";
@@ -26,7 +26,7 @@ const AdminUsersLayout: FC<UserLayoutProps> = ({ authUsers, isMobile }) => {
 			content: "",
 		}
 	);
-	const [open, setOpen] = useState<OpenType>(OpenType.CLOSED);
+	const [open, setOpen] = useState<boolean>(false);
 	const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
 	const handleDeleteUser = async (id: string) => {
@@ -34,13 +34,13 @@ const AdminUsersLayout: FC<UserLayoutProps> = ({ authUsers, isMobile }) => {
 			await deleteAuthUser(id);
 			setData((prevData) => prevData.filter((user) => user.id !== id));
 			setNotificationContent({ key: "string", content: "Admin User deleted." });
-			setOpen(OpenType.OPEN);
+			setOpen(true);
 		} catch (error) {
 			setNotificationContent({
 				key: "error",
 				content: new Error("Failed to delete user."),
 			});
-			setOpen(OpenType.OPEN);
+			setOpen(true);
 		}
 	};
 
@@ -58,10 +58,10 @@ const AdminUsersLayout: FC<UserLayoutProps> = ({ authUsers, isMobile }) => {
 					key: "string",
 					content: `${formData.email} now authorized!`,
 				});
-				setOpen(OpenType.OPEN);
+				setOpen(true);
 			} else {
 				setNotificationContent({ key: "error", content: formData });
-				setOpen(OpenType.OPEN);
+				setOpen(true);
 			}
 		}
 	}, [formData]);
@@ -69,9 +69,9 @@ const AdminUsersLayout: FC<UserLayoutProps> = ({ authUsers, isMobile }) => {
 	useEffect(() => {
 		clearTimeout(timeoutRef.current);
 
-		if (open !== OpenType.CLOSED) {
+		if (open !== false) {
 			timeoutRef.current = setTimeout(() => {
-				setOpen(OpenType.CLOSED);
+				setOpen(false);
 			}, 3000);
 		}
 		return () => {

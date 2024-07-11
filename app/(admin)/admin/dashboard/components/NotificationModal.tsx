@@ -1,13 +1,12 @@
 import AdminModalWrapper from "@/app/(admin)/components/AdminModalWrapper";
 import FormError from "@/app/(admin)/components/FormError";
 import FormSuccess from "@/app/(admin)/components/FormSuccess";
-import { isAuthUser } from "@/app/utilities/typeguardFunctions";
-import { NotificationContentType, OpenType } from "@/app/utilities/types";
+import { NotificationContentType } from "@/app/utilities/types";
 import { Dispatch, FC, SetStateAction } from "react";
 
 interface NotificationModalProps {
-	open: OpenType;
-	setOpen: Dispatch<SetStateAction<OpenType>>;
+	open: boolean;
+	setOpen: Dispatch<SetStateAction<boolean>>;
 	notificationContent: NotificationContentType;
 }
 
@@ -18,7 +17,7 @@ const NotificationModal: FC<NotificationModalProps> = ({
 }) => {
 	return (
 		<>
-			{open !== OpenType.CLOSED && (
+			{!open && (
 				<AdminModalWrapper setOpen={setOpen}>
 					{notificationContent.key === "error" ? (
 						<FormError error={notificationContent.content} />
