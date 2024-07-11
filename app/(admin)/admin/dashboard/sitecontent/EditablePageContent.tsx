@@ -34,8 +34,7 @@ const EditablePageContent: FC<EditablePageContentProps> = ({
 				<AdminButtonLink
 					text="Save"
 					handleClick={async () => {
-						console.log(pageId, key, value);
-						// await updateContentBlock(pageId, key, value);
+						await updateContentBlock(pageId, key, content);
 					}}
 					isMobile={isMobile}
 				/>

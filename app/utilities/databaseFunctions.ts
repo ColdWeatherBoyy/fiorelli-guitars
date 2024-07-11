@@ -263,19 +263,42 @@ export const getPageContent = async (title: string) => {
 	}
 };
 
-// export const updateContentBlock = async (id: number, key: string, value: string) => {
-// 	try {
-// 		const updatedContentBlock = await prisma.pageContent.update({
-// 			where: {
-// 				id: id,
-// 			},
-// 			data: {
-// 				[key]: value,
-// 			},
-// 		});
-// 		return updatedContentBlock;
-// 	} catch (error) {
-// 		console.error(error);
-// 		throw new Error("An error occurred. Please try again.");
-// 	}
-// };
+export const updateContentBlock = async (id: number, key: string, value: string) => {
+	try {
+		if (key.includes("body")) {
+			const contentBlock = await prisma.pageContent.findUnique({
+				where: {
+					id: id,
+				},
+				select: {
+					bodies: true,
+				},
+			});
+			if (!contentBlock) throw new Error("Error updating content.");
+			const bodies = contentBlock.bodies;
+			const bodiesIndex = parseInt(key.split(" ")[1]) - 1 || 0;
+			bodies[bodiesIndex] = value;
+			const updatedContentBlock = await prisma.pageContent.update({
+				where: {
+					id: id,
+				},
+				data: {
+					bodies: bodies,
+				},
+			});
+			return updatedContentBlock;
+		}
+		const updatedContentBlock = await prisma.pageContent.update({
+			where: {
+				id: id,
+			},
+			data: {
+				[key]: value,
+			},
+		});
+		return updatedContentBlock;
+	} catch (error) {
+		console.error(error);
+		throw new Error("An error occurred. Please try again.");
+	}
+};
