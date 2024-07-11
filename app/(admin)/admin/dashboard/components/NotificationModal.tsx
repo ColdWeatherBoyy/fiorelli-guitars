@@ -5,27 +5,23 @@ import { NotificationContentType } from "@/app/utilities/types";
 import { Dispatch, FC, SetStateAction } from "react";
 
 interface NotificationModalProps {
-	open: boolean;
 	setOpen: Dispatch<SetStateAction<boolean>>;
 	notificationContent: NotificationContentType;
 }
 
 const NotificationModal: FC<NotificationModalProps> = ({
-	open,
 	setOpen,
 	notificationContent,
 }) => {
 	return (
 		<>
-			{!open && (
-				<AdminModalWrapper setOpen={setOpen}>
-					{notificationContent.key === "error" ? (
-						<FormError error={notificationContent.content} />
-					) : (
-						<FormSuccess message={notificationContent.content} />
-					)}
-				</AdminModalWrapper>
-			)}
+			<AdminModalWrapper setOpen={setOpen}>
+				{notificationContent.key === "error" ? (
+					<FormError error={notificationContent.content} />
+				) : (
+					<FormSuccess message={notificationContent.content} />
+				)}
+			</AdminModalWrapper>
 		</>
 	);
 };

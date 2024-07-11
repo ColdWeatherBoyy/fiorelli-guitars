@@ -88,11 +88,9 @@ const AdminUsersLayout: FC<UserLayoutProps> = ({ authUsers, isMobile }) => {
 				isMobile={isMobile}
 				tableInteractionProps={tableInteractionProps}
 			/>
-			<NotificationModal
-				open={open}
-				setOpen={setOpen}
-				notificationContent={notificationContent}
-			/>
+			{open && (
+				<NotificationModal setOpen={setOpen} notificationContent={notificationContent} />
+			)}
 		</>
 	);
 };
