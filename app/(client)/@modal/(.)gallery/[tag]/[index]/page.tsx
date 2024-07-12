@@ -6,14 +6,24 @@ import { CloudinaryResource, GalleryPhotoProps, TextSize } from "@/app/utilities
 import ModalWrapper from "./ModalWrapper";
 
 export async function generateStaticParams() {
-	const { resources } = await cloudinary.search
-		.expression(`tags=gallery`)
+	const { resources: resourcesEJ } = await cloudinary.search
+		.expression(`tags=EJ_Guitar`)
+		.with_field("context")
+		.execute();
+	const { resources: resourcesSP } = await cloudinary.search
+		.expression(`tags=SP_Guitar`)
 		.with_field("context")
 		.execute();
 
-	return resources.map((resource: CloudinaryResource) => ({
-		id: resource.public_id,
+	const params = resourcesEJ.map((resource: CloudinaryResource, index: number) => ({
+		tag: "EJ_Guitar",
+		index: index.toString(),
 	}));
+	const params2 = resourcesSP.map((resource: CloudinaryResource, index: number) => ({
+		tag: "SP_Guitar",
+		index: index.toString(),
+	}));
+	return params.concat(params2);
 }
 
 const PhotoModal: React.FC<GalleryPhotoProps> = async ({ params: { tag, index } }) => {
