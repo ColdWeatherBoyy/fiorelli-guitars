@@ -30,7 +30,12 @@ const Photo: React.FC<GalleryPhotoProps> = async ({ params: { tag, index } }) =>
 	return (
 		<AnimateWrapper>
 			<div className="-mt-10 -mb-24">
-				<PhotoCard {...photoResource} maxHeight="max-h-[65dvh]">
+				<PhotoCard
+					{...photoResource}
+					length={resources.length}
+					index={parseInt(index)}
+					maxHeight="max-h-[65dvh]"
+				>
 					<CardButtonLink href="/gallery" text="Back to Gallery" size={TextSize.small} />
 				</PhotoCard>
 			</div>

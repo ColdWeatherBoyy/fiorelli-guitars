@@ -30,7 +30,7 @@ const PhotoModal: React.FC<GalleryPhotoProps> = async ({ params: { tag, index } 
 
 	return (
 		<ModalWrapper>
-			<PhotoCard {...photoResource}>
+			<PhotoCard {...photoResource} length={resources.length} index={parseInt(index)}>
 				<CardButtonLink href="/gallery" text="Back to Gallery" size={TextSize.small} />
 			</PhotoCard>
 		</ModalWrapper>
