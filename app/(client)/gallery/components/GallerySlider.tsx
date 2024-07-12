@@ -10,19 +10,20 @@ import InnerCard from "../../components/components/InnerCard";
 interface GallerySliderProps {
 	resources: CloudinaryResource[];
 	title: string;
+	tag: string;
 }
 
-const GallerySlider: FC<GallerySliderProps> = ({ resources, title }) => {
+const GallerySlider: FC<GallerySliderProps> = ({ resources, title, tag }) => {
 	const screenSize = useScreenSize();
 
 	return (
 		<InnerCard title={title}>
 			<div className="overflow-auto flex rounded-sm gap-6 bg-zinc-50 dark:bg-zinc-300 p-5 shadow-inner shadow-zinc-700">
-				{resources.map((resource) => {
+				{resources.map((resource, index) => {
 					return (
 						<Link
 							key={resource.public_id}
-							href={`/gallery/${resource.public_id}`}
+							href={`/gallery/${tag}/${index}`}
 							className="contents"
 						>
 							<CldImage

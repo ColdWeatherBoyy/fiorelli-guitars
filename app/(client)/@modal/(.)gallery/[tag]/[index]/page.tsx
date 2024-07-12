@@ -16,15 +16,15 @@ export async function generateStaticParams() {
 	}));
 }
 
-const PhotoModal: React.FC<GalleryPhotoProps> = async ({ params: { id } }) => {
-	const { time, resources } = await cloudinary.search
-		.expression(`public_id=${id}`)
+const PhotoModal: React.FC<GalleryPhotoProps> = async ({ params: { tag, index } }) => {
+	const { resources } = await cloudinary.search
+		.expression(`tags=${tag}`)
 		.with_field("context")
 		.execute();
-
-	const blurDataUrl = await getBlurDataUrl(resources[0].public_id);
+	const resource = resources[index];
+	const blurDataUrl = await getBlurDataUrl(resource.public_id);
 	const photoResource = {
-		...resources[0],
+		...resource,
 		blurDataUrl,
 	};
 

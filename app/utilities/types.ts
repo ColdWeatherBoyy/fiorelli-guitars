@@ -46,9 +46,7 @@ export interface CloudinaryResource {
 }
 
 export interface GalleryPhotoProps {
-	params: {
-		id: string;
-	};
+	params: { tag: string; index: string };
 }
 
 export type AuthUserResponse = AuthUser | Error;

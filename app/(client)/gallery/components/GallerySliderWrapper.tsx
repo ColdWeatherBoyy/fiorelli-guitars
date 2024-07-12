@@ -33,7 +33,7 @@ const GallerySliderWrapper: FC<GallerySliderWrapperProps> = async ({ tag, title 
 		})
 	);
 
-	return <GallerySlider title={title} resources={fullResources} />;
+	return <GallerySlider title={title} resources={fullResources} tag={tag} />;
 };
 
 export default GallerySliderWrapper;
