@@ -27,20 +27,16 @@ const PhotoCard: FC<PhotoCardProps> = ({
 }) => {
 	const incrementIndex = (index: number, length: number) => {
 		if (index + 1 === length) {
-			console.log("suh", 0);
 			return 0;
 		} else {
-			console.log("dog", index + 1);
 			return index + 1;
 		}
 	};
 
 	const decrementIndex = (index: number, length: number) => {
 		if (index - 1 === -1) {
-			console.log("here", length - 1);
 			return length - 1;
 		} else {
-			console.log("hi", index - 1);
 			return index - 1;
 		}
 	};
