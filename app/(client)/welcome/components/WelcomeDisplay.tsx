@@ -21,13 +21,14 @@ const WelcomeDisplay: FC<WelcomeDisplayProps> = ({ welcomeImage }) => {
 	};
 
 	useEffect(() => {
-		document.cookie = "visited=true";
+		if (!document.cookie.includes("visited=true")) {
+			document.cookie = "visited=true";
+		}
 		setTimeout(() => {
-			if (welcomeState === WelcomeState.welcome) handleEnter();
+			if (welcomeState === WelcomeState.welcome) {
+			}
 		}, 4000);
-	}, [welcomeState]);
 
-	useEffect(() => {
 		if (welcomeState === WelcomeState.covering) {
 			setTimeout(() => {
 				setWelcomeState(WelcomeState.opening);
