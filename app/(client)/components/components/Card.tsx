@@ -21,7 +21,7 @@ const Card: FC<CardProps> = ({
 }) => {
 	return (
 		<div
-			className={`overflow-auto ${width} max-w-[90dvw] sm:max-w-[75dvw] ${maxHeight} flex flex-col gap-2 items-center rounded-sm bg-gradient-to-br from-cyan-50/95 to-zinc-300/95 dark:from-cyan-950/95 dark:to-zinc-800/95 shadow-sm shadow-zinc-600/60 backdrop-blur-md p-6 transform transition`}
+			className={`overflow-auto ${width} max-w-[95dvw] sm:max-w-[75dvw] ${maxHeight} flex flex-col gap-2 items-center rounded-sm bg-gradient-to-br from-cyan-50/95 to-zinc-300/95 dark:from-cyan-950/95 dark:to-zinc-800/95 shadow-sm shadow-zinc-600/60 backdrop-blur-md p-2 sm:p-6 transform transition`}
 		>
 			{title && (
 				<div

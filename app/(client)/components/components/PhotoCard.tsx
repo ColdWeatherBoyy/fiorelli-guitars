@@ -42,14 +42,14 @@ const PhotoCard: FC<PhotoCardProps> = ({
 	};
 	return (
 		<div
-			className={`max-w-[95dvw] flex flex-col border border-zinc-400 dark:border-cyan-800 gap-2 items-center rounded-sm bg-cyan-100 dark:bg-cyan-900 shadow-sm shadow-zinc-600/60 backdrop-blur-md p-2 transform transition`}
+			className={`flex flex-col border border-zinc-400 dark:border-cyan-800 gap-2 items-center rounded-sm bg-cyan-100 dark:bg-cyan-900 shadow-sm shadow-zinc-600/60 backdrop-blur-md p-4 sm:p-2 transform transition`}
 		>
 			<div className="max-h-full flex flex-col gap-3 justify-center items-center">
 				{index !== undefined && length ? (
-					<div className="flex items-center gap-2">
+					<div className="flex items-center gap-0.5 sm:gap-2 justify-center">
 						<Link
 							href={`${decrementIndex(index, length)}`}
-							className="text-4xl active:scale-75 active:text-zinc-700 transition-all duration-100 ease-in-out"
+							className="text-2xl sm:text-4xl active:scale-75 active:text-zinc-700 transition-all duration-100 ease-in-out"
 						>
 							{"<"}
 						</Link>
@@ -65,7 +65,7 @@ const PhotoCard: FC<PhotoCardProps> = ({
 						/>
 						<Link
 							href={`${incrementIndex(index, length)}`}
-							className="text-4xl active:scale-75 active:text-zinc-700 transition-all duration-100 ease-in-out"
+							className="text-2xl sm:text-4xl active:scale-75 active:text-zinc-700 transition-all duration-100 ease-in-out"
 						>
 							{">"}
 						</Link>
