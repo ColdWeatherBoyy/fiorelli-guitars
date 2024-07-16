@@ -24,7 +24,7 @@ export default async function Contact() {
 	return (
 		<AnimateWrapper>
 			<Card title={contactPageData.content.heading}>
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-6 items-center">
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-6 items-center w-fit h-fit">
 					<PhotoCard {...contactImage}>
 						<div className="text-center">
 							{contactPageData.content.bodies[0]}
