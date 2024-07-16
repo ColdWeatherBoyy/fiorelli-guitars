@@ -8,7 +8,7 @@ const ModalWrapper = ({ children }: { children: React.ReactNode }) => {
 	const router = useRouter();
 
 	const onDismiss = () => {
-		router.back();
+		router.push("/gallery");
 	};
 
 	return (
