@@ -33,7 +33,7 @@ export const CustomerEmailTemplate: FC<Readonly<CustomerEmailTemplateProps>> = a
 					<img
 						src="https://res.cloudinary.com/ds55z57ju/image/upload/v1719246574/Fiorelli_Logo_Email.png"
 						alt="Fiorelli Guitars"
-						style={{ width: "200px" }}
+						style={{ width: "200px", marginBottom: "10px" }}
 					/>
 				</div>
 				<div

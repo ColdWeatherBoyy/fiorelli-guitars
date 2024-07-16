@@ -58,7 +58,7 @@ const Table: FC<TableProps> = ({ data, isMobile, tableInteractionProps }) => {
 								>
 									{key !== "name" ? (
 										typeof value === "object" && value instanceof Date ? (
-											formatDateTime(value.toString())
+											formatDateTime(value)
 										) : (
 											value
 										)

@@ -11,7 +11,7 @@ export const sendCustomerEmail = async (contactFormData: ContactFormData) => {
 
 	try {
 		const { data, error } = await resend.emails.send({
-			from: "Signore Fiorelli <no-reply@fiorelliguitars.com>",
+			from: "Fiorelli Guitars <no-reply@fiorelliguitars.com>",
 			to: [contactFormData.customer.email],
 			subject: "Thanks for reaching out to Fiorelli!",
 			react: CustomerEmailTemplate({
@@ -41,7 +41,7 @@ export const sendFiorelliEmail = async (contactFormData: ContactFormData) => {
 
 	try {
 		const { data, error } = await resend.emails.send({
-			from: "Signore Fiorelli <no-reply@fiorelliguitars.com>",
+			from: "Fiorelli Guitars <no-reply@fiorelliguitars.com>",
 			to: [email],
 			subject: `New Message from ${contactFormData.customer.name}`,
 			react: InboxEmailTemplate({

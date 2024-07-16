@@ -38,7 +38,7 @@ export const InboxEmailTemplate: FC<Readonly<InboxEmailTemplateProps>> = async (
 					<img
 						src="https://res.cloudinary.com/ds55z57ju/image/upload/v1719246574/Fiorelli_Logo_Email.png"
 						alt="Fiorelli Guitars"
-						style={{ width: "200px" }}
+						style={{ width: "200px", marginBottom: "10px" }}
 					/>
 				</div>
 				<div
@@ -95,25 +95,35 @@ export const InboxEmailTemplate: FC<Readonly<InboxEmailTemplateProps>> = async (
 								If they&apos;ve reached out to you before, those messages will appear
 								here:
 							</div>
-							{customerMessages?.map((message) => (
-								<div
-									key={message.id}
-									style={{
-										padding: "10px",
-										margin: "10px 20px",
-										backgroundColor: "#0e7490",
-										borderRadius: "5px",
-										color: "#e4e4e7",
-										fontStyle: "italic",
-										fontSize: "16px",
-									}}
-								>
-									{message.content} at{" "}
-									<span className="bold">
-										{formatDateTime(message.createdAt.toDateString())}
-									</span>
-								</div>
-							))}
+							{customerMessages?.map((message, index) => {
+								if (index === 0) return null;
+								return (
+									<div
+										key={message.id}
+										style={{
+											padding: "10px",
+											margin: "10px 20px",
+											backgroundColor: "#0e7490",
+											borderRadius: "5px",
+											color: "#e4e4e7",
+											fontStyle: "italic",
+											fontSize: "16px",
+										}}
+									>
+										{message.content}{" "}
+										<span
+											style={{
+												marginLeft: "10px",
+												fontWeight: "bold",
+												fontSize: "12px",
+												fontStyle: "normal",
+											}}
+										>
+											-{formatDateTime(message.createdAt)}
+										</span>
+									</div>
+								);
+							})}
 						</>
 					)}
 					<div
