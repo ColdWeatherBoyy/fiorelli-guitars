@@ -52,8 +52,8 @@ const SideBar: FC<SideBarProps> = ({ open, setOpen, isMobile }) => {
 						key={option.text.toLowerCase().replace(/ /g, "-")}
 						className={`w-fit font-semibold transition-all duration-200 ease-in-out active:text-cyan-300 dark:active:text-cyan-500 active:underline ${
 							!isMobile
-								? "text-base hover:text-lg hover:underline hover:text-cyan-300 dark:hover:text-cyan-500 hover:translate-x-2 active:translate-x-0 active:text-base"
-								: "text-2xl text-center w-full active:text-xl"
+								? "text-lg hover:text-xl hover:underline hover:text-cyan-300 dark:hover:text-cyan-500 hover:translate-x-2 active:translate-x-0 active:text-base"
+								: "text-lg text-center w-full active:text-base"
 						}`}
 						onClick={handleMobileClick}
 					>
@@ -63,8 +63,8 @@ const SideBar: FC<SideBarProps> = ({ open, setOpen, isMobile }) => {
 				<button
 					className={`w-fit font-semibold transition-all duration-200 ease-in-out active:text-cyan-300 dark:active:text-cyan-500 active:underline ${
 						!isMobile
-							? "text-base hover:text-lg hover:underline hover:text-cyan-300 dark:hover:text-cyan-500 hover:translate-x-2 active:translate-x-0 active:text-base"
-							: "text-2xl text-center w-full active:text-xl"
+							? "text-lg hover:text-xl hover:underline hover:text-cyan-300 dark:hover:text-cyan-500 hover:translate-x-2 active:translate-x-0 active:text-base"
+							: "text-lg text-center w-full active:text-xl"
 					}`}
 					onClick={() => signOut()}
 				>
