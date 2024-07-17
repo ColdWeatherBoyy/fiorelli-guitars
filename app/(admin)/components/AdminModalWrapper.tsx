@@ -13,7 +13,7 @@ const AdminModalWrapper: FC<AdminModalWrapperProps> = ({ setOpen, children }) =>
 		setOpen(false);
 	};
 	return (
-		<div className={`fixed inset-0 flex items-start justify-center z-30`}>
+		<div className={`absolute inset-0 flex items-start justify-center z-30`}>
 			<motion.div
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
