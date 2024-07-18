@@ -1,7 +1,7 @@
 import { useDeviceType } from "@/app/utilities/hooks.server";
-import LayoutDisplay from "../../components/LayoutDisplay";
 import { auth } from "@/auth";
 import Unauthorized from "../unauthorized/page";
+import LayoutDisplay from "./components/layout/LayoutDisplay";
 
 export default async function Layout({
 	children,

@@ -1,12 +1,11 @@
 "use client";
 
-import { updateContentBlock } from "@/app/utilities/databaseFunctions";
 import { camelToTitleCase } from "@/app/utilities/helpers";
 import { NotificationContentType } from "@/app/utilities/types";
 import { FC, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
-import NotificationModal from "../NotificationModal/NotificationModal";
-import AdminButtonLink from "../AdminButtonLink";
+import NotificationModal from "../notifications/NotificationModal";
+import AdminButtonLink from "@/app/(admin)/components/components/AdminButtonLink";
 
 interface EditableContentProps {
 	contentObj: Record<string, string>;

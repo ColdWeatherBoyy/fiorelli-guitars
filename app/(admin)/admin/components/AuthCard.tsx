@@ -1,6 +1,6 @@
 import AnimateWrapper from "@/app/components/AnimateWrapper";
 import { FC } from "react";
-import Title from "./Title";
+import Title from "../dashboard/components/components/Title";
 import Link from "next/link";
 import { useDeviceType } from "@/app/utilities/hooks.server";
 import FullLogo from "@/app/components/SVGs/FullLogo";

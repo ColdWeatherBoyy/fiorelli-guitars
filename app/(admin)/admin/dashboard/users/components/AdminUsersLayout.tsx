@@ -1,8 +1,7 @@
 "use client";
 
-import AddAuthUserForm from "@/app/(admin)/components/AddAuthUserForm";
-import Table from "@/app/(admin)/components/Table";
-import Title from "@/app/(admin)/components/Title";
+import Table from "@/app/(admin)/admin/dashboard/components/components/Table";
+import Title from "@/app/(admin)/admin/dashboard/components/components/Title";
 import { handleAddAuthUserForm } from "@/app/(admin)/utilities/formHandlers";
 import TrashCanIcon from "@/app/components/SVGs/TrashCanIcon";
 import { deleteAuthUser } from "@/app/utilities/databaseFunctions";
@@ -10,7 +9,8 @@ import { isAuthUser } from "@/app/utilities/typeguardFunctions";
 import { NotificationContentType } from "@/app/utilities/types";
 import { FC, useEffect, useRef, useState } from "react";
 import { useFormState } from "react-dom";
-import NotificationModal from "../../../components/NotificationModal/NotificationModal";
+import AddAuthUserForm from "./AddAuthUserForm";
+import NotificationModal from "../../components/notifications/NotificationModal";
 
 interface UserLayoutProps {
 	authUsers: Array<Record<string, any>>;

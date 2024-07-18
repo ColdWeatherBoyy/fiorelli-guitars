@@ -1,6 +1,6 @@
 import { NotificationContentType } from "@/app/utilities/types";
 import { Dispatch, FC, SetStateAction } from "react";
-import AdminModalWrapper from "../AdminModalWrapper";
+import AdminModalWrapper from "./AdminModalWrapper";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
 

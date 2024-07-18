@@ -1,11 +1,11 @@
 import AnimateWrapper from "@/app/components/AnimateWrapper";
 import { signIn } from "@/auth";
-import AdminButtonLink from "../../components/AdminButtonLink";
+import AdminButtonLink from "../../components/components/AdminButtonLink";
 import { useDeviceType } from "@/app/utilities/hooks.server";
-import Title from "../../components/Title";
+import Title from "../dashboard/components/components/Title";
 import FullLogo from "@/app/components/SVGs/FullLogo";
 import Link from "next/link";
-import AuthCard from "../../components/AuthCard";
+import AuthCard from "../components/AuthCard";
 
 const SignIn = () => {
 	const isMobile = useDeviceType();

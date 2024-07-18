@@ -1,8 +1,8 @@
-import SelectEditableLayout from "@/app/(admin)/components/CMS/SelectableEditableLayout";
-import Title from "@/app/(admin)/components/Title";
+import Title from "@/app/(admin)/admin/dashboard/components/components/Title";
 import { getPageContent } from "@/app/utilities/databaseFunctions";
 import { useDeviceType } from "@/app/utilities/hooks.server";
 import { PageContent } from "@prisma/client";
+import SelectEditableLayout from "../components/CMS/SelectableEditableLayout";
 
 const SiteContent = async () => {
 	const isMobile = useDeviceType();

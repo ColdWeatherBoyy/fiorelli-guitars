@@ -1,6 +1,6 @@
 import { getAuthUsers } from "@/app/utilities/databaseFunctions";
 import { useDeviceType } from "@/app/utilities/hooks.server";
-import AdminUsersLayout from "./AdminUsersLayout";
+import AdminUsersLayout from "./components/AdminUsersLayout";
 
 const AdminUsers = async () => {
 	const isMobile = useDeviceType();

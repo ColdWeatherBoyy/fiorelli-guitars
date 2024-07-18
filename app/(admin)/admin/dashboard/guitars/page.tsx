@@ -1,8 +1,8 @@
-import SelectEditableLayout from "@/app/(admin)/components/CMS/SelectableEditableLayout";
-import Title from "@/app/(admin)/components/Title";
+import Title from "@/app/(admin)/admin/dashboard/components/components/Title";
 import { getGuitarSpecs } from "@/app/utilities/databaseFunctions";
 import { useDeviceType } from "@/app/utilities/hooks.server";
 import { GuitarSpec } from "@prisma/client";
+import SelectEditableLayout from "../components/CMS/SelectableEditableLayout";
 
 const GuitarInfo = async () => {
 	const isMobile = useDeviceType();

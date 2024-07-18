@@ -1,6 +1,6 @@
-import SearchBar from "@/app/(admin)/components/SearchBar";
-import Title from "@/app/(admin)/components/Title";
+import Title from "@/app/(admin)/admin/dashboard/components/components/Title";
 import { useDeviceType } from "@/app/utilities/hooks.server";
+import SearchBar from "./components/SearchBar";
 
 const SearchCustomers = () => {
 	const isMobile = useDeviceType();

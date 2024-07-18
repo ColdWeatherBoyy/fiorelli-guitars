@@ -1,6 +1,6 @@
-import AdminButtonLink from "@/app/(admin)/components/Display/AdminButtonLink";
-import Table from "@/app/(admin)/components/Table";
-import Title from "@/app/(admin)/components/Title";
+import AdminButtonLink from "@/app/(admin)/components/components/AdminButtonLink";
+import Table from "@/app/(admin)/admin/dashboard/components/components/Table";
+import Title from "@/app/(admin)/admin/dashboard/components/components/Title";
 import { getMessagesByCustomerId } from "@/app/utilities/databaseFunctions";
 import { useDeviceType } from "@/app/utilities/hooks.server";
 import Link from "next/link";

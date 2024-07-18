@@ -1,7 +1,7 @@
 import AnimateWrapper from "@/app/components/AnimateWrapper";
-import AdminButtonLink from "../../components/AdminButtonLink";
+import AdminButtonLink from "../../components/components/AdminButtonLink";
 import { useDeviceType } from "@/app/utilities/hooks.server";
-import AuthCard from "../../components/AuthCard";
+import AuthCard from "../components/AuthCard";
 
 const Unauthorized = () => {
 	const isMobile = useDeviceType();

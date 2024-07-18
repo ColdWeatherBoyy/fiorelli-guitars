@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import Title from "../../components/Title";
+import Title from "./components/components/Title";
 
 export default async function AdminHome() {
 	const session = await auth();

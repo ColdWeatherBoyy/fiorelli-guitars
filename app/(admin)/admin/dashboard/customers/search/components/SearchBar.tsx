@@ -2,9 +2,9 @@
 
 import { FC, useEffect } from "react";
 import { useFormState } from "react-dom";
-import { handleSearchForm } from "../utilities/formHandlers";
+import { handleSearchForm } from "../../../../../utilities/formHandlers";
 import { useRouter } from "next/navigation";
-import AdminButtonLink from "./AdminButtonLink";
+import AdminButtonLink from "../../../../../components/components/AdminButtonLink";
 
 interface SearchBarProps {
 	placeholder: string;

@@ -1,4 +1,4 @@
-import AdminWrapper from "../components/AdminWrapper";
+import AdminWrapper from "../components/layout/AdminWrapper";
 
 export default function Layout({
 	children,
