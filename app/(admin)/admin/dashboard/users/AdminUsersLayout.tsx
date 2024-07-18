@@ -10,7 +10,7 @@ import { isAuthUser } from "@/app/utilities/typeguardFunctions";
 import { NotificationContentType } from "@/app/utilities/types";
 import { FC, useEffect, useRef, useState } from "react";
 import { useFormState } from "react-dom";
-import NotificationModal from "../components/NotificationModal";
+import NotificationModal from "../../../components/NotificationModal/NotificationModal";
 
 interface UserLayoutProps {
 	authUsers: Array<Record<string, any>>;

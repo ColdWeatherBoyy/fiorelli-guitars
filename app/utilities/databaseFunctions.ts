@@ -311,3 +311,20 @@ export const getGuitarSpecs = async (tag: string) => {
 	});
 	return guitarSpecs;
 };
+
+export const updateGuitarSpec = async (id: number, key: string, value: string) => {
+	try {
+		const updatedGuitarSpec = await prisma.guitarSpec.update({
+			where: {
+				id,
+			},
+			data: {
+				[key]: value,
+			},
+		});
+		return updatedGuitarSpec;
+	} catch (error) {
+		console.error(error);
+		throw new Error("An error occurred. Please try again.");
+	}
+};

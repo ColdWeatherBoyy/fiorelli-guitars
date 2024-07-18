@@ -1,4 +1,4 @@
-import AdminButtonLink from "@/app/(admin)/components/AdminButtonLink";
+import AdminButtonLink from "@/app/(admin)/components/Display/AdminButtonLink";
 import Table from "@/app/(admin)/components/Table";
 import Title from "@/app/(admin)/components/Title";
 import { getMessagesByCustomerId } from "@/app/utilities/databaseFunctions";

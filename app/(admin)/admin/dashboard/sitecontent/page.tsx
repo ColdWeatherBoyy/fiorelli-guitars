@@ -1,8 +1,8 @@
+import SelectEditableLayout from "@/app/(admin)/components/CMS/SelectableEditableLayout";
 import Title from "@/app/(admin)/components/Title";
 import { getPageContent } from "@/app/utilities/databaseFunctions";
-// import { getContentBlocks } from "@/app/utilities/helpers";
 import { useDeviceType } from "@/app/utilities/hooks.server";
-import SelectEditablePageLayout from "./SelectEditablePageLayout";
+import { PageContent } from "@prisma/client";
 
 const SiteContent = async () => {
 	const isMobile = useDeviceType();
@@ -12,7 +12,7 @@ const SiteContent = async () => {
 	if (!homePageData.content || !aboutPageData.content || !contactPageData.content)
 		return null;
 
-	const pageContentData = [
+	const pageContentData: PageContent[] = [
 		homePageData.content,
 		aboutPageData.content,
 		contactPageData.content,
@@ -23,8 +23,8 @@ const SiteContent = async () => {
 	return (
 		<>
 			<Title title="Site Content" />
-			<SelectEditablePageLayout
-				pageContentData={pageContentData}
+			<SelectEditableLayout
+				content={pageContentData}
 				titlesArray={titlesArray}
 				isMobile={isMobile}
 			/>

@@ -1,4 +1,4 @@
-import { AuthUser, Customer } from "@prisma/client";
+import { AuthUser, Customer, GuitarSpec, PageContent } from "@prisma/client";
 
 export enum WelcomeState {
 	welcome = "welcome",

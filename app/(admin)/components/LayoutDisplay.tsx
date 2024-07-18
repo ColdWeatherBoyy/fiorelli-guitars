@@ -1,7 +1,7 @@
 "use client";
 
-import SideBar from "@/app/(admin)/components/SideBar";
 import { FC, useEffect, useRef, useState } from "react";
+import SideBar from "./SideBar";
 
 interface LayoutDisplayProps {
 	children: React.ReactNode;

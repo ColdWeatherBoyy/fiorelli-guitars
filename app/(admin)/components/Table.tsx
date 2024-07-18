@@ -1,7 +1,7 @@
 import {
 	divideAndSortDatabaseData,
 	formatDateTime,
-	toTitleCase,
+	camelToTitleCase,
 } from "@/app/utilities/helpers";
 import { TableInteractionProps } from "@/app/utilities/types";
 import Link from "next/link";
@@ -34,7 +34,7 @@ const Table: FC<TableProps> = ({ data, isMobile, tableInteractionProps }) => {
 								? "Sent"
 								: header === "messages"
 								? "Msgs"
-								: toTitleCase(header)}
+								: camelToTitleCase(header)}
 						</th>
 					))}
 				</tr>

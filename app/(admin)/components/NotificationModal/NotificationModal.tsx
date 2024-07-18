@@ -1,8 +1,8 @@
-import AdminModalWrapper from "@/app/(admin)/components/AdminModalWrapper";
-import FormError from "@/app/(admin)/components/FormError";
-import FormSuccess from "@/app/(admin)/components/FormSuccess";
 import { NotificationContentType } from "@/app/utilities/types";
 import { Dispatch, FC, SetStateAction } from "react";
+import AdminModalWrapper from "../AdminModalWrapper";
+import FormError from "./FormError";
+import FormSuccess from "./FormSuccess";
 
 interface NotificationModalProps {
 	setOpen: Dispatch<SetStateAction<boolean>>;

@@ -13,8 +13,11 @@ export const formatDateTime = (date: Date): string => {
 	return `${months}/${days}/${years}, ${formattedHours}:${minutes} ${period}`;
 };
 
-export const toTitleCase = (string: string) => {
-	return string.charAt(0).toUpperCase() + string.slice(1);
+export const camelToTitleCase = (input: string): string => {
+	return input
+		.replace(/([A-Z])/g, " $1") // Insert a space before each uppercase letter
+		.replace(/^./, (str) => str.toUpperCase()) // Capitalize the first letter of the resulting string
+		.trim(); // Remove any leading or trailing spaces
 };
 
 export const sortObjectKeys = (obj: Record<string, any>, priority: string[]) => {
