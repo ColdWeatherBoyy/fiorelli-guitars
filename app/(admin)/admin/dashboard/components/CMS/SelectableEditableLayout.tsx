@@ -7,7 +7,7 @@ import {
 import { GuitarSpec, PageContent } from "@prisma/client";
 import { FC, useState } from "react";
 import EditableGuitarInfoLayout from "./EditableGuitarInfoLayout";
-import EditableContentLayout from "./EditablePageContentLayout";
+import EditablePageContentLayout from "./EditablePageContentLayout";
 
 interface SelectEditableLayoutProps {
 	content: PageContent[] | GuitarSpec[];
@@ -29,10 +29,10 @@ const SelectEditableLayout: FC<SelectEditableLayoutProps> = ({
 					<div
 						key={index}
 						onClick={() => setSelectedTab(index)}
-						className={`border border-collapse text-lg rounded-t-md border-slate-600 dark:border-slate-400 py-2 cursor-pointer w-full ${
+						className={`border border-collapse text-lg rounded-t-md border-slate-500 dark:border-slate-400 py-2 cursor-pointer w-full ${
 							selectedTab === index
-								? "bg-zinc-50 text-xl underline border-b-0 tracking-wider"
-								: "bg-zinc-300 text-zinc-600"
+								? "bg-slate-100 dark:bg-slate-500 text-xl underline border-b-0 tracking-wider"
+								: "bg-slate-300 dark:bg-slate-800 text-zinc-600 dark:text-zinc-300"
 						}
               `}
 					>
@@ -40,9 +40,9 @@ const SelectEditableLayout: FC<SelectEditableLayoutProps> = ({
 					</div>
 				))}
 			</div>
-			<div className="bg-zinc-50 grid grid-cols-1 sm:grid-cols-2 border-x border-b rounded-b-md border-slate-600 dark:border-slate-400 p-2">
+			<div className="bg-slate-100 dark:bg-slate-500 grid grid-cols-1 sm:grid-cols-2 border-x border-b rounded-b-md border-slate-500 dark:border-slate-400 p-2">
 				{isPageContentArray(content) ? (
-					<EditableContentLayout
+					<EditablePageContentLayout
 						pageContentData={content}
 						selectedTab={selectedTab}
 						isMobile={isMobile}
