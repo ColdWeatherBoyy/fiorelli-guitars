@@ -1,7 +1,8 @@
-import { FC } from "react";
-import { GuitarSpec, PageContent } from "@prisma/client";
+import { getGuitarSpecs, updateGuitarSpec } from "@/app/utilities/databaseFunctions";
+import { GuitarSpec } from "@prisma/client";
+import { FC, useEffect, useState } from "react";
+import AddNewContent from "./AddNewContent";
 import EditableContent from "./EditableContent";
-import { updateGuitarSpec } from "@/app/utilities/databaseFunctions";
 
 interface EditableGuitarInfoLayoutProps {
 	guitarSpecs: GuitarSpec[];
@@ -14,24 +15,71 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 	selectedTab,
 	isMobile,
 }) => {
-	return Object.entries(guitarSpecs[selectedTab]).map(([key, value]) => {
-		if (
-			key === "id" ||
-			value === null ||
-			value instanceof Date ||
-			typeof value === "number"
-		)
-			return null;
-		return (
-			<EditableContent
-				key={`${key}-${guitarSpecs[selectedTab].id}`}
-				contentObj={{ [key]: value }}
-				id={guitarSpecs[selectedTab].id}
-				isMobile={isMobile}
-				updateContentFunction={updateGuitarSpec}
-			/>
-		);
-	});
+	const [specs, setSpecs] = useState<GuitarSpec[]>(guitarSpecs);
+	const [unusedSpec, setUnusedSpec] = useState<(keyof GuitarSpec)[]>([]);
+	const [usedSpecs, setUsedSpecs] = useState<(keyof GuitarSpec)[]>([]);
+	const [newSpec, setNewSpec] = useState<string>("");
+
+	useEffect(() => {
+		const unusedSpecs: (keyof GuitarSpec)[] = [];
+		const usedSpecs: (keyof GuitarSpec)[] = [];
+		Object.entries(specs[selectedTab]).forEach(([key, value]) => {
+			if (value === null) {
+				unusedSpecs.push(key as keyof GuitarSpec);
+			} else if (key === "id" || value instanceof Date || typeof value === "number") {
+				return null;
+			} else {
+				usedSpecs.push(key as keyof GuitarSpec);
+			}
+		});
+		setUnusedSpec(unusedSpecs);
+		setUsedSpecs(usedSpecs);
+	}, [specs, selectedTab]);
+
+	const handleAddSpec = async () => {
+		if (newSpec) {
+			const newSpecs = await getGuitarSpecs(specs[selectedTab].tag);
+			if (!newSpecs) {
+				// TODO: Add a notification here
+				console.error("Failed to get new specs");
+				return;
+			}
+			setSpecs((prevSpecs) => {
+				const newSpecsArray = [...prevSpecs];
+				newSpecsArray[selectedTab] = newSpecs;
+				return newSpecsArray;
+			});
+			setNewSpec("");
+		}
+	};
+
+	return (
+		<>
+			{usedSpecs.map((spec) => {
+				if (typeof specs[selectedTab][spec] !== "string") return null;
+				return (
+					<EditableContent
+						key={`${spec}-${specs[selectedTab].id}`}
+						contentObj={{ [spec]: specs[selectedTab][spec] }}
+						id={specs[selectedTab].id}
+						isMobile={isMobile}
+						updateContentFunction={updateGuitarSpec}
+					/>
+				);
+			})}
+
+			{unusedSpec.length > 0 && (
+				<AddNewContent
+					setNewSpec={setNewSpec}
+					newSpec={newSpec}
+					unusedSpec={unusedSpec}
+					id={specs[selectedTab].id}
+					isMobile={isMobile}
+					handleAddSpec={handleAddSpec}
+				/>
+			)}
+		</>
+	);
 };
 
 export default EditableGuitarInfoLayout;

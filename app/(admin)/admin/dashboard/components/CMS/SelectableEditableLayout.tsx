@@ -23,7 +23,7 @@ const SelectEditableLayout: FC<SelectEditableLayoutProps> = ({
 	const [selectedTab, setSelectedTab] = useState(0);
 
 	return (
-		<div className="w-4/5">
+		<div className="w-4/5 rounded-md shadow-sm shadow-slate-500 dark:shadow-slate-400">
 			<div className="flex justify-start rounded-t-md w-full text-center">
 				{titlesArray.map((title, index) => (
 					<div

@@ -1,4 +1,5 @@
 import { AuthUser, GuitarSpec, PageContent } from "@prisma/client";
+import GuitarSpecs from "../(client)/gallery/[tag]/page";
 import {
 	AuthUserResponse,
 	ContactFormData,

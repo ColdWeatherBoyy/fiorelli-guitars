@@ -12,6 +12,7 @@ interface EditableContentProps {
 	id: number;
 	isMobile: boolean;
 	updateContentFunction: (id: number, key: string, content: string) => Promise<any>;
+	onSuccess?: () => void;
 }
 
 const EditableContent: FC<EditableContentProps> = ({
@@ -19,6 +20,7 @@ const EditableContent: FC<EditableContentProps> = ({
 	id,
 	isMobile,
 	updateContentFunction,
+	onSuccess,
 }) => {
 	const [key, value] = Object.entries(contentObj)[0];
 	const [content, setContent] = useState(value);
@@ -44,6 +46,7 @@ const EditableContent: FC<EditableContentProps> = ({
 					content: updateError,
 				});
 			} else {
+				if (onSuccess) onSuccess();
 				setNotificationContent({
 					key: "string",
 					content: `${key === "bodies" ? "Body" : camelToTitleCase(key)} updated.`,
