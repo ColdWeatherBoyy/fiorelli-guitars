@@ -50,3 +50,23 @@ model Page {
   updatedAt   DateTime @updatedAt
 }
 
+model GuitarSpec {
+  id                Int      @id @default(autoincrement())
+  tag               String   @unique
+  name              String
+  body              String
+  neck              String
+  fingerboard       String
+  fingerboardRadius String
+  scaleLength       String
+  fretMarkers       String
+  neckPickup        String
+  middlePickup      String?
+  bridgePickup      String
+  pickupSwitch      String
+  bridge            String
+  tuners            String
+  knobs             String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

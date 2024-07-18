@@ -42,7 +42,7 @@ const PhotoCard: FC<PhotoCardProps> = ({
 	};
 	return (
 		<div
-			className={`flex flex-col border border-zinc-400 dark:border-cyan-800 gap-2 items-center rounded-sm bg-cyan-100 dark:bg-cyan-900 shadow-sm shadow-zinc-600/60 backdrop-blur-md p-4 sm:p-2 transform transition`}
+			className={`flex flex-col border border-cyan-400 dark:border-cyan-800 gap-2 items-center rounded-sm bg-cyan-100 dark:bg-cyan-900 shadow-sm shadow-zinc-600/60 backdrop-blur-md p-4 sm:p-2 transform transition`}
 		>
 			<div className="max-h-full flex flex-col gap-3 justify-center items-center">
 				{index !== undefined && length ? (

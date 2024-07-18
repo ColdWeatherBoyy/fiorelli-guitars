@@ -1,6 +1,6 @@
 "use server";
 
-import { AuthUser, Customer, PageContent, Prisma, PrismaClient } from "@prisma/client";
+import { AuthUser, Customer, Prisma, PrismaClient } from "@prisma/client";
 import { CreateCustomerAndMessageResponse, newMessage } from "./types";
 
 const prisma = new PrismaClient();
@@ -301,4 +301,13 @@ export const updateContentBlock = async (id: number, key: string, value: string)
 		console.error(error);
 		throw new Error("An error occurred. Please try again.");
 	}
+};
+
+export const getGuitarSpecs = async (tag: string) => {
+	const guitarSpecs = await prisma.guitarSpec.findUnique({
+		where: {
+			tag,
+		},
+	});
+	return guitarSpecs;
 };

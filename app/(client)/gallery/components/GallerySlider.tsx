@@ -6,18 +6,20 @@ import { CldImage } from "next-cloudinary";
 import Link from "next/link";
 import { FC } from "react";
 import InnerCard from "../../components/components/InnerCard";
+import { useDeviceType } from "@/app/utilities/hooks.server";
 
 interface GallerySliderProps {
 	resources: CloudinaryResource[];
 	title: string;
 	tag: string;
+	isMobile: boolean;
 }
 
-const GallerySlider: FC<GallerySliderProps> = ({ resources, title, tag }) => {
+const GallerySlider: FC<GallerySliderProps> = ({ resources, title, tag, isMobile }) => {
 	const screenSize = useScreenSize();
 
 	return (
-		<InnerCard title={title}>
+		<InnerCard title={title} tag={tag} isMobile={isMobile}>
 			<div className="overflow-auto flex rounded-sm gap-6 bg-zinc-50 dark:bg-zinc-300 p-5 shadow-inner shadow-zinc-700">
 				{resources.map((resource, index) => {
 					return (

@@ -3,7 +3,7 @@ import PhotoCard from "@/app/(client)/components/components/PhotoCard";
 import { cloudinary } from "@/app/utilities/cloudinary";
 import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
 import { CloudinaryResource, GalleryPhotoProps, TextSize } from "@/app/utilities/types";
-import ModalWrapper from "./ModalWrapper";
+import ModalWrapper from "../../../../components/ModalWrapper";
 
 export async function generateStaticParams() {
 	const { resources: resourcesEJ } = await cloudinary.search

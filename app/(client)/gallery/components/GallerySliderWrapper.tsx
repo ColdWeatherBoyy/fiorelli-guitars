@@ -3,6 +3,7 @@ import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
 import { CloudinaryResource } from "@/app/utilities/types";
 import { FC } from "react";
 import GallerySlider from "./GallerySlider";
+import { useDeviceType } from "@/app/utilities/hooks.server";
 
 interface GallerySliderWrapperProps {
 	tag: string;
@@ -33,7 +34,16 @@ const GallerySliderWrapper: FC<GallerySliderWrapperProps> = async ({ tag, title 
 		})
 	);
 
-	return <GallerySlider title={title} resources={fullResources} tag={tag} />;
+	const isMobile = useDeviceType();
+
+	return (
+		<GallerySlider
+			title={title}
+			resources={fullResources}
+			tag={tag}
+			isMobile={isMobile}
+		/>
+	);
 };
 
 export default GallerySliderWrapper;
