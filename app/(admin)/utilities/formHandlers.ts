@@ -10,14 +10,25 @@ export const handleSearchForm = async (
 ): Promise<number | Error | null> => {
 	try {
 		const query = formData.get("query");
-		if (!query) throw new Error("No query provided");
+		if (!query) {
+			return {
+				name: "No Query",
+				message: "A search term is required. Please try again.",
+			};
+		}
 		const customerId = await getCustomerIdByEmailOrName(query.toString());
 		return customerId;
 	} catch (error) {
-		// console.error(error);
+		if ((error as Error).message === "Customer not found.") {
+			return {
+				name: "Customer Not Found",
+				message: "No customer was found with this search term. Please try again.",
+			};
+		}
 		return {
 			name: "Search Form Error",
 			message: "An error occurred. Please try again.",
+			cause: error?.toString() || "No error message provided.",
 		};
 	}
 };

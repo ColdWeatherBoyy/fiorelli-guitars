@@ -1,11 +1,12 @@
 "use client";
 
+import AdminButtonLink from "@/app/(admin)/components/components/AdminButtonLink";
 import { camelToTitleCase } from "@/app/utilities/helpers";
+import { isGuitarSpec } from "@/app/utilities/typeguardFunctions";
 import { NotificationContentType } from "@/app/utilities/types";
 import { FC, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import NotificationModal from "../notifications/NotificationModal";
-import AdminButtonLink from "@/app/(admin)/components/components/AdminButtonLink";
 
 interface EditableContentProps {
 	contentObj: Record<string, string>;
@@ -51,6 +52,11 @@ const EditableContent: FC<EditableContentProps> = ({
 					key: "error",
 					content: deleteError,
 				});
+			} else if (!isGuitarSpec(deletedContent)) {
+				setNotificationContent({
+					key: "error",
+					content: deletedContent,
+				});
 			} else {
 				setSuccess(true);
 				setNotificationContent({
@@ -60,11 +66,9 @@ const EditableContent: FC<EditableContentProps> = ({
 			}
 			setOpen(true);
 		} catch (error) {
-			const nonNullError = new Error((error as Error).message);
-			nonNullError.name = "Required Value";
 			setNotificationContent({
 				key: "error",
-				content: nonNullError || deleteError,
+				content: (error as Error) || deleteError,
 			});
 			setOpen(true);
 			setSuccess(false);
@@ -97,6 +101,11 @@ const EditableContent: FC<EditableContentProps> = ({
 				setNotificationContent({
 					key: "error",
 					content: updateError,
+				});
+			} else if (!isGuitarSpec(updatedContent)) {
+				setNotificationContent({
+					key: "error",
+					content: updatedContent,
 				});
 			} else {
 				setSuccess(true);

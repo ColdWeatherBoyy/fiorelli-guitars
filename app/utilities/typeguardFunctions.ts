@@ -1,9 +1,10 @@
-import { AuthUser, GuitarSpec, PageContent } from "@prisma/client";
+import { AuthUser, Customer, GuitarSpec, Message, PageContent } from "@prisma/client";
 import GuitarSpecs from "../(client)/gallery/[tag]/page";
 import {
 	AuthUserResponse,
 	ContactFormData,
 	CreateCustomerAndMessageResponse,
+	MessageContent,
 } from "./types";
 
 export const isContactFormData = (
@@ -59,5 +60,61 @@ export const isGuitarSpecArray = (arr: any[]): arr is GuitarSpec[] => {
 			typeof obj.knobs === "string" &&
 			obj.createdAt instanceof Date &&
 			obj.updatedAt instanceof Date
+	);
+};
+
+export const isGuitarSpec = (obj: any): obj is GuitarSpec => {
+	return (
+		typeof obj === "object" &&
+		typeof obj.id === "number" &&
+		typeof obj.tag === "string" &&
+		typeof obj.name === "string" &&
+		typeof obj.body === "string" &&
+		typeof obj.neck === "string" &&
+		typeof obj.fingerboard === "string" &&
+		typeof obj.fingerboardRadius === "string" &&
+		typeof obj.scaleLength === "string" &&
+		typeof obj.fretMarkers === "string" &&
+		typeof obj.neckPickup === "string" &&
+		(typeof obj.middlePickup === "string" || obj.middlePickup === null) &&
+		typeof obj.bridgePickup === "string" &&
+		typeof obj.pickupSwitch === "string" &&
+		typeof obj.bridge === "string" &&
+		typeof obj.tuners === "string" &&
+		typeof obj.knobs === "string" &&
+		obj.createdAt instanceof Date &&
+		obj.updatedAt instanceof Date
+	);
+};
+
+export const isMessageContent = (obj: any): obj is MessageContent => {
+	return (
+		typeof obj === "object" &&
+		typeof obj.content === "string" &&
+		obj.createdAt instanceof Date
+	);
+};
+
+export const isCustomerWithMessages = (obj: any): obj is Customer => {
+	return (
+		typeof obj === "object" &&
+		obj !== null &&
+		typeof obj.id === "number" &&
+		typeof obj.email === "string" &&
+		(typeof obj.name === "string" || obj.name === null) &&
+		obj.createdAt instanceof Date &&
+		Array.isArray(obj.messages) &&
+		obj.messages.every(isMessageContent)
+	);
+};
+
+export const isMessagesArray = (arr: any[]): arr is Message[] => {
+	return arr.every(
+		(obj) =>
+			typeof obj === "object" &&
+			typeof obj.id === "number" &&
+			typeof obj.content === "string" &&
+			obj.createdAt instanceof Date &&
+			typeof obj.customerId === "number"
 	);
 };

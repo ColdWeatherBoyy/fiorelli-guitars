@@ -104,7 +104,10 @@ export const getMessagesByCustomerEmail = async (email: string) => {
 	});
 
 	if (!customerWithMessages) {
-		throw new Error("Customer not found");
+		return {
+			name: "Customer not found.",
+			message: "No customer was found with this email. Please try again.",
+		};
 	}
 
 	return customerWithMessages.messages;
@@ -130,7 +133,10 @@ export const getMessagesByCustomerId = async (customerId: number) => {
 	});
 
 	if (!customerWithMessages) {
-		throw new Error("Customer not found");
+		return {
+			name: "Customer not found.",
+			message: "No customer was found with this ID. Please try again.",
+		};
 	}
 	return customerWithMessages;
 };
@@ -139,7 +145,11 @@ export const getCustomerIdByEmailOrName = async (query: string) => {
 	const customer = await prisma.customer.findFirst({
 		where: { OR: [{ email: query }, { name: query }] },
 	});
-	if (!customer) throw new Error("Customer not found");
+	if (!customer)
+		return {
+			name: "Customer not found.",
+			message: "No customer was found with this search term. Please try again.",
+		};
 	return customer.id;
 };
 
@@ -166,7 +176,10 @@ export const createAuthUser = async (email: string): Promise<AuthUser | Error> =
 			},
 		});
 		if (!authUser) {
-			throw new Error("Failed to create auth user");
+			return {
+				name: "Auth Error",
+				message: "Failed to create authorized user. Please try again.",
+			};
 		}
 		return authUser;
 	} catch (error) {
@@ -212,7 +225,10 @@ export const deleteAuthUser = async (id: string): Promise<AuthUser | Error> => {
 			},
 		});
 		if (!deletedUser) {
-			throw new Error("Failed to delete user.");
+			return {
+				name: "Auth Error",
+				message: "Failed to delete authorized user. Please try again.",
+			};
 		}
 		return deletedUser;
 	} catch (error) {
@@ -326,7 +342,11 @@ export const updateGuitarSpec = async (id: number, key: string, value: string) =
 		return updatedGuitarSpec;
 	} catch (error) {
 		// console.error(error);
-		throw new Error("An error occurred. Please try again.");
+		return {
+			name: "error",
+			message: "An error occurred. Please try again.",
+			cause: error?.toString() || "No error message provided.",
+		};
 	}
 };
 
@@ -345,9 +365,17 @@ export const deleteGuitarSpec = async (id: number, key: string) => {
 		// console.error(error);
 		if (error instanceof Prisma.PrismaClientValidationError) {
 			if (error.message.includes("must not be null.")) {
-				throw new Error(`${camelToTitleCase(key)} is required and cannot be deleted.`);
+				return {
+					name: "Required Value",
+					message: `${camelToTitleCase(key)} is required and cannot be deleted.`,
+					cause: "Prisma Client Validation Error",
+				};
 			}
 		}
-		throw new Error("An error occurred. Please try again.");
+		return {
+			name: "error",
+			message: "An error occurred. Please try again.",
+			cause: error?.toString() || "No error message provided.",
+		};
 	}
 };

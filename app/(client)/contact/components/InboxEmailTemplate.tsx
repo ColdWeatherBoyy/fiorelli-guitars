@@ -2,6 +2,10 @@
 
 import { getMessagesByCustomerEmail } from "@/app/utilities/databaseFunctions";
 import { formatDateTime } from "@/app/utilities/helpers";
+import {
+	isCustomerWithMessages,
+	isMessagesArray,
+} from "@/app/utilities/typeguardFunctions";
 import { ContactFormData } from "@/app/utilities/types";
 import { FC } from "react";
 
@@ -82,49 +86,63 @@ export const InboxEmailTemplate: FC<Readonly<InboxEmailTemplateProps>> = async (
 					>
 						{contactFormData.newMessage.content}
 					</div>
-					{customerMessages.length > 1 && (
-						<>
-							<div
-								style={{
-									fontSize: "16px",
-									lineHeight: "1.6",
-									marginBottom: "10px",
-									color: "white",
-								}}
-							>
-								If they&apos;ve reached out to you before, those messages will appear
-								here:
-							</div>
-							{customerMessages?.map((message, index) => {
-								if (index === 0) return null;
-								return (
-									<div
-										key={message.id}
-										style={{
-											padding: "10px",
-											margin: "10px 20px",
-											backgroundColor: "#0e7490",
-											borderRadius: "5px",
-											color: "#e4e4e7",
-											fontStyle: "italic",
-											fontSize: "16px",
-										}}
-									>
-										{message.content}{" "}
-										<span
+					{customerMessages instanceof Array === false ? (
+						<div
+							style={{
+								fontSize: "16px",
+								lineHeight: "1.6",
+								marginBottom: "10px",
+								color: "red",
+							}}
+						>
+							<div>{customerMessages.name}</div>
+							<div>{customerMessages.message}</div>
+						</div>
+					) : (
+						customerMessages.length > 1 && (
+							<>
+								<div
+									style={{
+										fontSize: "16px",
+										lineHeight: "1.6",
+										marginBottom: "10px",
+										color: "white",
+									}}
+								>
+									If they&apos;ve reached out to you before, those messages will appear
+									here:
+								</div>
+								{customerMessages?.map((message, index) => {
+									if (index === 0) return null;
+									return (
+										<div
+											key={message.id}
 											style={{
-												marginLeft: "10px",
-												fontWeight: "bold",
-												fontSize: "12px",
-												fontStyle: "normal",
+												padding: "10px",
+												margin: "10px 20px",
+												backgroundColor: "#0e7490",
+												borderRadius: "5px",
+												color: "#e4e4e7",
+												fontStyle: "italic",
+												fontSize: "16px",
 											}}
 										>
-											-{formatDateTime(message.createdAt)}
-										</span>
-									</div>
-								);
-							})}
-						</>
+											{message.content}{" "}
+											<span
+												style={{
+													marginLeft: "10px",
+													fontWeight: "bold",
+													fontSize: "12px",
+													fontStyle: "normal",
+												}}
+											>
+												-{formatDateTime(message.createdAt)}
+											</span>
+										</div>
+									);
+								})}
+							</>
+						)
 					)}
 					<div
 						style={{

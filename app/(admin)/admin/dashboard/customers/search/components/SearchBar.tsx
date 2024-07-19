@@ -28,13 +28,9 @@ const SearchBar: FC<SearchBarProps> = ({ placeholder, isMobile }) => {
 		if (typeof data === "number") {
 			router.push(`/admin/dashboard/customers/${data}`);
 		} else if (data !== null) {
-			const customerNotFoundError = new Error(
-				"No customer was found with this search term. Please try again."
-			);
-			customerNotFoundError.name = "Customer Not Found";
 			setNotificationContent({
 				key: "error",
-				content: customerNotFoundError,
+				content: data,
 			});
 			setOpen(true);
 		}

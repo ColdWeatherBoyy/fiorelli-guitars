@@ -60,3 +60,8 @@ export interface TableInteractionProps {
 export type NotificationContentType =
 	| { key: "string"; content: string }
 	| { key: "error"; content: Error };
+
+export interface MessageContent {
+	content: string;
+	createdAt: Date;
+}
