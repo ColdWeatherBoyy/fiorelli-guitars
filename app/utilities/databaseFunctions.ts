@@ -2,6 +2,7 @@
 
 import { AuthUser, Customer, Prisma, PrismaClient } from "@prisma/client";
 import { CreateCustomerAndMessageResponse, newMessage } from "./types";
+import { camelToTitleCase } from "./helpers";
 
 const prisma = new PrismaClient();
 
@@ -325,6 +326,32 @@ export const updateGuitarSpec = async (id: number, key: string, value: string) =
 		return updatedGuitarSpec;
 	} catch (error) {
 		console.error(error);
+		throw new Error("An error occurred. Please try again.");
+	}
+};
+
+export const deleteGuitarSpec = async (id: number, key: string) => {
+	try {
+		const updatedGuitarSpec = await prisma.guitarSpec.update({
+			where: {
+				id,
+			},
+			data: {
+				[key]: null,
+			},
+		});
+		return updatedGuitarSpec;
+	} catch (error) {
+		const nonNullError = new Error(
+			`${camelToTitleCase(key)} is required and cannot be deleted.`
+		);
+
+		console.error(error);
+		if (error instanceof Prisma.PrismaClientValidationError) {
+			if (error.message.includes("must not be null.")) {
+				throw nonNullError;
+			}
+		}
 		throw new Error("An error occurred. Please try again.");
 	}
 };

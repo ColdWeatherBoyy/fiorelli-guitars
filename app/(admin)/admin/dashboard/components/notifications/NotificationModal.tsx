@@ -18,7 +18,7 @@ const NotificationModal: FC<NotificationModalProps> = ({
 	return (
 		<AdminModalWrapper setOpen={setOpen} onSuccess={onSuccess}>
 			{notificationContent.key === "error" ? (
-				<FormError error={notificationContent.content} />
+				<FormError error={notificationContent.content as Error} />
 			) : (
 				<FormSuccess message={notificationContent.content} />
 			)}

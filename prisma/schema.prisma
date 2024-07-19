@@ -62,11 +62,12 @@ model GuitarSpec {
   fretMarkers       String
   neckPickup        String
   middlePickup      String?
-  bridgePickup      String
-  pickupSwitch      String
+  bridgePickup      String?
+  pickupSwitch      String?
   bridge            String
+  vibrato           String?
   tuners            String
-  knobs             String
+  knobs             String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

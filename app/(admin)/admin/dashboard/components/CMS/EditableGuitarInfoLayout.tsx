@@ -1,4 +1,8 @@
-import { getGuitarSpecs, updateGuitarSpec } from "@/app/utilities/databaseFunctions";
+import {
+	deleteGuitarSpec,
+	getGuitarSpecs,
+	updateGuitarSpec,
+} from "@/app/utilities/databaseFunctions";
 import { GuitarSpec } from "@prisma/client";
 import { FC, useEffect, useState } from "react";
 import AddNewContent from "./AddNewContent";
@@ -36,21 +40,19 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 		setUsedSpecs(usedSpecs);
 	}, [specs, selectedTab]);
 
-	const handleAddSpec = async () => {
-		if (newSpec) {
-			const newSpecs = await getGuitarSpecs(specs[selectedTab].tag);
-			if (!newSpecs) {
-				// TODO: Add a notification here
-				console.error("Failed to get new specs");
-				return;
-			}
-			setSpecs((prevSpecs) => {
-				const newSpecsArray = [...prevSpecs];
-				newSpecsArray[selectedTab] = newSpecs;
-				return newSpecsArray;
-			});
-			setNewSpec("");
+	const handleSpecChange = async () => {
+		const newSpecs = await getGuitarSpecs(specs[selectedTab].tag);
+		if (!newSpecs) {
+			// TODO: Add a notification here
+			console.error("Failed to get new specs");
+			return;
 		}
+		setSpecs((prevSpecs) => {
+			const newSpecsArray = [...prevSpecs];
+			newSpecsArray[selectedTab] = newSpecs;
+			return newSpecsArray;
+		});
+		setNewSpec("");
 	};
 
 	return (
@@ -64,6 +66,8 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 						id={specs[selectedTab].id}
 						isMobile={isMobile}
 						updateContentFunction={updateGuitarSpec}
+						deleteContentFunction={deleteGuitarSpec}
+						onSuccess={handleSpecChange}
 					/>
 				);
 			})}
@@ -75,7 +79,7 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 					unusedSpec={unusedSpec}
 					id={specs[selectedTab].id}
 					isMobile={isMobile}
-					handleAddSpec={handleAddSpec}
+					handleAddSpec={handleSpecChange}
 				/>
 			)}
 		</>

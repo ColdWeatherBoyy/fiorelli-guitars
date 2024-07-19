@@ -12,6 +12,7 @@ interface EditableContentProps {
 	id: number;
 	isMobile: boolean;
 	updateContentFunction: (id: number, key: string, content: string) => Promise<any>;
+	deleteContentFunction?: (id: number, key: string) => Promise<any>;
 	onSuccess?: () => void;
 }
 
@@ -20,6 +21,7 @@ const EditableContent: FC<EditableContentProps> = ({
 	id,
 	isMobile,
 	updateContentFunction,
+	deleteContentFunction,
 	onSuccess,
 }) => {
 	const [key, value] = Object.entries(contentObj)[0];
@@ -31,12 +33,63 @@ const EditableContent: FC<EditableContentProps> = ({
 			content: "",
 		}
 	);
+	const [success, setSuccess] = useState(false);
+
+	const handleDeleteContent = async (id: number, key: string) => {
+		if (!deleteContentFunction) return;
+		setSuccess(false);
+		const deleteError = new Error(
+			"Failed to delete content. If problem persists, please contact site admin."
+		);
+		deleteError.name = "Can't Delete";
+
+		try {
+			const deletedContent = await deleteContentFunction(id, key);
+
+			if (!deletedContent) {
+				setNotificationContent({
+					key: "error",
+					content: deleteError,
+				});
+			} else {
+				setSuccess(true);
+				setNotificationContent({
+					key: "string",
+					content: `${key === "bodies" ? "Body" : camelToTitleCase(key)} deleted.`,
+				});
+			}
+			setOpen(true);
+		} catch (error) {
+			const nonNullError = new Error((error as Error).message);
+			nonNullError.name = "Required Value";
+			setNotificationContent({
+				key: "error",
+				content: nonNullError || deleteError,
+			});
+			setOpen(true);
+			setSuccess(false);
+		}
+	};
 
 	const handleUpdateContent = async (id: number, key: string, content: string) => {
+		setSuccess(false);
 		const updateError = new Error(
 			"Failed to update content. If problem persists, please contact site admin."
 		);
-		updateError.name = "Update Error";
+		updateError.name = "Can't Update";
+
+		const noContentError = new Error("Content cannot be empty.");
+		noContentError.name = "No Content";
+
+		if (!content) {
+			setNotificationContent({
+				key: "error",
+				content: noContentError,
+			});
+			setOpen(true);
+			return;
+		}
+
 		try {
 			const updatedContent = await updateContentFunction(id, key, content);
 
@@ -46,6 +99,7 @@ const EditableContent: FC<EditableContentProps> = ({
 					content: updateError,
 				});
 			} else {
+				setSuccess(true);
 				setNotificationContent({
 					key: "string",
 					content: `${key === "bodies" ? "Body" : camelToTitleCase(key)} updated.`,
@@ -58,6 +112,7 @@ const EditableContent: FC<EditableContentProps> = ({
 				content: (error as Error) || updateError,
 			});
 			setOpen(true);
+			setSuccess(false);
 		}
 	};
 
@@ -71,18 +126,28 @@ const EditableContent: FC<EditableContentProps> = ({
 				defaultValue={content}
 				onChange={(event) => setContent(event.target.value)}
 			/>
-			<div className="self-end">
+			<div className="flex justify-between">
+				{deleteContentFunction ? (
+					<AdminButtonLink
+						text="Delete"
+						handleClick={() => handleDeleteContent(id, key)}
+						isMobile={isMobile}
+					/>
+				) : (
+					<div></div>
+				)}
 				<AdminButtonLink
 					text="Save"
 					handleClick={() => handleUpdateContent(id, key, content)}
 					isMobile={isMobile}
 				/>
 			</div>
+
 			{open && (
 				<NotificationModal
 					setOpen={setOpen}
 					notificationContent={notificationContent}
-					onSuccess={onSuccess ? onSuccess : undefined}
+					onSuccess={success ? onSuccess : undefined}
 				/>
 			)}
 		</div>
