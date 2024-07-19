@@ -6,10 +6,16 @@ import React, { Dispatch, FC, SetStateAction } from "react";
 
 interface AdminModalWrapperProps {
 	setOpen: Dispatch<SetStateAction<boolean>>;
+	onSuccess?: () => void;
 	children: React.ReactNode;
 }
-const AdminModalWrapper: FC<AdminModalWrapperProps> = ({ setOpen, children }) => {
+const AdminModalWrapper: FC<AdminModalWrapperProps> = ({
+	setOpen,
+	children,
+	onSuccess,
+}) => {
 	const handleClick = () => {
+		if (onSuccess) onSuccess();
 		setOpen(false);
 	};
 	return (

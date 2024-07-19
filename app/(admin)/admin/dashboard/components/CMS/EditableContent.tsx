@@ -46,7 +46,6 @@ const EditableContent: FC<EditableContentProps> = ({
 					content: updateError,
 				});
 			} else {
-				if (onSuccess) onSuccess();
 				setNotificationContent({
 					key: "string",
 					content: `${key === "bodies" ? "Body" : camelToTitleCase(key)} updated.`,
@@ -80,7 +79,11 @@ const EditableContent: FC<EditableContentProps> = ({
 				/>
 			</div>
 			{open && (
-				<NotificationModal setOpen={setOpen} notificationContent={notificationContent} />
+				<NotificationModal
+					setOpen={setOpen}
+					notificationContent={notificationContent}
+					onSuccess={onSuccess ? onSuccess : undefined}
+				/>
 			)}
 		</div>
 	);

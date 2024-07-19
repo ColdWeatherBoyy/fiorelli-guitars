@@ -7,14 +7,16 @@ import FormSuccess from "./FormSuccess";
 interface NotificationModalProps {
 	setOpen: Dispatch<SetStateAction<boolean>>;
 	notificationContent: NotificationContentType;
+	onSuccess?: () => void;
 }
 
 const NotificationModal: FC<NotificationModalProps> = ({
 	setOpen,
 	notificationContent,
+	onSuccess,
 }) => {
 	return (
-		<AdminModalWrapper setOpen={setOpen}>
+		<AdminModalWrapper setOpen={setOpen} onSuccess={onSuccess}>
 			{notificationContent.key === "error" ? (
 				<FormError error={notificationContent.content} />
 			) : (
