@@ -20,13 +20,13 @@ export const sendCustomerEmail = async (contactFormData: ContactFormData) => {
 		});
 
 		if (error) {
-			console.error("failed send customer", error);
+			// console.error("failed send customer", error);
 			return false;
 		}
 
 		return data;
 	} catch (error) {
-		console.error("catch error customer", error);
+		// console.error("catch error customer", error);
 		return false;
 	}
 };
@@ -35,7 +35,7 @@ export const sendFiorelliEmail = async (contactFormData: ContactFormData) => {
 	const resend = new Resend(process.env.RESEND_API_KEY);
 	const email = process.env.INBOX_EMAIL;
 	if (!email) {
-		console.error("Set an inbox email!");
+		// console.error("Set an inbox email!");
 		return false;
 	}
 
@@ -50,13 +50,13 @@ export const sendFiorelliEmail = async (contactFormData: ContactFormData) => {
 		});
 
 		if (error) {
-			console.error("failed send inbox", error);
+			// console.error("failed send inbox", error);
 			return false;
 		}
 
 		return data;
 	} catch (error) {
-		console.error("catch error inbox", error);
+		// console.error("catch error inbox", error);
 		return false;
 	}
 };

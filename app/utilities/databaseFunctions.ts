@@ -35,7 +35,7 @@ export const createCustomerAndMessage = async (
 		return { newMessage, customer };
 	} catch (error) {
 		// To-Do: Handle error more precisely
-		console.error(error);
+		// console.error(error);
 		return { error: "An error occurred. Please try again." };
 	}
 };
@@ -153,7 +153,7 @@ export const getAuthUsers = async (): Promise<AuthUser[]> => {
 
 		return authUsers;
 	} catch (error) {
-		console.error(error);
+		// console.error(error);
 		throw new Error("An error occurred. Please try again.");
 	}
 };
@@ -259,7 +259,7 @@ export const getPageContent = async (title: string) => {
 
 		return pageContent;
 	} catch (error) {
-		console.error(error);
+		// console.error(error);
 		throw new Error("An error occurred. Please try again.");
 	}
 };
@@ -299,7 +299,7 @@ export const updateContentBlock = async (id: number, key: string, value: string)
 		});
 		return updatedContentBlock;
 	} catch (error) {
-		console.error(error);
+		// console.error(error);
 		throw new Error("An error occurred. Please try again.");
 	}
 };
@@ -325,7 +325,7 @@ export const updateGuitarSpec = async (id: number, key: string, value: string) =
 		});
 		return updatedGuitarSpec;
 	} catch (error) {
-		console.error(error);
+		// console.error(error);
 		throw new Error("An error occurred. Please try again.");
 	}
 };
@@ -342,14 +342,10 @@ export const deleteGuitarSpec = async (id: number, key: string) => {
 		});
 		return updatedGuitarSpec;
 	} catch (error) {
-		const nonNullError = new Error(
-			`${camelToTitleCase(key)} is required and cannot be deleted.`
-		);
-
-		console.error(error);
+		// console.error(error);
 		if (error instanceof Prisma.PrismaClientValidationError) {
 			if (error.message.includes("must not be null.")) {
-				throw nonNullError;
+				throw new Error(`${camelToTitleCase(key)} is required and cannot be deleted.`);
 			}
 		}
 		throw new Error("An error occurred. Please try again.");

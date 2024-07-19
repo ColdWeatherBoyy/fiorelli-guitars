@@ -44,7 +44,7 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 		const newSpecs = await getGuitarSpecs(specs[selectedTab].tag);
 		if (!newSpecs) {
 			// TODO: Add a notification here
-			console.error("Failed to get new specs");
+			// console.error("Failed to get new specs");
 			return;
 		}
 		setSpecs((prevSpecs) => {

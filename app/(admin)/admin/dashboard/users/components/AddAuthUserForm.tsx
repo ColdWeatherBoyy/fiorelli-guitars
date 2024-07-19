@@ -4,7 +4,7 @@ import AdminButtonLink from "@/app/(admin)/components/components/AdminButtonLink
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 
 interface AddAuthUserFormProps {
-	formAction: (paylod: FormData) => void;
+	formAction: (payload: FormData) => void;
 	isMobile: boolean;
 }
 

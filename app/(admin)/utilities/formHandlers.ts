@@ -5,17 +5,20 @@ import {
 import { AuthUser } from "@prisma/client";
 
 export const handleSearchForm = async (
-	prevState: number | null,
+	prevState: number | Error | null,
 	formData: FormData
-): Promise<number | null> => {
+): Promise<number | Error | null> => {
 	try {
 		const query = formData.get("query");
 		if (!query) throw new Error("No query provided");
 		const customerId = await getCustomerIdByEmailOrName(query.toString());
 		return customerId;
 	} catch (error) {
-		console.error(error);
-		return null;
+		// console.error(error);
+		return {
+			name: "Search Form Error",
+			message: "An error occurred. Please try again.",
+		};
 	}
 };
 

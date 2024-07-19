@@ -13,7 +13,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 			if (
 				!authEmails.some((authEmail) => authEmail.email.toLowerCase() === normalizedEmail)
 			) {
-				console.error("Unauthorized email, access denied.");
+				// console.error("Unauthorized email, access denied.");
 				return "/admin/unauthorized";
 			}
 			return true;
