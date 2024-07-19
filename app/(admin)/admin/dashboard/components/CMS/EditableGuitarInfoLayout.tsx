@@ -58,11 +58,12 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 	return (
 		<>
 			{usedSpecs.map((spec) => {
-				if (typeof specs[selectedTab][spec] !== "string") return null;
+				const contentValue = specs[selectedTab][spec];
+				if (typeof contentValue !== "string") return null;
 				return (
 					<EditableContent
 						key={`${spec}-${specs[selectedTab].id}`}
-						contentObj={{ [spec]: specs[selectedTab][spec] }}
+						contentObj={{ [spec]: contentValue }}
 						id={specs[selectedTab].id}
 						isMobile={isMobile}
 						updateContentFunction={updateGuitarSpec}
