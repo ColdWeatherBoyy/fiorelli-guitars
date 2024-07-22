@@ -2,8 +2,9 @@
 
 import AdminButtonLink from "@/app/(admin)/components/components/AdminButtonLink";
 import { camelToTitleCase } from "@/app/utilities/helpers";
-import { isGuitarSpec } from "@/app/utilities/typeguardFunctions";
+import { isGuitarSpec, isPageContent } from "@/app/utilities/typeguardFunctions";
 import { NotificationContentType } from "@/app/utilities/types";
+import { GuitarSpec, PageContent } from "@prisma/client";
 import { FC, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import NotificationModal from "../notifications/NotificationModal";
@@ -12,8 +13,15 @@ interface EditableContentProps {
 	contentObj: Record<string, string>;
 	id: number;
 	isMobile: boolean;
-	updateContentFunction: (id: number, key: string, content: string) => Promise<any>;
-	deleteContentFunction?: (id: number, key: string) => Promise<any>;
+	updateContentFunction: (
+		id: number,
+		key: string,
+		content: string
+	) => Promise<GuitarSpec | PageContent | Error>;
+	deleteContentFunction?: (
+		id: number,
+		key: string
+	) => Promise<GuitarSpec | PageContent | Error>;
 	onSuccess?: () => void;
 }
 
@@ -52,7 +60,7 @@ const EditableContent: FC<EditableContentProps> = ({
 					key: "error",
 					content: deleteError,
 				});
-			} else if (!isGuitarSpec(deletedContent)) {
+			} else if (!isGuitarSpec(deletedContent) && !isPageContent(deletedContent)) {
 				setNotificationContent({
 					key: "error",
 					content: deletedContent,
@@ -101,6 +109,11 @@ const EditableContent: FC<EditableContentProps> = ({
 				setNotificationContent({
 					key: "error",
 					content: updateError,
+				});
+			} else if (!isGuitarSpec(updatedContent) && !isPageContent(updatedContent)) {
+				setNotificationContent({
+					key: "error",
+					content: updatedContent,
 				});
 			} else {
 				setSuccess(true);

@@ -1,6 +1,5 @@
 "use client";
 
-import { deleteAuthUser } from "@/app/utilities/databaseFunctions";
 import { FC } from "react";
 
 interface TrashCanProps {

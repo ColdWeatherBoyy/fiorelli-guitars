@@ -8,9 +8,10 @@ import ContactForm from "./components/ContactForm";
 import { getPageContent } from "@/app/utilities/databaseFunctions";
 
 export default async function Contact() {
-	const { pageContent } = await getPageContent("Contact");
-	if (!pageContent) throw new Error("Error retrieving site content.");
-
+	const data = await getPageContent("Contact");
+	if (data instanceof Error) {
+		throw data;
+	}
 	const { resources } = await cloudinary.search
 		.expression(`tags=contact_form`)
 		.with_field("context")
@@ -23,13 +24,13 @@ export default async function Contact() {
 	};
 	return (
 		<AnimateWrapper>
-			<Card title={pageContent.heading}>
+			<Card title={data.pageContent.heading}>
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-6 items-center w-fit h-fit">
 					<PhotoCard {...contactImage}>
 						<div className="text-center">
-							{pageContent.bodies[0]}
-							<Link href={`mailto:${pageContent.email}`} className="underline">
-								{pageContent.email}
+							{data.pageContent.bodies[0]}
+							<Link href={`mailto:${data.pageContent.email}`} className="underline">
+								{data.pageContent.email}
 							</Link>
 						</div>
 					</PhotoCard>

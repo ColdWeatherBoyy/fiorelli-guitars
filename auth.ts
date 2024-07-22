@@ -10,6 +10,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 			}
 			const normalizedEmail = profile.email.toLowerCase().trim();
 			const authEmails = await getAuthUsers();
+			if (authEmails instanceof Error) {
+				throw authEmails;
+			}
 			if (
 				!authEmails.some((authEmail) => authEmail.email.toLowerCase() === normalizedEmail)
 			) {

@@ -1,8 +1,9 @@
 "use server";
 
 import { AuthUser, Customer, Prisma, PrismaClient } from "@prisma/client";
-import { CreateCustomerAndMessageResponse, newMessage } from "./types";
+
 import { camelToTitleCase } from "./helpers";
+import { CreateCustomerAndMessageResponse, newMessage } from "./types";
 
 const prisma = new PrismaClient();
 
@@ -145,29 +146,57 @@ export const getCustomerIdByEmailOrName = async (query: string) => {
 	const customer = await prisma.customer.findFirst({
 		where: { OR: [{ email: query }, { name: query }] },
 	});
-	if (!customer)
-		return {
-			name: "Customer not found.",
-			message: "No customer was found with this search term. Please try again.",
-		};
+	if (!customer) {
+		const error = new Error(
+			"No customer was found with this search term. Please try again."
+		);
+		error.name = "Customer not found.";
+		return error;
+	}
 	return customer.id;
 };
 
-export const getAuthUsers = async (): Promise<AuthUser[]> => {
+// Goes to Server Component, so can return Error object
+// Not an event handler, so can return Error object
+export const getAuthUsers = async (): Promise<AuthUser[] | Error> => {
 	try {
 		const authUsers = await prisma.authUser.findMany({});
 
 		if (!authUsers) {
-			throw new Error("Auth users not found");
+			const error = new Error("Auth users not found");
+			error.name = "Auth Retrieval Error";
+			return error;
 		}
 
 		return authUsers;
 	} catch (error) {
 		// console.error(error);
-		throw new Error("An error occurred. Please try again.");
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			const knownError = new Error("A database error occured. Please try again.");
+			knownError.name = "Prisma Known Request Error";
+			knownError.cause = `${error.code} - ${error.message}`;
+			return knownError;
+		} else if (
+			error instanceof Prisma.PrismaClientInitializationError ||
+			error instanceof Prisma.PrismaClientValidationError ||
+			error instanceof Prisma.PrismaClientRustPanicError ||
+			error instanceof Prisma.PrismaClientUnknownRequestError
+		) {
+			const prismaError = new Error("A database occured. Please try again.");
+			prismaError.name = "Prisma Database Error";
+			prismaError.cause = error.message;
+			return prismaError;
+		} else {
+			const unknownError = new Error("An unknown error occurred. Please try again.");
+			unknownError.name = "Unknown Error";
+			unknownError.cause = error?.toString() || "No error message provided.";
+			return unknownError;
+		}
 	}
 };
 
+// Going to Client Component, so needs to return plain object.
+// Event handler, so needs to return plain object
 export const createAuthUser = async (email: string): Promise<AuthUser | Error> => {
 	try {
 		const authUser = await prisma.authUser.create({
@@ -176,10 +205,11 @@ export const createAuthUser = async (email: string): Promise<AuthUser | Error> =
 			},
 		});
 		if (!authUser) {
-			return {
+			const error = {
 				name: "Auth Error",
 				message: "Failed to create authorized user. Please try again.",
 			};
+			return error;
 		}
 		return authUser;
 	} catch (error) {
@@ -190,12 +220,13 @@ export const createAuthUser = async (email: string): Promise<AuthUser | Error> =
 					message: "This email is already authorized.",
 					cause: `${error.code} - ${error.message}`,
 				};
+			} else {
+				return {
+					name: "Prisma Known Request Error",
+					message: "A database error occured. Please try again.",
+					cause: `${error.code} - ${error.message}`,
+				};
 			}
-			return {
-				name: "Prisma Known Request Error",
-				message: `A database occured. Please try again.`,
-				cause: `${error.code} - ${error.message}`,
-			};
 		} else if (
 			error instanceof Prisma.PrismaClientInitializationError ||
 			error instanceof Prisma.PrismaClientValidationError ||
@@ -204,19 +235,21 @@ export const createAuthUser = async (email: string): Promise<AuthUser | Error> =
 		) {
 			return {
 				name: "Prisma Database Error",
-				message: `A database occured. Please try again.`,
+				message: "A database error occured. Please try again.",
 				cause: error.message,
 			};
 		} else {
 			return {
-				name: "Error",
-				message: `An unknown error occured. Please try again.`,
+				name: "Unknown Error",
+				message: "An unknown error occurred. Please try again.",
 				cause: error?.toString() || "No error message provided.",
 			};
 		}
 	}
 };
 
+// Going to Client Component, so needs to return plain object.
+// Event handler, so needs to return plain object
 export const deleteAuthUser = async (id: string): Promise<AuthUser | Error> => {
 	try {
 		const deletedUser = await prisma.authUser.delete({
@@ -235,7 +268,7 @@ export const deleteAuthUser = async (id: string): Promise<AuthUser | Error> => {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
 			return {
 				name: "Prisma Known Request Error",
-				message: `A database occured. Please try again.`,
+				message: "A database error occured. Please try again.",
 				cause: `${error.code} - ${error.message}`,
 			};
 		} else if (
@@ -246,19 +279,21 @@ export const deleteAuthUser = async (id: string): Promise<AuthUser | Error> => {
 		) {
 			return {
 				name: "Prisma Database Error",
-				message: `A database occured. Please try again.`,
+				message: "A database error occured. Please try again.",
 				cause: error.message,
 			};
 		} else {
 			return {
-				name: "Error",
-				message: `An unknown error occured. Please try again.`,
+				name: "Unknown Error",
+				message: "An unknown error occurred. Please try again.",
 				cause: error?.toString() || "No error message provided.",
 			};
 		}
 	}
 };
 
+// Go to server component, so can return Error object
+// Not an event handler, so can return Error object
 export const getPageContent = async (title: string) => {
 	try {
 		const page = await prisma.page.findUnique({
@@ -288,26 +323,39 @@ export const getPageContent = async (title: string) => {
 	} catch (error) {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
 			if (error.code === "P2025") {
-				return {
-					name: "Content Not Found",
-					message: `Either no content or no page was found for ${title}. Please try again.`,
-					cause: `${error.code} - ${error.message}`,
-				};
+				const knownError = new Error(
+					`Either no content or no page was found for ${title}. Please try again.`
+				);
+				knownError.name = "Content Not Found";
+				knownError.cause = `${error.code} - ${error.message}`;
+				return knownError;
 			} else {
-				return {
-					name: "Prisma Known Request Error",
-					message: `A database occured. Please try again.`,
-					cause: `${error.code} - ${error.message}`,
-				};
+				const knownError = new Error("A database occured. Please try again.");
+				knownError.name = "Prisma Known Request Error";
+				knownError.cause = `${error.code} - ${error.message}`;
+				return knownError;
 			}
+		} else if (
+			error instanceof Prisma.PrismaClientInitializationError ||
+			error instanceof Prisma.PrismaClientValidationError ||
+			error instanceof Prisma.PrismaClientRustPanicError ||
+			error instanceof Prisma.PrismaClientUnknownRequestError
+		) {
+			const prismaError = new Error("A database occured. Please try again.");
+			prismaError.name = "Prisma Database Error";
+			prismaError.cause = error.message;
+			return prismaError;
 		} else {
-			const error = new Error(`${title} page content not found.`);
-			error.name = "Content Retrieval Error";
-			return error;
+			const unknownError = new Error("An unknown error occurred. Please try again.");
+			unknownError.name = "Page Content Retrieval Error";
+			unknownError.cause = error?.toString() || "No error message provided.";
+			return unknownError;
 		}
 	}
 };
 
+// Event handler, so needs to return plain object
+// Goes to Client Component, so needs to return plain object
 export const updateContentBlock = async (id: number, key: string, value: string) => {
 	try {
 		if (key.includes("body")) {
@@ -319,7 +367,13 @@ export const updateContentBlock = async (id: number, key: string, value: string)
 					bodies: true,
 				},
 			});
-			if (!contentBlock) throw new Error("Error updating content.");
+			if (!contentBlock) {
+				return {
+					name: "Content Block Retrieval Error",
+					message: "Content block not found.",
+					cause: "Finding content by ID for body update failed.",
+				};
+			}
 			const bodies = contentBlock.bodies;
 			const bodiesIndex = parseInt(key.split(" ")[1]) - 1 || 0;
 			bodies[bodiesIndex] = value;
@@ -331,23 +385,66 @@ export const updateContentBlock = async (id: number, key: string, value: string)
 					bodies: bodies,
 				},
 			});
+
+			if (!updatedContentBlock) {
+				return {
+					name: "Content Block Update Error",
+					message: "Failed to update content block. Please try again.",
+					cause: "Body content block update failed.",
+				};
+			}
+			return updatedContentBlock;
+		} else {
+			const updatedContentBlock = await prisma.pageContent.update({
+				where: {
+					id: id,
+				},
+				data: {
+					[key]: value,
+				},
+			});
+
+			if (!updatedContentBlock) {
+				return {
+					name: "Content Block Update Error",
+					message: "Failed to update content block. Please try again.",
+					cause: "Non-body content block update failed.",
+				};
+			}
+
 			return updatedContentBlock;
 		}
-		const updatedContentBlock = await prisma.pageContent.update({
-			where: {
-				id: id,
-			},
-			data: {
-				[key]: value,
-			},
-		});
-		return updatedContentBlock;
 	} catch (error) {
 		// console.error(error);
-		throw new Error("An error occurred. Please try again.");
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			return {
+				name: "Validation Error",
+				message: "A validation error occurred. Please try again.",
+				cause: `${error.code} - ${error.message}`,
+			};
+		} else if (
+			error instanceof Prisma.PrismaClientInitializationError ||
+			error instanceof Prisma.PrismaClientValidationError ||
+			error instanceof Prisma.PrismaClientRustPanicError ||
+			error instanceof Prisma.PrismaClientUnknownRequestError
+		) {
+			return {
+				name: "Prisma Database Error",
+				message: "A database error occured. Please try again.",
+				cause: error.message,
+			};
+		} else {
+			return {
+				name: "Unknown Error",
+				message: "An unknown error occurred. Please try again.",
+				cause: error?.toString() || "No error message provided.",
+			};
+		}
 	}
 };
 
+// Not an event handler, so can return Error object
+// Goes to Server Component, so can return Error object
 export const getGuitarSpecs = async (tag: string) => {
 	const guitarSpecs = await prisma.guitarSpec.findUnique({
 		where: {
@@ -357,6 +454,8 @@ export const getGuitarSpecs = async (tag: string) => {
 	return guitarSpecs;
 };
 
+// Event handler, so needs to return plain object
+// Goes to Client Component, so needs to return plain object
 export const updateGuitarSpec = async (id: number, key: string, value: string) => {
 	try {
 		const updatedGuitarSpec = await prisma.guitarSpec.update({
@@ -367,20 +466,50 @@ export const updateGuitarSpec = async (id: number, key: string, value: string) =
 				[key]: value,
 			},
 		});
+
+		if (!updatedGuitarSpec) {
+			return {
+				name: "Guitar Spec Update Error",
+				message: "Failed to update guitar spec. Please try again.",
+				cause: "Guitar spec update failed.",
+			};
+		}
+
 		return updatedGuitarSpec;
 	} catch (error) {
-		// console.error(error);
-		return {
-			name: "error",
-			message: "An error occurred. Please try again.",
-			cause: error?.toString() || "No error message provided.",
-		};
+		// console.error(error)
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			return {
+				name: "Validation Error",
+				message: "An error occurred. Please try again.",
+				cause: `${error.code} - ${error.message}`,
+			};
+		} else if (
+			error instanceof Prisma.PrismaClientInitializationError ||
+			error instanceof Prisma.PrismaClientValidationError ||
+			error instanceof Prisma.PrismaClientRustPanicError ||
+			error instanceof Prisma.PrismaClientUnknownRequestError
+		) {
+			return {
+				name: "Prisma Database Error",
+				message: "A database error occured. Please try again.",
+				cause: error.message,
+			};
+		} else {
+			return {
+				name: "Unknown Error",
+				message: "An unknown error occurred. Please try again.",
+				cause: error?.toString() || "No error message provided.",
+			};
+		}
 	}
 };
 
+// Event handler, so needs to return plain object
+// Goes to Client Component, so needs to return plain object
 export const deleteGuitarSpec = async (id: number, key: string) => {
 	try {
-		const updatedGuitarSpec = await prisma.guitarSpec.update({
+		const deletedGuitarSpec = await prisma.guitarSpec.update({
 			where: {
 				id,
 			},
@@ -388,22 +517,52 @@ export const deleteGuitarSpec = async (id: number, key: string) => {
 				[key]: null,
 			},
 		});
-		return updatedGuitarSpec;
+		if (!deletedGuitarSpec) {
+			return {
+				name: "Guitar Spec Delete Error",
+				message: "Failed to delete guitar spec. Please try again.",
+				cause: "Guitar spec delete failed.",
+			};
+		}
+		return deletedGuitarSpec;
 	} catch (error) {
 		// console.error(error);
 		if (error instanceof Prisma.PrismaClientValidationError) {
 			if (error.message.includes("must not be null.")) {
 				return {
-					name: "Required Value",
+					name: "Validation Error",
 					message: `${camelToTitleCase(key)} is required and cannot be deleted.`,
 					cause: "Prisma Client Validation Error",
 				};
+			} else {
+				return {
+					name: "Validation Error",
+					message: "An error occurred. Please try again.",
+					cause: "Prisma Client Validation Error",
+				};
 			}
+		} else if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			return {
+				name: "Known Request Error",
+				message: "An error occurred. Please try again.",
+				cause: `${error.code} - ${error.message}`,
+			};
+		} else if (
+			error instanceof Prisma.PrismaClientInitializationError ||
+			error instanceof Prisma.PrismaClientRustPanicError ||
+			error instanceof Prisma.PrismaClientUnknownRequestError
+		) {
+			return {
+				name: "Prisma Database Error",
+				message: "A database error occured. Please try again.",
+				cause: error.message,
+			};
+		} else {
+			return {
+				name: "Unknown Error",
+				message: "An unknown error occurred. Please try again.",
+				cause: error?.toString() || "No error message provided",
+			};
 		}
-		return {
-			name: "error",
-			message: "An error occurred. Please try again.",
-			cause: error?.toString() || "No error message provided.",
-		};
 	}
 };

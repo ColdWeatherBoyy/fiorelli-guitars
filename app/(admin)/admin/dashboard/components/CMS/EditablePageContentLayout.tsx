@@ -3,13 +3,13 @@ import { PageContent } from "@prisma/client";
 import EditableContent from "./EditableContent";
 import { updateContentBlock } from "@/app/utilities/databaseFunctions";
 
-interface EditableContentLayoutProps {
+interface EditablePageContentLayoutProps {
 	pageContentData: PageContent[];
 	selectedTab: number;
 	isMobile: boolean;
 }
 
-const EditableContentLayout: FC<EditableContentLayoutProps> = ({
+const EditablePageContentLayout: FC<EditablePageContentLayoutProps> = ({
 	pageContentData,
 	selectedTab,
 	isMobile,
@@ -53,4 +53,4 @@ const EditableContentLayout: FC<EditableContentLayoutProps> = ({
 		</>
 	);
 };
-export default EditableContentLayout;
+export default EditablePageContentLayout;

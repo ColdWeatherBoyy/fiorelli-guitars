@@ -35,7 +35,15 @@ const AdminUsersLayout: FC<UserLayoutProps> = ({ authUsers, isMobile }) => {
 		);
 		deleteError.name = "Delete Error";
 		try {
-			await deleteAuthUser(id);
+			const deletedUser = await deleteAuthUser(id);
+			if (!isAuthUser(deletedUser)) {
+				setNotificationContent({
+					key: "error",
+					content: deletedUser,
+				});
+				setOpen(true);
+				return;
+			}
 			setData((prevData) => prevData.filter((user) => user.id !== id));
 			setNotificationContent({ key: "string", content: "Admin User deleted." });
 			setOpen(true);

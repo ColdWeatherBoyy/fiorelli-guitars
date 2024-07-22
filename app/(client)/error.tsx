@@ -27,11 +27,11 @@ export default function Error({
 				<div className="flex w-full justify-evenly mt-4">
 					<CardButtonLink
 						href="mailto:elias@fiorelliguitars.com"
-						text="Contact."
+						text="Contact"
 						size={TextSize.small}
 					/>
 					<CardButtonLink
-						text="Try again."
+						text="Try again"
 						handleClick={() => reset()}
 						size={TextSize.small}
 					/>

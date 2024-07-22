@@ -1,4 +1,11 @@
-import { AuthUser, Customer, GuitarSpec, Message, PageContent } from "@prisma/client";
+import {
+	AuthUser,
+	Customer,
+	GuitarSpec,
+	Message,
+	Page,
+	PageContent,
+} from "@prisma/client";
 import GuitarSpecs from "../(client)/gallery/[tag]/page";
 import {
 	AuthUserResponse,
@@ -60,6 +67,21 @@ export const isGuitarSpecArray = (arr: any[]): arr is GuitarSpec[] => {
 			typeof obj.knobs === "string" &&
 			obj.createdAt instanceof Date &&
 			obj.updatedAt instanceof Date
+	);
+};
+
+export const isPageContent = (obj: any): obj is PageContent => {
+	return (
+		typeof obj === "object" &&
+		typeof obj.id === "number" &&
+		typeof obj.pageId === "number" &&
+		typeof obj.heading === "string" &&
+		Array.isArray(obj.bodies) &&
+		obj.bodies.every((item: any) => typeof item === "string") &&
+		(typeof obj.signature === "string" || obj.signature === null) &&
+		(typeof obj.email === "string" || obj.email === null) &&
+		obj.createdAt instanceof Date &&
+		obj.updatedAt instanceof Date
 	);
 };
 

@@ -39,7 +39,7 @@ const SiteContent = async () => {
 		return (
 			<div className="flex flex-col gap-2">
 				<div className="text-lg text-red-500">
-					There was an error fetching the following pages' contents:
+					There was an error fetching the following pages&apos; contents:
 				</div>
 				<ul>
 					{errors.home.error && (
