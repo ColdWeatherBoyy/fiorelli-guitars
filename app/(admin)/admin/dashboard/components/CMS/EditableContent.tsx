@@ -102,11 +102,6 @@ const EditableContent: FC<EditableContentProps> = ({
 					key: "error",
 					content: updateError,
 				});
-			} else if (!isGuitarSpec(updatedContent)) {
-				setNotificationContent({
-					key: "error",
-					content: updatedContent,
-				});
 			} else {
 				setSuccess(true);
 				setNotificationContent({
