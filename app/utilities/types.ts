@@ -26,16 +26,6 @@ export interface newMessage {
 	customerId: number;
 }
 
-export interface ContactFormData {
-	newMessage: newMessage;
-	customer: Customer;
-}
-export interface ErrorResponse {
-	error: string;
-}
-
-export type CreateCustomerAndMessageResponse = ContactFormData | ErrorResponse;
-
 export interface CloudinaryResource {
 	public_id: string;
 	secure_url: string;

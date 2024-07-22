@@ -1,14 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { ContactFormData } from "@/app/utilities/types";
+import { Customer, Message } from "@prisma/client";
 import { FC } from "react";
 
 interface CustomerEmailTemplateProps {
-	contactFormData: ContactFormData;
+	customer: Customer;
+	message: Message;
 }
 
 export const CustomerEmailTemplate: FC<Readonly<CustomerEmailTemplateProps>> = async ({
-	contactFormData,
+	customer,
+	message,
 }) => {
 	// eslint-disable-next-line
 	return (
@@ -51,7 +53,7 @@ export const CustomerEmailTemplate: FC<Readonly<CustomerEmailTemplateProps>> = a
 							color: "white",
 						}}
 					>
-						Hi {contactFormData.customer.name},
+						Hi {customer.name},
 					</div>
 					<div
 						style={{
@@ -75,7 +77,7 @@ export const CustomerEmailTemplate: FC<Readonly<CustomerEmailTemplateProps>> = a
 							fontSize: "14px",
 						}}
 					>
-						{contactFormData.newMessage.content}
+						{message.content}
 					</div>
 					<div
 						style={{

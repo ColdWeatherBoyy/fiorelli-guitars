@@ -7,6 +7,7 @@ import { handleForm } from "../utilities/handleForm";
 
 const ContactForm = () => {
 	const [data, formAction] = useFormState(handleForm, false);
+
 	return (
 		<>
 			{!data ? (
@@ -36,9 +37,16 @@ const ContactForm = () => {
 					></textarea>
 					<CardButtonLink text="Submit" size={TextSize.small} />
 				</form>
+			) : typeof data !== "boolean" ? (
+				<div className="flex flex-col items-center text-center gap-2">
+					<div className="text-xl text-red-500 font-semibold">{data.name}</div>
+					<div className="text-lg text-red-500">{data.message}</div>
+					<div className="text-red-700 text-sm">{data.cause as string}</div>
+					<CardButtonLink text="Return Home" size={TextSize.small} href="/" />
+				</div>
 			) : (
 				<div className="flex flex-col items-center text-center gap-1">
-					<p>Thank you for your message!</p>{" "}
+					<p>Thank you for your message!</p>
 					<p className="mb-2">We&apos;ll get back to you ASAP.</p>
 					<CardButtonLink text="Return Home" size={TextSize.small} href="/" />
 				</div>

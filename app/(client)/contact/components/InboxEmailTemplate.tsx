@@ -2,23 +2,19 @@
 
 import { getMessagesByCustomerEmail } from "@/app/utilities/databaseFunctions";
 import { formatDateTime } from "@/app/utilities/helpers";
-import {
-	isCustomerWithMessages,
-	isMessagesArray,
-} from "@/app/utilities/typeguardFunctions";
-import { ContactFormData } from "@/app/utilities/types";
+import { Customer, Message } from "@prisma/client";
 import { FC } from "react";
 
 interface InboxEmailTemplateProps {
-	contactFormData: ContactFormData;
+	customer: Customer;
+	message: Message;
 }
 
 export const InboxEmailTemplate: FC<Readonly<InboxEmailTemplateProps>> = async ({
-	contactFormData,
+	customer,
+	message,
 }) => {
-	const customerMessages = await getMessagesByCustomerEmail(
-		contactFormData.customer.email
-	);
+	const customerMessages = await getMessagesByCustomerEmail(customer.email);
 
 	return (
 		<div
@@ -70,8 +66,8 @@ export const InboxEmailTemplate: FC<Readonly<InboxEmailTemplateProps>> = async (
 							color: "white",
 						}}
 					>
-						Here&apos;s your recent message from {contactFormData.customer.name} at{" "}
-						{contactFormData.customer.email}. This is the message:
+						Here&apos;s your recent message from {customer.name} at {customer.email}. This
+						is the message:
 					</div>
 					<div
 						style={{
@@ -84,7 +80,7 @@ export const InboxEmailTemplate: FC<Readonly<InboxEmailTemplateProps>> = async (
 							fontSize: "16px",
 						}}
 					>
-						{contactFormData.newMessage.content}
+						{message.content}
 					</div>
 					{customerMessages instanceof Array === false ? (
 						<div

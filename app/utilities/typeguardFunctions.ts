@@ -1,27 +1,14 @@
-import {
-	AuthUser,
-	Customer,
-	GuitarSpec,
-	Message,
-	Page,
-	PageContent,
-} from "@prisma/client";
-import GuitarSpecs from "../(client)/gallery/[tag]/page";
-import {
-	AuthUserResponse,
-	ContactFormData,
-	CreateCustomerAndMessageResponse,
-	MessageContent,
-} from "./types";
+import { AuthUser, Customer, GuitarSpec, Message, PageContent } from "@prisma/client";
+import { AuthUserResponse, MessageContent } from "./types";
 
-export const isContactFormData = (
-	response: CreateCustomerAndMessageResponse
-): response is ContactFormData => {
-	return (
-		(response as ContactFormData).customer !== undefined &&
-		(response as ContactFormData).newMessage !== undefined
-	);
-};
+// export const isContactFormData = (
+// 	response: CreateCustomerAndMessageResponse
+// ): response is ContactFormData => {
+// 	return (
+// 		(response as ContactFormData).customer !== undefined &&
+// 		(response as ContactFormData).newMessage !== undefined
+// 	);
+// };
 
 export const isAuthUser = (response: AuthUserResponse): response is AuthUser => {
 	return (
@@ -138,5 +125,26 @@ export const isMessagesArray = (arr: any[]): arr is Message[] => {
 			typeof obj.content === "string" &&
 			obj.createdAt instanceof Date &&
 			typeof obj.customerId === "number"
+	);
+};
+
+export const isCustomer = (obj: any): obj is Customer => {
+	return (
+		typeof obj === "object" &&
+		obj !== null &&
+		typeof obj.id === "number" &&
+		typeof obj.email === "string" &&
+		(typeof obj.name === "string" || obj.name === null) &&
+		obj.createdAt instanceof Date
+	);
+};
+
+export const isMessage = (obj: any): obj is Message => {
+	return (
+		typeof obj === "object" &&
+		typeof obj.id === "number" &&
+		typeof obj.content === "string" &&
+		obj.createdAt instanceof Date &&
+		typeof obj.customerId === "number"
 	);
 };

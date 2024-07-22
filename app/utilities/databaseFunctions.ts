@@ -1,45 +1,163 @@
 "use server";
 
-import { AuthUser, Customer, Prisma, PrismaClient } from "@prisma/client";
+import { AuthUser, Customer, Message, Prisma, PrismaClient } from "@prisma/client";
 
 import { camelToTitleCase } from "./helpers";
-import { CreateCustomerAndMessageResponse, newMessage } from "./types";
+import { newMessage } from "./types";
 
 const prisma = new PrismaClient();
 
-export const createCustomerAndMessage = async (
-	formData: FormData
-): Promise<CreateCustomerAndMessageResponse> => {
+export const createCustomer = async (formData: FormData): Promise<Customer | Error> => {
 	try {
 		const email = formData.get("email") as string;
+		if (!email)
+			return {
+				name: "Email Error",
+				message: "Email is required.",
+				cause: "No Email submitted.",
+			};
+
 		const name = formData.get("name") as string;
-		const messageContent = formData.get("message") as string;
 
-		if (!email) return { error: "Email is required." };
-		if (!name) return { error: "Name is required." };
-		if (!messageContent) return { error: "Message is required." };
+		if (!name)
+			return {
+				name: "Name Error",
+				message: "Name is required.",
+				cause: "No Name submitted.",
+			};
 
-		const customer: Customer = await prisma.customer.upsert({
+		const newCustomer = await prisma.customer.upsert({
 			where: {
-				email: formData.get("email") as string,
+				email: email,
 			},
 			update: {},
 			create: { email, name },
 		});
-
-		const newMessage: newMessage = await prisma.message.create({
-			data: {
-				content: messageContent,
-				customerId: customer.id,
-			},
-		});
-		return { newMessage, customer };
+		if (!newCustomer) {
+			return {
+				name: "Customer Error",
+				message: "Failed to create customer. Please try again.",
+				cause: "Customer creation failed.",
+			};
+		}
+		return newCustomer;
 	} catch (error) {
-		// To-Do: Handle error more precisely
-		// console.error(error);
-		return { error: "An error occurred. Please try again." };
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			return {
+				name: "Prisma Known Request Error",
+				message: "A database error occured. Please try again.",
+				cause: `${error.code} - ${error.message}`,
+			};
+		} else if (
+			error instanceof Prisma.PrismaClientInitializationError ||
+			error instanceof Prisma.PrismaClientValidationError ||
+			error instanceof Prisma.PrismaClientRustPanicError ||
+			error instanceof Prisma.PrismaClientUnknownRequestError
+		) {
+			return {
+				name: "Prisma Database Error",
+				message: "A database error occured. Please try again.",
+				cause: error.message,
+			};
+		} else {
+			return {
+				name: "Unknown Error",
+				message: "An unknown error occurred. Please try again.",
+				cause: error?.toString() || "No error message provided.",
+			};
+		}
 	}
 };
+
+export const createMessage = async (
+	formData: FormData,
+	customerId: number
+): Promise<Message | Error> => {
+	try {
+		const messageContent = formData.get("message") as string;
+		if (!messageContent) {
+			return {
+				name: "Message Error",
+				message: "Message is required.",
+				cause: "No message submitted.",
+			};
+		}
+
+		const newMessage = await prisma.message.create({
+			data: {
+				content: messageContent,
+				customerId: customerId,
+			},
+		});
+
+		if (!newMessage) {
+			return {
+				name: "Message Error",
+				message: "Failed to create message. Please try again.",
+				cause: "Message creation failed.",
+			};
+		}
+
+		return newMessage;
+	} catch (error) {
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			return {
+				name: "Prisma Known Request Error",
+				message: "A database error occured. Please try again.",
+				cause: `${error.code} - ${error.message}`,
+			};
+		} else if (
+			error instanceof Prisma.PrismaClientInitializationError ||
+			error instanceof Prisma.PrismaClientValidationError ||
+			error instanceof Prisma.PrismaClientRustPanicError ||
+			error instanceof Prisma.PrismaClientUnknownRequestError
+		) {
+			return {
+				name: "Prisma Database Error",
+				message: "A database error occured. Please try again.",
+				cause: error.message,
+			};
+		} else {
+			return {
+				name: "Unknown Error",
+				message: "An unknown error occurred. Please try again.",
+				cause: error?.toString() || "No error message provided.",
+			};
+		}
+	}
+};
+
+// export const createCustomerAndMessage = async (formData: FormData) => {
+// 	try {
+// 		const email = formData.get("email") as string;
+// 		const name = formData.get("name") as string;
+// 		const messageContent = formData.get("message") as string;
+
+// 		if (!email) return { error: "Email is required." };
+// 		if (!name) return { error: "Name is required." };
+// 		if (!messageContent) return { error: "Message is required." };
+
+// 		const customer: Customer = await prisma.customer.upsert({
+// 			where: {
+// 				email: formData.get("email") as string,
+// 			},
+// 			update: {},
+// 			create: { email, name },
+// 		});
+
+// 		const newMessage: newMessage = await prisma.message.create({
+// 			data: {
+// 				content: messageContent,
+// 				customerId: customer.id,
+// 			},
+// 		});
+// 		return { newMessage, customer };
+// 	} catch (error) {
+// 		// To-Do: Handle error more precisely
+// 		// console.error(error);
+// 		return { error: "An error occurred. Please try again." };
+// 	}
+// };
 
 export const getCustomers = async () => {
 	const customers = await prisma.customer.findMany({
