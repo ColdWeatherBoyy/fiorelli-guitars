@@ -6,7 +6,7 @@ import SelectEditableLayout from "../components/CMS/SelectableEditableLayout";
 
 const SiteContent = async () => {
 	const isMobile = useDeviceType();
-	const homeData = await getPageContent("Homde");
+	const homeData = await getPageContent("Home");
 	const aboutData = await getPageContent("About");
 	const contactData = await getPageContent("Contact");
 	const errors = {
