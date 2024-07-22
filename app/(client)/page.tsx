@@ -3,12 +3,13 @@ import { getPageContent } from "../utilities/databaseFunctions";
 import Card from "./components/components/Card";
 
 export default async function Home() {
-	const homePageData = await getPageContent("Home");
-	if (!homePageData.content) throw new Error("Error retrieving site content.");
-
+	const data = await getPageContent("Home");
+	if (data instanceof Error) {
+		throw data;
+	}
 	return (
 		<AnimateWrapper>
-			<Card title={homePageData.content.heading} body={homePageData.content.bodies} />
+			<Card title={data.pageContent.heading} body={data.pageContent.bodies} />
 		</AnimateWrapper>
 	);
 }

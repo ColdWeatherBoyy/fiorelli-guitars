@@ -6,8 +6,8 @@ import { CloudinaryResource } from "../../utilities/types";
 import { getPageContent } from "@/app/utilities/databaseFunctions";
 
 export default async function About() {
-	const aboutPageData = await getPageContent("About");
-	if (!aboutPageData.content) throw new Error("Error retrieving site content.");
+	const { pageContent } = await getPageContent("About");
+	if (!pageContent) throw new Error("Error retrieving site content.");
 
 	const { time, resources } = await cloudinary.search
 		.expression(`tags=about`)
@@ -26,12 +26,8 @@ export default async function About() {
 
 	return (
 		<AnimateWrapper>
-			<Card
-				title={aboutPageData.content.heading}
-				body={aboutPageData.content.bodies}
-				images={fullResources}
-			>
-				<div className="text-xl">{aboutPageData.content.signature}</div>
+			<Card title={pageContent.heading} body={pageContent.bodies} images={fullResources}>
+				<div className="text-xl">{pageContent.signature}</div>
 			</Card>
 		</AnimateWrapper>
 	);

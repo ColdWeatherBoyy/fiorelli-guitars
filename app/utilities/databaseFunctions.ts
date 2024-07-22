@@ -261,22 +261,50 @@ export const deleteAuthUser = async (id: string): Promise<AuthUser | Error> => {
 
 export const getPageContent = async (title: string) => {
 	try {
-		const pageContent = await prisma.page.findUnique({
+		const page = await prisma.page.findUnique({
 			where: {
 				title,
 			},
-			include: {
-				content: true,
-			},
 		});
-		if (!pageContent) {
-			throw new Error(`${title} page not found`);
+		if (!page) {
+			const error = new Error(`${title} page not found.`);
+			error.name = "Page Retrieval Error";
+			return error;
 		}
 
-		return pageContent;
+		const pageContent = await prisma.pageContent.findUnique({
+			where: {
+				pageId: page.id,
+			},
+		});
+
+		if (!pageContent) {
+			const error = new Error(`${title} page content not found.`);
+			error.name = "Content Retrieval Error";
+			return error;
+		}
+
+		return { page, pageContent };
 	} catch (error) {
-		// console.error(error);
-		throw new Error("An error occurred. Please try again.");
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			if (error.code === "P2025") {
+				return {
+					name: "Content Not Found",
+					message: `Either no content or no page was found for ${title}. Please try again.`,
+					cause: `${error.code} - ${error.message}`,
+				};
+			} else {
+				return {
+					name: "Prisma Known Request Error",
+					message: `A database occured. Please try again.`,
+					cause: `${error.code} - ${error.message}`,
+				};
+			}
+		} else {
+			const error = new Error(`${title} page content not found.`);
+			error.name = "Content Retrieval Error";
+			return error;
+		}
 	}
 };
 
