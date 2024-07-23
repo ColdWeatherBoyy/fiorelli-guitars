@@ -15,14 +15,15 @@ export default function Error({
 	// const isMobile = useDeviceType();
 	useEffect(() => {
 		// Send email to me
-		// console.error(error);
+		// console.error("hey", error);
 	}, [error]);
 
 	return (
 		<AnimateWrapper>
 			<div>
 				<div className="flex flex-col gap-2">
-					<div className="text-xl text-red-500">There has been an error.</div>
+					{/* Unclear why error.name not working */}
+					<div className="text-xl text-red-500">{error.stack?.split(":")[0]}</div>
 					<div className="text-lg text-red-500">{error.message}</div>
 					<div className="text-lg text-red-500">
 						If problem persists, please contact the site admin.

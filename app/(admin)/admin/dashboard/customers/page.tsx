@@ -6,6 +6,9 @@ import { useDeviceType } from "@/app/utilities/hooks.server";
 const Customers = async () => {
 	const isMobile = useDeviceType();
 	const customers = await getCustomers();
+	if (customers instanceof Error) {
+		throw customers;
+	}
 
 	return (
 		<>

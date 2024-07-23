@@ -82,7 +82,7 @@ export const InboxEmailTemplate: FC<Readonly<InboxEmailTemplateProps>> = async (
 					>
 						{message.content}
 					</div>
-					{customerMessages instanceof Array === false ? (
+					{customerMessages instanceof Error ? (
 						<div
 							style={{
 								fontSize: "16px",
@@ -91,6 +91,7 @@ export const InboxEmailTemplate: FC<Readonly<InboxEmailTemplateProps>> = async (
 								color: "red",
 							}}
 						>
+							<div>There was an error fetching previous messages from this customer.</div>
 							<div>{customerMessages.name}</div>
 							<div>{customerMessages.message}</div>
 						</div>

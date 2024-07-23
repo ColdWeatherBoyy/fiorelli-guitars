@@ -6,6 +6,9 @@ import { useDeviceType } from "@/app/utilities/hooks.server";
 export default async function Messages() {
 	const isMobile = useDeviceType();
 	const messages = await getMessages();
+	if (messages instanceof Error) {
+		throw messages;
+	}
 
 	return (
 		<>

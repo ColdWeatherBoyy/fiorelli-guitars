@@ -16,8 +16,8 @@ interface CustomerProps {
 const Customer: FC<CustomerProps> = async ({ params: { customerId } }) => {
 	const isMobile = useDeviceType();
 	const customerWithMessages = await getMessagesByCustomerId(Number(customerId));
-	if (!isCustomerWithMessages(customerWithMessages)) {
-		return <div className="text-2xl text-red-500">No Customer With This Id Found</div>;
+	if (customerWithMessages instanceof Error) {
+		throw customerWithMessages;
 	}
 
 	return (

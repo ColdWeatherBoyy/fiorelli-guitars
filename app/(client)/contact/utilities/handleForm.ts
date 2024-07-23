@@ -35,7 +35,7 @@ export const handleForm = async (
 			return {
 				name: "Email Error",
 				message:
-					"There was an error sending the email. Pleaes try again or email us directly.",
+					"There was an error sending your email to Fiorelli. Please try again or email us directly.",
 				cause: "Email service error.",
 			};
 		}
@@ -45,30 +45,10 @@ export const handleForm = async (
 
 		return true;
 	} catch (error) {
-		// console.error(error);
-		if (error instanceof Prisma.PrismaClientKnownRequestError) {
-			return {
-				name: error.name,
-				message: error.message,
-				cause: error.code,
-			};
-		} else if (
-			error instanceof Prisma.PrismaClientInitializationError ||
-			error instanceof Prisma.PrismaClientValidationError ||
-			error instanceof Prisma.PrismaClientRustPanicError ||
-			error instanceof Prisma.PrismaClientUnknownRequestError
-		) {
-			return {
-				name: error.name,
-				message: error.message,
-				cause: "Prisma Error",
-			};
-		} else {
-			return {
-				name: "Unknown Error",
-				message: "An unknown error occurred. Please try again or contact the site admin.",
-				cause: "Unknown",
-			};
-		}
+		return {
+			name: "Unexpected Error",
+			message: "An unexpected error occurred in the Contact form. Please try again.",
+			cause: error,
+		};
 	}
 };
