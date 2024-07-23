@@ -68,6 +68,7 @@ model GuitarSpec {
   vibrato           String?
   tuners            String
   knobs             String?
+  customFeatures    String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
