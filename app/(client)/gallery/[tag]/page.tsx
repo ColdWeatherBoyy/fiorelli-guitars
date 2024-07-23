@@ -2,6 +2,8 @@ import { getGuitarSpecs } from "@/app/utilities/databaseFunctions";
 import Card from "../../components/components/Card";
 import AnimateWrapper from "@/app/components/AnimateWrapper";
 import { roboto_serif } from "@/app/style/fonts";
+import CardButtonLink from "../../components/components/CardButtonLink";
+import { TextSize } from "@/app/utilities/types";
 
 interface GuitarSpecsProps {
 	params: {
@@ -17,7 +19,6 @@ const GuitarSpecs: React.FC<GuitarSpecsProps> = async ({ params: { tag } }) => {
 	return (
 		<AnimateWrapper>
 			<Card title={guitarSpecs.name}>
-				<div className="absolute right-2">x</div>
 				{Object.entries(guitarSpecs).map(([key, value], index) => {
 					if (
 						key === "name" ||
@@ -44,6 +45,9 @@ const GuitarSpecs: React.FC<GuitarSpecsProps> = async ({ params: { tag } }) => {
 						</div>
 					);
 				})}
+				<div className="mt-2">
+					<CardButtonLink text="Back to Gallery" href="/gallery" size={TextSize.small} />
+				</div>
 			</Card>
 		</AnimateWrapper>
 	);

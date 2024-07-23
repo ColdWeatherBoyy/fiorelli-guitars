@@ -1,6 +1,5 @@
 import Card from "@/app/(client)/components/components/Card";
 import ModalWrapper from "@/app/(client)/components/ModalWrapper";
-import AnimateWrapper from "@/app/components/AnimateWrapper";
 import XIcon from "@/app/components/SVGs/XIcon";
 import { roboto_serif } from "@/app/style/fonts";
 import { getGuitarSpecs } from "@/app/utilities/databaseFunctions";
@@ -17,8 +16,8 @@ const GuitarSpecs: React.FC<GuitarSpecsProps> = async ({ params: { tag } }) => {
 	const guitarSpecs = await getGuitarSpecs(tag);
 	const isMobile = useDeviceType();
 
-	if (!guitarSpecs) {
-		return <Card title="Guitar not found"></Card>;
+	if (guitarSpecs instanceof Error) {
+		throw guitarSpecs;
 	}
 
 	return (
@@ -28,7 +27,7 @@ const GuitarSpecs: React.FC<GuitarSpecsProps> = async ({ params: { tag } }) => {
 			>
 				<Link
 					href="/gallery"
-					className={`absolute right-2 top-2 active:scale-95 transition-all duration-100 ease-in-out
+					className={`absolute right-3 top-3 active:scale-95 transition-all duration-100 ease-in-out
 									${!isMobile && "hover:scale-[110%]"}`}
 				>
 					<XIcon />
