@@ -19,13 +19,6 @@ export enum ScreenSize {
 	large = "large",
 }
 
-export interface newMessage {
-	id: number;
-	content: string;
-	createdAt: Date;
-	customerId: number;
-}
-
 export interface CloudinaryResource {
 	public_id: string;
 	secure_url: string;
@@ -50,8 +43,3 @@ export interface TableInteractionProps {
 export type NotificationContentType =
 	| { key: "string"; content: string }
 	| { key: "error"; content: Error };
-
-export interface MessageContent {
-	content: string;
-	createdAt: Date;
-}

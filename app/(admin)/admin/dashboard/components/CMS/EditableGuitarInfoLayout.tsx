@@ -3,8 +3,12 @@ import {
 	getGuitarSpecs,
 	updateGuitarSpec,
 } from "@/app/utilities/databaseFunctions";
+import { isGuitarSpec } from "@/app/utilities/typeguardFunctions";
+import { NotificationContentType } from "@/app/utilities/types";
 import { GuitarSpec } from "@prisma/client";
+import { set } from "mongoose";
 import { FC, useEffect, useState } from "react";
+import NotificationModal from "../notifications/NotificationModal";
 import AddNewContent from "./AddNewContent";
 import EditableContent from "./EditableContent";
 
@@ -23,6 +27,13 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 	const [unusedSpec, setUnusedSpec] = useState<(keyof GuitarSpec)[]>([]);
 	const [usedSpecs, setUsedSpecs] = useState<(keyof GuitarSpec)[]>([]);
 	const [newSpec, setNewSpec] = useState<string>("");
+	const [open, setOpen] = useState(false);
+	const [notificationContent, setNotificationContent] = useState<NotificationContentType>(
+		{
+			key: "string",
+			content: "",
+		}
+	);
 
 	useEffect(() => {
 		const unusedSpecs: (keyof GuitarSpec)[] = [];
@@ -41,10 +52,17 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 	}, [specs, selectedTab]);
 
 	const handleSpecChange = async () => {
-		const newSpecs = await getGuitarSpecs(specs[selectedTab].tag);
-		if (!newSpecs) {
-			// TODO: Add a notification here
-			// console.error("Failed to get new specs");
+		const newSpecs = await getGuitarSpecs(specs[selectedTab].tag, true);
+		if (!isGuitarSpec(newSpecs)) {
+			setNotificationContent({
+				key: "error",
+				content: {
+					name: newSpecs.name,
+					message: "There was an error updating your page. Please refresh and try again.",
+					cause: newSpecs.cause,
+				},
+			});
+			setOpen(true);
 			return;
 		}
 		setSpecs((prevSpecs) => {
@@ -82,6 +100,10 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 					isMobile={isMobile}
 					handleAddSpec={handleSpecChange}
 				/>
+			)}
+
+			{open && (
+				<NotificationModal setOpen={setOpen} notificationContent={notificationContent} />
 			)}
 		</>
 	);

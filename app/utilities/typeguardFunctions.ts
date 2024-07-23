@@ -1,5 +1,5 @@
 import { AuthUser, Customer, GuitarSpec, Message, PageContent } from "@prisma/client";
-import { AuthUserResponse, MessageContent } from "./types";
+import { AuthUserResponse } from "./types";
 
 // export const isContactFormData = (
 // 	response: CreateCustomerAndMessageResponse
@@ -96,37 +96,37 @@ export const isGuitarSpec = (obj: any): obj is GuitarSpec => {
 	);
 };
 
-export const isMessageContent = (obj: any): obj is MessageContent => {
-	return (
-		typeof obj === "object" &&
-		typeof obj.content === "string" &&
-		obj.createdAt instanceof Date
-	);
-};
+// export const isMessageContent = (obj: any): obj is MessageContent => {
+// 	return (
+// 		typeof obj === "object" &&
+// 		typeof obj.content === "string" &&
+// 		obj.createdAt instanceof Date
+// 	);
+// };
 
-export const isCustomerWithMessages = (obj: any): obj is Customer => {
-	return (
-		typeof obj === "object" &&
-		obj !== null &&
-		typeof obj.id === "number" &&
-		typeof obj.email === "string" &&
-		(typeof obj.name === "string" || obj.name === null) &&
-		obj.createdAt instanceof Date &&
-		Array.isArray(obj.messages) &&
-		obj.messages.every(isMessageContent)
-	);
-};
+// export const isCustomerWithMessages = (obj: any): obj is Customer => {
+// 	return (
+// 		typeof obj === "object" &&
+// 		obj !== null &&
+// 		typeof obj.id === "number" &&
+// 		typeof obj.email === "string" &&
+// 		(typeof obj.name === "string" || obj.name === null) &&
+// 		obj.createdAt instanceof Date &&
+// 		Array.isArray(obj.messages) &&
+// 		obj.messages.every(isMessageContent)
+// 	);
+// };
 
-export const isMessagesArray = (arr: any[]): arr is Message[] => {
-	return arr.every(
-		(obj) =>
-			typeof obj === "object" &&
-			typeof obj.id === "number" &&
-			typeof obj.content === "string" &&
-			obj.createdAt instanceof Date &&
-			typeof obj.customerId === "number"
-	);
-};
+// export const isMessagesArray = (arr: any[]): arr is Message[] => {
+// 	return arr.every(
+// 		(obj) =>
+// 			typeof obj === "object" &&
+// 			typeof obj.id === "number" &&
+// 			typeof obj.content === "string" &&
+// 			obj.createdAt instanceof Date &&
+// 			typeof obj.customerId === "number"
+// 	);
+// };
 
 export const isCustomer = (obj: any): obj is Customer => {
 	return (

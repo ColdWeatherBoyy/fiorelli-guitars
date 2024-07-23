@@ -1,11 +1,10 @@
-import AdminButtonLink from "@/app/(admin)/components/components/AdminButtonLink";
 import Table from "@/app/(admin)/admin/dashboard/components/components/Table";
 import Title from "@/app/(admin)/admin/dashboard/components/components/Title";
+import AdminButtonLink from "@/app/(admin)/components/components/AdminButtonLink";
 import { getMessagesByCustomerId } from "@/app/utilities/databaseFunctions";
 import { useDeviceType } from "@/app/utilities/hooks.server";
 import Link from "next/link";
 import { FC } from "react";
-import { isCustomerWithMessages } from "@/app/utilities/typeguardFunctions";
 
 interface CustomerProps {
 	params: {

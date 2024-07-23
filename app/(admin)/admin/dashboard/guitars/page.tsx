@@ -7,8 +7,13 @@ import SelectEditableLayout from "../components/CMS/SelectableEditableLayout";
 const GuitarInfo = async () => {
 	const isMobile = useDeviceType();
 	const EJGuitarSpecs = await getGuitarSpecs("EJ_Guitar");
+	if (EJGuitarSpecs instanceof Error) {
+		throw EJGuitarSpecs;
+	}
 	const SPGuitarSpecs = await getGuitarSpecs("SP_Guitar");
-	if (!EJGuitarSpecs || !SPGuitarSpecs) return null;
+	if (SPGuitarSpecs instanceof Error) {
+		throw SPGuitarSpecs;
+	}
 
 	const guitarSpecs: GuitarSpec[] = [EJGuitarSpecs, SPGuitarSpecs];
 

@@ -15,14 +15,17 @@ export default function Error({
 }) {
 	useEffect(() => {
 		// Send email to me
-		// console.error(error);
+		console.error("hi", error);
+		console.log("hi", error.name);
 	}, [error]);
 
 	return (
 		<AnimateWrapper>
+			{/* Still not sure why error.name doesn't work */}
 			<Card
-				title="There has been an error."
+				title={error.stack?.split(":")[0]}
 				body={[error.message, "If problem persists, please contact the site admin."]}
+				error
 			>
 				<div className="flex w-full justify-evenly mt-4">
 					<CardButtonLink

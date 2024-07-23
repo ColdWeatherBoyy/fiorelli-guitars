@@ -20,7 +20,7 @@ export default function Error({
 
 	return (
 		<AnimateWrapper>
-			<div>
+			<div className="flex flex-col w-full text-center justify-center">
 				<div className="flex flex-col gap-2">
 					{/* Unclear why error.name not working */}
 					<div className="text-xl text-red-500">{error.stack?.split(":")[0]}</div>

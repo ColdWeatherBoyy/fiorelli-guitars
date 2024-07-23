@@ -11,8 +11,8 @@ interface GuitarSpecsProps {
 
 const GuitarSpecs: React.FC<GuitarSpecsProps> = async ({ params: { tag } }) => {
 	const guitarSpecs = await getGuitarSpecs(tag);
-	if (!guitarSpecs) {
-		return <Card title="Guitar not found"></Card>;
+	if (guitarSpecs instanceof Error) {
+		throw guitarSpecs;
 	}
 	return (
 		<AnimateWrapper>
