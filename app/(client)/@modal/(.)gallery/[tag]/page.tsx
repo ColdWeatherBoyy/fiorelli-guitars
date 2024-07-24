@@ -34,7 +34,7 @@ const GuitarSpecs: React.FC<GuitarSpecsProps> = async ({ params: { tag } }) => {
 				<div
 					className={`${roboto_serif.className} text-center border-b pb-2 border-cyan-800 dark:border-cyan-600 mb-2 text-2xl md:text-4xl font-semibold`}
 				>
-					{guitarSpecs.name}
+					{guitarSpecs.name + ", " + guitarSpecs.colorScheme}
 				</div>{" "}
 				{Object.entries(guitarSpecs.guitarSpec).map(([key, value], index) => {
 					if (

@@ -16,6 +16,7 @@ export const getVariantGuitarModelSpec = async (
 			},
 			select: {
 				name: true,
+				colorScheme: true,
 				guitarSpec: true,
 			},
 		});

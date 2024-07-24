@@ -19,7 +19,7 @@ const GuitarSpecs: React.FC<GuitarSpecsProps> = async ({ params: { tag } }) => {
 
 	return (
 		<AnimateWrapper>
-			<Card title={guitarSpecs.name}>
+			<Card title={guitarSpecs.name + ", " + guitarSpecs.colorScheme}>
 				{Object.entries(guitarSpecs.guitarSpec).map(([key, value], index) => {
 					if (
 						key === "name" ||
