@@ -1,7 +1,7 @@
 "use client";
 
-import AnimateWrapper from "@/app/components/AnimateWrapper";
 import Card from "@/app/(client)/components/components/Card";
+import AnimateWrapper from "@/app/components/AnimateWrapper";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 const ModalWrapper = ({ children }: { children: React.ReactNode }) => {

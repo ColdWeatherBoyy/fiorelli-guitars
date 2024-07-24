@@ -1,12 +1,11 @@
 import {
-	deleteGuitarSpec,
-	getGuitarSpecs,
-	updateGuitarSpec,
-} from "@/app/utilities/databaseFunctions";
+	deleteBaseGuitarSpec,
+	updateBaseGuitarSpec,
+} from "@/app/utilities/databaseFunctions/baseguitar.db";
+import { getGuitarSpec } from "@/app/utilities/databaseFunctions/guitarspec.db";
 import { isGuitarSpec } from "@/app/utilities/typeguardFunctions";
 import { NotificationContentType } from "@/app/utilities/types";
 import { GuitarSpec } from "@prisma/client";
-import { set } from "mongoose";
 import { FC, useEffect, useState } from "react";
 import NotificationModal from "../notifications/NotificationModal";
 import AddNewContent from "./AddNewContent";
@@ -52,7 +51,7 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 	}, [specs, selectedTab]);
 
 	const handleSpecChange = async () => {
-		const newSpecs = await getGuitarSpecs(specs[selectedTab].tag, true);
+		const newSpecs = await getGuitarSpec(specs[selectedTab].id);
 		if (!isGuitarSpec(newSpecs)) {
 			setNotificationContent({
 				key: "error",
@@ -84,8 +83,8 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 						contentObj={{ [spec]: contentValue }}
 						id={specs[selectedTab].id}
 						isMobile={isMobile}
-						updateContentFunction={updateGuitarSpec}
-						deleteContentFunction={deleteGuitarSpec}
+						updateContentFunction={updateBaseGuitarSpec}
+						deleteContentFunction={deleteBaseGuitarSpec}
 						onSuccess={handleSpecChange}
 					/>
 				);

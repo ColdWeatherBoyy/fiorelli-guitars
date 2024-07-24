@@ -1,5 +1,5 @@
 import AnimateWrapper from "@/app/components/AnimateWrapper";
-import { getGuitarSpecs } from "@/app/utilities/databaseFunctions";
+import { getVariantGuitarModelSpec } from "@/app/utilities/databaseFunctions/guitarspec.db";
 import { TextSize } from "@/app/utilities/types";
 import Card from "../../components/components/Card";
 import CardButtonLink from "../../components/components/CardButtonLink";
@@ -11,14 +11,16 @@ interface GuitarSpecsProps {
 }
 
 const GuitarSpecs: React.FC<GuitarSpecsProps> = async ({ params: { tag } }) => {
-	const guitarSpecs = await getGuitarSpecs(tag);
+	const guitarSpecs = await getVariantGuitarModelSpec(tag);
+
 	if (guitarSpecs instanceof Error) {
 		throw guitarSpecs;
 	}
+
 	return (
 		<AnimateWrapper>
 			<Card title={guitarSpecs.name}>
-				{Object.entries(guitarSpecs).map(([key, value], index) => {
+				{Object.entries(guitarSpecs.guitarSpec).map(([key, value], index) => {
 					if (
 						key === "name" ||
 						key === "tag" ||

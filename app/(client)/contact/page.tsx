@@ -1,11 +1,11 @@
 import { cloudinary } from "@/app/utilities/cloudinary";
+import { getPageContent } from "@/app/utilities/databaseFunctions/pagecontent.db";
 import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
 import Link from "next/link";
 import AnimateWrapper from "../../components/AnimateWrapper";
 import Card from "../components/components/Card";
 import PhotoCard from "../components/components/PhotoCard";
 import ContactForm from "./components/ContactForm";
-import { getPageContent } from "@/app/utilities/databaseFunctions";
 
 export default async function Contact() {
 	const data = await getPageContent("Contact");

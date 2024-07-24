@@ -1,9 +1,9 @@
 "use server";
 
-import { createCustomer, createMessage } from "@/app/utilities/databaseFunctions";
+import { createCustomer } from "@/app/utilities/databaseFunctions/customer.db";
+import { createMessage } from "@/app/utilities/databaseFunctions/message.db";
 import { sendCustomerEmail, sendFiorelliEmail } from "@/app/utilities/resendFunctions";
 import { isCustomer, isMessage } from "@/app/utilities/typeguardFunctions";
-import { Prisma } from "@prisma/client";
 
 export const handleForm = async (
 	prevState: boolean | Error,

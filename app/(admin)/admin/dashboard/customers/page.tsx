@@ -1,6 +1,6 @@
 import Table from "@/app/(admin)/admin/dashboard/components/components/Table";
 import Title from "@/app/(admin)/admin/dashboard/components/components/Title";
-import { getCustomers } from "@/app/utilities/databaseFunctions";
+import { getCustomers } from "@/app/utilities/databaseFunctions/customer.db";
 import { useDeviceType } from "@/app/utilities/hooks.server";
 
 const Customers = async () => {

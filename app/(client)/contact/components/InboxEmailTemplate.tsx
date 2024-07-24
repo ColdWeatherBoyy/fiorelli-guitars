@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { getMessagesByCustomerEmail } from "@/app/utilities/databaseFunctions";
+import { getMessagesByCustomerEmail } from "@/app/utilities/databaseFunctions/message.db";
 import { formatDateTime } from "@/app/utilities/helpers";
 import { Customer, Message } from "@prisma/client";
 import { FC } from "react";

@@ -1,7 +1,7 @@
 "use client";
 
 import AdminButtonLink from "@/app/(admin)/components/components/AdminButtonLink";
-import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useState } from "react";
 
 interface AddAuthUserFormProps {
 	formAction: (payload: FormData) => void;

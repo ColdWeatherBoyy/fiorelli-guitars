@@ -5,22 +5,24 @@ import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
 import { CloudinaryResource, GalleryPhotoProps, TextSize } from "@/app/utilities/types";
 import ModalWrapper from "../../../../components/ModalWrapper";
 
+// TODO: Better way to get necessary tags to use here
 export async function generateStaticParams() {
+	// Get from database all galleryguitars, map their variantTags, and then use them to search cloudinary
 	const { resources: resourcesEJ } = await cloudinary.search
-		.expression(`tags=EJ_Guitar`)
+		.expression(`tags=Slipstream_BlueCream`)
 		.with_field("context")
 		.execute();
 	const { resources: resourcesSP } = await cloudinary.search
-		.expression(`tags=SP_Guitar`)
+		.expression(`tags=SP_Guitar_Natural`)
 		.with_field("context")
 		.execute();
 
 	const params = resourcesEJ.map((resource: CloudinaryResource, index: number) => ({
-		tag: "EJ_Guitar",
+		tag: "Slipstream_BlueCream",
 		index: index.toString(),
 	}));
 	const params2 = resourcesSP.map((resource: CloudinaryResource, index: number) => ({
-		tag: "SP_Guitar",
+		tag: "SP_Guitar_Natural",
 		index: index.toString(),
 	}));
 	return params.concat(params2);

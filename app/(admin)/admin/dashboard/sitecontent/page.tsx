@@ -1,11 +1,12 @@
 import Title from "@/app/(admin)/admin/dashboard/components/components/Title";
-import { getPageContent } from "@/app/utilities/databaseFunctions";
+import { getPageContent } from "@/app/utilities/databaseFunctions/pagecontent.db";
 import { useDeviceType } from "@/app/utilities/hooks.server";
 import { PageContent } from "@prisma/client";
 import SelectEditableLayout from "../components/CMS/SelectableEditableLayout";
 
 const SiteContent = async () => {
 	const isMobile = useDeviceType();
+	// To-DO: Get ALLPageContents and do the rest in a loop?
 	const homeData = await getPageContent("Home");
 	const aboutData = await getPageContent("About");
 	const contactData = await getPageContent("Contact");

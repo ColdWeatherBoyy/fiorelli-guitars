@@ -1,7 +1,7 @@
-import { FC } from "react";
+import { updateContentBlock } from "@/app/utilities/databaseFunctions/pagecontent.db";
 import { PageContent } from "@prisma/client";
+import { FC } from "react";
 import EditableContent from "./EditableContent";
-import { updateContentBlock } from "@/app/utilities/databaseFunctions";
 
 interface EditablePageContentLayoutProps {
 	pageContentData: PageContent[];

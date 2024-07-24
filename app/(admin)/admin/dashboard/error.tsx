@@ -3,7 +3,6 @@
 import AnimateWrapper from "@/app/components/AnimateWrapper";
 import { useEffect } from "react";
 import AdminButtonLink from "../../components/components/AdminButtonLink";
-import { useDeviceType } from "@/app/utilities/hooks.server";
 
 export default function Error({
 	error,

@@ -1,7 +1,5 @@
-import {
-	createAuthUser,
-	getCustomerIdByEmailOrName,
-} from "@/app/utilities/databaseFunctions";
+import { createAuthUser } from "@/app/utilities/databaseFunctions/authuser.db";
+import { getCustomerIdByEmailOrName } from "@/app/utilities/databaseFunctions/customer.db";
 import { AuthUser } from "@prisma/client";
 
 export const handleSearchForm = async (

@@ -1,7 +1,7 @@
 import Table from "@/app/(admin)/admin/dashboard/components/components/Table";
 import Title from "@/app/(admin)/admin/dashboard/components/components/Title";
 import AdminButtonLink from "@/app/(admin)/components/components/AdminButtonLink";
-import { getMessagesByCustomerId } from "@/app/utilities/databaseFunctions";
+import { getMessagesByCustomerId } from "@/app/utilities/databaseFunctions/message.db";
 import { useDeviceType } from "@/app/utilities/hooks.server";
 import Link from "next/link";
 import { FC } from "react";

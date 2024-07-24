@@ -50,10 +50,32 @@ model Page {
   updatedAt   DateTime @updatedAt
 }
 
-model GuitarSpec {
+model BaseGuitarModel {
   id                Int      @id @default(autoincrement())
   tag               String   @unique
+  name              String   @unique
+  guitarSpec        GuitarSpec @relation(fields: [guitarSpecId], references: [id])
+  guitarSpecId      Int
+  variantModels     VariantGuitarModel[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+model VariantGuitarModel {
+  id                Int      @id @default(autoincrement())
+  variantTag        String   @unique
   name              String
+  colorScheme       String
+  baseModel         BaseGuitarModel @relation(fields: [baseModelId], references: [id])
+  baseModelId       Int
+  guitarSpec        GuitarSpec @relation(fields: [guitarSpecId], references: [id])
+  guitarSpecId      Int
+  gallery           Boolean
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now())
+}
+
+model GuitarSpec {
+  id                Int      @id @default(autoincrement())
   body              String
   neck              String
   fingerboard       String
@@ -71,4 +93,6 @@ model GuitarSpec {
   customFeatures    String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  baseGuitarModels  BaseGuitarModel[]
+  variantGuitarModels VariantGuitarModel[]
 }

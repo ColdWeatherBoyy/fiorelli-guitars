@@ -1,9 +1,9 @@
+import { getPageContent } from "@/app/utilities/databaseFunctions/pagecontent.db";
 import AnimateWrapper from "../../components/AnimateWrapper";
-import Card from "../components/components/Card";
 import { cloudinary } from "../../utilities/cloudinary";
 import { getBlurDataUrl } from "../../utilities/imageHelpers";
 import { CloudinaryResource } from "../../utilities/types";
-import { getPageContent } from "@/app/utilities/databaseFunctions";
+import Card from "../components/components/Card";
 
 export default async function About() {
 	const data = await getPageContent("About");

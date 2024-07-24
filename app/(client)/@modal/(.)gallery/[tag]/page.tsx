@@ -1,8 +1,7 @@
-import Card from "@/app/(client)/components/components/Card";
 import ModalWrapper from "@/app/(client)/components/ModalWrapper";
 import XIcon from "@/app/components/SVGs/XIcon";
 import { roboto_serif } from "@/app/style/fonts";
-import { getGuitarSpecs } from "@/app/utilities/databaseFunctions";
+import { getVariantGuitarModelSpec } from "@/app/utilities/databaseFunctions/guitarspec.db";
 import { useDeviceType } from "@/app/utilities/hooks.server";
 import Link from "next/link";
 
@@ -13,7 +12,7 @@ interface GuitarSpecsProps {
 }
 
 const GuitarSpecs: React.FC<GuitarSpecsProps> = async ({ params: { tag } }) => {
-	const guitarSpecs = await getGuitarSpecs(tag);
+	const guitarSpecs = await getVariantGuitarModelSpec(tag);
 	const isMobile = useDeviceType();
 
 	if (guitarSpecs instanceof Error) {
@@ -27,7 +26,7 @@ const GuitarSpecs: React.FC<GuitarSpecsProps> = async ({ params: { tag } }) => {
 			>
 				<Link
 					href="/gallery"
-					className={`absolute right-3 top-3 active:scale-95 transition-all duration-100 ease-in-out
+					className={`absolute right-4 top-4 active:scale-95 transition-all duration-100 ease-in-out
 									${!isMobile && "hover:scale-[110%]"}`}
 				>
 					<XIcon />
@@ -37,7 +36,7 @@ const GuitarSpecs: React.FC<GuitarSpecsProps> = async ({ params: { tag } }) => {
 				>
 					{guitarSpecs.name}
 				</div>{" "}
-				{Object.entries(guitarSpecs).map(([key, value], index) => {
+				{Object.entries(guitarSpecs.guitarSpec).map(([key, value], index) => {
 					if (
 						key === "name" ||
 						key === "tag" ||

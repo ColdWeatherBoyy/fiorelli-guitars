@@ -1,4 +1,4 @@
-import { getAuthUsers } from "@/app/utilities/databaseFunctions";
+import { getAuthUsers } from "@/app/utilities/databaseFunctions/authuser.db";
 import { useDeviceType } from "@/app/utilities/hooks.server";
 import AdminUsersLayout from "./components/AdminUsersLayout";
 

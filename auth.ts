@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
-import { getAuthUsers } from "./app/utilities/databaseFunctions";
+import { getAuthUsers } from "./app/utilities/databaseFunctions/authuser.db";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
 	callbacks: {

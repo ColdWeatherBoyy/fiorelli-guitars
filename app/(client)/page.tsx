@@ -1,5 +1,5 @@
 import AnimateWrapper from "../components/AnimateWrapper";
-import { getPageContent } from "../utilities/databaseFunctions";
+import { getPageContent } from "../utilities/databaseFunctions/pagecontent.db";
 import Card from "./components/components/Card";
 
 export default async function Home() {
