@@ -1,8 +1,8 @@
 import {
-	deleteBaseGuitarSpec,
-	updateBaseGuitarSpec,
-} from "@/app/utilities/databaseFunctions/baseguitar.db";
-import { getGuitarSpec } from "@/app/utilities/databaseFunctions/guitarspec.db";
+	deleteGuitarModelSpec,
+	getGuitarSpec,
+	updateGuitarModelSpec,
+} from "@/app/utilities/databaseFunctions/guitarspec.db";
 import { isGuitarSpec } from "@/app/utilities/typeguardFunctions";
 import { NotificationContentType } from "@/app/utilities/types";
 import { GuitarSpec } from "@prisma/client";
@@ -83,8 +83,8 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 						contentObj={{ [spec]: contentValue }}
 						id={specs[selectedTab].id}
 						isMobile={isMobile}
-						updateContentFunction={updateBaseGuitarSpec}
-						deleteContentFunction={deleteBaseGuitarSpec}
+						updateContentFunction={updateGuitarModelSpec}
+						deleteContentFunction={deleteGuitarModelSpec}
 						onSuccess={handleSpecChange}
 					/>
 				);

@@ -198,101 +198,101 @@ export const getGuitarSpec = async (id: number) => {
 	}
 };
 
-// // Event handler, so needs to return plain object
-// // Goes to Client Component, so needs to return plain object
-// export const updateGuitarSpec = async (id: number, key: string, value: string) => {
-// 	try {
-// 		const updatedGuitarSpec = await prisma.guitarSpec.update({
-// 			where: {
-// 				id,
-// 			},
-// 			data: {
-// 				[key]: value,
-// 			},
-// 		});
+// Event handler, so needs to return plain object
+// Goes to Client Component, so needs to return plain object
+export const updateGuitarModelSpec = async (id: number, key: string, value: string) => {
+	try {
+		const updatedGuitarSpec = await prisma.guitarSpec.update({
+			where: {
+				id,
+			},
+			data: {
+				[key]: value,
+			},
+		});
 
-// 		return updatedGuitarSpec;
-// 	} catch (error) {
-// 		// console.error(error)
-// 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
-// 			return {
-// 				name: "Validation Error",
-// 				message: "An error occurred. Please try again.",
-// 				cause: `${error.code} - ${error.message}`,
-// 			};
-// 		} else if (
-// 			error instanceof Prisma.PrismaClientInitializationError ||
-// 			error instanceof Prisma.PrismaClientValidationError ||
-// 			error instanceof Prisma.PrismaClientRustPanicError ||
-// 			error instanceof Prisma.PrismaClientUnknownRequestError
-// 		) {
-// 			return {
-// 				name: "Prisma Database Error",
-// 				message: "A database error occured. Please try again.",
-// 				cause: error.message,
-// 			};
-// 		} else {
-// 			return {
-// 				name: "Unknown Error",
-// 				message: "An unknown error occurred. Please try again.",
-// 				cause: error?.toString() || "No error message provided.",
-// 			};
-// 		}
-// 	}
-// };
+		return updatedGuitarSpec;
+	} catch (error) {
+		// console.error(error)
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			return {
+				name: "Validation Error",
+				message: "An error occurred. Please try again.",
+				cause: `${error.code} - ${error.message}`,
+			};
+		} else if (
+			error instanceof Prisma.PrismaClientInitializationError ||
+			error instanceof Prisma.PrismaClientValidationError ||
+			error instanceof Prisma.PrismaClientRustPanicError ||
+			error instanceof Prisma.PrismaClientUnknownRequestError
+		) {
+			return {
+				name: "Prisma Database Error",
+				message: "A database error occured. Please try again.",
+				cause: error.message,
+			};
+		} else {
+			return {
+				name: "Unknown Error",
+				message: "An unknown error occurred. Please try again.",
+				cause: error?.toString() || "No error message provided.",
+			};
+		}
+	}
+};
 
-// // Event handler, so needs to return plain object
-// // Goes to Client Component, so needs to return plain object
-// export const deleteBaseGuitarModelSpec = async (id: number, key: string) => {
-// 	try {
-// 		const deletedGuitarSpec = await prisma.guitarSpec.update({
-// 			where: {
-// 				id,
-// 			},
-// 			data: {
-// 				[key]: null,
-// 			},
-// 		});
+// Event handler, so needs to return plain object
+// Goes to Client Component, so needs to return plain object
+export const deleteGuitarModelSpec = async (id: number, key: string) => {
+	try {
+		const deletedGuitarSpec = await prisma.guitarSpec.update({
+			where: {
+				id,
+			},
+			data: {
+				[key]: null,
+			},
+		});
 
-// 		return deletedGuitarSpec;
-// 	} catch (error) {
-// 		// console.error(error);
-// 		if (error instanceof Prisma.PrismaClientValidationError) {
-// 			if (error.message.includes("must not be null.")) {
-// 				return {
-// 					name: "Validation Error",
-// 					message: `${camelToTitleCase(key)} is required and cannot be deleted.`,
-// 					cause: "Prisma Client Validation Error",
-// 				};
-// 			} else {
-// 				return {
-// 					name: "Validation Error",
-// 					message: "An error occurred. Please try again.",
-// 					cause: "Prisma Client Validation Error",
-// 				};
-// 			}
-// 		} else if (error instanceof Prisma.PrismaClientKnownRequestError) {
-// 			return {
-// 				name: "Known Request Error",
-// 				message: "An error occurred. Please try again.",
-// 				cause: `${error.code} - ${error.message}`,
-// 			};
-// 		} else if (
-// 			error instanceof Prisma.PrismaClientInitializationError ||
-// 			error instanceof Prisma.PrismaClientRustPanicError ||
-// 			error instanceof Prisma.PrismaClientUnknownRequestError
-// 		) {
-// 			return {
-// 				name: "Prisma Database Error",
-// 				message: "A database error occured. Please try again.",
-// 				cause: error.message,
-// 			};
-// 		} else {
-// 			return {
-// 				name: "Unknown Error",
-// 				message: "An unknown error occurred. Please try again.",
-// 				cause: error?.toString() || "No error message provided",
-// 			};
-// 		}
-// 	}
-// };
+		return deletedGuitarSpec;
+	} catch (error) {
+		// console.error(error);
+		if (error instanceof Prisma.PrismaClientValidationError) {
+			if (error.message.includes("must not be null.")) {
+				return {
+					name: "Validation Error",
+					message: `${camelToTitleCase(key)} is required and cannot be deleted.`,
+					cause: "Prisma Client Validation Error",
+				};
+			} else {
+				return {
+					name: "Validation Error",
+					message: "An error occurred. Please try again.",
+					cause: "Prisma Client Validation Error",
+				};
+			}
+		} else if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			return {
+				name: "Known Request Error",
+				message: "An error occurred. Please try again.",
+				cause: `${error.code} - ${error.message}`,
+			};
+		} else if (
+			error instanceof Prisma.PrismaClientInitializationError ||
+			error instanceof Prisma.PrismaClientRustPanicError ||
+			error instanceof Prisma.PrismaClientUnknownRequestError
+		) {
+			return {
+				name: "Prisma Database Error",
+				message: "A database error occured. Please try again.",
+				cause: error.message,
+			};
+		} else {
+			return {
+				name: "Unknown Error",
+				message: "An unknown error occurred. Please try again.",
+				cause: error?.toString() || "No error message provided",
+			};
+		}
+	}
+};

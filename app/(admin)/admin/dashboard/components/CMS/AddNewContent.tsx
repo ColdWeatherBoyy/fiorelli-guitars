@@ -1,7 +1,7 @@
+import { updateGuitarModelSpec } from "@/app/utilities/databaseFunctions/guitarspec.db";
 import { camelToTitleCase } from "@/app/utilities/helpers";
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import EditableContent from "./EditableContent";
-import { updateBaseGuitarSpec } from "@/app/utilities/databaseFunctions/baseguitar.db";
 
 interface AddNewContentProps {
 	setNewSpec: Dispatch<SetStateAction<string>>;
@@ -12,7 +12,7 @@ interface AddNewContentProps {
 	handleAddSpec: () => void;
 }
 
-// To-Do: ADD Variant udpates
+// To-Do: ADD Variant updates
 const AddNewContent: FC<AddNewContentProps> = ({
 	setNewSpec,
 	newSpec,
@@ -50,7 +50,7 @@ const AddNewContent: FC<AddNewContentProps> = ({
 					contentObj={{ [newSpec]: "" }}
 					id={id}
 					isMobile={isMobile}
-					updateContentFunction={updateBaseGuitarSpec}
+					updateContentFunction={updateGuitarModelSpec}
 					onSuccess={handleAddSpec}
 				/>
 			)}

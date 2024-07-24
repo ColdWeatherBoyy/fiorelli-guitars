@@ -24,6 +24,31 @@ export const isAuthUser = (response: AuthUserResponse): response is AuthUser => 
 	);
 };
 
+export const isGuitarSpecArray = (arr: any[]): arr is GuitarSpec[] => {
+	return arr.every(
+		(obj) =>
+			typeof obj === "object" &&
+			typeof obj.id === "number" &&
+			typeof obj.body === "string" &&
+			typeof obj.neck === "string" &&
+			typeof obj.fingerboard === "string" &&
+			typeof obj.fingerboardRadius === "string" &&
+			typeof obj.scaleLength === "string" &&
+			typeof obj.fretMarkers === "string" &&
+			typeof obj.neckPickup === "string" &&
+			(typeof obj.middlePickup === "string" || obj.middlePickup === null) &&
+			(typeof obj.bridgePickup === "string" || obj.bridgePickup === null) &&
+			(typeof obj.pickupSwitch === "string" || obj.pickupSwitch === null) &&
+			typeof obj.bridge === "string" &&
+			(typeof obj.vibrato === "string" || obj.vibrato === null) &&
+			typeof obj.tuners === "string" &&
+			(typeof obj.knobs === "string" || obj.knobs === null) &&
+			(typeof obj.customFeatures === "string" || obj.customFeatures === null) &&
+			obj.createdAt instanceof Date &&
+			obj.updatedAt instanceof Date
+	);
+};
+
 export const isPageContentArray = (arr: any[]): arr is PageContent[] => {
 	return arr.every(
 		(obj) =>
@@ -40,78 +65,27 @@ export const isPageContentArray = (arr: any[]): arr is PageContent[] => {
 	);
 };
 
-export const isGuitarSpecArray = (arr: any[]): arr is GuitarSpec[] => {
-	return arr.every(
-		(obj) =>
-			typeof obj === "object" &&
-			typeof obj.id === "number" &&
-			typeof obj.tag === "string" &&
-			typeof obj.name === "string" &&
-			typeof obj.body === "string" &&
-			typeof obj.neck === "string" &&
-			typeof obj.fingerboard === "string" &&
-			typeof obj.fingerboardRadius === "string" &&
-			typeof obj.scaleLength === "string" &&
-			typeof obj.fretMarkers === "string" &&
-			typeof obj.neckPickup === "string" &&
-			(typeof obj.middlePickup === "string" || obj.middlePickup === null) &&
-			typeof obj.bridgePickup === "string" &&
-			typeof obj.pickupSwitch === "string" &&
-			typeof obj.bridge === "string" &&
-			typeof obj.tuners === "string" &&
-			typeof obj.knobs === "string" &&
-			obj.createdAt instanceof Date &&
-			obj.updatedAt instanceof Date
-	);
-};
-
-export const isBaseGuitarModelArray = (arr: any[]): arr is BaseGuitarModel[] => {
-	return arr.every(
-		(obj) =>
-			typeof obj === "object" &&
-			typeof obj.id === "number" &&
-			typeof obj.tag === "string" &&
-			typeof obj.name === "string" &&
-			typeof obj.body === "string" &&
-			typeof obj.neck === "string" &&
-			typeof obj.fingerboard === "string" &&
-			typeof obj.fingerboardRadius === "string" &&
-			typeof obj.scaleLength === "string" &&
-			typeof obj.fretMarkers === "string" &&
-			typeof obj.neckPickup === "string" &&
-			(typeof obj.middlePickup === "string" || obj.middlePickup === null) &&
-			typeof obj.bridgePickup === "string" &&
-			typeof obj.pickupSwitch === "string" &&
-			typeof obj.bridge === "string" &&
-			typeof obj.tuners === "string" &&
-			typeof obj.knobs === "string" &&
-			obj.createdAt instanceof Date &&
-			obj.updatedAt instanceof Date
-	);
-};
-
-export const isVariantGuitarModelArray = (arr: any[]): arr is VariantGuitarModel[] => {
-	return arr.every(
-		(obj) =>
-			typeof obj === "object" &&
-			typeof obj.id === "number" &&
-			typeof obj.tag === "string" &&
-			typeof obj.name === "string" &&
-			typeof obj.body === "string" &&
-			typeof obj.neck === "string" &&
-			typeof obj.fingerboard === "string" &&
-			typeof obj.fingerboardRadius === "string" &&
-			typeof obj.scaleLength === "string" &&
-			typeof obj.fretMarkers === "string" &&
-			typeof obj.neckPickup === "string" &&
-			(typeof obj.middlePickup === "string" || obj.middlePickup === null) &&
-			typeof obj.bridgePickup === "string" &&
-			typeof obj.pickupSwitch === "string" &&
-			typeof obj.bridge === "string" &&
-			typeof obj.tuners === "string" &&
-			typeof obj.knobs === "string" &&
-			obj.createdAt instanceof Date &&
-			obj.updatedAt instanceof Date
+export const isGuitarSpec = (obj: any): obj is GuitarSpec => {
+	return (
+		typeof obj === "object" &&
+		typeof obj.id === "number" &&
+		typeof obj.body === "string" &&
+		typeof obj.neck === "string" &&
+		typeof obj.fingerboard === "string" &&
+		typeof obj.fingerboardRadius === "string" &&
+		typeof obj.scaleLength === "string" &&
+		typeof obj.fretMarkers === "string" &&
+		typeof obj.neckPickup === "string" &&
+		(typeof obj.middlePickup === "string" || obj.middlePickup === null) &&
+		(typeof obj.bridgePickup === "string" || obj.bridgePickup === null) &&
+		(typeof obj.pickupSwitch === "string" || obj.pickupSwitch === null) &&
+		typeof obj.bridge === "string" &&
+		(typeof obj.vibrato === "string" || obj.vibrato === null) &&
+		typeof obj.tuners === "string" &&
+		(typeof obj.knobs === "string" || obj.knobs === null) &&
+		(typeof obj.customFeatures === "string" || obj.customFeatures === null) &&
+		obj.createdAt instanceof Date &&
+		obj.updatedAt instanceof Date
 	);
 };
 
@@ -125,30 +99,6 @@ export const isPageContent = (obj: any): obj is PageContent => {
 		obj.bodies.every((item: any) => typeof item === "string") &&
 		(typeof obj.signature === "string" || obj.signature === null) &&
 		(typeof obj.email === "string" || obj.email === null) &&
-		obj.createdAt instanceof Date &&
-		obj.updatedAt instanceof Date
-	);
-};
-
-export const isGuitarSpec = (obj: any): obj is GuitarSpec => {
-	return (
-		typeof obj === "object" &&
-		typeof obj.id === "number" &&
-		typeof obj.tag === "string" &&
-		typeof obj.name === "string" &&
-		typeof obj.body === "string" &&
-		typeof obj.neck === "string" &&
-		typeof obj.fingerboard === "string" &&
-		typeof obj.fingerboardRadius === "string" &&
-		typeof obj.scaleLength === "string" &&
-		typeof obj.fretMarkers === "string" &&
-		typeof obj.neckPickup === "string" &&
-		(typeof obj.middlePickup === "string" || obj.middlePickup === null) &&
-		typeof obj.bridgePickup === "string" &&
-		typeof obj.pickupSwitch === "string" &&
-		typeof obj.bridge === "string" &&
-		typeof obj.tuners === "string" &&
-		typeof obj.knobs === "string" &&
 		obj.createdAt instanceof Date &&
 		obj.updatedAt instanceof Date
 	);

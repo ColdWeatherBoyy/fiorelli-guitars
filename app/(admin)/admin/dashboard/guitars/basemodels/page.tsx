@@ -3,7 +3,7 @@ import { getAllBaseGuitarModels } from "@/app/utilities/databaseFunctions/basegu
 import { useDeviceType } from "@/app/utilities/hooks.server";
 import SelectEditableLayout from "../../components/CMS/SelectableEditableLayout";
 
-const GuitarInfo = async () => {
+const BaseGuitarModels = async () => {
 	const isMobile = useDeviceType();
 	const baseGuitarModels = await getAllBaseGuitarModels();
 	if (baseGuitarModels instanceof Error) {
@@ -12,9 +12,10 @@ const GuitarInfo = async () => {
 
 	const titlesArray = baseGuitarModels.map((guitar) => guitar.name);
 
-	const guitarSpecs = baseGuitarModels.flatMap((guitar) => {
+	const guitarSpecs = baseGuitarModels.map((guitar) => {
 		return guitar.guitarSpec;
 	});
+	console.log(guitarSpecs);
 
 	return (
 		<>
@@ -28,4 +29,4 @@ const GuitarInfo = async () => {
 	);
 };
 
-export default GuitarInfo;
+export default BaseGuitarModels;
