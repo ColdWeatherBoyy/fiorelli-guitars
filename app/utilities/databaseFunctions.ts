@@ -700,6 +700,34 @@ export const getGuitarSpecs = async (tag: string, client: boolean = false) => {
 	}
 };
 
+// Used in both event handler/Client Component, and Server Component.
+// Built both options – Error Object and plain object – into the function.
+export const getAllGuitarSpecs = async () => {
+	try {
+		const guitarSpecs = await prisma.guitarSpec.findMany({});
+		return guitarSpecs;
+	} catch (error) {
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			const knownError = new Error(`${error.code} - ${error.message}`);
+			knownError.name = "Prisma Known Request Error";
+			return knownError;
+		} else if (
+			error instanceof Prisma.PrismaClientInitializationError ||
+			error instanceof Prisma.PrismaClientValidationError ||
+			error instanceof Prisma.PrismaClientRustPanicError ||
+			error instanceof Prisma.PrismaClientUnknownRequestError
+		) {
+			const prismaError = new Error(error.message);
+			prismaError.name = "Prisma Database Error";
+			return prismaError;
+		} else {
+			const unknownError = new Error(error?.toString() || "No error message provided.");
+			unknownError.name = "Guitar Spec Retrieval Error";
+			return unknownError;
+		}
+	}
+};
+
 // Event handler, so needs to return plain object
 // Goes to Client Component, so needs to return plain object
 export const updateGuitarSpec = async (id: number, key: string, value: string) => {

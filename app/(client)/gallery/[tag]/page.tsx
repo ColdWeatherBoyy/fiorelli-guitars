@@ -1,9 +1,8 @@
-import { getGuitarSpecs } from "@/app/utilities/databaseFunctions";
-import Card from "../../components/components/Card";
 import AnimateWrapper from "@/app/components/AnimateWrapper";
-import { roboto_serif } from "@/app/style/fonts";
-import CardButtonLink from "../../components/components/CardButtonLink";
+import { getGuitarSpecs } from "@/app/utilities/databaseFunctions";
 import { TextSize } from "@/app/utilities/types";
+import Card from "../../components/components/Card";
+import CardButtonLink from "../../components/components/CardButtonLink";
 
 interface GuitarSpecsProps {
 	params: {

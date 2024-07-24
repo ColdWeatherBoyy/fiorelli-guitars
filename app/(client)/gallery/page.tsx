@@ -1,15 +1,18 @@
+import { getAllGuitarSpecs } from "@/app/utilities/databaseFunctions";
 import AnimateWrapper from "../../components/AnimateWrapper";
 import Card from "../components/components/Card";
 import GallerySliderWrapper from "./components/GallerySliderWrapper";
 
-const sliderSections = [
-	{ title: "Fiorelli Slipstream, Cream/Blue", tag: "EJ_Guitar" },
-	// { title: "The Sea Eagle", tag: "HB_Guitar" },
-	{ title: "Custom Offset for Sam Pearce", tag: "SP_Guitar" },
-	// { title: "The Starling", tag: "E_Guitar" },
-];
-
 const Gallery = async () => {
+	const allGuitarSpecs = await getAllGuitarSpecs();
+	if (allGuitarSpecs instanceof Error) {
+		throw allGuitarSpecs;
+	}
+	const sliderSections = allGuitarSpecs.map((guitar) => ({
+		title: guitar.name,
+		tag: guitar.tag,
+	}));
+
 	return (
 		<AnimateWrapper>
 			<Card title="Gallery">

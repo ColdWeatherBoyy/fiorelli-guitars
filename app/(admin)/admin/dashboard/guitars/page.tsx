@@ -1,23 +1,17 @@
 import Title from "@/app/(admin)/admin/dashboard/components/components/Title";
-import { getGuitarSpecs } from "@/app/utilities/databaseFunctions";
+import { getAllGuitarSpecs } from "@/app/utilities/databaseFunctions";
 import { useDeviceType } from "@/app/utilities/hooks.server";
-import { GuitarSpec } from "@prisma/client";
 import SelectEditableLayout from "../components/CMS/SelectableEditableLayout";
+import { GuitarSpec } from "@prisma/client";
 
 const GuitarInfo = async () => {
 	const isMobile = useDeviceType();
-	const EJGuitarSpecs = await getGuitarSpecs("EJ_Guitar");
-	if (EJGuitarSpecs instanceof Error) {
-		throw EJGuitarSpecs;
-	}
-	const SPGuitarSpecs = await getGuitarSpecs("SP_Guitar");
-	if (SPGuitarSpecs instanceof Error) {
-		throw SPGuitarSpecs;
+	const guitarSpecs = await getAllGuitarSpecs();
+	if (guitarSpecs instanceof Error) {
+		throw guitarSpecs;
 	}
 
-	const guitarSpecs: GuitarSpec[] = [EJGuitarSpecs, SPGuitarSpecs];
-
-	const titlesArray = [EJGuitarSpecs.name, SPGuitarSpecs.name];
+	const titlesArray = guitarSpecs.map((guitar) => guitar.name);
 
 	return (
 		<>
