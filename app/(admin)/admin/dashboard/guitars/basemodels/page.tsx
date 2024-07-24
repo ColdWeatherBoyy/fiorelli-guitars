@@ -15,7 +15,6 @@ const BaseGuitarModels = async () => {
 	const guitarSpecs = baseGuitarModels.map((guitar) => {
 		return guitar.guitarSpec;
 	});
-	console.log(guitarSpecs);
 
 	return (
 		<>

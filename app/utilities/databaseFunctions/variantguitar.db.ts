@@ -85,7 +85,11 @@ export const getVariantGuitarModel = async (
 
 export const getAllVariantGuitarModels = async () => {
 	try {
-		const guitarSpecs = await prisma.variantGuitarModel.findMany({});
+		const guitarSpecs = await prisma.variantGuitarModel.findMany({
+			include: {
+				guitarSpec: true,
+			},
+		});
 		return guitarSpecs;
 	} catch (error) {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -114,6 +118,9 @@ export const getAllGalleryVariantGuitarModels = async () => {
 		const guitarSpecs = await prisma.variantGuitarModel.findMany({
 			where: {
 				gallery: true,
+			},
+			include: {
+				guitarSpec: true,
 			},
 		});
 		return guitarSpecs;
