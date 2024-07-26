@@ -143,7 +143,14 @@ const EditableContent: FC<EditableContentProps> = ({
 				defaultValue={content}
 				onChange={(event) => setContent(event.target.value)}
 			/>
-			<div className="flex justify-between">
+			<div
+				className={`flex ${deleteContentFunction ? "justify-between" : "justify-center"}`}
+			>
+				<AdminButtonLink
+					text="Save"
+					handleClick={() => handleUpdateContent(id, key, content)}
+					isMobile={isMobile}
+				/>
 				{deleteContentFunction ? (
 					<AdminButtonLink
 						text="Delete"
@@ -153,11 +160,6 @@ const EditableContent: FC<EditableContentProps> = ({
 				) : (
 					<div></div>
 				)}
-				<AdminButtonLink
-					text="Save"
-					handleClick={() => handleUpdateContent(id, key, content)}
-					isMobile={isMobile}
-				/>
 			</div>
 
 			{open && (
