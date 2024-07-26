@@ -1,6 +1,7 @@
 "use server";
 
-import { Prisma, PrismaClient } from "@prisma/client";
+import { BaseGuitarModel, GuitarSpec, Prisma, PrismaClient } from "@prisma/client";
+import { hasGuitarSpec, hasNoGuitarSpec, isGuitarSpec } from "../typeguardFunctions";
 
 const prisma = new PrismaClient();
 
@@ -91,7 +92,14 @@ export const getAllBaseGuitarModels = async () => {
 				guitarSpec: true,
 			},
 		});
-		return guitarModels;
+
+		const guitarModelsWithSpecs = guitarModels.filter((model) => hasGuitarSpec(model));
+
+		const guitarModelsWithoutSpecs = guitarModels.filter((model) =>
+			hasNoGuitarSpec(model)
+		);
+
+		return { guitarModelsWithSpecs, guitarModelsWithoutSpecs };
 	} catch (error) {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
 			const knownError = new Error(`${error.code} - ${error.message}`);

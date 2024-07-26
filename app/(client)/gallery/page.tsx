@@ -8,10 +8,12 @@ const Gallery = async () => {
 	if (allGuitarSpecs instanceof Error) {
 		throw allGuitarSpecs;
 	}
-	const sliderSections = allGuitarSpecs.map((guitar) => ({
+	const sliderSections = allGuitarSpecs.guitarModelsWithSpecs.map((guitar) => ({
 		title: guitar.name + ", " + guitar.colorScheme,
 		tag: guitar.variantTag,
 	}));
+
+	// To-Do: Do Something with guitarModelsWithoutSpecs
 
 	return (
 		<AnimateWrapper>

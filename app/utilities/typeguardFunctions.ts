@@ -48,7 +48,6 @@ export const isGuitarSpecArray = (arr: any[]): arr is GuitarSpec[] => {
 			obj.updatedAt instanceof Date
 	);
 };
-
 export const isPageContentArray = (arr: any[]): arr is PageContent[] => {
 	return arr.every(
 		(obj) =>
@@ -203,4 +202,16 @@ export const isMessage = (obj: any): obj is Message => {
 		obj.createdAt instanceof Date &&
 		typeof obj.customerId === "number"
 	);
+};
+
+export const hasGuitarSpec = (
+	model: (BaseGuitarModel | VariantGuitarModel) & { guitarSpec: any }
+): model is BaseGuitarModel & { guitarSpec: GuitarSpec } => {
+	return model.guitarSpec !== null;
+};
+
+export const hasNoGuitarSpec = (
+	model: (BaseGuitarModel | VariantGuitarModel) & { guitarSpec: any }
+): model is BaseGuitarModel & { guitarSpec: null } => {
+	return model.guitarSpec === null;
 };

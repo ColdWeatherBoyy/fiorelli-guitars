@@ -3,6 +3,7 @@ import { getAllBaseGuitarModels } from "@/app/utilities/databaseFunctions/basegu
 import { useDeviceType } from "@/app/utilities/hooks.server";
 import SelectEditableLayout from "../../../components/CMS/SelectableEditableLayout";
 import AdminButtonLink from "@/app/(admin)/components/components/AdminButtonLink";
+import { GuitarSpec } from "@prisma/client";
 
 const BaseGuitarModels = async () => {
 	const isMobile = useDeviceType();
@@ -11,11 +12,14 @@ const BaseGuitarModels = async () => {
 		throw baseGuitarModels;
 	}
 
-	const titlesArray = baseGuitarModels.map((guitar) => guitar.name);
+	const titlesArray = baseGuitarModels.guitarModelsWithSpecs.map((guitar) => guitar.name);
 
-	const guitarSpecs = baseGuitarModels.map((guitar) => {
-		return guitar.guitarSpec;
-	});
+	// To-Do: Why do I need type assertion here?
+	const guitarSpecs = baseGuitarModels.guitarModelsWithSpecs.map(
+		(guitar) => guitar.guitarSpec as GuitarSpec
+	);
+
+	// To-Do: Do Something with guitarModelsWithoutSpecs
 
 	return (
 		<>

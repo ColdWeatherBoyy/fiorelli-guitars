@@ -54,12 +54,12 @@ model BaseGuitarModel {
   id                Int      @id @default(autoincrement())
   tag               String   @unique
   name              String   @unique
-  guitarSpec        GuitarSpec @relation(fields: [guitarSpecId], references: [id])
-  guitarSpecId      Int
+  guitarSpec        GuitarSpec? 
   variantModels     VariantGuitarModel[]
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 }
+
 model VariantGuitarModel {
   id                Int      @id @default(autoincrement())
   variantTag        String   @unique
@@ -67,11 +67,10 @@ model VariantGuitarModel {
   colorScheme       String
   baseModel         BaseGuitarModel @relation(fields: [baseModelId], references: [id])
   baseModelId       Int
-  guitarSpec        GuitarSpec @relation(fields: [guitarSpecId], references: [id])
-  guitarSpecId      Int
+  guitarSpec        GuitarSpec? 
   gallery           Boolean
   createdAt         DateTime @default(now())
-  updatedAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
 model GuitarSpec {
@@ -91,8 +90,10 @@ model GuitarSpec {
   tuners            String
   knobs             String?
   customFeatures    String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  baseGuitarModels  BaseGuitarModel[]
-  variantGuitarModels VariantGuitarModel[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  baseGuitarModel   BaseGuitarModel? @relation(fields: [baseGuitarModelId], references: [id])
+  baseGuitarModelId Int?      @unique
+  variantGuitarModel VariantGuitarModel? @relation(fields: [variantGuitarModelId], references: [id])
+  variantGuitarModelId Int?      @unique
 }

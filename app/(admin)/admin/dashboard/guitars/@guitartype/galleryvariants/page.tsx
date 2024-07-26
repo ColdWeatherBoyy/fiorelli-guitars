@@ -2,7 +2,7 @@ import Title from "@/app/(admin)/admin/dashboard/components/components/Title";
 import { getAllGalleryVariantGuitarModels } from "@/app/utilities/databaseFunctions/variantguitar.db";
 import { useDeviceType } from "@/app/utilities/hooks.server";
 import SelectEditableLayout from "../../../components/CMS/SelectableEditableLayout";
-import AdminButtonLink from "@/app/(admin)/components/components/AdminButtonLink";
+import { GuitarSpec } from "@prisma/client";
 
 const GalleryVariantModels = async () => {
 	const isMobile = useDeviceType();
@@ -11,13 +11,16 @@ const GalleryVariantModels = async () => {
 		throw galleryVariantModels;
 	}
 
-	const titlesArray = galleryVariantModels.map((guitar) => {
+	const titlesArray = galleryVariantModels.guitarModelsWithSpecs.map((guitar) => {
 		return `${guitar.name}, ${guitar.colorScheme}`;
 	});
 
-	const guitarSpecs = galleryVariantModels.map((guitar) => {
-		return guitar.guitarSpec;
+	// To-Do: Why do I need type assertion here?
+	const guitarSpecs = galleryVariantModels.guitarModelsWithSpecs.map((guitar) => {
+		return guitar.guitarSpec as GuitarSpec;
 	});
+
+	// To-Do: Do Something with guitarModelsWithoutSpecs
 
 	return (
 		<>
