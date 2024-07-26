@@ -1,7 +1,8 @@
 import Title from "@/app/(admin)/admin/dashboard/components/components/Title";
 import { getAllBaseGuitarModels } from "@/app/utilities/databaseFunctions/baseguitar.db";
 import { useDeviceType } from "@/app/utilities/hooks.server";
-import SelectEditableLayout from "../../components/CMS/SelectableEditableLayout";
+import SelectEditableLayout from "../../../components/CMS/SelectableEditableLayout";
+import AdminButtonLink from "@/app/(admin)/components/components/AdminButtonLink";
 
 const BaseGuitarModels = async () => {
 	const isMobile = useDeviceType();

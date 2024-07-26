@@ -32,9 +32,9 @@ const AddNewContent: FC<AddNewContentProps> = ({
 		<div className="flex flex-col gap-2 p-2 text-center">
 			<div className="underline">Add New Spec</div>
 			<Dropdown
+				key={key}
 				setValue={setNewSpec}
-				updatedValue={unusedSpec}
-				defaultValue="Select a spec"
+				defaultOption="Select a spec"
 				options={unusedSpec}
 			/>
 			{newSpec && (
