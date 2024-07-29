@@ -9,7 +9,7 @@ interface ToggleProps {
 
 const Toggle: FC<ToggleProps> = ({ toggled, handleToggle, optionOne, optionTwo }) => {
 	return (
-		<div className="flex items-center justify-center gap-2">
+		<div className="flex justify-center">
 			<div
 				className={`relative box-content rounded-full w-24 h-10 border border-slate-400 dark:border-slate-500 dark:placeholder-zinc-200 bg-zinc-50 dark:bg-zinc-600 shadow-inner-outer focus:shadow-md shadow-slate-400 dark:shadow-slate-900 focus:shadow-sm focus:shadow-slate-400 dark:focus:shadow-slate-900 focus:outline-0 focus:ring-1 focus:ring-cyan-400 dark:focus:ring-cyan-800 focus:ring-opacity-50 transition-all ease-in-out duration-200 flex items-center`}
 			>

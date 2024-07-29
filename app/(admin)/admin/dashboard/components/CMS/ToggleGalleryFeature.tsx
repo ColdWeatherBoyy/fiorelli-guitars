@@ -41,7 +41,7 @@ const ToggleGalleryFeature: FC<ToggleGalleryFeatureProps> = ({
 	};
 
 	return (
-		<div className="flex flex-col gap-4 p-2 text-center">
+		<div className="flex flex-col gap-2 p-2 text-center">
 			<div className="underline">Feature Variant in Gallery?</div>
 			<Toggle
 				toggled={galleryToggle}
