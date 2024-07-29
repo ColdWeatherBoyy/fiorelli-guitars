@@ -3,26 +3,29 @@ import {
 	getGuitarSpec,
 	updateGuitarModelSpec,
 } from "@/app/utilities/databaseFunctions/guitarspec.db";
-import { isGuitarSpec } from "@/app/utilities/typeguardFunctions";
-import { NotificationContentType } from "@/app/utilities/types";
+import { isGuitarSpec, isVariantGuitarModel } from "@/app/utilities/typeguardFunctions";
+import { GuitarModelWithSpec, NotificationContentType } from "@/app/utilities/types";
 import { GuitarSpec } from "@prisma/client";
 import { FC, useEffect, useState } from "react";
 import NotificationModal from "../notifications/NotificationModal";
 import AddNewContent from "./AddNewContent";
 import EditableContent from "./EditableContent";
+import ToggleGalleryFeature from "./ToggleGalleryFeature";
 
 interface EditableGuitarInfoLayoutProps {
-	guitarSpecs: GuitarSpec[];
+	models: GuitarModelWithSpec[];
 	selectedTab: number;
 	isMobile: boolean;
 }
 
 const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
-	guitarSpecs,
+	models,
 	selectedTab,
 	isMobile,
 }) => {
-	const [specs, setSpecs] = useState<GuitarSpec[]>(guitarSpecs);
+	const [specs, setSpecs] = useState<GuitarSpec[]>(
+		models.map((model) => model.guitarSpec)
+	);
 	const [unusedSpec, setUnusedSpec] = useState<(keyof GuitarSpec)[]>([]);
 	const [usedSpecs, setUsedSpecs] = useState<(keyof GuitarSpec)[]>([]);
 	const [newSpec, setNewSpec] = useState<string>("");
@@ -89,6 +92,14 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 					/>
 				);
 			})}
+			{isVariantGuitarModel(models[selectedTab]) && models[selectedTab].gallery && (
+				<ToggleGalleryFeature
+					initialToggle={models[selectedTab].gallery}
+					guitarId={models[selectedTab].id}
+					setNotificationContent={setNotificationContent}
+					setOpen={setOpen}
+				/>
+			)}
 
 			{unusedSpec.length > 0 && (
 				<AddNewContent

@@ -1,4 +1,9 @@
-import { AuthUser, Customer, GuitarSpec, PageContent } from "@prisma/client";
+import {
+	AuthUser,
+	BaseGuitarModel,
+	GuitarSpec,
+	VariantGuitarModel,
+} from "@prisma/client";
 
 export enum WelcomeState {
 	welcome = "welcome",
@@ -43,3 +48,12 @@ export interface TableInteractionProps {
 export type NotificationContentType =
 	| { key: "string"; content: string }
 	| { key: "error"; content: Error };
+
+export interface VariantGuitarModelWithSpec extends VariantGuitarModel {
+	guitarSpec: GuitarSpec;
+}
+export interface BaseGuitarModelWithSpec extends BaseGuitarModel {
+	guitarSpec: GuitarSpec;
+}
+
+export type GuitarModelWithSpec = VariantGuitarModelWithSpec | BaseGuitarModelWithSpec;

@@ -7,16 +7,12 @@ import {
 	PageContent,
 	GuitarSpec,
 } from "@prisma/client";
-import { AuthUserResponse } from "./types";
-
-// export const isContactFormData = (
-// 	response: CreateCustomerAndMessageResponse
-// ): response is ContactFormData => {
-// 	return (
-// 		(response as ContactFormData).customer !== undefined &&
-// 		(response as ContactFormData).newMessage !== undefined
-// 	);
-// };
+import {
+	AuthUserResponse,
+	BaseGuitarModelWithSpec,
+	GuitarModelWithSpec,
+	VariantGuitarModelWithSpec,
+} from "./types";
 
 export const isAuthUser = (response: AuthUserResponse): response is AuthUser => {
 	return (
@@ -64,6 +60,20 @@ export const isPageContentArray = (arr: any[]): arr is PageContent[] => {
 	);
 };
 
+export const isVariantGuitarModel = (obj: any): obj is VariantGuitarModel => {
+	return (
+		typeof obj === "object" &&
+		typeof obj.id === "number" &&
+		typeof obj.variantTag === "string" &&
+		typeof obj.name === "string" &&
+		typeof obj.colorScheme === "string" &&
+		typeof obj.baseModelId === "number" &&
+		typeof obj.gallery === "boolean" &&
+		typeof obj.createdAt === "object" &&
+		typeof obj.updatedAt === "object"
+	);
+};
+
 export const isGuitarSpec = (obj: any): obj is GuitarSpec => {
 	return (
 		typeof obj === "object" &&
@@ -103,51 +113,49 @@ export const isPageContent = (obj: any): obj is PageContent => {
 	);
 };
 
-export const isBaseGuitarModel = (obj: any): obj is BaseGuitarModel => {
+export const isGuitarModelWithSpecArray = (arr: any[]): arr is GuitarModelWithSpec[] => {
+	return arr.every((obj) => {
+		return (
+			typeof obj === "object" &&
+			typeof obj.id === "number" &&
+			typeof obj.name === "string" &&
+			obj.createdAt instanceof Date &&
+			obj.updatedAt instanceof Date &&
+			isGuitarSpec(obj.guitarSpec)
+		);
+	});
+};
+
+export const hasGuitarSpec = (
+	model: (BaseGuitarModel | VariantGuitarModel) & { guitarSpec: null | GuitarSpec }
+): model is BaseGuitarModelWithSpec | VariantGuitarModelWithSpec => {
+	return model.guitarSpec !== null;
+};
+
+export const hasNoGuitarSpec = (
+	model: (BaseGuitarModel | VariantGuitarModel) & { guitarSpec: null | GuitarSpec }
+): model is (BaseGuitarModel | VariantGuitarModel) & { guitarSpec: null } => {
+	return model.guitarSpec === null;
+};
+
+export const isCustomer = (obj: any): obj is Customer => {
 	return (
 		typeof obj === "object" &&
+		obj !== null &&
 		typeof obj.id === "number" &&
-		typeof obj.tag === "string" &&
-		typeof obj.name === "string" &&
-		typeof obj.body === "string" &&
-		typeof obj.neck === "string" &&
-		typeof obj.fingerboard === "string" &&
-		typeof obj.fingerboardRadius === "string" &&
-		typeof obj.scaleLength === "string" &&
-		typeof obj.fretMarkers === "string" &&
-		typeof obj.neckPickup === "string" &&
-		(typeof obj.middlePickup === "string" || obj.middlePickup === null) &&
-		typeof obj.bridgePickup === "string" &&
-		typeof obj.pickupSwitch === "string" &&
-		typeof obj.bridge === "string" &&
-		typeof obj.tuners === "string" &&
-		typeof obj.knobs === "string" &&
-		obj.createdAt instanceof Date &&
-		obj.updatedAt instanceof Date
+		typeof obj.email === "string" &&
+		(typeof obj.name === "string" || obj.name === null) &&
+		obj.createdAt instanceof Date
 	);
 };
 
-export const isVariantGuitarModel = (obj: any): obj is VariantGuitarModel => {
+export const isMessage = (obj: any): obj is Message => {
 	return (
 		typeof obj === "object" &&
 		typeof obj.id === "number" &&
-		typeof obj.tag === "string" &&
-		typeof obj.name === "string" &&
-		typeof obj.body === "string" &&
-		typeof obj.neck === "string" &&
-		typeof obj.fingerboard === "string" &&
-		typeof obj.fingerboardRadius === "string" &&
-		typeof obj.scaleLength === "string" &&
-		typeof obj.fretMarkers === "string" &&
-		typeof obj.neckPickup === "string" &&
-		(typeof obj.middlePickup === "string" || obj.middlePickup === null) &&
-		typeof obj.bridgePickup === "string" &&
-		typeof obj.pickupSwitch === "string" &&
-		typeof obj.bridge === "string" &&
-		typeof obj.tuners === "string" &&
-		typeof obj.knobs === "string" &&
+		typeof obj.content === "string" &&
 		obj.createdAt instanceof Date &&
-		obj.updatedAt instanceof Date
+		typeof obj.customerId === "number"
 	);
 };
 
@@ -183,35 +191,11 @@ export const isVariantGuitarModel = (obj: any): obj is VariantGuitarModel => {
 // 	);
 // };
 
-export const isCustomer = (obj: any): obj is Customer => {
-	return (
-		typeof obj === "object" &&
-		obj !== null &&
-		typeof obj.id === "number" &&
-		typeof obj.email === "string" &&
-		(typeof obj.name === "string" || obj.name === null) &&
-		obj.createdAt instanceof Date
-	);
-};
-
-export const isMessage = (obj: any): obj is Message => {
-	return (
-		typeof obj === "object" &&
-		typeof obj.id === "number" &&
-		typeof obj.content === "string" &&
-		obj.createdAt instanceof Date &&
-		typeof obj.customerId === "number"
-	);
-};
-
-export const hasGuitarSpec = (
-	model: (BaseGuitarModel | VariantGuitarModel) & { guitarSpec: any }
-): model is BaseGuitarModel & { guitarSpec: GuitarSpec } => {
-	return model.guitarSpec !== null;
-};
-
-export const hasNoGuitarSpec = (
-	model: (BaseGuitarModel | VariantGuitarModel) & { guitarSpec: any }
-): model is BaseGuitarModel & { guitarSpec: null } => {
-	return model.guitarSpec === null;
-};
+// export const isContactFormData = (
+// 	response: CreateCustomerAndMessageResponse
+// ): response is ContactFormData => {
+// 	return (
+// 		(response as ContactFormData).customer !== undefined &&
+// 		(response as ContactFormData).newMessage !== undefined
+// 	);
+// };

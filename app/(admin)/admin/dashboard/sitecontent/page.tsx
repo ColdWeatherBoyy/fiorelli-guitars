@@ -73,16 +73,12 @@ const SiteContent = async () => {
 		contactData.pageContent,
 	];
 
-	const titlesArray = [homeData.page.title, aboutData.page.title, contactData.page.title];
+	const titles = [homeData.page.title, aboutData.page.title, contactData.page.title];
 
 	return (
 		<>
 			<Title title="Site Content" />
-			<SelectEditableLayout
-				content={pageContents}
-				titlesArray={titlesArray}
-				isMobile={isMobile}
-			/>
+			<SelectEditableLayout content={pageContents} titles={titles} isMobile={isMobile} />
 		</>
 	);
 };

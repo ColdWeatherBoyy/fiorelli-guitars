@@ -12,12 +12,7 @@ const BaseGuitarModels = async () => {
 		throw baseGuitarModels;
 	}
 
-	const titlesArray = baseGuitarModels.guitarModelsWithSpecs.map((guitar) => guitar.name);
-
-	// To-Do: Why do I need type assertion here?
-	const guitarSpecs = baseGuitarModels.guitarModelsWithSpecs.map(
-		(guitar) => guitar.guitarSpec as GuitarSpec
-	);
+	const titles = baseGuitarModels.guitarModelsWithSpecs.map((guitar) => guitar.name);
 
 	// To-Do: Do Something with guitarModelsWithoutSpecs
 
@@ -25,8 +20,8 @@ const BaseGuitarModels = async () => {
 		<>
 			<Title title="Base Guitar Models" />
 			<SelectEditableLayout
-				content={guitarSpecs}
-				titlesArray={titlesArray}
+				content={baseGuitarModels.guitarModelsWithSpecs}
+				titles={titles}
 				isMobile={isMobile}
 			/>
 		</>

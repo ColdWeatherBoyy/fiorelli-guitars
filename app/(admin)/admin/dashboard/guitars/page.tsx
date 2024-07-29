@@ -18,11 +18,6 @@ const Guitars = async () => {
 					href="/admin/dashboard/guitars/variants"
 					isMobile={isMobile}
 				/>
-				<AdminButtonLink
-					text="Gallery Variants"
-					href="/admin/dashboard/guitars/galleryvariants"
-					isMobile={isMobile}
-				/>
 			</div>
 		</>
 	);

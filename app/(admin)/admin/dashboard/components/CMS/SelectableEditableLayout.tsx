@@ -1,23 +1,25 @@
 "use client";
 
 import {
+	isGuitarModelWithSpecArray,
 	isGuitarSpecArray,
 	isPageContentArray,
 } from "@/app/utilities/typeguardFunctions";
-import { GuitarSpec, PageContent } from "@prisma/client";
+import { GuitarModelWithSpec } from "@/app/utilities/types";
+import { PageContent } from "@prisma/client";
 import { FC, useState } from "react";
 import EditableGuitarInfoLayout from "./EditableGuitarInfoLayout";
 import EditablePageContentLayout from "./EditablePageContentLayout";
 
 interface SelectEditableLayoutProps {
-	content: PageContent[] | GuitarSpec[];
-	titlesArray: string[];
+	content: PageContent[] | GuitarModelWithSpec[];
+	titles: string[];
 	isMobile: boolean;
 }
 
 const SelectEditableLayout: FC<SelectEditableLayoutProps> = ({
 	content,
-	titlesArray,
+	titles,
 	isMobile,
 }) => {
 	const [selectedTab, setSelectedTab] = useState(0);
@@ -25,7 +27,7 @@ const SelectEditableLayout: FC<SelectEditableLayoutProps> = ({
 	return (
 		<div className="w-4/5 rounded-md shadow-sm shadow-slate-500 dark:shadow-slate-400">
 			<div className="flex justify-start rounded-t-md w-full text-center">
-				{titlesArray.map((title, index) => (
+				{titles.map((title, index) => (
 					<div
 						key={index}
 						onClick={() => setSelectedTab(index)}
@@ -47,9 +49,9 @@ const SelectEditableLayout: FC<SelectEditableLayoutProps> = ({
 						selectedTab={selectedTab}
 						isMobile={isMobile}
 					/>
-				) : isGuitarSpecArray(content) ? (
+				) : isGuitarModelWithSpecArray(content) ? (
 					<EditableGuitarInfoLayout
-						guitarSpecs={content}
+						models={content}
 						selectedTab={selectedTab}
 						isMobile={isMobile}
 					/>

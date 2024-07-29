@@ -16,7 +16,7 @@ export default function Error({
 	useEffect(() => {
 		// Send email to me
 		console.error("hi", error);
-		console.log("hi", error.name);
+		console.error("hi", error.name);
 	}, [error]);
 
 	return (
