@@ -23,6 +23,7 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 	selectedTab,
 	isMobile,
 }) => {
+	const selectedModel = models[selectedTab];
 	const [specs, setSpecs] = useState<GuitarSpec[]>(
 		models.map((model) => model.guitarSpec)
 	);
@@ -92,10 +93,11 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 					/>
 				);
 			})}
-			{isVariantGuitarModel(models[selectedTab]) && models[selectedTab].gallery && (
+
+			{isVariantGuitarModel(selectedModel) && (
 				<ToggleGalleryFeature
-					initialToggle={models[selectedTab].gallery}
-					guitarId={models[selectedTab].id}
+					initialToggle={selectedModel.gallery}
+					guitarId={selectedModel.id}
 					setNotificationContent={setNotificationContent}
 					setOpen={setOpen}
 				/>

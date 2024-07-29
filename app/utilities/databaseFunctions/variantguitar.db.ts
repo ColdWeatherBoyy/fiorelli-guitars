@@ -2,6 +2,7 @@
 
 import { Prisma, PrismaClient } from "@prisma/client";
 import { hasGuitarSpec, hasNoGuitarSpec } from "../typeguardFunctions";
+import { VariantGuitarModelWithoutSpec, VariantGuitarModelWithSpec } from "../types";
 
 const prisma = new PrismaClient();
 

@@ -2,7 +2,6 @@
 
 import {
 	isGuitarModelWithSpecArray,
-	isGuitarSpecArray,
 	isPageContentArray,
 } from "@/app/utilities/typeguardFunctions";
 import { GuitarModelWithSpec } from "@/app/utilities/types";

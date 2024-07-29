@@ -13,7 +13,6 @@ interface AddNewContentProps {
 	handleAddSpec: () => void;
 }
 
-// To-Do: ADD Variant updates
 const AddNewContent: FC<AddNewContentProps> = ({
 	setNewSpec,
 	newSpec,

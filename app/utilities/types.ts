@@ -55,5 +55,15 @@ export interface VariantGuitarModelWithSpec extends VariantGuitarModel {
 export interface BaseGuitarModelWithSpec extends BaseGuitarModel {
 	guitarSpec: GuitarSpec;
 }
+export interface VariantGuitarModelWithoutSpec extends VariantGuitarModel {
+	guitarSpec: null;
+}
+export interface BaseGuitarModelWithoutSpec extends BaseGuitarModel {
+	guitarSpec: null;
+}
 
 export type GuitarModelWithSpec = VariantGuitarModelWithSpec | BaseGuitarModelWithSpec;
+
+export type GuitarModelWithoutSpec =
+	| VariantGuitarModelWithoutSpec
+	| BaseGuitarModelWithoutSpec;

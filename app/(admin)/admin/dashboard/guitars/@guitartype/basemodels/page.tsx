@@ -1,9 +1,8 @@
 import Title from "@/app/(admin)/admin/dashboard/components/components/Title";
 import { getAllBaseGuitarModels } from "@/app/utilities/databaseFunctions/baseguitar.db";
 import { useDeviceType } from "@/app/utilities/hooks.server";
+import { BaseGuitarModelWithSpec } from "@/app/utilities/types";
 import SelectEditableLayout from "../../../components/CMS/SelectableEditableLayout";
-import AdminButtonLink from "@/app/(admin)/components/components/AdminButtonLink";
-import { GuitarSpec } from "@prisma/client";
 
 const BaseGuitarModels = async () => {
 	const isMobile = useDeviceType();
@@ -15,12 +14,13 @@ const BaseGuitarModels = async () => {
 	const titles = baseGuitarModels.guitarModelsWithSpecs.map((guitar) => guitar.name);
 
 	// To-Do: Do Something with guitarModelsWithoutSpecs
+	const guitarModelsWithSpecs = baseGuitarModels.guitarModelsWithSpecs;
 
 	return (
 		<>
 			<Title title="Base Guitar Models" />
 			<SelectEditableLayout
-				content={baseGuitarModels.guitarModelsWithSpecs}
+				content={guitarModelsWithSpecs}
 				titles={titles}
 				isMobile={isMobile}
 			/>

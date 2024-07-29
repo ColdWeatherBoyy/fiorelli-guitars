@@ -9,8 +9,10 @@ import {
 } from "@prisma/client";
 import {
 	AuthUserResponse,
+	BaseGuitarModelWithoutSpec,
 	BaseGuitarModelWithSpec,
 	GuitarModelWithSpec,
+	VariantGuitarModelWithoutSpec,
 	VariantGuitarModelWithSpec,
 } from "./types";
 
@@ -126,15 +128,15 @@ export const isGuitarModelWithSpecArray = (arr: any[]): arr is GuitarModelWithSp
 	});
 };
 
-export const hasGuitarSpec = (
-	model: (BaseGuitarModel | VariantGuitarModel) & { guitarSpec: null | GuitarSpec }
-): model is BaseGuitarModelWithSpec | VariantGuitarModelWithSpec => {
+export const hasGuitarSpec = <T>(
+	model: T & { guitarSpec: null | GuitarSpec }
+): model is T & { guitarSpec: GuitarSpec } => {
 	return model.guitarSpec !== null;
 };
 
-export const hasNoGuitarSpec = (
-	model: (BaseGuitarModel | VariantGuitarModel) & { guitarSpec: null | GuitarSpec }
-): model is (BaseGuitarModel | VariantGuitarModel) & { guitarSpec: null } => {
+export const hasNoGuitarSpec = <T>(
+	model: T & { guitarSpec: null | GuitarSpec }
+): model is T & { guitarSpec: null } => {
 	return model.guitarSpec === null;
 };
 
