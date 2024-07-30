@@ -3,6 +3,7 @@ import {
 	getGuitarSpec,
 	updateGuitarModelSpec,
 } from "@/app/utilities/databaseFunctions/guitarspec.db";
+import { updateVariantGuitar } from "@/app/utilities/databaseFunctions/variantguitar.db";
 import { isGuitarSpec, isVariantGuitarModel } from "@/app/utilities/typeguardFunctions";
 import { GuitarModelWithSpec, NotificationContentType } from "@/app/utilities/types";
 import { GuitarSpec } from "@prisma/client";
@@ -23,7 +24,10 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 	selectedTab,
 	isMobile,
 }) => {
-	const selectedModel = models[selectedTab];
+	const [selectedModel, setSelectedModel] = useState(models[selectedTab]);
+	const [isGallery, setIsGallery] = useState(
+		isVariantGuitarModel(selectedModel) ? selectedModel.gallery : false
+	);
 	const [specs, setSpecs] = useState<GuitarSpec[]>(
 		models.map((model) => model.guitarSpec)
 	);
@@ -38,6 +42,7 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 		}
 	);
 
+	// When Selected Tab changes, reset unusedSpecs, usedSpecs, and selectedModel
 	useEffect(() => {
 		const unusedSpecs: (keyof GuitarSpec)[] = [];
 		const usedSpecs: (keyof GuitarSpec)[] = [];
@@ -52,8 +57,15 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 		});
 		setUnusedSpec(unusedSpecs);
 		setUsedSpecs(usedSpecs);
-	}, [specs, selectedTab]);
+		setSelectedModel(models[selectedTab]);
+	}, [models, specs, selectedTab]);
 
+	// When SelectedModel changes, update isGallery state
+	useEffect(() => {
+		setIsGallery(isVariantGuitarModel(selectedModel) ? selectedModel.gallery : false);
+	}, [selectedModel]);
+
+	// Using database to update guitar model specs, retriggering component to render when specs state changes
 	const handleSpecChange = async () => {
 		const newSpecs = await getGuitarSpec(specs[selectedTab].id);
 		if (!isGuitarSpec(newSpecs)) {
@@ -76,6 +88,24 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 		setNewSpec("");
 	};
 
+	// Update the gallery boolean for the selected guitar model
+	const handleGalleryToggle = async () => {
+		if (!isVariantGuitarModel(selectedModel)) return;
+		const updatedGuitarModel = await updateVariantGuitar(
+			selectedModel.id,
+			"gallery",
+			!isGallery
+		);
+		if (!isVariantGuitarModel(updatedGuitarModel)) {
+			setNotificationContent({ key: "error", content: updatedGuitarModel });
+		} else {
+			setNotificationContent({ key: "string", content: "Gallery feature updated!" });
+			setIsGallery((prev) => !prev);
+		}
+		setOpen(true);
+		return;
+	};
+
 	return (
 		<>
 			{usedSpecs.map((spec) => {
@@ -96,10 +126,9 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 
 			{isVariantGuitarModel(selectedModel) && (
 				<ToggleGalleryFeature
-					initialToggle={selectedModel.gallery}
-					guitarId={selectedModel.id}
-					setNotificationContent={setNotificationContent}
-					setOpen={setOpen}
+					isToggled={isGallery}
+					handleToggle={handleGalleryToggle}
+					isMobile={isMobile}
 				/>
 			)}
 

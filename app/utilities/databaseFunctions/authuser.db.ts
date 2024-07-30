@@ -8,7 +8,11 @@ const prisma = new PrismaClient();
 // Not an event handler, so can return Error object
 export const getAuthUsers = async (): Promise<AuthUser[] | Error> => {
 	try {
-		const authUsers = await prisma.authUser.findMany({});
+		const authUsers = await prisma.authUser.findMany({
+			orderBy: {
+				email: "asc",
+			},
+		});
 
 		if (authUsers.length === 0) {
 			const error = new Error("No authorized users found.");

@@ -72,6 +72,9 @@ export const createCustomer = async (formData: FormData): Promise<Customer | Err
 export const getCustomers = async () => {
 	try {
 		const customers = await prisma.customer.findMany({
+			orderBy: {
+				email: "asc",
+			},
 			select: {
 				email: true,
 				name: true,

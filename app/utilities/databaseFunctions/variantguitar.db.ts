@@ -88,6 +88,9 @@ export const getVariantGuitarModel = async (
 export const getAllVariantGuitarModels = async () => {
 	try {
 		const guitarModels = await prisma.variantGuitarModel.findMany({
+			orderBy: {
+				name: "asc",
+			},
 			include: {
 				guitarSpec: true,
 			},
@@ -124,6 +127,9 @@ export const getAllVariantGuitarModels = async () => {
 export const getAllGalleryVariantGuitarModels = async () => {
 	try {
 		const guitarModels = await prisma.variantGuitarModel.findMany({
+			orderBy: {
+				name: "asc",
+			},
 			where: {
 				gallery: true,
 			},

@@ -88,6 +88,9 @@ export const getBaseGuitarModel = async (tag: string, client: boolean = false) =
 export const getAllBaseGuitarModels = async () => {
 	try {
 		const guitarModels = await prisma.baseGuitarModel.findMany({
+			orderBy: {
+				name: "asc",
+			},
 			include: {
 				guitarSpec: true,
 			},
