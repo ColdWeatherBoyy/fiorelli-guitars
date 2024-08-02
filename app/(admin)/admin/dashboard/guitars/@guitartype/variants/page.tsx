@@ -1,8 +1,7 @@
-import Title from "@/app/(admin)/admin/dashboard/components/components/Title";
 import { getAllVariantGuitarModels } from "@/app/utilities/databaseFunctions/variantguitar.db";
 import { useDeviceType } from "@/app/utilities/hooks.server";
-import { VariantGuitarModelWithSpec } from "@/app/utilities/types";
 import SelectEditableLayout from "../../../components/CMS/SelectableEditableLayout";
+import SubTitle from "../../../components/components/SubTitle";
 
 const AllVariantModels = async () => {
 	const isMobile = useDeviceType();
@@ -21,7 +20,7 @@ const AllVariantModels = async () => {
 
 	return (
 		<>
-			<Title title="Variant Models" />
+			<SubTitle title="Variant Models" />
 			<SelectEditableLayout
 				content={guitarModelsWithSpecs}
 				titles={titles}

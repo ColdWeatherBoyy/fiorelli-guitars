@@ -13,7 +13,7 @@ export async function generateStaticParams() {
 		.with_field("context")
 		.execute();
 	const { resources: resourcesSP } = await cloudinary.search
-		.expression(`tags=SP_Guitar_Natural`)
+		.expression(`tags=SPGuitar_Natural`)
 		.with_field("context")
 		.execute();
 
@@ -22,7 +22,7 @@ export async function generateStaticParams() {
 		index: index.toString(),
 	}));
 	const params2 = resourcesSP.map((resource: CloudinaryResource, index: number) => ({
-		tag: "SP_Guitar_Natural",
+		tag: "SPGuitar_Natural",
 		index: index.toString(),
 	}));
 	return params.concat(params2);

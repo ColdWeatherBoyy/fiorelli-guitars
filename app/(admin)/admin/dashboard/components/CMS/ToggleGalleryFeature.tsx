@@ -21,6 +21,7 @@ const ToggleGalleryFeature: FC<ToggleGalleryFeatureProps> = ({
 				optionOne="Yes"
 				optionTwo="No"
 				isMobile={isMobile}
+				small={true}
 			/>
 		</div>
 	);

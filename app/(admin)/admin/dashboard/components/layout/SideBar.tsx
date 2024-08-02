@@ -19,7 +19,6 @@ const SideBar: FC<SideBarProps> = ({ open, setOpen, isMobile }) => {
 		{ link: "/admin/dashboard/users", text: "Admins" },
 		{ link: "/admin/dashboard/sitecontent", text: "CMS" },
 		{ link: "/admin/dashboard/guitars", text: "Guitars" },
-		{ link: "/admin/dashboard/images", text: "Images" },
 	];
 
 	const handleMobileClick = () => {

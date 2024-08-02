@@ -2,18 +2,22 @@
 
 import { CldUploadWidget } from "next-cloudinary";
 import { FC } from "react";
+import Title from "../components/Title";
+import Heading from "../components/Heading";
 
 interface UploaderProps {
+	tags: string[];
 	isMobile: boolean;
 }
 
-const Uploader: FC<UploaderProps> = ({ isMobile }) => {
+const Uploader: FC<UploaderProps> = ({ tags, isMobile }) => {
 	return (
-		<>
+		<div className="flex flex-col gap-4">
+			<Heading title={`Upload Images with the Following Tags: ${tags.join(", ")}`} />
 			<CldUploadWidget
 				uploadPreset="Main_Fiorelli"
 				options={{
-					tags: ["test"],
+					tags: [...tags],
 					multiple: true,
 				}}
 				onSuccess={(result, current_asset) => {
@@ -35,7 +39,7 @@ const Uploader: FC<UploaderProps> = ({ isMobile }) => {
 					);
 				}}
 			</CldUploadWidget>
-		</>
+		</div>
 	);
 };
 

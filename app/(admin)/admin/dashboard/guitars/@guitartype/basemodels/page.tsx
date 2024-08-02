@@ -1,8 +1,7 @@
-import Title from "@/app/(admin)/admin/dashboard/components/components/Title";
 import { getAllBaseGuitarModels } from "@/app/utilities/databaseFunctions/baseguitar.db";
 import { useDeviceType } from "@/app/utilities/hooks.server";
-import { BaseGuitarModelWithSpec } from "@/app/utilities/types";
 import SelectEditableLayout from "../../../components/CMS/SelectableEditableLayout";
+import SubTitle from "../../../components/components/SubTitle";
 
 const BaseGuitarModels = async () => {
 	const isMobile = useDeviceType();
@@ -18,7 +17,7 @@ const BaseGuitarModels = async () => {
 
 	return (
 		<>
-			<Title title="Base Guitar Models" />
+			<SubTitle title="Base Guitar Models" />
 			<SelectEditableLayout
 				content={guitarModelsWithSpecs}
 				titles={titles}
