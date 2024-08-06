@@ -10,6 +10,7 @@ import {
 	AuthUserResponse,
 	BaseGuitarNeeds,
 	GuitarModelWithSpec,
+	VariantGuitarModelWithSpec,
 	VariantGuitarNeeds,
 } from "./types";
 
@@ -253,6 +254,23 @@ export const isArrayOfVariantGuitarNeedKeys = (
 			key === "tuners" ||
 			key === "knobs" ||
 			key === "customFeatures"
+	);
+};
+
+export const isVariantGuitarModelWithSpec = (
+	obj: any
+): obj is VariantGuitarModelWithSpec => {
+	return (
+		typeof obj === "object" &&
+		typeof obj.id === "number" &&
+		typeof obj.variantTag === "string" &&
+		typeof obj.name === "string" &&
+		typeof obj.colorScheme === "string" &&
+		typeof obj.baseModelId === "number" &&
+		typeof obj.gallery === "boolean" &&
+		typeof obj.createdAt === "object" &&
+		typeof obj.updatedAt === "object" &&
+		isGuitarSpec(obj.guitarSpec)
 	);
 };
 

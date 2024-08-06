@@ -100,7 +100,7 @@ const VariantGuitarForm: FC<VariantGuitarFormProps> = ({
 			};
 			setContent(newContent);
 		}
-	}, [selectedTemplate, setContent]);
+	}, [selectedTemplate, setContent, content.colorScheme]);
 
 	useEffect(() => {
 		setContent((prev) => ({
@@ -111,7 +111,7 @@ const VariantGuitarForm: FC<VariantGuitarFormProps> = ({
 				""
 			)}`,
 		}));
-	}, [content.colorScheme, setContent]);
+	}, [content.colorScheme, setContent, selectedTemplate?.tag]);
 
 	const handleClick = async () => {
 		const missingFields = requiredVariantGuitarSpecs.filter(

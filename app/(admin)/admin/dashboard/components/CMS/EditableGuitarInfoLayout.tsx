@@ -3,7 +3,10 @@ import { FC, useState } from "react";
 import EditableGuitarSpecLayout from "./EditableGuitarSpecLayout";
 import Toggle from "@/app/(admin)/components/components/Toggle";
 import Uploader from "./Uploader";
-import { isVariantGuitarModel } from "@/app/utilities/typeguardFunctions";
+import {
+	isVariantGuitarModel,
+	isVariantGuitarModelWithSpec,
+} from "@/app/utilities/typeguardFunctions";
 import GuitarImageGallery from "./GuitarImageGallery";
 
 interface EditableGuitarInfoLayoutProps {
@@ -41,7 +44,7 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 					<div className="my-4 col-span-2 flex justify-center">
 						<Uploader
 							tags={
-								isVariantGuitarModel(models[selectedTab])
+								isVariantGuitarModelWithSpec(models[selectedTab])
 									? [
 											models[selectedTab].variantTag,
 											models[selectedTab].variantTag.split("_")[0],
