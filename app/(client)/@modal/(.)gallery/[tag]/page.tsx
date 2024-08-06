@@ -26,7 +26,7 @@ const GuitarSpecs: React.FC<GuitarSpecsProps> = async ({ params: { tag } }) => {
 			>
 				<Link
 					href="/gallery"
-					className={`absolute right-4 top-4 active:scale-95 transition-all duration-100 ease-in-out
+					className={`absolute right-2 top-2 active:scale-95 transition-all duration-100 ease-in-out
 									${!isMobile && "hover:scale-[110%]"}`}
 				>
 					<XIcon />

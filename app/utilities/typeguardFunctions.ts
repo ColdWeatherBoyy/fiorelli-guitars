@@ -1,19 +1,16 @@
 import {
 	AuthUser,
 	Customer,
-	BaseGuitarModel,
-	VariantGuitarModel,
+	GuitarSpec,
 	Message,
 	PageContent,
-	GuitarSpec,
+	VariantGuitarModel,
 } from "@prisma/client";
 import {
 	AuthUserResponse,
-	BaseGuitarModelWithoutSpec,
-	BaseGuitarModelWithSpec,
+	BaseGuitarNeeds,
 	GuitarModelWithSpec,
-	VariantGuitarModelWithoutSpec,
-	VariantGuitarModelWithSpec,
+	VariantGuitarNeeds,
 } from "./types";
 
 export const isAuthUser = (response: AuthUserResponse): response is AuthUser => {
@@ -158,6 +155,104 @@ export const isMessage = (obj: any): obj is Message => {
 		typeof obj.content === "string" &&
 		obj.createdAt instanceof Date &&
 		typeof obj.customerId === "number"
+	);
+};
+
+export const isBaseGuitarNeeds = (obj: any): obj is BaseGuitarNeeds => {
+	return (
+		typeof obj === "object" &&
+		typeof obj.name === "string" &&
+		typeof obj.tag === "string" &&
+		typeof obj.body === "string" &&
+		typeof obj.neck === "string" &&
+		typeof obj.fingerboard === "string" &&
+		typeof obj.fingerboardRadius === "string" &&
+		typeof obj.scaleLength === "string" &&
+		typeof obj.fretMarkers === "string" &&
+		typeof obj.neckPickup === "string" &&
+		(typeof obj.middlePickup === "string" || obj.middlePickup === null) &&
+		(typeof obj.bridgePickup === "string" || obj.bridgePickup === null) &&
+		(typeof obj.pickupSwitch === "string" || obj.pickupSwitch === null) &&
+		typeof obj.bridge === "string" &&
+		(typeof obj.vibrato === "string" || obj.vibrato === null) &&
+		typeof obj.tuners === "string" &&
+		(typeof obj.knobs === "string" || obj.knobs === null) &&
+		(typeof obj.customFeatures === "string" || obj.customFeatures === null)
+	);
+};
+
+export const isVariantGuitarNeeds = (obj: any): obj is VariantGuitarNeeds => {
+	return (
+		typeof obj === "object" &&
+		typeof obj.name === "string" &&
+		typeof obj.variantTag === "string" &&
+		typeof obj.colorScheme === "string" &&
+		typeof obj.body === "string" &&
+		typeof obj.neck === "string" &&
+		typeof obj.fingerboard === "string" &&
+		typeof obj.fingerboardRadius === "string" &&
+		typeof obj.scaleLength === "string" &&
+		typeof obj.fretMarkers === "string" &&
+		typeof obj.neckPickup === "string" &&
+		(typeof obj.middlePickup === "string" || obj.middlePickup === null) &&
+		(typeof obj.bridgePickup === "string" || obj.bridgePickup === null) &&
+		(typeof obj.pickupSwitch === "string" || obj.pickupSwitch === null) &&
+		typeof obj.bridge === "string" &&
+		(typeof obj.vibrato === "string" || obj.vibrato === null) &&
+		typeof obj.tuners === "string" &&
+		(typeof obj.knobs === "string" || obj.knobs === null) &&
+		(typeof obj.customFeatures === "string" || obj.customFeatures === null)
+	);
+};
+
+export const isArrayOfBaseGuitarNeedKeys = (
+	arr: any[]
+): arr is (keyof BaseGuitarNeeds)[] => {
+	return arr.every(
+		(key) =>
+			key === "name" ||
+			key === "tag" ||
+			key === "body" ||
+			key === "neck" ||
+			key === "fingerboard" ||
+			key === "fingerboardRadius" ||
+			key === "scaleLength" ||
+			key === "fretMarkers" ||
+			key === "neckPickup" ||
+			key === "middlePickup" ||
+			key === "bridgePickup" ||
+			key === "pickupSwitch" ||
+			key === "bridge" ||
+			key === "vibrato" ||
+			key === "tuners" ||
+			key === "knobs" ||
+			key === "customFeatures"
+	);
+};
+
+export const isArrayOfVariantGuitarNeedKeys = (
+	arr: any[]
+): arr is (keyof VariantGuitarNeeds)[] => {
+	return arr.every(
+		(key) =>
+			key === "name" ||
+			key === "variantTag" ||
+			key === "colorScheme" ||
+			key === "body" ||
+			key === "neck" ||
+			key === "fingerboard" ||
+			key === "fingerboardRadius" ||
+			key === "scaleLength" ||
+			key === "fretMarkers" ||
+			key === "neckPickup" ||
+			key === "middlePickup" ||
+			key === "bridgePickup" ||
+			key === "pickupSwitch" ||
+			key === "bridge" ||
+			key === "vibrato" ||
+			key === "tuners" ||
+			key === "knobs" ||
+			key === "customFeatures"
 	);
 };
 

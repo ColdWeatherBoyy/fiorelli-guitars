@@ -9,20 +9,24 @@ interface GuitarImageGalleryProps {
 
 const GuitarImageGallery: FC<GuitarImageGalleryProps> = ({ tag }) => {
 	const [fullResources, setFullResources] = useState<CloudinaryResource[]>([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		setFullResources([]);
 		const fetchResources = async () => {
 			const resources = await getResources(tag);
 			setFullResources(resources);
+			setLoading(false);
 		};
 		fetchResources();
 	}, [tag]);
 
 	return (
 		<div className="w-full col-span-2 grid grid-cols-3 gap-4">
-			{fullResources.length === 0 ? (
-				<div className="col-span-">Loading...</div>
+			{loading ? (
+				<div className="col-span-3 flex justify-center">Loading...</div>
+			) : fullResources.length === 0 ? (
+				<div className="col-span-3 flex justify-center">No images found.</div>
 			) : (
 				fullResources.map((resource) => (
 					<CldImage

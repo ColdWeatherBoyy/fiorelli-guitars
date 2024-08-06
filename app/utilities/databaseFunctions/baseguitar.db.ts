@@ -1,12 +1,11 @@
 "use server";
 
-import { BaseGuitarModel, GuitarSpec, Prisma, PrismaClient } from "@prisma/client";
-import { hasGuitarSpec, hasNoGuitarSpec, isGuitarSpec } from "../typeguardFunctions";
+import { GuitarSpec, Prisma, PrismaClient } from "@prisma/client";
+import { hasGuitarSpec, hasNoGuitarSpec } from "../typeguardFunctions";
+import { GuitarSpecNeeds } from "../types";
 
 const prisma = new PrismaClient();
 
-// Used in both event handler/Client Component, and Server Component.
-// Built both options – Error Object and plain object – into the function.
 export const getBaseGuitarModel = async (tag: string, client: boolean = false) => {
 	try {
 		const guitarModel = await prisma.baseGuitarModel.findUniqueOrThrow({
@@ -83,8 +82,6 @@ export const getBaseGuitarModel = async (tag: string, client: boolean = false) =
 	}
 };
 
-// Used in both event handler/Client Component, and Server Component.
-// Built both options – Error Object and plain object – into the function.
 export const getAllBaseGuitarModels = async () => {
 	try {
 		const guitarModels = await prisma.baseGuitarModel.findMany({
@@ -120,6 +117,48 @@ export const getAllBaseGuitarModels = async () => {
 		} else {
 			const unknownError = new Error(error?.toString() || "No error message provided.");
 			unknownError.name = "Base Guitar Model Retrieval Error";
+			return unknownError;
+		}
+	}
+};
+
+export const createBaseGuitarModel = async (
+	name: string,
+	tag: string,
+	guitarSpec: GuitarSpecNeeds
+) => {
+	try {
+		const newGuitarModel = await prisma.baseGuitarModel.create({
+			data: {
+				name,
+				tag,
+				guitarSpec: {
+					create: guitarSpec,
+				},
+				updatedAt: new Date(),
+			},
+			include: {
+				guitarSpec: true,
+			},
+		});
+		return newGuitarModel;
+	} catch (error) {
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			const knownError = new Error(`${error.code} - ${error.message}`);
+			knownError.name = "Prisma Known Request Error";
+			return knownError;
+		} else if (
+			error instanceof Prisma.PrismaClientInitializationError ||
+			error instanceof Prisma.PrismaClientValidationError ||
+			error instanceof Prisma.PrismaClientRustPanicError ||
+			error instanceof Prisma.PrismaClientUnknownRequestError
+		) {
+			const prismaError = new Error(error.message);
+			prismaError.name = "Prisma Database Error";
+			return prismaError;
+		} else {
+			const unknownError = new Error(error?.toString() || "No error message provided.");
+			unknownError.name = "Base Guitar Model Creation Error";
 			return unknownError;
 		}
 	}

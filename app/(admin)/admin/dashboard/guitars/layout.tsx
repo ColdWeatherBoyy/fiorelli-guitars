@@ -1,14 +1,14 @@
 export default function Layout({
 	children,
-	guitartype,
+	guitaroptions,
 }: Readonly<{
 	children: React.ReactNode;
-	guitartype: React.ReactNode;
+	guitaroptions: React.ReactNode;
 }>) {
 	return (
 		<>
 			{children}
-			{guitartype}
+			{guitaroptions}
 		</>
 	);
 }

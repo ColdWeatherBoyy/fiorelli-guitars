@@ -24,6 +24,11 @@ export enum ScreenSize {
 	large = "large",
 }
 
+export enum GuitarType {
+	base = "Base Model",
+	variant = "Variant Model",
+}
+
 export interface CloudinaryResource {
 	public_id: string;
 	secure_url: string;
@@ -49,7 +54,36 @@ export type NotificationContentType =
 	| { key: "string"; content: string }
 	| { key: "error"; content: Error };
 
-export interface VariantGuitarModelWithSpec extends VariantGuitarModel {
+export interface GuitarSpecNeeds {
+	body: string;
+	neck: string;
+	fingerboard: string;
+	fingerboardRadius: string;
+	scaleLength: string;
+	fretMarkers: string;
+	neckPickup: string;
+	middlePickup?: string;
+	bridgePickup?: string;
+	pickupSwitch?: string;
+	bridge: string;
+	vibrato?: string;
+	tuners: string;
+	knobs?: string;
+	customFeatures?: string;
+}
+
+export interface BaseGuitarNeeds extends GuitarSpecNeeds {
+	name: string;
+	tag: string;
+}
+
+export interface VariantGuitarNeeds extends GuitarSpecNeeds {
+	name: string;
+	variantTag: string;
+	colorScheme: string;
+}
+
+export interface VariantGuitarModelWithSpec {
 	guitarSpec: GuitarSpec;
 }
 export interface BaseGuitarModelWithSpec extends BaseGuitarModel {

@@ -9,7 +9,7 @@ import { GuitarModelWithSpec, NotificationContentType } from "@/app/utilities/ty
 import { GuitarSpec } from "@prisma/client";
 import { FC, useEffect, useState } from "react";
 import NotificationModal from "../notifications/NotificationModal";
-import AddNewContent from "./AddNewContent";
+import UpdateUnusedSpec from "./UpdateUnusedSpec";
 import EditableContent from "./EditableContent";
 import ToggleGalleryFeature from "./ToggleGalleryFeature";
 
@@ -47,11 +47,18 @@ const EditableGuitarSpecLayout: FC<EditableGuitarSpecLayoutProps> = ({
 		const unusedSpecs: (keyof GuitarSpec)[] = [];
 		const usedSpecs: (keyof GuitarSpec)[] = [];
 		Object.entries(specs[selectedTab]).forEach(([key, value]) => {
-			if (value === null) {
-				unusedSpecs.push(key as keyof GuitarSpec);
-			} else if (key === "id" || value instanceof Date || typeof value === "number") {
+			if (
+				key === "id" ||
+				value instanceof Date ||
+				typeof value === "number" ||
+				key.includes("GuitarModelId")
+			) {
 				return null;
+			} else if (value === null) {
+				// To-Do: Type assertion
+				unusedSpecs.push(key as keyof GuitarSpec);
 			} else {
+				// To-Do: Type assertion
 				usedSpecs.push(key as keyof GuitarSpec);
 			}
 		});
@@ -133,7 +140,7 @@ const EditableGuitarSpecLayout: FC<EditableGuitarSpecLayoutProps> = ({
 			)}
 
 			{unusedSpec.length > 0 && (
-				<AddNewContent
+				<UpdateUnusedSpec
 					setNewSpec={setNewSpec}
 					newSpec={newSpec}
 					unusedSpec={unusedSpec}

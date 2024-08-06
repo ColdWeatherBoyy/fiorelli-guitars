@@ -1,10 +1,9 @@
 import { updateGuitarModelSpec } from "@/app/utilities/databaseFunctions/guitarspec.db";
-import { camelToTitleCase } from "@/app/utilities/helpers";
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
-import EditableContent from "./EditableContent";
+import { Dispatch, FC, SetStateAction } from "react";
 import Dropdown from "../components/Dropdown";
+import EditableContent from "./EditableContent";
 
-interface AddNewContentProps {
+interface UpdateUnusedSpecProps {
 	setNewSpec: Dispatch<SetStateAction<string>>;
 	newSpec: string;
 	unusedSpec: string[];
@@ -13,7 +12,7 @@ interface AddNewContentProps {
 	handleAddSpec: () => void;
 }
 
-const AddNewContent: FC<AddNewContentProps> = ({
+const UpdateUnusedSpec: FC<UpdateUnusedSpecProps> = ({
 	setNewSpec,
 	newSpec,
 	unusedSpec,
@@ -21,17 +20,11 @@ const AddNewContent: FC<AddNewContentProps> = ({
 	isMobile,
 	handleAddSpec,
 }) => {
-	const [key, setKey] = useState(0);
-
-	useEffect(() => {
-		setKey((prevKey) => prevKey + 1);
-	}, [unusedSpec]);
-
 	return (
 		<div className="flex flex-col gap-2 p-2 text-center">
 			<div className="underline">Add New Spec</div>
 			<Dropdown
-				key={key}
+				value={newSpec}
 				setValue={setNewSpec}
 				defaultOption="Select a spec"
 				options={unusedSpec}
@@ -49,4 +42,4 @@ const AddNewContent: FC<AddNewContentProps> = ({
 	);
 };
 
-export default AddNewContent;
+export default UpdateUnusedSpec;

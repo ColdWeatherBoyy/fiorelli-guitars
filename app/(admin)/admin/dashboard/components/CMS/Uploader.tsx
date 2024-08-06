@@ -21,7 +21,7 @@ const Uploader: FC<UploaderProps> = ({ tags, isMobile }) => {
 					multiple: true,
 				}}
 				onSuccess={(result, current_asset) => {
-					console.log(result, current_asset);
+					// console.log(result, current_asset);
 				}}
 			>
 				{({ open }) => {

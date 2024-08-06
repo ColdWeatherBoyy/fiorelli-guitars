@@ -37,7 +37,7 @@ const LayoutDisplay: FC<LayoutDisplayProps> = ({ children, isMobile }) => {
 			</div>
 			<div
 				style={{ marginLeft: !open ? `-${sideBarWidthMargin}` : "0px" }}
-				className={`transition-all duration-300 flex-1 flex justify-center items-start mb-8`}
+				className={`transition-all duration-300 flex-1 flex justify-center items-start mb-20`}
 			>
 				<div className="mx-5 w-full">{children}</div>
 			</div>
