@@ -37,7 +37,9 @@ const PhotoModal: React.FC<GalleryPhotoProps> = async ({ params: { tag, index } 
 	const { resources } = await cloudinary.search
 		.expression(`tags=${tag}`)
 		.with_field("context")
+		.sort_by(`public_id`, `desc`)
 		.execute();
+
 	const resource = resources[index];
 	const blurDataUrl = await getBlurDataUrl(resource.public_id);
 	const photoResource = {
