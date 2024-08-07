@@ -1,6 +1,5 @@
 "use client";
 
-import { CloudinaryResource } from "@/app/utilities/types";
 import { CldUploadWidget } from "next-cloudinary";
 import { Dispatch, FC, SetStateAction } from "react";
 import Heading from "../components/Heading";
@@ -25,9 +24,9 @@ const Uploader: FC<UploaderProps> = ({ tags, setUpdateCount, isMobile }) => {
 					// To-Do: Evaluate why setTimeout is needed
 					setTimeout(() => {
 						setUpdateCount((prev) => prev + 1);
-					}, 1200);
+					}, 1250);
 				}}
-				onSuccess={async (result, current_asset) => {
+				onSuccess={(result, current_asset) => {
 					// console.log("result", result);
 				}}
 			>

@@ -6,7 +6,7 @@ interface XIconProps {
 
 // Thanks to https://iconmonstr.com/x-mark-circle-thin-svg/
 
-const XIcon: React.FC<XIconProps> = ({ width = 25, height = 25, className = "" }) => {
+const XIcon: React.FC<XIconProps> = ({ width = 24, height = 24 }) => {
 	return (
 		<svg
 			fill="currentColor"

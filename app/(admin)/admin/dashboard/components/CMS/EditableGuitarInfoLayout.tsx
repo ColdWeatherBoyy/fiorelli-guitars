@@ -60,11 +60,13 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 					</div>
 					<GuitarImageGallery
 						updateCount={updateCount}
+						setUpdateCount={setUpdateCount}
 						tag={
 							isVariantGuitarModel(models[selectedTab])
 								? models[selectedTab].variantTag
 								: models[selectedTab].tag
 						}
+						isMobile={isMobile}
 					/>
 				</>
 			)}
