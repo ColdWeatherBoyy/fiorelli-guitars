@@ -4,27 +4,33 @@ import { CloudinaryResource, GalleryPhotoProps, TextSize } from "@/app/utilities
 import AnimateWrapper from "../../../../components/AnimateWrapper";
 import CardButtonLink from "../../../components/components/CardButtonLink";
 import PhotoCard from "../../../components/components/PhotoCard";
+import { getAllGalleryVariantGuitarModels } from "@/app/utilities/databaseFunctions/variantguitar.db";
 
 export async function generateStaticParams() {
-	// To-DO: GET TAGS FROM DB
-	const { resources: resourcesEJ } = await cloudinary.search
-		.expression(`tags=Slipstream_BlueCream`)
-		.with_field("context")
-		.execute();
-	const { resources: resourcesSP } = await cloudinary.search
-		.expression(`tags=SPGuitar_Natural`)
-		.with_field("context")
-		.execute();
+	const resources = await getAllGalleryVariantGuitarModels();
+	if (resources instanceof Error) {
+		throw resources;
+	}
+	const tags = resources.guitarModelsWithSpecs.map((guitar) => guitar.variantTag);
 
-	const params = resourcesEJ.map((resource: CloudinaryResource, index: number) => ({
-		tag: "Slipstream_BlueCream",
-		index: index.toString(),
-	}));
-	const params2 = resourcesSP.map((resource: CloudinaryResource, index: number) => ({
-		tag: "SPGuitar_Natural",
-		index: index.toString(),
-	}));
-	return params.concat(params2);
+	const fetchResourcesByTag = async (tag: string) => {
+		return cloudinary.search.expression(`tags=${tag}`).with_field("context").execute();
+	};
+	const allParams: { tag: string; index: string }[] = [];
+
+	for (const tag of tags) {
+		const { resources: cloudinaryResources } = await fetchResourcesByTag(tag);
+
+		const params = cloudinaryResources.map(
+			(resource: CloudinaryResource, index: number) => ({
+				tag: tag,
+				index: index.toString(),
+			})
+		);
+
+		allParams.push(...params);
+	}
+	return allParams;
 }
 
 const Photo: React.FC<GalleryPhotoProps> = async ({ params: { tag, index } }) => {

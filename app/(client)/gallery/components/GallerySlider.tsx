@@ -6,7 +6,6 @@ import { CldImage } from "next-cloudinary";
 import Link from "next/link";
 import { FC } from "react";
 import InnerCard from "../../components/components/InnerCard";
-import { useDeviceType } from "@/app/utilities/hooks.server";
 
 interface GallerySliderProps {
 	resources: CloudinaryResource[];
