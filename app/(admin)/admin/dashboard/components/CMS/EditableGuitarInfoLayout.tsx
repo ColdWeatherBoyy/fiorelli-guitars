@@ -1,4 +1,4 @@
-import { GuitarModelWithSpec } from "@/app/utilities/types";
+import { CloudinaryResource, GuitarModelWithSpec } from "@/app/utilities/types";
 import { FC, useState } from "react";
 import EditableGuitarSpecLayout from "./EditableGuitarSpecLayout";
 import Toggle from "@/app/(admin)/components/components/Toggle";
@@ -21,6 +21,8 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 	isMobile,
 }) => {
 	const [isSpec, setIsSpec] = useState(true);
+	const [newResource, setNewResource] = useState<CloudinaryResource | null>(null);
+
 	return (
 		<>
 			<div className="w-full col-span-2">
@@ -51,10 +53,12 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 									  ]
 									: [models[selectedTab].tag]
 							}
+							setNewResource={setNewResource}
 							isMobile={isMobile}
 						/>
 					</div>
 					<GuitarImageGallery
+						newResource={newResource}
 						tag={
 							isVariantGuitarModel(models[selectedTab])
 								? models[selectedTab].variantTag

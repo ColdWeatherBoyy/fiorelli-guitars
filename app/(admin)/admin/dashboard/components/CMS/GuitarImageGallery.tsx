@@ -4,12 +4,19 @@ import { CldImage } from "next-cloudinary";
 import { FC, useEffect, useState } from "react";
 
 interface GuitarImageGalleryProps {
+	newResource: CloudinaryResource | null;
 	tag: string;
 }
 
-const GuitarImageGallery: FC<GuitarImageGalleryProps> = ({ tag }) => {
+const GuitarImageGallery: FC<GuitarImageGalleryProps> = ({ newResource, tag }) => {
 	const [fullResources, setFullResources] = useState<CloudinaryResource[]>([]);
 	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		if (newResource) {
+			setFullResources((prev) => [...prev, newResource]);
+		}
+	}, [newResource]);
 
 	useEffect(() => {
 		setFullResources([]);
