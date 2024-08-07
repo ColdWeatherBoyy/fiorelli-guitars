@@ -47,7 +47,7 @@ const GuitarImageGallery: FC<GuitarImageGalleryProps> = ({
 				<div className="col-span-3 flex justify-center">No images found.</div>
 			) : (
 				fullResources.map((resource) => (
-					<div key={resource.public_id} className="relative">
+					<div key={resource.public_id} className="relative w-fit">
 						<div
 							onClick={() => handleClick(resource.public_id)}
 							className={`absolute bg-slate-300 text-slate-500 dark:bg-slate-500 dark:text-slate-300 rounded-full top-1 right-1 cursor-pointer active:scale-95 transition-all duration-100 ease-in-out
