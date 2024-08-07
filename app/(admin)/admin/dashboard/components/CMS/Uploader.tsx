@@ -1,19 +1,17 @@
 "use client";
 
+import { CloudinaryResource } from "@/app/utilities/types";
 import { CldUploadWidget } from "next-cloudinary";
 import { Dispatch, FC, SetStateAction } from "react";
-import Title from "../components/Title";
 import Heading from "../components/Heading";
-import { CloudinaryResource } from "@/app/utilities/types";
-import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
 
 interface UploaderProps {
 	tags: string[];
-	setNewResource: Dispatch<SetStateAction<CloudinaryResource | null>>;
+	setUpdateCount: Dispatch<SetStateAction<number>>;
 	isMobile: boolean;
 }
 
-const Uploader: FC<UploaderProps> = ({ tags, setNewResource, isMobile }) => {
+const Uploader: FC<UploaderProps> = ({ tags, setUpdateCount, isMobile }) => {
 	return (
 		<div className="flex flex-col gap-4">
 			<Heading title={`Upload Images with the Following Tags: ${tags.join(", ")}`} />
@@ -23,20 +21,14 @@ const Uploader: FC<UploaderProps> = ({ tags, setNewResource, isMobile }) => {
 					tags: [...tags],
 					multiple: true,
 				}}
+				onQueuesEnd={(event) => {
+					// To-Do: Evaluate why setTimeout is needed
+					setTimeout(() => {
+						setUpdateCount((prev) => prev + 1);
+					}, 1200);
+				}}
 				onSuccess={async (result, current_asset) => {
-					// To-Do: Handle Result Type
-					const result2 = result.info as any;
-					const blurDataUrl = await getBlurDataUrl(result2.public_id);
-
-					const newResource: CloudinaryResource = {
-						public_id: result2.public_id,
-						secure_url: result2.secure_url,
-						context: result2.tags,
-						width: 250,
-						height: 250,
-						blurDataUrl: blurDataUrl,
-					};
-					setNewResource(newResource);
+					// console.log("result", result);
 				}}
 			>
 				{({ open }) => {

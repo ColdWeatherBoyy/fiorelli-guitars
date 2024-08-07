@@ -4,19 +4,13 @@ import { CldImage } from "next-cloudinary";
 import { FC, useEffect, useState } from "react";
 
 interface GuitarImageGalleryProps {
-	newResource: CloudinaryResource | null;
 	tag: string;
+	updateCount: number;
 }
 
-const GuitarImageGallery: FC<GuitarImageGalleryProps> = ({ newResource, tag }) => {
+const GuitarImageGallery: FC<GuitarImageGalleryProps> = ({ tag, updateCount }) => {
 	const [fullResources, setFullResources] = useState<CloudinaryResource[]>([]);
 	const [loading, setLoading] = useState(true);
-
-	useEffect(() => {
-		if (newResource) {
-			setFullResources((prev) => [...prev, newResource]);
-		}
-	}, [newResource]);
 
 	useEffect(() => {
 		setFullResources([]);
@@ -26,7 +20,7 @@ const GuitarImageGallery: FC<GuitarImageGalleryProps> = ({ newResource, tag }) =
 			setLoading(false);
 		};
 		fetchResources();
-	}, [tag]);
+	}, [tag, updateCount]);
 
 	return (
 		<div className="w-full col-span-2 grid grid-cols-3 gap-4">

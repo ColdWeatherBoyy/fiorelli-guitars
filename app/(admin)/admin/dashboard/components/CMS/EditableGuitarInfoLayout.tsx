@@ -22,6 +22,7 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 }) => {
 	const [isSpec, setIsSpec] = useState(true);
 	const [newResource, setNewResource] = useState<CloudinaryResource | null>(null);
+	const [updateCount, setUpdateCount] = useState(0);
 
 	return (
 		<>
@@ -53,12 +54,12 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 									  ]
 									: [models[selectedTab].tag]
 							}
-							setNewResource={setNewResource}
+							setUpdateCount={setUpdateCount}
 							isMobile={isMobile}
 						/>
 					</div>
 					<GuitarImageGallery
-						newResource={newResource}
+						updateCount={updateCount}
 						tag={
 							isVariantGuitarModel(models[selectedTab])
 								? models[selectedTab].variantTag
