@@ -65,6 +65,7 @@ const BackgroundImageCarousel: FC<BackgroundImageCarousel> = ({ resources }) => 
 						objectFit: "cover",
 					}}
 					priority={true}
+					loading="eager"
 				/>
 			</motion.div>
 		</AnimatePresence>

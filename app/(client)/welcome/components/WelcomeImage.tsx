@@ -17,6 +17,7 @@ const WelcomeImage: FC<CloudinaryResource> = ({ secure_url, public_id, blurDataU
 					objectFit: "cover",
 				}}
 				priority={true}
+				loading="eager"
 			/>
 		</div>
 	);
