@@ -5,7 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
 	title: "Fiorelli Guitars",
-	description: "Custom guitars for the custom guitarist",
+	description: "Handcrafted guitars by Jamie Hayes",
 };
 
 export default function RootLayout({

@@ -12,7 +12,7 @@ interface InnerCardProps {
 
 const InnerCard: FC<InnerCardProps> = ({ title, tag, children, isMobile }) => {
 	return (
-		<div className="rounded-sm bg-gradient-to-br from-zinc-100 to-cyan-50 dark:from-zinc-400 dark:to-zinc-500 shadow-sm shadow-zinc-600/60 backdrop-blur-md p-2 md:p-4">
+		<div className="max-w-[90%] rounded-sm bg-gradient-to-br from-zinc-100 to-cyan-50 dark:from-zinc-400 dark:to-zinc-500 shadow-sm shadow-zinc-600/60 backdrop-blur-md p-2 md:p-4">
 			{title && (
 				<div className="flex justify-evenly">
 					<div

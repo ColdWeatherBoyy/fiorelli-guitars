@@ -8,7 +8,7 @@ export const getResources = async (tag: string) => {
 	const { resources }: { resources: CloudinaryResource[] } = await cloudinary.search
 		.expression(`tags=${tag}`)
 		.with_field("context")
-		.sort_by(`public_id`, `desc`)
+		.sort_by(`public_id`, `asc`)
 		.execute();
 
 	const fullResources = await Promise.all(

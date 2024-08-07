@@ -17,7 +17,7 @@ const Gallery = async () => {
 
 	return (
 		<AnimateWrapper>
-			<Card title="Gallery">
+			<Card title="Gallery" width="w-[80%] md:w-[75%] xl:w-[50%]">
 				{sliderSections.map((section, index) => (
 					<GallerySliderWrapper
 						key={section.tag + index}
