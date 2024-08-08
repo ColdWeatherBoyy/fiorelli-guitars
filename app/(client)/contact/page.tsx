@@ -1,6 +1,5 @@
-import { cloudinary } from "@/app/utilities/cloudinary";
+import { getResources } from "@/app/utilities/cloudinaryFunctions/cloudinary.get";
 import { getPageContent } from "@/app/utilities/databaseFunctions/pagecontent.db";
-import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
 import Link from "next/link";
 import AnimateWrapper from "../../components/AnimateWrapper";
 import Card from "../components/components/Card";
@@ -12,16 +11,9 @@ export default async function Contact() {
 	if (data instanceof Error) {
 		throw data;
 	}
-	const { resources } = await cloudinary.search
-		.expression(`tags=contact_form`)
-		.with_field("context")
-		.execute();
+	const fullResources = await getResources("contact");
+	const contactImage = fullResources[0];
 
-	const blurDataUrl = await getBlurDataUrl(resources[0].public_id);
-	const contactImage = {
-		...resources[0],
-		blurDataUrl,
-	};
 	return (
 		<AnimateWrapper>
 			<Card title={data.pageContent.heading}>

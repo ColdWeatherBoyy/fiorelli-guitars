@@ -1,8 +1,6 @@
+import { getResources } from "@/app/utilities/cloudinaryFunctions/cloudinary.get";
 import { getPageContent } from "@/app/utilities/databaseFunctions/pagecontent.db";
 import AnimateWrapper from "../../components/AnimateWrapper";
-import { cloudinary } from "../../utilities/cloudinary";
-import { getBlurDataUrl } from "../../utilities/imageHelpers";
-import { CloudinaryResource } from "../../utilities/types";
 import Card from "../components/components/Card";
 
 export default async function About() {
@@ -11,20 +9,7 @@ export default async function About() {
 		throw data;
 	}
 
-	const { time, resources } = await cloudinary.search
-		.expression(`tags=about`)
-		.with_field("context")
-		.execute();
-
-	const fullResources: CloudinaryResource[] = [];
-	for (const resource of resources) {
-		resource.secure_url = resource.secure_url.replace(
-			"upload/",
-			"upload/c_auto,w_225,h_225/"
-		);
-		const blurDataUrl = await getBlurDataUrl(resource.public_id);
-		fullResources.push({ ...resource, blurDataUrl });
-	}
+	const fullResources = await getResources("about");
 
 	return (
 		<AnimateWrapper>

@@ -35,15 +35,10 @@ const PhotoModal: React.FC<GalleryPhotoProps> = async ({ params: { tag, index } 
 	const resources = await getResources(tag);
 
 	const resource = resources[Number(index)];
-	const blurDataUrl = await getBlurDataUrl(resource.public_id);
-	const photoResource = {
-		...resource,
-		blurDataUrl,
-	};
 
 	return (
 		<ModalWrapper>
-			<PhotoCard {...photoResource} length={resources.length} index={parseInt(index)}>
+			<PhotoCard {...resource} length={resources.length} index={parseInt(index)}>
 				<CardButtonLink href="/gallery" text="Back to Gallery" />
 			</PhotoCard>
 		</ModalWrapper>
