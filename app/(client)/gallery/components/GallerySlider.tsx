@@ -28,8 +28,8 @@ const GallerySlider: FC<GallerySliderProps> = ({ resources, title, tag, isMobile
 							className="contents"
 						>
 							<CldImage
-								width={`${screenSize === "extraSmall" ? "100" : "125"}`}
-								height={`${screenSize === "extraSmall" ? "100" : "125"}`}
+								width={`${screenSize === "extraSmall" ? "150" : "175"}`}
+								height={`${screenSize === "extraSmall" ? "150" : "175"}`}
 								src={resource.secure_url}
 								alt={resource.public_id}
 								placeholder="blur"

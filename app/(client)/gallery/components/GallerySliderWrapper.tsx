@@ -4,6 +4,7 @@ import { CloudinaryResource } from "@/app/utilities/types";
 import { FC } from "react";
 import GallerySlider from "./GallerySlider";
 import { useDeviceType } from "@/app/utilities/hooks.server";
+import { getResources } from "@/app/utilities/cloudinaryFunctions/cloudinary.get";
 
 interface GallerySliderWrapperProps {
 	tag: string;
@@ -11,30 +12,8 @@ interface GallerySliderWrapperProps {
 }
 
 const GallerySliderWrapper: FC<GallerySliderWrapperProps> = async ({ tag, title }) => {
-	const { resources } = await cloudinary.search
-		.expression(`tags=${tag}`)
-		.with_field("context")
-		.sort_by(`public_id`, `desc`)
-		.execute();
-
-	const fullResources = await Promise.all(
-		resources.map(async (resource: CloudinaryResource) => {
-			const thumbnailUrl = resource.secure_url.replace(
-				"upload/",
-				"upload/c_thumb,h_250,w_250/"
-			);
-			const thumbnailBlurDataUrl = await getBlurDataUrl(thumbnailUrl);
-			resource = {
-				...resource,
-				blurDataUrl: thumbnailBlurDataUrl,
-				secure_url: thumbnailUrl,
-			};
-
-			return resource;
-		})
-	);
-
 	const isMobile = useDeviceType();
+	const fullResources = await getResources(tag);
 
 	return (
 		<GallerySlider

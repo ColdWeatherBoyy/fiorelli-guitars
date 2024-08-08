@@ -17,14 +17,16 @@ const Gallery = async () => {
 
 	return (
 		<AnimateWrapper>
-			<Card title="Gallery" width="w-[80%] md:w-[75%] xl:w-[50%]">
-				{sliderSections.map((section, index) => (
-					<GallerySliderWrapper
-						key={section.tag + index}
-						title={section.title}
-						tag={section.tag}
-					/>
-				))}
+			<Card title="Gallery">
+				<div className="mt-6 w-[90%] md:w-[80%] lg:w-[80%] flex flex-col gap-8 justify-center items-center">
+					{sliderSections.map((section, index) => (
+						<GallerySliderWrapper
+							key={section.tag + index}
+							title={section.title}
+							tag={section.tag}
+						/>
+					))}
+				</div>
 			</Card>
 		</AnimateWrapper>
 	);

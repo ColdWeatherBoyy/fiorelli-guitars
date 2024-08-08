@@ -5,6 +5,7 @@ import { getAllGalleryVariantGuitarModels } from "@/app/utilities/databaseFuncti
 import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
 import { CloudinaryResource, GalleryPhotoProps } from "@/app/utilities/types";
 import ModalWrapper from "../../../../components/ModalWrapper";
+import { getResources } from "@/app/utilities/cloudinaryFunctions/cloudinary.get";
 
 export async function generateStaticParams() {
 	const resources = await getAllGalleryVariantGuitarModels();
@@ -13,13 +14,10 @@ export async function generateStaticParams() {
 	}
 	const tags = resources.guitarModelsWithSpecs.map((guitar) => guitar.variantTag);
 
-	const fetchResourcesByTag = async (tag: string) => {
-		return cloudinary.search.expression(`tags=${tag}`).with_field("context").execute();
-	};
 	const allParams: { tag: string; index: string }[] = [];
 
 	for (const tag of tags) {
-		const { resources: cloudinaryResources } = await fetchResourcesByTag(tag);
+		const cloudinaryResources = await getResources(tag);
 
 		const params = cloudinaryResources.map(
 			(resource: CloudinaryResource, index: number) => ({
@@ -34,13 +32,9 @@ export async function generateStaticParams() {
 }
 
 const PhotoModal: React.FC<GalleryPhotoProps> = async ({ params: { tag, index } }) => {
-	const { resources } = await cloudinary.search
-		.expression(`tags=${tag}`)
-		.with_field("context")
-		.sort_by(`public_id`, `desc`)
-		.execute();
+	const resources = await getResources(tag);
 
-	const resource = resources[index];
+	const resource = resources[Number(index)];
 	const blurDataUrl = await getBlurDataUrl(resource.public_id);
 	const photoResource = {
 		...resource,

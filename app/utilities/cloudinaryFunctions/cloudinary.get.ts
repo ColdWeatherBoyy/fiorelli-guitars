@@ -15,7 +15,7 @@ export const getResources = async (tag: string) => {
 		resources.map(async (resource: CloudinaryResource) => {
 			const thumbnailUrl = resource.secure_url.replace(
 				"upload/",
-				"upload/c_thumb,h_250,w_250/"
+				"upload/c_auto,g_auto,h_250,w_250/"
 			);
 			const thumbnailBlurDataUrl = await getBlurDataUrl(thumbnailUrl);
 			resource = {
