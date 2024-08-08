@@ -5,12 +5,6 @@ import {
 	VariantGuitarModel,
 } from "@prisma/client";
 
-export enum WelcomeState {
-	welcome = "welcome",
-	covering = "covering",
-	opening = "opening",
-}
-
 export enum ScreenSize {
 	extraSmall = "extraSmall",
 	small = "small",
