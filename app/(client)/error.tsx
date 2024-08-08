@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import Card from "./components/components/Card";
 import AnimateWrapper from "../components/AnimateWrapper";
+import Card from "./components/components/Card";
 import CardButtonLink from "./components/components/CardButtonLink";
-import { TextSize } from "../utilities/types";
 
 export default function Error({
 	error,
@@ -28,16 +27,8 @@ export default function Error({
 				error
 			>
 				<div className="flex w-full justify-evenly mt-4">
-					<CardButtonLink
-						href="mailto:elias@fiorelliguitars.com"
-						text="Contact"
-						size={TextSize.small}
-					/>
-					<CardButtonLink
-						text="Try again"
-						handleClick={() => reset()}
-						size={TextSize.small}
-					/>
+					<CardButtonLink href="mailto:elias@fiorelliguitars.com" text="Contact" />
+					<CardButtonLink text="Try again" handleClick={() => reset()} />
 				</div>
 			</Card>
 		</AnimateWrapper>

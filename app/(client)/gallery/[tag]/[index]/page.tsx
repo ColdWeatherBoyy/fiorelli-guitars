@@ -1,10 +1,10 @@
 import { cloudinary } from "@/app/utilities/cloudinary";
+import { getAllGalleryVariantGuitarModels } from "@/app/utilities/databaseFunctions/variantguitar.db";
 import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
-import { CloudinaryResource, GalleryPhotoProps, TextSize } from "@/app/utilities/types";
+import { CloudinaryResource, GalleryPhotoProps } from "@/app/utilities/types";
 import AnimateWrapper from "../../../../components/AnimateWrapper";
 import CardButtonLink from "../../../components/components/CardButtonLink";
 import PhotoCard from "../../../components/components/PhotoCard";
-import { getAllGalleryVariantGuitarModels } from "@/app/utilities/databaseFunctions/variantguitar.db";
 
 export async function generateStaticParams() {
 	const resources = await getAllGalleryVariantGuitarModels();
@@ -55,7 +55,7 @@ const Photo: React.FC<GalleryPhotoProps> = async ({ params: { tag, index } }) =>
 					index={parseInt(index)}
 					maxHeight="max-h-[65dvh]"
 				>
-					<CardButtonLink href="/gallery" text="Back to Gallery" size={TextSize.small} />
+					<CardButtonLink href="/gallery" text="Back to Gallery" />
 				</PhotoCard>
 			</div>
 		</AnimateWrapper>

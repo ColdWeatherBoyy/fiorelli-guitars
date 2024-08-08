@@ -11,12 +11,6 @@ export enum WelcomeState {
 	opening = "opening",
 }
 
-export enum TextSize {
-	small = "small",
-	medium = "medium",
-	large = "large",
-}
-
 export enum ScreenSize {
 	extraSmall = "extraSmall",
 	small = "small",

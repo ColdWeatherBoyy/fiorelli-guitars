@@ -1,6 +1,5 @@
 import AnimateWrapper from "@/app/components/AnimateWrapper";
 import { getVariantGuitarModelSpec } from "@/app/utilities/databaseFunctions/guitarspec.db";
-import { TextSize } from "@/app/utilities/types";
 import Card from "../../components/components/Card";
 import CardButtonLink from "../../components/components/CardButtonLink";
 
@@ -54,7 +53,7 @@ const GuitarSpecs: React.FC<GuitarSpecsProps> = async ({ params: { tag } }) => {
 					})
 				)}
 				<div className="mt-2">
-					<CardButtonLink text="Back to Gallery" href="/gallery" size={TextSize.small} />
+					<CardButtonLink text="Back to Gallery" href="/gallery" />
 				</div>
 			</Card>
 		</AnimateWrapper>

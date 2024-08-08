@@ -1,10 +1,10 @@
 import CardButtonLink from "@/app/(client)/components/components/CardButtonLink";
 import PhotoCard from "@/app/(client)/components/components/PhotoCard";
 import { cloudinary } from "@/app/utilities/cloudinary";
-import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
-import { CloudinaryResource, GalleryPhotoProps, TextSize } from "@/app/utilities/types";
-import ModalWrapper from "../../../../components/ModalWrapper";
 import { getAllGalleryVariantGuitarModels } from "@/app/utilities/databaseFunctions/variantguitar.db";
+import { getBlurDataUrl } from "@/app/utilities/imageHelpers";
+import { CloudinaryResource, GalleryPhotoProps } from "@/app/utilities/types";
+import ModalWrapper from "../../../../components/ModalWrapper";
 
 export async function generateStaticParams() {
 	const resources = await getAllGalleryVariantGuitarModels();
@@ -50,7 +50,7 @@ const PhotoModal: React.FC<GalleryPhotoProps> = async ({ params: { tag, index } 
 	return (
 		<ModalWrapper>
 			<PhotoCard {...photoResource} length={resources.length} index={parseInt(index)}>
-				<CardButtonLink href="/gallery" text="Back to Gallery" size={TextSize.small} />
+				<CardButtonLink href="/gallery" text="Back to Gallery" />
 			</PhotoCard>
 		</ModalWrapper>
 	);

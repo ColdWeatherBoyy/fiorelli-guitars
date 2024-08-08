@@ -12,18 +12,6 @@ export default auth((req) => {
 		) {
 			return NextResponse.redirect(new URL("/admin/dashboard", req.nextUrl.origin));
 		}
-	} else {
-		if (
-			req.nextUrl.pathname.includes("/welcome") &&
-			req.cookies.get("visited")?.value === "true"
-		) {
-			return NextResponse.redirect(new URL("/", req.nextUrl.origin));
-		} else if (
-			!req.nextUrl.pathname.includes("/welcome") &&
-			req.cookies.get("visited")?.value !== "true"
-		) {
-			return NextResponse.redirect(new URL("/welcome", req.nextUrl.origin));
-		}
 	}
 });
 
