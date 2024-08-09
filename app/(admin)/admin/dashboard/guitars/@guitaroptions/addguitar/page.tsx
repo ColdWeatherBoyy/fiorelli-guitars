@@ -1,7 +1,6 @@
 import { useDeviceType } from "@/app/utilities/hooks.server";
-import Dropdown from "../../../components/components/Dropdown";
-import SubTitle from "../../../components/components/SubTitle";
 import AddGuitarForm from "../../../components/CMS/AddGuitarForm";
+import SubTitle from "../../../components/components/SubTitle";
 
 const AddGuitar = () => {
 	const isMobile = useDeviceType();

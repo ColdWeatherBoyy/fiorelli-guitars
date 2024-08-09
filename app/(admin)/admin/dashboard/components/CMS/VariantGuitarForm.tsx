@@ -15,6 +15,7 @@ import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { requiredVariantGuitarSpecs } from "../../guitars/constants/AddGuitarConstants";
 import Dropdown from "../components/Dropdown";
 import Heading from "../components/Heading";
+import AnimateWrapper from "@/app/components/AnimateWrapper";
 
 interface VariantGuitarFormProps {
 	isMobile: boolean;
@@ -170,50 +171,54 @@ const VariantGuitarForm: FC<VariantGuitarFormProps> = ({
 
 	return (
 		<>
-			<Dropdown
-				value={selectedTemplate?.name || ""}
-				setValue={setSelectedTemplateName}
-				defaultOption={templateBaseGuitarArr ? "Select a base guitar" : "Loading..."}
-				options={templateBaseGuitarArr?.map((baseGuitar) => baseGuitar.name) || []}
-			/>
+			<AnimateWrapper>
+				<Dropdown
+					value={selectedTemplate?.name || ""}
+					setValue={setSelectedTemplateName}
+					defaultOption={templateBaseGuitarArr ? "Select a base guitar" : "Loading..."}
+					options={templateBaseGuitarArr?.map((baseGuitar) => baseGuitar.name) || []}
+				/>
+			</AnimateWrapper>
 			{selectedTemplate && (
-				<>
-					<Heading title={`New ${guitarType}`} />
-					<div className="bg-slate-100 dark:bg-slate-500 grid grid-cols-1 sm:grid-cols-3 rounded-md border-slate-500 dark:border-slate-400 p-4 gap-6">
-						{guitarNeeds.map((need) => (
-							<div key={need} className="flex flex-col gap-2">
-								<label>{camelToTitleCase(need)}</label>
-								{need === "variantTag" || need === "name" ? (
-									<TextareaInput
-										placeholder={``}
-										disabled
-										// To-Do: Get rid of type assertion
-										value={content[need as keyof typeof content] || ""}
-										onChange={(event) => {
-											setContent((prev) => ({ ...prev, [need]: event.target.value }));
-										}}
-									/>
-								) : (
-									<TextareaInput
-										placeholder={`Enter content...`}
-										// To-Do: Get rid of type assertion
-										value={content[need as keyof typeof content] || ""}
-										onChange={(event) => {
-											setContent((prev) => ({ ...prev, [need]: event.target.value }));
-										}}
-									/>
-								)}
+				<AnimateWrapper>
+					<div className="flex flex-col gap-4">
+						<Heading title={`New ${guitarType}`} />
+						<div className="bg-slate-100 dark:bg-slate-500 grid grid-cols-1 sm:grid-cols-3 rounded-md border-slate-500 dark:border-slate-400 p-4 gap-6">
+							{guitarNeeds.map((need) => (
+								<div key={need} className="flex flex-col gap-2">
+									<label>{camelToTitleCase(need)}</label>
+									{need === "variantTag" || need === "name" ? (
+										<TextareaInput
+											placeholder={``}
+											disabled
+											// To-Do: Get rid of type assertion
+											value={content[need as keyof typeof content] || ""}
+											onChange={(event) => {
+												setContent((prev) => ({ ...prev, [need]: event.target.value }));
+											}}
+										/>
+									) : (
+										<TextareaInput
+											placeholder={`Enter content...`}
+											// To-Do: Get rid of type assertion
+											value={content[need as keyof typeof content] || ""}
+											onChange={(event) => {
+												setContent((prev) => ({ ...prev, [need]: event.target.value }));
+											}}
+										/>
+									)}
+								</div>
+							))}
+							<div className="col-span-3 flex justify-center">
+								<AdminButtonLink
+									handleClick={() => handleClick()}
+									text="Submit"
+									isMobile={isMobile}
+								/>
 							</div>
-						))}
-						<div className="col-span-3 flex justify-center">
-							<AdminButtonLink
-								handleClick={() => handleClick()}
-								text="Submit"
-								isMobile={isMobile}
-							/>
 						</div>
 					</div>
-				</>
+				</AnimateWrapper>
 			)}
 		</>
 	);
