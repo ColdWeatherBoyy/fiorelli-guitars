@@ -20,6 +20,7 @@ const HamburgerMenuButton: FC<HamburgerMenuButtonProps> = ({
 			ref={menuButtonRef}
 			className="rounded-full h-10 w-10 flex flex-col gap-1.5 justify-center items-center"
 			onClick={handleClick}
+			aria-label="Open menu"
 		>
 			<motion.div
 				animate={isOpen ? "open" : "closed"}

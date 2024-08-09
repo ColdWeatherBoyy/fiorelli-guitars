@@ -21,7 +21,11 @@ export default async function Contact() {
 					<PhotoCard {...contactImage}>
 						<div className="text-center">
 							{data.pageContent.bodies[0]}
-							<Link href={`mailto:${data.pageContent.email}`} className="underline">
+							<Link
+								href={`mailto:${data.pageContent.email}`}
+								className="underline"
+								aria-label="Direct email link to Fiorelli"
+							>
 								{data.pageContent.email}
 							</Link>
 						</div>

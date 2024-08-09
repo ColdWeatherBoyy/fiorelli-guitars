@@ -99,6 +99,7 @@ const Footer = () => {
 					onMouseUp={() => handleLogoClick(false)}
 					onTouchStart={() => handleLogoClick(true)}
 					onTouchEnd={() => handleLogoClick(false)}
+					aria-label={`Go to Home`}
 				>
 					<SmallLogo
 						width={50}
@@ -118,6 +119,7 @@ const Footer = () => {
 				onMouseUp={() => handleEmailLogoClick(false)}
 				onTouchStart={() => handleEmailLogoClick(true)}
 				onTouchEnd={() => handleEmailLogoClick(false)}
+				aria-label={`Go to send email to Fiorelli`}
 			>
 				<EmailLogo
 					width={35}
@@ -137,6 +139,7 @@ const Footer = () => {
 				onMouseUp={() => handleIGLogoClick(false)}
 				onTouchStart={() => handleIGLogoClick(true)}
 				onTouchEnd={() => handleIGLogoClick(false)}
+				aria-label={`Go to Fiorelli Instagram`}
 			>
 				<IGLogo
 					width={30}

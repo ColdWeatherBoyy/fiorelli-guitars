@@ -21,6 +21,7 @@ const AuthCard: FC<AuthCardProps> = ({ title, children }) => {
 					<Link
 						href="/"
 						className={`${!isMobile && "hover:text-cyan-600"} active:text-cyan-700`}
+						aria-label="Home"
 					>
 						<FullLogo color="currentColor" />
 					</Link>

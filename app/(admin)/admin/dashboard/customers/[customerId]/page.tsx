@@ -29,6 +29,7 @@ const Customer: FC<CustomerProps> = async ({ params: { customerId } }) => {
 					className={`cursor-pointer active:text-cyan-500 dark:active:text-cyan-300 ${
 						!isMobile && "hover:underline  hover:text-cyan-700 dark:hover:text-cyan-400"
 					}`}
+					aria-label={`Go to ${customerWithMessages.email}`}
 				>
 					{customerWithMessages.email}
 				</Link>

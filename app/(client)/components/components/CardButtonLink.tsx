@@ -30,9 +30,16 @@ const CardButtonLink: FC<CardButtonLinkProps> = ({ text, href, handleClick }) =>
 	return (
 		<>
 			{href ? (
-				<Link href={href}>{content}</Link>
+				<Link href={href} aria-label={text}>
+					{content}
+				</Link>
 			) : (
-				<button onClick={handleClick} disabled={pending} className="self-center">
+				<button
+					onClick={handleClick}
+					disabled={pending}
+					className="self-center"
+					aria-label={text}
+				>
 					{content}
 				</button>
 			)}

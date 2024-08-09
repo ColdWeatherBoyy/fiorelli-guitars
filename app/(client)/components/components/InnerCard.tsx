@@ -24,6 +24,7 @@ const InnerCard: FC<InnerCardProps> = ({ title, tag, children, isMobile }) => {
 								href={`/gallery/${tag}/`}
 								className={`active:scale-95 transition-all duration-100 ease-in-out
 									${!isMobile && "hover:scale-[110%]"}`}
+								aria-label={`View ${title} specs`}
 							>
 								<InfoIcon />
 							</Link>

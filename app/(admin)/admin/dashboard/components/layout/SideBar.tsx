@@ -57,6 +57,7 @@ const SideBar: FC<SideBarProps> = ({ open, setOpen, isMobile }) => {
 								: "text-lg text-center w-full active:text-base"
 						}`}
 						onClick={handleMobileClick}
+						aria-label={`Go to ${option.text}`}
 					>
 						{option.text}
 					</Link>
@@ -68,6 +69,7 @@ const SideBar: FC<SideBarProps> = ({ open, setOpen, isMobile }) => {
 							: "text-lg text-center w-full active:text-xl"
 					}`}
 					onClick={() => signOut()}
+					aria-label="Sign Out"
 				>
 					Sign Out
 				</button>

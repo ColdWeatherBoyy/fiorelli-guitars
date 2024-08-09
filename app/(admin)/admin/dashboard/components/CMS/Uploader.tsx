@@ -39,6 +39,7 @@ const Uploader: FC<UploaderProps> = ({ tags, setUpdateCount, isMobile }) => {
 								"hover:shadow-md hover:shadow-slate-400 dark:hover:shadow-slate-900 hover:transform hover:translate-x-[3px] hover:translate-y-[-3px]"
 							} active:shadow-inner active:shadow-slate-300 dark:active:shadow-slate-800 active:shadow-inner active:translate-x-[0px] active:translate-y-[0px] cursor-pointer`}
 							onClick={() => open()}
+							aria-label="Open Upload Form"
 						>
 							Open Upload Form
 						</button>

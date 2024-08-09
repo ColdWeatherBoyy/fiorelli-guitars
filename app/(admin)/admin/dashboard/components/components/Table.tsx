@@ -69,6 +69,7 @@ const Table: FC<TableProps> = ({ data, isMobile, tableInteractionProps }) => {
 												!isMobile &&
 												"hover:underline hover:text-cyan-700 dark:hover:text-cyan-400"
 											} active:text-cyan-500 dark:active:text-cyan-300`}
+											aria-label={`Go to ${value}`}
 										>
 											{value}
 										</Link>

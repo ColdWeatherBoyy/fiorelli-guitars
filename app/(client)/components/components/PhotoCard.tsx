@@ -50,6 +50,7 @@ const PhotoCard: FC<PhotoCardProps> = ({
 						<Link
 							href={`${decrementIndex(index, length)}`}
 							className="text-2xl sm:text-4xl active:scale-75 active:text-zinc-700 transition-all duration-100 ease-in-out"
+							aria-label="Previous photo"
 						>
 							{"<"}
 						</Link>
@@ -66,6 +67,7 @@ const PhotoCard: FC<PhotoCardProps> = ({
 						<Link
 							href={`${incrementIndex(index, length)}`}
 							className="text-2xl sm:text-4xl active:scale-75 active:text-zinc-700 transition-all duration-100 ease-in-out"
+							aria-label="Next photo"
 						>
 							{">"}
 						</Link>

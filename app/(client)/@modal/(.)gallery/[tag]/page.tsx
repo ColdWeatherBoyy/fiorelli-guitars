@@ -26,6 +26,7 @@ const GuitarSpecs: React.FC<GuitarSpecsProps> = async ({ params: { tag } }) => {
 			>
 				<Link
 					href="/gallery"
+					aria-label={`Close specs`}
 					className={`absolute right-2 top-2 active:scale-95 transition-all duration-100 ease-in-out
 									${!isMobile && "hover:scale-[110%]"}`}
 				>

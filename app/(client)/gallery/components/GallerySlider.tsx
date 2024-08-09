@@ -25,7 +25,7 @@ const GallerySlider: FC<GallerySliderProps> = ({ resources, title, tag, isMobile
 						<Link
 							key={resource.public_id}
 							href={`/gallery/${tag}/${index}`}
-							className="contents"
+							aria-label="View photo"
 						>
 							<CldImage
 								width={`${screenSize === "extraSmall" ? "150" : "175"}`}

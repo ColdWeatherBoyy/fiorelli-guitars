@@ -85,6 +85,7 @@ const Header: FC<HeaderProps> = ({ isMobile }) => {
 					onMouseUp={() => handleClick(false)}
 					onTouchStart={() => handleClick(true)}
 					onTouchEnd={() => handleClick(false)}
+					aria-label={`Go to home`}
 				>
 					{screenSize === ScreenSize.small || screenSize === ScreenSize.extraSmall ? (
 						<SmallLogo

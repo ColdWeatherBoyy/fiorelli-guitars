@@ -18,6 +18,7 @@ const NavLink: FC<NavLinkProps> = ({ href, text, isMobile }) => {
 				!isMobile &&
 				"hover:underline hover:text-cyan-800 dark:hover:text-cyan-500 hover:transform hover:scale-[103%]"
 			}`}
+			aria-label={text}
 		>
 			{text}
 		</Link>
