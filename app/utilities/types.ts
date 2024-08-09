@@ -69,6 +69,7 @@ export interface VariantGuitarNeeds extends GuitarSpecNeeds {
 	name: string;
 	variantTag: string;
 	colorScheme: string;
+	distinction: string;
 }
 
 export interface VariantGuitarModelWithSpec extends VariantGuitarModel {

@@ -239,6 +239,7 @@ export const isArrayOfVariantGuitarNeedKeys = (
 			key === "name" ||
 			key === "variantTag" ||
 			key === "colorScheme" ||
+			key === "distinction" ||
 			key === "body" ||
 			key === "neck" ||
 			key === "fingerboard" ||
@@ -266,6 +267,7 @@ export const isVariantGuitarModelWithSpec = (
 		typeof obj.variantTag === "string" &&
 		typeof obj.name === "string" &&
 		typeof obj.colorScheme === "string" &&
+		typeof obj.distinction === "string" &&
 		typeof obj.baseModelId === "number" &&
 		typeof obj.gallery === "boolean" &&
 		typeof obj.createdAt === "object" &&

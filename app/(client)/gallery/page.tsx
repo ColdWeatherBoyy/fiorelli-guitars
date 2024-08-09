@@ -9,7 +9,7 @@ const Gallery = async () => {
 		throw allGuitarSpecs;
 	}
 	const sliderSections = allGuitarSpecs.guitarModelsWithSpecs.map((guitar) => ({
-		title: guitar.name + ", " + guitar.colorScheme,
+		title: guitar.name + ", " + guitar.distinction,
 		tag: guitar.variantTag,
 	}));
 

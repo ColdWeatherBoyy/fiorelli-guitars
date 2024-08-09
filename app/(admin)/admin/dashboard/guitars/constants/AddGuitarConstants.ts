@@ -41,6 +41,7 @@ export const requiredVariantGuitarSpecs = [
 	"name",
 	"variantTag",
 	"colorScheme",
+	"distinction",
 	...requiredGuitarSpecs,
 ];
 
@@ -48,5 +49,6 @@ export const VariantGuitarDefault = {
 	name: "",
 	variantTag: "",
 	colorScheme: "",
+	distinction: "",
 	...guitarSpecDefault,
 };

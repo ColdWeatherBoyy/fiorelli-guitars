@@ -65,6 +65,7 @@ model VariantGuitarModel {
   variantTag        String   @unique
   name              String
   colorScheme       String
+  distinction       String
   baseModel         BaseGuitarModel @relation(fields: [baseModelId], references: [id])
   baseModelId       Int
   guitarSpec        GuitarSpec? 

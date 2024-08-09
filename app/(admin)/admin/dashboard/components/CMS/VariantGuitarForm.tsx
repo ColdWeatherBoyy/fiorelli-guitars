@@ -77,11 +77,12 @@ const VariantGuitarForm: FC<VariantGuitarFormProps> = ({
 		if (selectedTemplate) {
 			const newContent = {
 				name: selectedTemplate.name,
-				variantTag: `${selectedTemplate.tag}_${content.colorScheme.replace(
+				variantTag: `${selectedTemplate.tag}_${content.distinction.replace(
 					/[^a-zA-Z0-9]/g,
 					""
 				)}`,
 				colorScheme: content.colorScheme,
+				distinction: content.distinction,
 				body: selectedTemplate.guitarSpec.body,
 				neck: selectedTemplate.guitarSpec.neck,
 				fingerboard: selectedTemplate.guitarSpec.fingerboard,
@@ -100,18 +101,18 @@ const VariantGuitarForm: FC<VariantGuitarFormProps> = ({
 			};
 			setContent(newContent);
 		}
-	}, [selectedTemplate, setContent, content.colorScheme]);
+	}, [selectedTemplate, setContent, content.distinction, content.colorScheme]);
 
 	useEffect(() => {
 		setContent((prev) => ({
 			...prev,
 			// To-Do: Get rid of type assertion
-			variantTag: `${selectedTemplate?.tag}_${content.colorScheme.replace(
+			variantTag: `${selectedTemplate?.tag}_${content.distinction.replace(
 				/[^a-zA-Z0-9]/g,
 				""
 			)}`,
 		}));
-	}, [content.colorScheme, setContent, selectedTemplate?.tag]);
+	}, [content.distinction, setContent, selectedTemplate?.tag]);
 
 	const handleClick = async () => {
 		const missingFields = requiredVariantGuitarSpecs.filter(
@@ -136,7 +137,7 @@ const VariantGuitarForm: FC<VariantGuitarFormProps> = ({
 			});
 			setOpen(true);
 		} else {
-			const { name, variantTag, colorScheme, ...guitarSpec } = content;
+			const { name, variantTag, colorScheme, distinction, ...guitarSpec } = content;
 			const { id: baseModelId } = selectedTemplate;
 			for (const key in guitarSpec) {
 				if (guitarSpec[key as keyof GuitarSpecNeeds] === "") {
@@ -147,6 +148,7 @@ const VariantGuitarForm: FC<VariantGuitarFormProps> = ({
 				name,
 				variantTag,
 				colorScheme,
+				distinction,
 				baseModelId,
 				guitarSpec
 			);

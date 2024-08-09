@@ -213,6 +213,7 @@ export const createVariantGuitarModel = async (
 	name: string,
 	variantTag: string,
 	colorScheme: string,
+	distinction: string,
 	baseModelId: number,
 	guitarSpec: GuitarSpecNeeds
 ) => {
@@ -222,6 +223,7 @@ export const createVariantGuitarModel = async (
 				name,
 				variantTag,
 				colorScheme,
+				distinction,
 				baseModelId,
 				gallery: false,
 				guitarSpec: {

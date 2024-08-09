@@ -12,7 +12,7 @@ const AllVariantModels = async () => {
 	}
 
 	const titles = variantGuitarModels.guitarModelsWithSpecs.map(
-		(guitar) => `${guitar.name}, ${guitar.colorScheme}`
+		(guitar) => `${guitar.name}, ${guitar.distinction}`
 	);
 
 	// To-Do: Do Something with guitarModelsWithoutSpecs
