@@ -21,6 +21,7 @@ export interface CloudinaryResource {
 	public_id: string;
 	secure_url: string;
 	context?: { [key: string]: object };
+	tags: string[];
 	width?: number;
 	height?: number;
 	blurDataUrl?: string;

@@ -7,9 +7,12 @@ export default async function Home() {
 	if (data instanceof Error) {
 		throw data;
 	}
+
 	return (
-		<AnimateWrapper>
-			<Card title={data.pageContent.heading} body={data.pageContent.bodies} />
-		</AnimateWrapper>
+		<>
+			<AnimateWrapper>
+				<Card title={data.pageContent.heading} body={data.pageContent.bodies} />
+			</AnimateWrapper>
+		</>
 	);
 }

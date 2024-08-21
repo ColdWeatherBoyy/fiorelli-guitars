@@ -1,11 +1,12 @@
 import "../style/globals.css";
+import { getResources } from "../utilities/cloudinaryFunctions/cloudinary.get";
 import { useDeviceType } from "../utilities/hooks.server";
-import BackgroundImageWrapper from "./components/layout/BackgroundImageWrapper";
+import BackgroundImage from "./components/components/BackgroundImage";
 import ClientWrapper from "./components/layout/ClientWrapper";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
 
-export default function Layout({
+export default async function Layout({
 	children,
 	modal,
 }: Readonly<{
@@ -13,9 +14,10 @@ export default function Layout({
 	modal: React.ReactNode;
 }>) {
 	const isMobile = useDeviceType();
+	const resources = await getResources("background");
 	return (
 		<>
-			<BackgroundImageWrapper />
+			<BackgroundImage resources={resources} />
 			{modal}
 			<ClientWrapper>
 				<Header isMobile={isMobile} />
