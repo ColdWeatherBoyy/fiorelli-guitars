@@ -36,7 +36,7 @@ const Toggle: FC<ToggleProps> = ({
 					onClick={handleToggle}
 				/>
 				<div
-					className={`absolute ${
+					className={`absolute whitespace-nowrap	 ${
 						isToggled
 							? "translate-x-[25%]"
 							: `${small ? "translate-x-[195%]" : "translate-x-[250%]"}`

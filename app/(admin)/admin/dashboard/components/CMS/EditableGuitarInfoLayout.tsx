@@ -1,13 +1,13 @@
-import { CloudinaryResource, GuitarModelWithSpec } from "@/app/utilities/types";
-import { FC, useState } from "react";
-import EditableGuitarSpecLayout from "./EditableGuitarSpecLayout";
 import Toggle from "@/app/(admin)/components/components/Toggle";
-import Uploader from "./Uploader";
 import {
 	isVariantGuitarModel,
 	isVariantGuitarModelWithSpec,
 } from "@/app/utilities/typeguardFunctions";
+import { GuitarModelWithSpec } from "@/app/utilities/types";
+import { FC, useState } from "react";
 import GuitarImageGallery from "./GuitarImageGallery";
+import EditableGuitarSpecLayout from "./EditableGuitarSpecLayout";
+import Uploader from "./Uploader";
 
 interface EditableGuitarInfoLayoutProps {
 	models: GuitarModelWithSpec[];
@@ -21,12 +21,11 @@ const EditableGuitarInfoLayout: FC<EditableGuitarInfoLayoutProps> = ({
 	isMobile,
 }) => {
 	const [isSpec, setIsSpec] = useState(true);
-	const [newResource, setNewResource] = useState<CloudinaryResource | null>(null);
 	const [updateCount, setUpdateCount] = useState(0);
 
 	return (
 		<>
-			<div className="w-full col-span-2">
+			<div className="w-full col-span-2 mt-2">
 				<Toggle
 					isToggled={isSpec}
 					handleToggle={() => setIsSpec((prev) => !prev)}

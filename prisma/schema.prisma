@@ -33,6 +33,7 @@ model PageContent {
   id          Int      @id @default(autoincrement())
   page        Page     @relation(fields: [pageId], references: [id], onDelete:Cascade)  
   pageId      Int      @unique
+  tag         String
   heading     String
   bodies      String[]
   signature   String?

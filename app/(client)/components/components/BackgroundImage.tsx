@@ -15,12 +15,14 @@ const BackgroundImage: FC<BackgroundImageProps> = ({ resources }) => {
 
 	useEffect(() => {
 		const tagMap: { [key: string]: string } = {
-			"/": "home_bg",
-			"/gallery": "gallery_bg",
-			"/contact": "contact_bg",
-			"/about": "about_bg",
+			"": "home_bg",
+			gallery: "gallery_bg",
+			contact: "contact_bg",
+			about: "about_bg",
 		};
-		const tag = tagMap[pathname];
+		const segments = pathname.split("/").filter(Boolean);
+		let firstSegment = segments[0] || "";
+		const tag = tagMap[firstSegment];
 		if (tag) {
 			const resource = resources.find((resource) => resource.tags.includes(tag));
 			if (resource) {

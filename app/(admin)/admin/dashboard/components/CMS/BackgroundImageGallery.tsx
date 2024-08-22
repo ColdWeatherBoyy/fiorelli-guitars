@@ -5,34 +5,44 @@ import { CloudinaryResource } from "@/app/utilities/types";
 import { CldImage } from "next-cloudinary";
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 
-interface GuitarImageGalleryProps {
-	tag: string;
+interface BackgroundImageGalleryProps {
 	updateCount: number;
 	setUpdateCount: Dispatch<SetStateAction<number>>;
+	selectedTag: string;
 	isMobile: boolean;
 }
 
-const GuitarImageGallery: FC<GuitarImageGalleryProps> = ({
-	tag,
+const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
 	updateCount,
 	setUpdateCount,
+	selectedTag,
 	isMobile,
 }) => {
 	const [fullResources, setFullResources] = useState<CloudinaryResource[]>([]);
+	const [orderedResources, setOrderedResources] = useState<CloudinaryResource[]>([]);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		setLoading(true);
-		setFullResources([]);
 		const fetchResources = async () => {
-			const resources = await getResources(tag);
+			const resources = await getResources("background");
 			setFullResources(resources);
 			setLoading(false);
 		};
 		fetchResources();
-	}, [tag, updateCount]);
+	}, [updateCount]);
 
-	const handleClick = async (publicId: string) => {
+	useEffect(() => {
+		setOrderedResources(
+			fullResources.slice().sort((a, b) => {
+				if (a.tags.includes(selectedTag)) return -1;
+				if (b.tags.includes(selectedTag)) return 1;
+				return 0;
+			})
+		);
+	}, [fullResources, selectedTag]);
+
+	const handleDelete = async (publicId: string) => {
 		const deletedResource = await deleteResource(publicId);
 		if (deletedResource === "ok") {
 			setUpdateCount((prev) => prev - 1);
@@ -46,11 +56,11 @@ const GuitarImageGallery: FC<GuitarImageGalleryProps> = ({
 			) : fullResources.length === 0 ? (
 				<div className="col-span-3 flex justify-center">No images found.</div>
 			) : (
-				fullResources.map((resource) => (
+				orderedResources.map((resource) => (
 					<div key={resource.public_id} className="relative w-fit">
 						<div
-							onClick={() => handleClick(resource.public_id)}
-							className={`absolute bg-slate-300 text-slate-500 dark:bg-slate-500 dark:text-slate-300 rounded-full top-2 right-2 cursor-pointer active:scale-95 transition-all duration-100 ease-in-out
+							onClick={() => handleDelete(resource.public_id)}
+							className={`absolute z-10 bg-slate-300 text-slate-500 dark:bg-slate-500 dark:text-slate-300 rounded-full top-2 right-2 cursor-pointer active:scale-95 transition-all duration-100 ease-in-out
 									${!isMobile && "hover:scale-[110%]"}`}
 						>
 							<XIcon />
@@ -63,7 +73,11 @@ const GuitarImageGallery: FC<GuitarImageGalleryProps> = ({
 							placeholder="blur"
 							blurDataURL={resource.blurDataUrl}
 							preserveTransformations
-							className="rounded-sm border border-slate-500 dark:border-slate-300 shadow shadow-slate-600 "
+							className={`rounded-sm ${
+								selectedTag && resource.tags.includes(selectedTag)
+									? "border-4 border-cyan-400 dark:border-cyan-500"
+									: "border border-slate-500 dark:border-slate-300 opacity-70"
+							} shadow shadow-slate-600`}
 						/>
 					</div>
 				))
@@ -72,4 +86,4 @@ const GuitarImageGallery: FC<GuitarImageGalleryProps> = ({
 	);
 };
 
-export default GuitarImageGallery;
+export default BackgroundImageGallery;
