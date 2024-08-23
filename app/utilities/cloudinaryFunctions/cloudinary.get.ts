@@ -4,6 +4,13 @@ import { cloudinary } from "../cloudinary";
 import { getBlurDataUrl } from "../imageHelpers";
 import { CloudinaryResource } from "../types";
 
+// To-Do: try this cloudinary.api
+// .resources_by_tag("shoes")
+// .then(result=>console.log(result)); https://cloudinary.com/documentation/tags
+
+// Also perhaps I should switch away from async/await as it seems Cloudinary uses callback
+// https://support.cloudinary.com/hc/en-us/community/posts/8786801740434-await-search-in-NodeJS
+
 export const getResources = async (tag: string) => {
 	const { resources }: { resources: CloudinaryResource[] } = await cloudinary.search
 		.expression(`tags=${tag}`)

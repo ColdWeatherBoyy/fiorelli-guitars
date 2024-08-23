@@ -24,7 +24,7 @@ const Uploader: FC<UploaderProps> = ({ tags, setUpdateCount, isMobile }) => {
 					// To-Do: Evaluate why setTimeout is needed
 					setTimeout(() => {
 						setUpdateCount((prev) => prev + 1);
-					}, 1250);
+					}, 1500);
 				}}
 				onSuccess={(result, current_asset) => {
 					// console.log("result", result);

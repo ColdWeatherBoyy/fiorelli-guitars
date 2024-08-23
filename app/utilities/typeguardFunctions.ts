@@ -276,6 +276,10 @@ export const isVariantGuitarModelWithSpec = (
 	);
 };
 
+export const hasPositiveResult = <T>(obj: T): obj is T & { result: "ok" } => {
+	return (obj as any).result === "ok";
+};
+
 // export const isMessageContent = (obj: any): obj is MessageContent => {
 // 	return (
 // 		typeof obj === "object" &&

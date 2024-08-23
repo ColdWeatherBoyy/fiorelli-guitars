@@ -1,6 +1,7 @@
 import XIcon from "@/app/components/SVGs/XIcon";
 import { deleteResource } from "@/app/utilities/cloudinaryFunctions/cloudinary.delete";
 import { getResources } from "@/app/utilities/cloudinaryFunctions/cloudinary.get";
+import { hasPositiveResult } from "@/app/utilities/typeguardFunctions";
 import { CloudinaryResource } from "@/app/utilities/types";
 import { CldImage } from "next-cloudinary";
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
@@ -34,7 +35,7 @@ const GuitarImageGallery: FC<GuitarImageGalleryProps> = ({
 
 	const handleClick = async (publicId: string) => {
 		const deletedResource = await deleteResource(publicId);
-		if (deletedResource === "ok") {
+		if (hasPositiveResult(deletedResource)) {
 			setUpdateCount((prev) => prev - 1);
 		}
 	};

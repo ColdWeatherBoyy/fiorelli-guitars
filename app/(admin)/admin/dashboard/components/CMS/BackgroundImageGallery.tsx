@@ -1,7 +1,10 @@
 import XIcon from "@/app/components/SVGs/XIcon";
 import { deleteResource } from "@/app/utilities/cloudinaryFunctions/cloudinary.delete";
 import { getResources } from "@/app/utilities/cloudinaryFunctions/cloudinary.get";
+import { removeFromOneResourceAndThenAddToAnother } from "@/app/utilities/cloudinaryFunctions/cloudinary.update";
+import { hasPositiveResult } from "@/app/utilities/typeguardFunctions";
 import { CloudinaryResource } from "@/app/utilities/types";
+import { set } from "mongoose";
 import { CldImage } from "next-cloudinary";
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 
@@ -21,13 +24,17 @@ const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
 	const [fullResources, setFullResources] = useState<CloudinaryResource[]>([]);
 	const [orderedResources, setOrderedResources] = useState<CloudinaryResource[]>([]);
 	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(false);
 
 	useEffect(() => {
 		setLoading(true);
 		const fetchResources = async () => {
 			const resources = await getResources("background");
+			if (resources.length === 0 || !resources) {
+				setLoading(false);
+				setError(true);
+			}
 			setFullResources(resources);
-			setLoading(false);
 		};
 		fetchResources();
 	}, [updateCount]);
@@ -42,18 +49,41 @@ const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
 		);
 	}, [fullResources, selectedTag]);
 
+	useEffect(() => {
+		if (orderedResources.length === 0) return;
+		setLoading(false);
+	}, [orderedResources]);
+
 	const handleDelete = async (publicId: string) => {
 		const deletedResource = await deleteResource(publicId);
-		if (deletedResource === "ok") {
+		if (hasPositiveResult(deletedResource)) {
 			setUpdateCount((prev) => prev - 1);
 		}
+	};
+
+	const handleSetBackground = async (publicId: string) => {
+		const currentBackground = fullResources.find((resource) =>
+			resource.tags.includes(selectedTag)
+		);
+		if (!currentBackground) return;
+
+		const newBackground = await removeFromOneResourceAndThenAddToAnother(
+			currentBackground.public_id,
+			publicId,
+			selectedTag
+		);
+		console.log(newBackground);
+
+		setTimeout(() => {
+			setUpdateCount((prev) => prev + 1);
+		}, 1500);
 	};
 
 	return (
 		<div className="w-full col-span-2 grid grid-cols-3 gap-4">
 			{loading ? (
 				<div className="col-span-3 flex justify-center">Loading...</div>
-			) : fullResources.length === 0 ? (
+			) : error ? (
 				<div className="col-span-3 flex justify-center">No images found.</div>
 			) : (
 				orderedResources.map((resource) => (
@@ -66,6 +96,7 @@ const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
 							<XIcon />
 						</div>
 						<CldImage
+							onClick={() => handleSetBackground(resource.public_id)}
 							width={250}
 							height={250}
 							src={resource.secure_url}
