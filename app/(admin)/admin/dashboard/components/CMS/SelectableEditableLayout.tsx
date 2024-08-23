@@ -27,7 +27,10 @@ const SelectEditableLayout: FC<SelectEditableLayoutProps> = ({
 	return (
 		<AnimateWrapper>
 			<div className="w-[60dvw] rounded-md shadow-sm shadow-slate-500 dark:shadow-slate-400">
-				<div className="flex flex-reverse overflow-auto justify-start rounded-t-md min-w-4/5 text-center">
+				<div
+					className="flex flex-reverse overflow-auto justify-start rounded-t-md min-w-4/5 text-center border-x
+border-slate-500 dark:border-slate-400 "
+				>
 					{titles.map((title, index) => (
 						<div
 							key={index}
@@ -36,6 +39,8 @@ const SelectEditableLayout: FC<SelectEditableLayoutProps> = ({
 								selectedTab === index
 									? "bg-slate-100 dark:bg-slate-500 text-xl underline border-b-0 tracking-wider"
 									: "bg-slate-300 dark:bg-slate-800 text-zinc-600 dark:text-zinc-300"
+							} ${index === 0 && "border-l-0"} ${
+								index === titles.length - 1 && "border-r-0"
 							}
               `}
 						>

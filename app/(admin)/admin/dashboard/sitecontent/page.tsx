@@ -10,10 +10,12 @@ const SiteContent = async () => {
 	const homeData = await getPageContent("Home");
 	const aboutData = await getPageContent("About");
 	const contactData = await getPageContent("Contact");
+	const galleryData = await getPageContent("Gallery");
 	const errors = {
 		home: { error: false, name: "", message: "" },
 		about: { error: false, name: "", message: "" },
 		contact: { error: false, name: "", message: "" },
+		gallery: { error: false, name: "", message: "" },
 	};
 
 	if (homeData instanceof Error) {
@@ -31,11 +33,17 @@ const SiteContent = async () => {
 		errors.contact.name = contactData.name;
 		errors.contact.message = contactData.message;
 	}
+	if (galleryData instanceof Error) {
+		errors.gallery.error = true;
+		errors.gallery.name = galleryData.name;
+		errors.gallery.message = galleryData.message;
+	}
 
 	if (
 		homeData instanceof Error ||
 		aboutData instanceof Error ||
-		contactData instanceof Error
+		contactData instanceof Error ||
+		galleryData instanceof Error
 	) {
 		return (
 			<div className="flex flex-col gap-2">
@@ -61,6 +69,12 @@ const SiteContent = async () => {
 							{errors.contact.name} - {errors.contact.message}
 						</li>
 					)}
+					{errors.gallery.error && (
+						<li>
+							<span className="font-semibold text-red-500">Gallery:</span>{" "}
+							{errors.gallery.name} - {errors.gallery.message}
+						</li>
+					)}
 				</ul>
 				<div>If the problem persists, please contact Site Admin.</div>
 			</div>
@@ -71,9 +85,15 @@ const SiteContent = async () => {
 		homeData.pageContent,
 		aboutData.pageContent,
 		contactData.pageContent,
+		galleryData.pageContent,
 	];
 
-	const titles = [homeData.page.title, aboutData.page.title, contactData.page.title];
+	const titles = [
+		homeData.page.title,
+		aboutData.page.title,
+		contactData.page.title,
+		galleryData.page.title,
+	];
 
 	return (
 		<>
