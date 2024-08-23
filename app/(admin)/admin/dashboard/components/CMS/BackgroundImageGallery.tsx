@@ -4,7 +4,6 @@ import { getResources } from "@/app/utilities/cloudinaryFunctions/cloudinary.get
 import { removeFromOneResourceAndThenAddToAnother } from "@/app/utilities/cloudinaryFunctions/cloudinary.update";
 import { hasPositiveResult } from "@/app/utilities/typeguardFunctions";
 import { CloudinaryResource } from "@/app/utilities/types";
-import { set } from "mongoose";
 import { CldImage } from "next-cloudinary";
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 
