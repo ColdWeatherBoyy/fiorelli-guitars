@@ -1,6 +1,5 @@
 import type { Config } from "tailwindcss";
 import plugin from "tailwindcss/plugin";
-import { transitionStyles } from "./app/style/tailwind/animations.tailwind";
 
 const config: Config = {
 	content: [
@@ -17,18 +16,6 @@ const config: Config = {
 		},
 
 		extend: {
-			animation: {
-				openFromLeft: transitionStyles.openFromLeft.animation,
-				openFromRight: transitionStyles.openFromRight.animation,
-				coverFromTop: transitionStyles.coverFromTop.animation,
-				coverFromBottom: transitionStyles.coverFromBottom.animation,
-			},
-			keyframes: {
-				openFromLeft: transitionStyles.openFromLeft.keyframes,
-				openFromRight: transitionStyles.openFromRight.keyframes,
-				coverFromTop: transitionStyles.coverFromTop.keyframes,
-				coverFromBottom: transitionStyles.coverFromBottom.keyframes,
-			},
 			backgroundImage: {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
 				"gradient-conic":

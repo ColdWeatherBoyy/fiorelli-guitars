@@ -5,8 +5,8 @@ import {
 } from "@/app/utilities/typeguardFunctions";
 import { GuitarModelWithSpec } from "@/app/utilities/types";
 import { FC, useState } from "react";
-import GuitarImageGallery from "./GuitarImageGallery";
 import EditableGuitarSpecLayout from "./EditableGuitarSpecLayout";
+import GuitarImageGallery from "./GuitarImageGallery";
 import Uploader from "./Uploader";
 
 interface EditableGuitarInfoLayoutProps {

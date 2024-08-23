@@ -1,3 +1,4 @@
+import LoadingIcon from "@/app/components/SVGs/LoadingIcon";
 import XIcon from "@/app/components/SVGs/XIcon";
 import { deleteResource } from "@/app/utilities/cloudinaryFunctions/cloudinary.delete";
 import { getResources } from "@/app/utilities/cloudinaryFunctions/cloudinary.get";
@@ -60,12 +61,13 @@ const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
 		}
 	};
 
-	const handleSetBackground = async (publicId: string) => {
+	const handleSetBackground = async (publicId: string, resource: CloudinaryResource) => {
+		if (resource.tags.includes(selectedTag)) return;
 		const currentBackground = fullResources.find((resource) =>
 			resource.tags.includes(selectedTag)
 		);
 		if (!currentBackground) return;
-
+		setLoading(true);
 		const newBackground = await removeFromOneResourceAndThenAddToAnother(
 			currentBackground.public_id,
 			publicId,
@@ -81,7 +83,9 @@ const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
 	return (
 		<div className="w-full col-span-2 grid grid-cols-3 gap-4">
 			{loading ? (
-				<div className="col-span-3 flex justify-center">Loading...</div>
+				<div className="col-span-3 flex justify-center">
+					<LoadingIcon />
+				</div>
 			) : error ? (
 				<div className="col-span-3 flex justify-center">No images found.</div>
 			) : (
@@ -95,7 +99,7 @@ const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
 							<XIcon />
 						</div>
 						<CldImage
-							onClick={() => handleSetBackground(resource.public_id)}
+							onClick={() => handleSetBackground(resource.public_id, resource)}
 							width={250}
 							height={250}
 							src={resource.secure_url}
@@ -106,7 +110,7 @@ const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
 							className={`rounded-sm ${
 								selectedTag && resource.tags.includes(selectedTag)
 									? "border-4 border-cyan-400 dark:border-cyan-500"
-									: "border border-slate-500 dark:border-slate-300 opacity-70"
+									: "border border-slate-500 dark:border-slate-300 opacity-70 hover:border-cyan-400 dark:hover:border-cyan-500 hover:opacity-100 transition transition-all duration-100 ease-in-out active:scale-95 cursor-pointer"
 							} shadow shadow-slate-600`}
 						/>
 					</div>
