@@ -22,10 +22,32 @@ const EditablePageContentLayout: FC<EditablePageContentLayoutProps> = ({
 	const [selectedTag, setSelectedTag] = useState<string>(
 		pageContentData[selectedTab].tag
 	);
+	const [uploadTag, setUploadTag] = useState<string>("background");
+	const [selectBackgroundImage, setSelectBackgroundImage] = useState(false);
+	const [hasContentImages, setHasContentImages] = useState(false);
 
 	useEffect(() => {
 		setSelectedTag(pageContentData[selectedTab].tag);
-	}, [pageContentData, selectedTab]);
+		if (
+			pageContentData[selectedTab].tag === "about_bg" ||
+			pageContentData[selectedTab].tag === "contact_bg"
+		) {
+			setHasContentImages(true);
+		} else {
+			setHasContentImages(false);
+			setSelectBackgroundImage(true);
+		}
+
+		if (selectBackgroundImage) {
+			setUploadTag("background");
+		} else if (pageContentData[selectedTab].tag === "about_bg") {
+			setUploadTag("about");
+		} else if (pageContentData[selectedTab].tag === "contact_bg") {
+			setUploadTag("contact");
+		}
+	}, [pageContentData, selectedTab, selectBackgroundImage]);
+
+	useEffect(() => {}, [selectBackgroundImage]);
 
 	return (
 		<>
@@ -77,9 +99,21 @@ const EditablePageContentLayout: FC<EditablePageContentLayoutProps> = ({
 				})
 			) : (
 				<>
+					{hasContentImages && (
+						<div className="w-full col-span-2 mt-2">
+							<Toggle
+								isToggled={selectBackgroundImage}
+								handleToggle={() => setSelectBackgroundImage((prev) => !prev)}
+								optionOne="Background"
+								optionTwo="Content"
+								isMobile={isMobile}
+								small={false}
+							/>
+						</div>
+					)}
 					<div className="my-4 col-span-2 flex justify-center">
 						<Uploader
-							tags={["background"]}
+							tags={[uploadTag]}
 							setUpdateCount={setUpdateCount}
 							isMobile={isMobile}
 						/>
