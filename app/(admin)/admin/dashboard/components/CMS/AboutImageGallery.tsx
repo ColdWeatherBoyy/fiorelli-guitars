@@ -9,7 +9,6 @@ import { CldImage } from "next-cloudinary";
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 
 interface BackgroundImageGalleryProps {
-	galleryTag: string;
 	updateCount: number;
 	setUpdateCount: Dispatch<SetStateAction<number>>;
 	selectedTag: string;
@@ -17,7 +16,6 @@ interface BackgroundImageGalleryProps {
 }
 
 const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
-	galleryTag,
 	updateCount,
 	setUpdateCount,
 	selectedTag,
@@ -31,7 +29,7 @@ const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
 	useEffect(() => {
 		setLoading(true);
 		const fetchResources = async () => {
-			const resources = await getResources(galleryTag);
+			const resources = await getResources("background");
 			if (resources.length === 0 || !resources) {
 				setLoading(false);
 				setError(true);

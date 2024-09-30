@@ -118,12 +118,17 @@ const EditablePageContentLayout: FC<EditablePageContentLayoutProps> = ({
 							isMobile={isMobile}
 						/>
 					</div>
-					<BackgroundImageGallery
-						updateCount={updateCount}
-						setUpdateCount={setUpdateCount}
-						selectedTag={selectedTag}
-						isMobile={isMobile}
-					/>
+					{selectBackgroundImage ? (
+						<BackgroundImageGallery
+							galleryTag="background"
+							updateCount={updateCount}
+							setUpdateCount={setUpdateCount}
+							selectedTag={selectedTag}
+							isMobile={isMobile}
+						/>
+					) : (
+						<div>hi</div>
+					)}
 				</>
 			)}
 		</>
