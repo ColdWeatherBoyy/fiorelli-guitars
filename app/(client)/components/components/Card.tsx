@@ -37,7 +37,6 @@ const Card: FC<CardProps> = ({
 			{body &&
 				body.map((paragraph, index) => (
 					<div key={index}>
-						{/* ${children && "last:mb-4"} */}
 						<div
 							className={`flex ${
 								index % 2 === 0

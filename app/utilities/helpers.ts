@@ -1,3 +1,5 @@
+import { CloudinaryResource } from "./types";
+
 export const formatDateTime = (date: Date): string => {
 	const months = (date.getMonth() + 1).toString();
 	const days = date.getDate().toString();
@@ -39,4 +41,19 @@ export const divideAndSortDatabaseData = (data: Array<Record<string, any>>) => {
 	const sortedData = data.map((item) => sortObjectKeys(item, ["name", "content"]));
 	const headers = Object.keys(sortedData[0]).filter((header) => header !== "id");
 	return { headers, sortedData };
+};
+
+export const sortResourcesByPriority = (
+	priorityTags: string[],
+	resources: CloudinaryResource[]
+) => {
+	return resources.sort((a, b) => {
+		const priorityA = priorityTags.findIndex((tag) => a.tags.includes(tag));
+		const priorityB = priorityTags.findIndex((tag) => b.tags.includes(tag));
+
+		const rankA = priorityA === -1 ? Infinity : priorityA;
+		const rankB = priorityB === -1 ? Infinity : priorityB;
+
+		return rankA - rankB;
+	});
 };
