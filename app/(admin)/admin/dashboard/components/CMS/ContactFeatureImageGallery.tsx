@@ -8,14 +8,16 @@ import { CloudinaryResource } from "@/app/utilities/types";
 import { CldImage } from "next-cloudinary";
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 
-interface BackgroundImageGalleryProps {
+interface ContactFeatureImageGalleryProps {
+	galleryTag: string;
 	updateCount: number;
 	setUpdateCount: Dispatch<SetStateAction<number>>;
 	selectedTag: string;
 	isMobile: boolean;
 }
 
-const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
+const ContactFeatureImageGallery: FC<ContactFeatureImageGalleryProps> = ({
+	galleryTag,
 	updateCount,
 	setUpdateCount,
 	selectedTag,
@@ -29,7 +31,7 @@ const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
 	useEffect(() => {
 		setLoading(true);
 		const fetchResources = async () => {
-			const resources = await getResources("background");
+			const resources = await getResources(galleryTag);
 			if (resources.length === 0 || !resources) {
 				setLoading(false);
 				setError(true);
@@ -123,4 +125,4 @@ const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
 	);
 };
 
-export default BackgroundImageGallery;
+export default ContactFeatureImageGallery;

@@ -5,6 +5,8 @@ import { FC, useEffect, useState } from "react";
 import BackgroundImageGallery from "./BackgroundImageGallery";
 import EditableContent from "./EditableContent";
 import Uploader from "./Uploader";
+import AboutFeatureImageGallery from "./AboutFeatureImageGallery";
+import ContactFeatureImageGallery from "./ContactFeatureImageGallery";
 
 interface EditablePageContentLayoutProps {
 	pageContentData: PageContent[];
@@ -22,6 +24,7 @@ const EditablePageContentLayout: FC<EditablePageContentLayoutProps> = ({
 	const [selectedTag, setSelectedTag] = useState<string>(
 		pageContentData[selectedTab].tag
 	);
+	console.log(selectedTag);
 	const [uploadTag, setUploadTag] = useState<string>("background");
 	const [selectBackgroundImage, setSelectBackgroundImage] = useState(false);
 	const [hasContentImages, setHasContentImages] = useState(false);
@@ -126,8 +129,22 @@ const EditablePageContentLayout: FC<EditablePageContentLayoutProps> = ({
 							selectedTag={selectedTag}
 							isMobile={isMobile}
 						/>
+					) : uploadTag === "about" ? (
+						<AboutFeatureImageGallery
+							galleryTag="about"
+							updateCount={updateCount}
+							setUpdateCount={setUpdateCount}
+							selectedTag={selectedTag}
+							isMobile={isMobile}
+						/>
 					) : (
-						<div>hi</div>
+						<ContactFeatureImageGallery
+							galleryTag="contact"
+							updateCount={updateCount}
+							setUpdateCount={setUpdateCount}
+							selectedTag={selectedTag}
+							isMobile={isMobile}
+						/>
 					)}
 				</>
 			)}
