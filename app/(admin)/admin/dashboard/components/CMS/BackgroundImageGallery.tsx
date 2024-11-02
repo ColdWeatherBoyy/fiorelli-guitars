@@ -2,11 +2,16 @@ import LoadingIcon from "@/app/components/SVGs/LoadingIcon";
 import XIcon from "@/app/components/SVGs/XIcon";
 import { deleteResource } from "@/app/utilities/cloudinaryFunctions/cloudinary.delete";
 import { getResources } from "@/app/utilities/cloudinaryFunctions/cloudinary.get";
-import { removeFromOneResourceAndThenAddToAnother } from "@/app/utilities/cloudinaryFunctions/cloudinary.update";
+import {
+	addTagToResource,
+	removeFromOneResourceAndThenAddToAnother,
+	removeTagFromResource,
+} from "@/app/utilities/cloudinaryFunctions/cloudinary.update";
+import { sortResourcesByPriority } from "@/app/utilities/helpers";
 import { hasPositiveResult } from "@/app/utilities/typeguardFunctions";
 import { CloudinaryResource } from "@/app/utilities/types";
 import { CldImage } from "next-cloudinary";
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from "react";
 
 interface BackgroundImageGalleryProps {
 	galleryTag: string;
@@ -24,37 +29,45 @@ const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
 	isMobile,
 }) => {
 	const [fullResources, setFullResources] = useState<CloudinaryResource[]>([]);
-	const [orderedResources, setOrderedResources] = useState<CloudinaryResource[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
+	const hasFetched = useRef(false);
 
 	useEffect(() => {
-		setLoading(true);
-		const fetchResources = async () => {
-			const resources = await getResources(galleryTag);
-			if (resources.length === 0 || !resources) {
-				setLoading(false);
-				setError(true);
-			}
-			setFullResources(resources);
+		const orderResources = (resources: CloudinaryResource[], selectedTag: string) => {
+			const priorityTags = [selectedTag];
+			sortResourcesByPriority(priorityTags, resources);
+			return resources;
 		};
-		fetchResources();
-	}, [updateCount]);
 
-	useEffect(() => {
-		setOrderedResources(
-			fullResources.slice().sort((a, b) => {
-				if (a.tags.includes(selectedTag)) return -1;
-				if (b.tags.includes(selectedTag)) return 1;
-				return 0;
-			})
-		);
-	}, [fullResources, selectedTag]);
+		const fetchResources = async () => {
+			try {
+				const resources = await getResources(galleryTag);
+				if (resources.length === 0 || !resources) {
+					setError(true);
+				} else {
+					setFullResources(orderResources(resources, selectedTag));
+					hasFetched.current = true;
+				}
+			} catch (error) {
+				console.error(error);
+				setError(true);
+			} finally {
+				setLoading(false);
+			}
+		};
 
-	useEffect(() => {
-		if (orderedResources.length === 0) return;
-		setLoading(false);
-	}, [orderedResources]);
+		setLoading(true);
+		if (!hasFetched.current) {
+			fetchResources();
+		} else {
+			// To-Do: Figure out why Timeout is needed
+			setTimeout(() => {
+				setFullResources((prevResources) => orderResources(prevResources, selectedTag));
+				setLoading(false);
+			}, 250);
+		}
+	}, [updateCount, selectedTag, galleryTag]);
 
 	const handleDelete = async (publicId: string) => {
 		const deletedResource = await deleteResource(publicId);
@@ -68,15 +81,19 @@ const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
 		const currentBackground = fullResources.find((resource) =>
 			resource.tags.includes(selectedTag)
 		);
-		if (!currentBackground) return;
 		setLoading(true);
-		const newBackground = await removeFromOneResourceAndThenAddToAnother(
-			currentBackground.public_id,
-			publicId,
-			selectedTag
-		);
-		console.log(newBackground);
+		if (currentBackground) {
+			const removedResource = await removeTagFromResource(
+				currentBackground.public_id,
+				selectedTag
+			);
+		}
+		const addedResource = await addTagToResource(publicId, selectedTag);
 
+		// Retrigger the fetch
+		hasFetched.current = false;
+
+		// To-Do: Figure out the issue here that Timeout is attempting to resolve
 		setTimeout(() => {
 			setUpdateCount((prev) => prev + 1);
 		}, 1500);
@@ -91,7 +108,7 @@ const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
 			) : error ? (
 				<div className="col-span-3 flex justify-center">No images found.</div>
 			) : (
-				orderedResources.map((resource) => (
+				fullResources.map((resource) => (
 					<div key={resource.public_id} className="relative w-fit">
 						<div
 							onClick={() => handleDelete(resource.public_id)}

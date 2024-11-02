@@ -12,7 +12,6 @@ interface AboutFeatureImageGalleryProps {
 	galleryTag: string;
 	updateCount: number;
 	setUpdateCount: Dispatch<SetStateAction<number>>;
-	selectedTag: string;
 	isMobile: boolean;
 }
 
@@ -20,11 +19,10 @@ const AboutFeatureImageGallery: FC<AboutFeatureImageGalleryProps> = ({
 	galleryTag,
 	updateCount,
 	setUpdateCount,
-	selectedTag,
 	isMobile,
 }) => {
 	const [fullResources, setFullResources] = useState<CloudinaryResource[]>([]);
-	const [orderedResources, setOrderedResources] = useState<CloudinaryResource[]>([]);
+	// const [orderedResources, setOrderedResources] = useState<CloudinaryResource[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 
@@ -41,20 +39,20 @@ const AboutFeatureImageGallery: FC<AboutFeatureImageGalleryProps> = ({
 		fetchResources();
 	}, [updateCount]);
 
-	useEffect(() => {
-		setOrderedResources(
-			fullResources.slice().sort((a, b) => {
-				if (a.tags.includes(selectedTag)) return -1;
-				if (b.tags.includes(selectedTag)) return 1;
-				return 0;
-			})
-		);
-	}, [fullResources, selectedTag]);
+	// useEffect(() => {
+	// 	setOrderedResources(
+	// 		fullResources.slice().sort((a, b) => {
+	// 			if (a.tags.includes(selectedTag)) return -1;
+	// 			if (b.tags.includes(selectedTag)) return 1;
+	// 			return 0;
+	// 		})
+	// 	);
+	// }, [fullResources, selectedTag]);
 
-	useEffect(() => {
-		if (orderedResources.length === 0) return;
-		setLoading(false);
-	}, [orderedResources]);
+	// useEffect(() => {
+	// 	if (orderedResources.length === 0) return;
+	// 	setLoading(false);
+	// }, [orderedResources]);
 
 	const handleDelete = async (publicId: string) => {
 		const deletedResource = await deleteResource(publicId);
@@ -64,18 +62,18 @@ const AboutFeatureImageGallery: FC<AboutFeatureImageGalleryProps> = ({
 	};
 
 	const handleSetBackground = async (publicId: string, resource: CloudinaryResource) => {
-		if (resource.tags.includes(selectedTag)) return;
-		const currentBackground = fullResources.find((resource) =>
-			resource.tags.includes(selectedTag)
-		);
-		if (!currentBackground) return;
-		setLoading(true);
-		const newBackground = await removeFromOneResourceAndThenAddToAnother(
-			currentBackground.public_id,
-			publicId,
-			selectedTag
-		);
-		console.log(newBackground);
+		// if (resource.tags.includes(selectedTag)) return;
+		// const currentBackground = fullResources.find((resource) =>
+		// 	resource.tags.includes(selectedTag)
+		// );
+		// if (!currentBackground) return;
+		// setLoading(true);
+		// const newBackground = await removeFromOneResourceAndThenAddToAnother(
+		// 	currentBackground.public_id,
+		// 	publicId,
+		// 	selectedTag
+		// );
+		// // console.log(newBackground);
 
 		setTimeout(() => {
 			setUpdateCount((prev) => prev + 1);
@@ -91,7 +89,7 @@ const AboutFeatureImageGallery: FC<AboutFeatureImageGalleryProps> = ({
 			) : error ? (
 				<div className="col-span-3 flex justify-center">No images found.</div>
 			) : (
-				orderedResources.map((resource) => (
+				fullResources.map((resource) => (
 					<div key={resource.public_id} className="relative w-fit">
 						<div
 							onClick={() => handleDelete(resource.public_id)}
@@ -109,14 +107,14 @@ const AboutFeatureImageGallery: FC<AboutFeatureImageGalleryProps> = ({
 							placeholder="blur"
 							blurDataURL={resource.blurDataUrl}
 							preserveTransformations
-							className={`rounded-sm ${
-								selectedTag && resource.tags.includes(selectedTag)
-									? "border-4 border-cyan-400 dark:border-cyan-500"
-									: `border border-slate-500 dark:border-slate-300 opacity-70 transition-all duration-100 ease-in-out active:scale-95%] cursor-pointer ${
-											!isMobile &&
-											"hover:border-cyan-400 dark:hover:border-cyan-500 hover:opacity-100"
-									  }`
-							} shadow shadow-slate-600`}
+							// className={`rounded-sm ${
+							// 	selectedTag && resource.tags.includes(selectedTag)
+							// 		? "border-4 border-cyan-400 dark:border-cyan-500"
+							// 		: `border border-slate-500 dark:border-slate-300 opacity-70 transition-all duration-100 ease-in-out active:scale-95%] cursor-pointer ${
+							// 				!isMobile &&
+							// 				"hover:border-cyan-400 dark:hover:border-cyan-500 hover:opacity-100"
+							// 		  }`
+							// } shadow shadow-slate-600`}
 						/>
 					</div>
 				))

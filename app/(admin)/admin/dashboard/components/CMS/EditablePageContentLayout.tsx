@@ -24,7 +24,6 @@ const EditablePageContentLayout: FC<EditablePageContentLayoutProps> = ({
 	const [selectedTag, setSelectedTag] = useState<string>(
 		pageContentData[selectedTab].tag
 	);
-	console.log(selectedTag);
 	const [uploadTag, setUploadTag] = useState<string>("background");
 	const [selectBackgroundImage, setSelectBackgroundImage] = useState(false);
 	const [hasContentImages, setHasContentImages] = useState(false);
@@ -134,7 +133,7 @@ const EditablePageContentLayout: FC<EditablePageContentLayoutProps> = ({
 							galleryTag="about"
 							updateCount={updateCount}
 							setUpdateCount={setUpdateCount}
-							selectedTag={selectedTag}
+							// selectedTag={selectedTag}
 							isMobile={isMobile}
 						/>
 					) : (
