@@ -114,16 +114,15 @@ const EditableGuitarSpecLayout: FC<EditableGuitarSpecLayoutProps> = ({
 				return;
 			}
 
-			const numberOfGalleryModels = currentGalleryModels.guitarModelsWithSpecs.length;
+			const numberOfGalleryModels = currentGalleryModels.guitarModelsWithSpecs.length + 1;
 			updatedGuitarModel = await updateVariantGuitar(
 				selectedModel.id,
 				"gallery",
 				!isGallery,
 				"galleryOrder",
-				numberOfGalleryModels + 1
+				numberOfGalleryModels
 			);
 		} else {
-			console.log("hi");
 			updatedGuitarModel = await updateVariantGuitar(
 				selectedModel.id,
 				"gallery",
@@ -131,7 +130,8 @@ const EditableGuitarSpecLayout: FC<EditableGuitarSpecLayoutProps> = ({
 				"galleryOrder",
 				null
 			);
-			console.log("remove", updatedGuitarModel);
+
+			// Now update the order number for the remaining gallery models above it
 		}
 
 		if (!isVariantGuitarModel(updatedGuitarModel)) {

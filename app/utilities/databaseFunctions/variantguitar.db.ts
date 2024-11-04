@@ -175,7 +175,6 @@ export const updateVariantGuitar = async (
 ) => {
 	try {
 		if (key2 !== undefined && content2 !== undefined) {
-			console.log("hi2", key2, content2);
 			const updatedGuitarSpec = await prisma.variantGuitarModel.update({
 				where: {
 					id,
@@ -185,7 +184,6 @@ export const updateVariantGuitar = async (
 					[key2]: content2,
 				},
 			});
-			console.log(updatedGuitarSpec);
 			return updatedGuitarSpec;
 		} else {
 			const updatedGuitarSpec = await prisma.variantGuitarModel.update({
@@ -196,9 +194,6 @@ export const updateVariantGuitar = async (
 					[key]: content,
 				},
 			});
-
-			// Now update the models after it in the order
-
 			return updatedGuitarSpec;
 		}
 	} catch (error) {
