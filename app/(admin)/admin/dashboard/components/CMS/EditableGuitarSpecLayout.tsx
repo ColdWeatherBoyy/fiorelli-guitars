@@ -4,7 +4,9 @@ import {
 	updateGuitarModelSpec,
 } from "@/app/utilities/databaseFunctions/guitarspec.db";
 import {
+	decrementHigherGalleryOrder,
 	getAllGalleryVariantGuitarModels,
+	getVariantGuitarModel,
 	updateVariantGuitar,
 } from "@/app/utilities/databaseFunctions/variantguitar.db";
 import { isGuitarSpec, isVariantGuitarModel } from "@/app/utilities/typeguardFunctions";
@@ -12,9 +14,9 @@ import { GuitarModelWithSpec, NotificationContentType } from "@/app/utilities/ty
 import { GuitarSpec } from "@prisma/client";
 import { FC, useEffect, useState } from "react";
 import NotificationModal from "../notifications/NotificationModal";
-import UpdateUnusedSpec from "./UpdateUnusedSpec";
 import EditableContent from "./EditableContent";
 import ToggleGalleryFeature from "./ToggleGalleryFeature";
+import UpdateUnusedSpec from "./UpdateUnusedSpec";
 
 interface EditableGuitarSpecLayoutProps {
 	models: GuitarModelWithSpec[];
@@ -102,36 +104,61 @@ const EditableGuitarSpecLayout: FC<EditableGuitarSpecLayoutProps> = ({
 	const handleGalleryToggle = async () => {
 		if (!isVariantGuitarModel(selectedModel)) return;
 
-		let updatedGuitarModel;
-		// if isGallery is currently true, then we are removing the gallery feature and need to update the order number for remaining Gallery models
-		// if isGallery is currently false, then we are adding the gallery feature and need to add a gallery number which is the number of gallery models + 1
-		if (!isGallery) {
-			console.log("there");
+		const addGalleryVariant = async () => {
 			const currentGalleryModels = await getAllGalleryVariantGuitarModels();
 			if (currentGalleryModels instanceof Error) {
-				setNotificationContent({ key: "error", content: currentGalleryModels });
-				setOpen(true);
-				return;
+				return currentGalleryModels;
 			}
 
 			const numberOfGalleryModels = currentGalleryModels.guitarModelsWithSpecs.length + 1;
-			updatedGuitarModel = await updateVariantGuitar(
+			return await updateVariantGuitar(
 				selectedModel.id,
 				"gallery",
 				!isGallery,
 				"galleryOrder",
 				numberOfGalleryModels
 			);
-		} else {
-			updatedGuitarModel = await updateVariantGuitar(
+		};
+
+		const removeGalleryVariant = async () => {
+			const adjustedGuitar = await getVariantGuitarModel(selectedModel.variantTag);
+			if (!isVariantGuitarModel(adjustedGuitar)) {
+				return adjustedGuitar;
+			}
+			const removedOrder = adjustedGuitar.galleryOrder;
+			if (removedOrder === null) {
+				return {
+					name: "No Gallery Order",
+					message: "This model does not have a gallery order number.",
+				};
+			}
+
+			const updatedGuitarModel = await updateVariantGuitar(
 				selectedModel.id,
 				"gallery",
 				!isGallery,
 				"galleryOrder",
 				null
 			);
+			if (updatedGuitarModel instanceof Error) {
+				return updatedGuitarModel;
+			}
 
-			// Now update the order number for the remaining gallery models above it
+			const adjustedVariants = await decrementHigherGalleryOrder(removedOrder);
+			if (adjustedVariants instanceof Error) {
+				return adjustedVariants;
+			}
+
+			return updatedGuitarModel;
+		};
+
+		let updatedGuitarModel;
+		// if isGallery is currently true, then we are removing the gallery feature and need to update the order number for remaining Gallery models
+		// if isGallery is currently false, then we are adding the gallery feature and need to add a gallery number which is the number of gallery models + 1
+		if (!isGallery) {
+			updatedGuitarModel = await addGalleryVariant();
+		} else {
+			updatedGuitarModel = await removeGalleryVariant();
 		}
 
 		if (!isVariantGuitarModel(updatedGuitarModel)) {

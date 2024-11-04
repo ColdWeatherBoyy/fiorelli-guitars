@@ -272,3 +272,89 @@ export const createVariantGuitarModel = async (
 		}
 	}
 };
+
+export const decrementHigherGalleryOrder = async (order: number) => {
+	try {
+		const adjustedVariants = await prisma.variantGuitarModel.updateMany({
+			where: {
+				galleryOrder: {
+					gt: order,
+				},
+			},
+			data: {
+				galleryOrder: {
+					decrement: 1,
+				},
+			},
+		});
+		return adjustedVariants;
+	} catch (error) {
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			return {
+				name: "Validation Error",
+				message: "An error occurred. Please try again.",
+				cause: `${error.code} - ${error.message}`,
+			};
+		} else if (
+			error instanceof Prisma.PrismaClientInitializationError ||
+			error instanceof Prisma.PrismaClientValidationError ||
+			error instanceof Prisma.PrismaClientRustPanicError ||
+			error instanceof Prisma.PrismaClientUnknownRequestError
+		) {
+			return {
+				name: "Prisma Database Error",
+				message: "A database error occured. Please try again.",
+				cause: error.message,
+			};
+		} else {
+			return {
+				name: "Unknown Error",
+				message: "An unknown error occurred. Please try again.",
+				cause: error?.toString() || "No error message provided.",
+			};
+		}
+	}
+};
+
+export const incrementHigherGalleryOrder = async (order: number) => {
+	try {
+		const adjustedVariants = await prisma.variantGuitarModel.updateMany({
+			where: {
+				galleryOrder: {
+					gt: order,
+				},
+			},
+			data: {
+				galleryOrder: {
+					increment: 1,
+				},
+			},
+		});
+		return adjustedVariants;
+	} catch (error) {
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			return {
+				name: "Validation Error",
+				message: "An error occurred. Please try again.",
+				cause: `${error.code} - ${error.message}`,
+			};
+		} else if (
+			error instanceof Prisma.PrismaClientInitializationError ||
+			error instanceof Prisma.PrismaClientValidationError ||
+			error instanceof Prisma.PrismaClientRustPanicError ||
+			error instanceof Prisma.PrismaClientUnknownRequestError
+		) {
+			return {
+				name: "Prisma Database Error",
+				message: "A database error occured. Please try again.",
+				cause: error.message,
+			};
+		} else {
+			return {
+				name: "Unknown Error",
+				message: "An unknown error occurred. Please try again.",
+				cause: error?.toString() || "No error message provided.",
+			};
+		}
+	}
+};

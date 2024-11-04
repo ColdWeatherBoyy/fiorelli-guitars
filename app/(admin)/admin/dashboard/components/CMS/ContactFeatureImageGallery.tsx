@@ -75,7 +75,6 @@ const ContactFeatureImageGallery: FC<ContactFeatureImageGalleryProps> = ({
 			publicId,
 			selectedTag
 		);
-		console.log(newBackground);
 
 		setTimeout(() => {
 			setUpdateCount((prev) => prev + 1);
