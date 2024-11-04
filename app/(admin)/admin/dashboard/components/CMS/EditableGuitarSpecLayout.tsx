@@ -3,7 +3,10 @@ import {
 	getGuitarSpec,
 	updateGuitarModelSpec,
 } from "@/app/utilities/databaseFunctions/guitarspec.db";
-import { updateVariantGuitar } from "@/app/utilities/databaseFunctions/variantguitar.db";
+import {
+	getAllGalleryVariantGuitarModels,
+	updateVariantGuitar,
+} from "@/app/utilities/databaseFunctions/variantguitar.db";
 import { isGuitarSpec, isVariantGuitarModel } from "@/app/utilities/typeguardFunctions";
 import { GuitarModelWithSpec, NotificationContentType } from "@/app/utilities/types";
 import { GuitarSpec } from "@prisma/client";
@@ -98,11 +101,39 @@ const EditableGuitarSpecLayout: FC<EditableGuitarSpecLayoutProps> = ({
 	// Update the gallery boolean for the selected guitar model
 	const handleGalleryToggle = async () => {
 		if (!isVariantGuitarModel(selectedModel)) return;
-		const updatedGuitarModel = await updateVariantGuitar(
-			selectedModel.id,
-			"gallery",
-			!isGallery
-		);
+
+		let updatedGuitarModel;
+		// if isGallery is currently true, then we are removing the gallery feature and need to update the order number for remaining Gallery models
+		// if isGallery is currently false, then we are adding the gallery feature and need to add a gallery number which is the number of gallery models + 1
+		if (!isGallery) {
+			console.log("there");
+			const currentGalleryModels = await getAllGalleryVariantGuitarModels();
+			if (currentGalleryModels instanceof Error) {
+				setNotificationContent({ key: "error", content: currentGalleryModels });
+				setOpen(true);
+				return;
+			}
+
+			const numberOfGalleryModels = currentGalleryModels.guitarModelsWithSpecs.length;
+			updatedGuitarModel = await updateVariantGuitar(
+				selectedModel.id,
+				"gallery",
+				!isGallery,
+				"galleryOrder",
+				numberOfGalleryModels + 1
+			);
+		} else {
+			console.log("hi");
+			updatedGuitarModel = await updateVariantGuitar(
+				selectedModel.id,
+				"gallery",
+				!isGallery,
+				"galleryOrder",
+				null
+			);
+			console.log("remove", updatedGuitarModel);
+		}
+
 		if (!isVariantGuitarModel(updatedGuitarModel)) {
 			setNotificationContent({ key: "error", content: updatedGuitarModel });
 		} else {

@@ -128,7 +128,7 @@ export const getAllGalleryVariantGuitarModels = async () => {
 	try {
 		const guitarModels = await prisma.variantGuitarModel.findMany({
 			orderBy: {
-				name: "asc",
+				galleryOrder: "asc",
 			},
 			where: {
 				gallery: true,
@@ -169,18 +169,38 @@ export const getAllGalleryVariantGuitarModels = async () => {
 export const updateVariantGuitar = async (
 	id: number,
 	key: string,
-	content: string | boolean
+	content: string | boolean | number | null,
+	key2?: string,
+	content2?: string | boolean | number | null
 ) => {
 	try {
-		const updatedGuitarSpec = await prisma.variantGuitarModel.update({
-			where: {
-				id,
-			},
-			data: {
-				[key]: content,
-			},
-		});
-		return updatedGuitarSpec;
+		if (key2 !== undefined && content2 !== undefined) {
+			console.log("hi2", key2, content2);
+			const updatedGuitarSpec = await prisma.variantGuitarModel.update({
+				where: {
+					id,
+				},
+				data: {
+					[key]: content,
+					[key2]: content2,
+				},
+			});
+			console.log(updatedGuitarSpec);
+			return updatedGuitarSpec;
+		} else {
+			const updatedGuitarSpec = await prisma.variantGuitarModel.update({
+				where: {
+					id,
+				},
+				data: {
+					[key]: content,
+				},
+			});
+
+			// Now update the models after it in the order
+
+			return updatedGuitarSpec;
+		}
 	} catch (error) {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
 			return {

@@ -71,6 +71,7 @@ model VariantGuitarModel {
   baseModelId       Int
   guitarSpec        GuitarSpec? 
   gallery           Boolean
+  galleryOrder      Int?  @unique
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 }
