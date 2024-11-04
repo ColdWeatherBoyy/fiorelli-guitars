@@ -19,7 +19,7 @@ const GallerySlider: FC<GallerySliderProps> = ({ resources, title, tag, isMobile
 
 	return (
 		<InnerCard title={title} tag={tag} isMobile={isMobile}>
-			<div className="overflow-auto flex rounded-sm gap-6 bg-zinc-50 dark:bg-zinc-300 p-5 shadow-inner shadow-zinc-700">
+			<div className="overflow-auto flex justify-evenly rounded-sm gap-6 bg-zinc-50 dark:bg-zinc-300 p-5 shadow-inner shadow-zinc-700">
 				{resources.map((resource, index) => {
 					return (
 						<Link
@@ -28,14 +28,16 @@ const GallerySlider: FC<GallerySliderProps> = ({ resources, title, tag, isMobile
 							aria-label="View photo"
 						>
 							<CldImage
-								width={`${screenSize === "extraSmall" ? "150" : "175"}`}
-								height={`${screenSize === "extraSmall" ? "150" : "175"}`}
+								width={175}
+								height={175}
 								src={resource.secure_url}
 								alt={resource.public_id}
 								placeholder="blur"
 								blurDataURL={resource.blurDataUrl}
 								preserveTransformations
-								className="rounded-sm bg-zinc-100 shadow shadow-zinc-500 hover:shadow-zinc-500 hover:shadow-md active:shadow-inner active:shadow-zinc-500 transition-all duration-150 ease-in-out cursor-pointer"
+								className={`min-w-[175px] min-h-[175px] rounded-sm bg-zinc-100 shadow shadow-zinc-500 ${
+									!isMobile && "hover:shadow-zinc-500 hover:shadow-md hover:scale-[105%]"
+								} active:shadow-inner active:shadow-zinc-500 active:scale-[95%] transition-all duration-150 ease-in-out cursor-pointer`}
 							/>
 						</Link>
 					);
