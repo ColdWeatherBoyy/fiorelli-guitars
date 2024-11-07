@@ -2,8 +2,8 @@ import AdminButtonLink from "@/app/(admin)/components/components/AdminButtonLink
 import {
 	getAllGalleryVariantGuitarModels,
 	reorderGalleryVariantGuitars,
-	updateVariantGuitar,
 } from "@/app/utilities/databaseFunctions/variantguitar.db";
+import { isVariantGuitarModelArray } from "@/app/utilities/typeguardFunctions";
 import {
 	NotificationContentType,
 	VariantGuitarModelWithSpec,
@@ -11,11 +11,6 @@ import {
 import { Reorder } from "framer-motion";
 import { FC, useState } from "react";
 import NotificationModal from "../notifications/NotificationModal";
-import { set } from "mongoose";
-import {
-	isVariantGuitarModel,
-	isVariantGuitarModelArray,
-} from "@/app/utilities/typeguardFunctions";
 
 interface GalleryOrderProps {
 	galleryGuitars: VariantGuitarModelWithSpec[];
