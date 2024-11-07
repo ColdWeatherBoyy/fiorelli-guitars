@@ -1,5 +1,6 @@
 import Title from "@/app/(admin)/admin/dashboard/components/components/Title";
 import { getPageContent } from "@/app/utilities/databaseFunctions/pagecontent.db";
+import { getAllGalleryVariantGuitarModels } from "@/app/utilities/databaseFunctions/variantguitar.db";
 import { useDeviceType } from "@/app/utilities/hooks.server";
 import { PageContent } from "@prisma/client";
 import SelectEditableLayout from "../components/CMS/SelectableEditableLayout";
@@ -11,11 +12,14 @@ const SiteContent = async () => {
 	const aboutData = await getPageContent("About");
 	const contactData = await getPageContent("Contact");
 	const galleryData = await getPageContent("Gallery");
+	const galleryGuitars = await getAllGalleryVariantGuitarModels();
+
 	const errors = {
 		home: { error: false, name: "", message: "" },
 		about: { error: false, name: "", message: "" },
 		contact: { error: false, name: "", message: "" },
 		gallery: { error: false, name: "", message: "" },
+		galleryGuitars: { error: false, name: "", message: "" },
 	};
 
 	if (homeData instanceof Error) {
@@ -38,12 +42,18 @@ const SiteContent = async () => {
 		errors.gallery.name = galleryData.name;
 		errors.gallery.message = galleryData.message;
 	}
+	if (galleryGuitars instanceof Error) {
+		errors.galleryGuitars.error = true;
+		errors.galleryGuitars.name = galleryGuitars.name;
+		errors.galleryGuitars.message = galleryGuitars.message;
+	}
 
 	if (
 		homeData instanceof Error ||
 		aboutData instanceof Error ||
 		contactData instanceof Error ||
-		galleryData instanceof Error
+		galleryData instanceof Error ||
+		galleryGuitars instanceof Error
 	) {
 		return (
 			<div className="flex flex-col gap-2">
@@ -75,6 +85,12 @@ const SiteContent = async () => {
 							{errors.gallery.name} - {errors.gallery.message}
 						</li>
 					)}
+					{errors.galleryGuitars.error && (
+						<li>
+							<span className="font-semibold text-red-500">Gallery Guitars:</span>{" "}
+							{errors.galleryGuitars.name} - {errors.galleryGuitars.message}
+						</li>
+					)}
 				</ul>
 				<div>If the problem persists, please contact Site Admin.</div>
 			</div>
@@ -98,7 +114,12 @@ const SiteContent = async () => {
 	return (
 		<>
 			<Title title="Site Content" />
-			<SelectEditableLayout content={pageContents} titles={titles} isMobile={isMobile} />
+			<SelectEditableLayout
+				content={pageContents}
+				titles={titles}
+				galleryGuitars={galleryGuitars.guitarModelsWithSpecs}
+				isMobile={isMobile}
+			/>
 		</>
 	);
 };

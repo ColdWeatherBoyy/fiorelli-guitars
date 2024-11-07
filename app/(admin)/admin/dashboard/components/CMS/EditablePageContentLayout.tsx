@@ -2,11 +2,11 @@ import Toggle from "@/app/(admin)/components/components/Toggle";
 import { updateContentBlock } from "@/app/utilities/databaseFunctions/pagecontent.db";
 import { PageContent } from "@prisma/client";
 import { FC, useEffect, useState } from "react";
+import AboutFeatureImageGallery from "./AboutFeatureImageGallery";
 import BackgroundImageGallery from "./BackgroundImageGallery";
+import ContactFeatureImageGallery from "./ContactFeatureImageGallery";
 import EditableContent from "./EditableContent";
 import Uploader from "./Uploader";
-import AboutFeatureImageGallery from "./AboutFeatureImageGallery";
-import ContactFeatureImageGallery from "./ContactFeatureImageGallery";
 
 interface EditablePageContentLayoutProps {
 	pageContentData: PageContent[];

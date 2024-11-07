@@ -1,14 +1,13 @@
 "use client";
 
 import AdminButtonLink from "@/app/(admin)/components/components/AdminButtonLink";
+import TextareaInput from "@/app/(admin)/components/components/TextareaInput";
 import { camelToTitleCase } from "@/app/utilities/helpers";
 import { isGuitarSpec, isPageContent } from "@/app/utilities/typeguardFunctions";
 import { NotificationContentType } from "@/app/utilities/types";
 import { GuitarSpec, PageContent } from "@prisma/client";
 import { FC, useState } from "react";
-import TextareaAutosize from "react-textarea-autosize";
 import NotificationModal from "../notifications/NotificationModal";
-import TextareaInput from "@/app/(admin)/components/components/TextareaInput";
 
 interface EditableContentProps {
 	contentObj: Record<string, string>;

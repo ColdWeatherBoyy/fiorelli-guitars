@@ -74,6 +74,22 @@ export const isVariantGuitarModel = (obj: any): obj is VariantGuitarModel => {
 	);
 };
 
+export const isVariantGuitarModelArray = (arr: any): arr is VariantGuitarModel[] => {
+	if (!Array.isArray(arr)) return false;
+	return arr.every(
+		(obj) =>
+			typeof obj === "object" &&
+			typeof obj.id === "number" &&
+			typeof obj.variantTag === "string" &&
+			typeof obj.name === "string" &&
+			typeof obj.colorScheme === "string" &&
+			typeof obj.baseModelId === "number" &&
+			typeof obj.gallery === "boolean" &&
+			typeof obj.createdAt === "object" &&
+			typeof obj.updatedAt === "object"
+	);
+};
+
 export const isGuitarSpec = (obj: any): obj is GuitarSpec => {
 	return (
 		typeof obj === "object" &&

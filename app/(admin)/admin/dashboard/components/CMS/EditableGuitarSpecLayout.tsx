@@ -110,7 +110,7 @@ const EditableGuitarSpecLayout: FC<EditableGuitarSpecLayoutProps> = ({
 				return currentGalleryModels;
 			}
 
-			const numberOfGalleryModels = currentGalleryModels.guitarModelsWithSpecs.length + 1;
+			const numberOfGalleryModels = currentGalleryModels.guitarModelsWithSpecs.length;
 			return await updateVariantGuitar(
 				selectedModel.id,
 				"gallery",
@@ -154,7 +154,7 @@ const EditableGuitarSpecLayout: FC<EditableGuitarSpecLayoutProps> = ({
 
 		let updatedGuitarModel;
 		// if isGallery is currently true, then we are removing the gallery feature and need to update the order number for remaining Gallery models
-		// if isGallery is currently false, then we are adding the gallery feature and need to add a gallery number which is the number of gallery models + 1
+		// if isGallery is currently false, then we are adding the gallery feature and need to add a gallery number which is the number of gallery models
 		if (!isGallery) {
 			updatedGuitarModel = await addGalleryVariant();
 		} else {

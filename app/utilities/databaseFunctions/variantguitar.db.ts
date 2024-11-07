@@ -1,8 +1,8 @@
 "use server";
 
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient, VariantGuitarModel } from "@prisma/client";
 import { hasGuitarSpec, hasNoGuitarSpec } from "../typeguardFunctions";
-import { GuitarSpecNeeds } from "../types";
+import { GuitarSpecNeeds, VariantGuitarModelWithSpec } from "../types";
 
 const prisma = new PrismaClient();
 
@@ -331,6 +331,61 @@ export const incrementHigherGalleryOrder = async (order: number) => {
 			},
 		});
 		return adjustedVariants;
+	} catch (error) {
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			return {
+				name: "Validation Error",
+				message: "An error occurred. Please try again.",
+				cause: `${error.code} - ${error.message}`,
+			};
+		} else if (
+			error instanceof Prisma.PrismaClientInitializationError ||
+			error instanceof Prisma.PrismaClientValidationError ||
+			error instanceof Prisma.PrismaClientRustPanicError ||
+			error instanceof Prisma.PrismaClientUnknownRequestError
+		) {
+			return {
+				name: "Prisma Database Error",
+				message: "A database error occured. Please try again.",
+				cause: error.message,
+			};
+		} else {
+			return {
+				name: "Unknown Error",
+				message: "An unknown error occurred. Please try again.",
+				cause: error?.toString() || "No error message provided.",
+			};
+		}
+	}
+};
+
+export const reorderGalleryVariantGuitars = async (
+	guitarsNewOrder: VariantGuitarModelWithSpec[]
+) => {
+	try {
+		const ids = guitarsNewOrder.map((guitar) => guitar.id);
+		await prisma.variantGuitarModel.updateMany({
+			where: {
+				id: { in: ids },
+			},
+			data: {
+				galleryOrder: null,
+			},
+		});
+
+		const updatedGuitars = await prisma.$transaction(
+			guitarsNewOrder.map((guitar, index) =>
+				prisma.variantGuitarModel.update({
+					where: {
+						id: guitar.id,
+					},
+					data: {
+						galleryOrder: guitar.galleryOrder,
+					},
+				})
+			)
+		);
+		return updatedGuitars;
 	} catch (error) {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
 			return {

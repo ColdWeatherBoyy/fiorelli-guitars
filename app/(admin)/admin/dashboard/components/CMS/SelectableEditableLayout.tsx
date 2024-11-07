@@ -4,33 +4,34 @@ import {
 	isGuitarModelWithSpecArray,
 	isPageContentArray,
 } from "@/app/utilities/typeguardFunctions";
-import { GuitarModelWithSpec } from "@/app/utilities/types";
+import { GuitarModelWithSpec, VariantGuitarModelWithSpec } from "@/app/utilities/types";
 import { PageContent } from "@prisma/client";
 import { FC, useState } from "react";
 import EditableGuitarInfoLayout from "./EditableGuitarInfoLayout";
 import EditablePageContentLayout from "./EditablePageContentLayout";
 import AnimateWrapper from "@/app/components/AnimateWrapper";
+import { title } from "process";
+import { GalleryOrder } from "./GalleryOrder";
 
 interface SelectEditableLayoutProps {
 	content: PageContent[] | GuitarModelWithSpec[];
 	titles: string[];
+	galleryGuitars?: VariantGuitarModelWithSpec[];
 	isMobile: boolean;
 }
 
 const SelectEditableLayout: FC<SelectEditableLayoutProps> = ({
 	content,
 	titles,
+	galleryGuitars,
 	isMobile,
 }) => {
 	const [selectedTab, setSelectedTab] = useState(0);
 
 	return (
 		<AnimateWrapper>
-			<div className="w-[60dvw] rounded-md shadow-sm shadow-slate-500 dark:shadow-slate-400">
-				<div
-					className="flex flex-reverse overflow-auto justify-start rounded-t-md min-w-4/5 text-center border-x
-border-slate-500 dark:border-slate-400 "
-				>
+			<div className="w-[60dvw] rounded-md shadow-bottom shadow-slate-500 dark:shadow-slate-400">
+				<div className="flex flex-reverse overflow-auto justify-start rounded-t-md min-w-4/5 text-center border-x border-slate-500 dark:border-slate-400">
 					{titles.map((title, index) => (
 						<div
 							key={index}
@@ -59,11 +60,13 @@ border-slate-500 dark:border-slate-400 "
 				</div>
 				<div className="w-full bg-slate-100 dark:bg-slate-500 grid grid-cols-1 sm:grid-cols-2 border-x border-b rounded-b-md border-slate-500 dark:border-slate-400 p-2">
 					{isPageContentArray(content) ? (
-						<EditablePageContentLayout
-							pageContentData={content}
-							selectedTab={selectedTab}
-							isMobile={isMobile}
-						/>
+						<>
+							<EditablePageContentLayout
+								pageContentData={content}
+								selectedTab={selectedTab}
+								isMobile={isMobile}
+							/>
+						</>
 					) : isGuitarModelWithSpecArray(content) ? (
 						<EditableGuitarInfoLayout
 							models={content}
@@ -72,6 +75,11 @@ border-slate-500 dark:border-slate-400 "
 						/>
 					) : (
 						<div>An error has occurred.</div>
+					)}
+					{galleryGuitars && titles[selectedTab] === "Gallery" && (
+						<div className="mt-4 max-w-[60%] col-span-2 mx-auto">
+							<GalleryOrder galleryGuitars={galleryGuitars} isMobile={isMobile} />
+						</div>
 					)}
 				</div>
 			</div>
