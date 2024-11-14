@@ -3,10 +3,11 @@ import XIcon from "@/app/components/SVGs/XIcon";
 import { deleteResource } from "@/app/utilities/cloudinaryFunctions/cloudinary.delete";
 import { getResources } from "@/app/utilities/cloudinaryFunctions/cloudinary.get";
 import { removeFromOneResourceAndThenAddToAnother } from "@/app/utilities/cloudinaryFunctions/cloudinary.update";
+import { sortResourcesByPriority } from "@/app/utilities/helpers";
 import { hasPositiveResult } from "@/app/utilities/typeguardFunctions";
 import { CloudinaryResource } from "@/app/utilities/types";
 import { CldImage } from "next-cloudinary";
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from "react";
 
 interface AboutFeatureImageGalleryProps {
 	galleryTag: string;
@@ -22,62 +23,51 @@ const AboutFeatureImageGallery: FC<AboutFeatureImageGalleryProps> = ({
 	isMobile,
 }) => {
 	const [fullResources, setFullResources] = useState<CloudinaryResource[]>([]);
-	// const [orderedResources, setOrderedResources] = useState<CloudinaryResource[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
+	const hasFetched = useRef(false);
 
 	useEffect(() => {
-		setLoading(true);
-		const fetchResources = async () => {
-			const resources = await getResources(galleryTag);
-			if (resources.length === 0 || !resources) {
-				setLoading(false);
-				setError(true);
-			}
-			setFullResources(resources);
+		const orderResources = (resources: CloudinaryResource[]) => {
+			const orderedTags = ["about_1", "about_2", "about_3", "about_4"];
+			sortResourcesByPriority(orderedTags, resources);
+			return resources;
 		};
-		fetchResources();
-	}, [updateCount]);
 
-	// useEffect(() => {
-	// 	setOrderedResources(
-	// 		fullResources.slice().sort((a, b) => {
-	// 			if (a.tags.includes(selectedTag)) return -1;
-	// 			if (b.tags.includes(selectedTag)) return 1;
-	// 			return 0;
-	// 		})
-	// 	);
-	// }, [fullResources, selectedTag]);
+		const fetchResources = async () => {
+			try {
+				const resources = await getResources(galleryTag);
+				if (resources.length === 0 || !resources) {
+					setError(true);
+				} else {
+					setFullResources(orderResources(resources));
+					hasFetched.current = true;
+				}
+			} catch (error) {
+				console.error(error);
+				setError(true);
+			} finally {
+				setLoading(false);
+			}
+		};
 
-	// useEffect(() => {
-	// 	if (orderedResources.length === 0) return;
-	// 	setLoading(false);
-	// }, [orderedResources]);
+		setLoading(true);
+		if (!hasFetched.current) {
+			fetchResources();
+		} else {
+			// To-Do: Figure out why Timeout is needed
+			setTimeout(() => {
+				setFullResources((prevResources) => orderResources(prevResources));
+				setLoading(false);
+			}, 250);
+		}
+	}, [updateCount, galleryTag]);
 
 	const handleDelete = async (publicId: string) => {
 		const deletedResource = await deleteResource(publicId);
 		if (hasPositiveResult(deletedResource)) {
 			setUpdateCount((prev) => prev - 1);
 		}
-	};
-
-	const handleSetBackground = async (publicId: string, resource: CloudinaryResource) => {
-		// if (resource.tags.includes(selectedTag)) return;
-		// const currentBackground = fullResources.find((resource) =>
-		// 	resource.tags.includes(selectedTag)
-		// );
-		// if (!currentBackground) return;
-		// setLoading(true);
-		// const newBackground = await removeFromOneResourceAndThenAddToAnother(
-		// 	currentBackground.public_id,
-		// 	publicId,
-		// 	selectedTag
-		// );
-		// // console.log(newBackground);
-
-		setTimeout(() => {
-			setUpdateCount((prev) => prev + 1);
-		}, 1500);
 	};
 
 	return (
@@ -89,7 +79,7 @@ const AboutFeatureImageGallery: FC<AboutFeatureImageGalleryProps> = ({
 			) : error ? (
 				<div className="col-span-3 flex justify-center">No images found.</div>
 			) : (
-				fullResources.map((resource) => (
+				fullResources.map((resource, index) => (
 					<div key={resource.public_id} className="relative w-fit">
 						<div
 							onClick={() => handleDelete(resource.public_id)}
@@ -98,8 +88,13 @@ const AboutFeatureImageGallery: FC<AboutFeatureImageGalleryProps> = ({
 						>
 							<XIcon />
 						</div>
+						<div
+							className={`px-3 py-1 text-center font-bold absolute z-10 bg-cyan-400 dark:bg-cyan-500`}
+						>
+							{index + 1}
+						</div>
 						<CldImage
-							onClick={() => handleSetBackground(resource.public_id, resource)}
+							onClick={() => console.log("clicked")}
 							width={250}
 							height={250}
 							src={resource.secure_url}
@@ -107,14 +102,14 @@ const AboutFeatureImageGallery: FC<AboutFeatureImageGalleryProps> = ({
 							placeholder="blur"
 							blurDataURL={resource.blurDataUrl}
 							preserveTransformations
-							// className={`rounded-sm ${
-							// 	selectedTag && resource.tags.includes(selectedTag)
-							// 		? "border-4 border-cyan-400 dark:border-cyan-500"
-							// 		: `border border-slate-500 dark:border-slate-300 opacity-70 transition-all duration-100 ease-in-out active:scale-95%] cursor-pointer ${
-							// 				!isMobile &&
-							// 				"hover:border-cyan-400 dark:hover:border-cyan-500 hover:opacity-100"
-							// 		  }`
-							// } shadow shadow-slate-600`}
+							className={`rounded-sm ${
+								index < 4
+									? "border-4 border-cyan-400 dark:border-cyan-500"
+									: `border border-slate-500 dark:border-slate-300 opacity-70 transition-all duration-100 ease-in-out active:scale-95%] cursor-pointer ${
+											!isMobile &&
+											"hover:border-cyan-400 dark:hover:border-cyan-500 hover:opacity-100"
+									  }`
+							} shadow shadow-slate-600`}
 						/>
 					</div>
 				))
