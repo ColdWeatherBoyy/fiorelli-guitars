@@ -129,7 +129,7 @@ const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
 							className={`rounded-sm ${
 								selectedTag && resource.tags.includes(selectedTag)
 									? "border-4 border-cyan-400 dark:border-cyan-500"
-									: `border border-slate-500 dark:border-slate-300 opacity-70 transition-all duration-100 ease-in-out active:scale-95%] cursor-pointer ${
+									: `border border-slate-500 dark:border-slate-300 opacity-70 transition-all duration-100 ease-in-out active:scale-[95%] cursor-pointer ${
 											!isMobile &&
 											"hover:border-cyan-400 dark:hover:border-cyan-500 hover:opacity-100"
 									  }`
