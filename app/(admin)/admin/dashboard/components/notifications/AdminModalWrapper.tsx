@@ -2,7 +2,7 @@
 
 import AnimateWrapper from "@/app/components/AnimateWrapper";
 import { motion } from "framer-motion";
-import React, { Dispatch, FC, SetStateAction } from "react";
+import React, { Dispatch, FC, SetStateAction, useEffect } from "react";
 
 interface AdminModalWrapperProps {
 	setOpen: Dispatch<SetStateAction<boolean>>;
@@ -18,6 +18,20 @@ const AdminModalWrapper: FC<AdminModalWrapperProps> = ({
 		if (onSuccess) onSuccess();
 		setOpen(false);
 	};
+
+	useEffect(() => {
+		const handleEsc = (e: KeyboardEvent) => {
+			if (e.key === "Escape") {
+				setOpen(false);
+			}
+		};
+
+		document.addEventListener("keydown", handleEsc);
+		return () => {
+			document.removeEventListener("keydown", handleEsc);
+		};
+	}, [setOpen]);
+
 	return (
 		<div className={`fixed inset-0 flex items-start justify-center z-30`}>
 			<motion.div

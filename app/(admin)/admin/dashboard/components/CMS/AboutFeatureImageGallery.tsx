@@ -1,3 +1,4 @@
+import AdminButtonLink from "@/app/(admin)/components/components/AdminButtonLink";
 import LoadingIcon from "@/app/components/SVGs/LoadingIcon";
 import XIcon from "@/app/components/SVGs/XIcon";
 import { deleteResource } from "@/app/utilities/cloudinaryFunctions/cloudinary.delete";
@@ -6,10 +7,7 @@ import { sortResourcesByPriority } from "@/app/utilities/helpers";
 import { hasPositiveResult } from "@/app/utilities/typeguardFunctions";
 import { CloudinaryResource } from "@/app/utilities/types";
 import { CldImage } from "next-cloudinary";
-import { Reorder } from "framer-motion";
 import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from "react";
-import AdminButtonLink from "@/app/(admin)/components/components/AdminButtonLink";
-import AdminModalWrapper from "../notifications/AdminModalWrapper";
 import AboutImageModal from "./AboutImageModal";
 
 interface AboutFeatureImageGalleryProps {
@@ -33,7 +31,7 @@ const AboutFeatureImageGallery: FC<AboutFeatureImageGalleryProps> = ({
 
 	useEffect(() => {
 		const orderResources = (resources: CloudinaryResource[]) => {
-			const orderedTags = ["about_1", "about_2", "about_3", "about_4"];
+			const orderedTags = ["about_0", "about_1", "about_2", "about_3"];
 			sortResourcesByPriority(orderedTags, resources);
 			return resources;
 		};
@@ -86,7 +84,7 @@ const AboutFeatureImageGallery: FC<AboutFeatureImageGalleryProps> = ({
 				) : (
 					<>
 						{fullResources.map((resource, index) => (
-							<div className="relative w-fit">
+							<div className="relative w-fit" key={resource.public_id}>
 								<div
 									onClick={() => handleDelete(resource.public_id)}
 									className={`absolute z-10 bg-slate-300 text-slate-500 dark:bg-slate-500 dark:text-slate-300 rounded-full top-2 right-2 cursor-pointer active:scale-95 transition-all duration-100 ease-in-out
@@ -128,7 +126,13 @@ const AboutFeatureImageGallery: FC<AboutFeatureImageGalleryProps> = ({
 					</>
 				)}
 			</div>
-			{open && <AboutImageModal fullResources={fullResources} setOpen={setOpen} />}
+			{open && (
+				<AboutImageModal
+					fullResources={fullResources}
+					setOpen={setOpen}
+					isMobile={isMobile}
+				/>
+			)}
 		</>
 	);
 };

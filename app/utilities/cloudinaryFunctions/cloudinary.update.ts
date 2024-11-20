@@ -38,7 +38,9 @@ export const removeFromOneResourceAndThenAddToAnother = async (
 				if (removeResult?.public_ids?.[0] && addResult?.public_ids?.[0]) {
 					resolve(addResult.public_ids[0]);
 				} else {
-					reject(new Error("Failed to assign new background image."));
+					reject(
+						new Error("Failed to remove from one resource and then add to another.")
+					);
 				}
 			});
 		});
