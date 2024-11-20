@@ -22,6 +22,7 @@ import NotificationModal from "../notifications/NotificationModal";
 import BaseGuitarForm from "./BaseGuitarForm";
 import VariantGuitarForm from "./VariantGuitarForm";
 import AnimateWrapper from "@/app/components/AnimateWrapper";
+import AdminModalWrapper from "../notifications/AdminModalWrapper";
 
 interface AddGuitarFormProps {
 	isMobile: boolean;
@@ -97,7 +98,9 @@ const AddGuitarForm: FC<AddGuitarFormProps> = ({ isMobile }) => {
 					/>
 				)}
 			{open && (
-				<NotificationModal setOpen={setOpen} notificationContent={notificationContent} />
+				<AdminModalWrapper setOpen={setOpen}>
+					<NotificationModal notificationContent={notificationContent} />
+				</AdminModalWrapper>
 			)}
 		</>
 	);

@@ -11,6 +11,7 @@ import {
 import { Reorder } from "framer-motion";
 import { FC, useState } from "react";
 import NotificationModal from "../notifications/NotificationModal";
+import AdminModalWrapper from "../notifications/AdminModalWrapper";
 
 interface GalleryOrderProps {
 	galleryGuitars: VariantGuitarModelWithSpec[];
@@ -129,11 +130,9 @@ export const GalleryOrder: FC<GalleryOrderProps> = ({ galleryGuitars, isMobile }
 				/>
 			</div>
 			{open && (
-				<NotificationModal
-					setOpen={setOpen}
-					notificationContent={notificationContent}
-					onSuccess={success ? onSuccess : undefined}
-				/>
+				<AdminModalWrapper setOpen={setOpen} onSuccess={success ? onSuccess : undefined}>
+					<NotificationModal notificationContent={notificationContent} />
+				</AdminModalWrapper>
 			)}
 		</>
 	);

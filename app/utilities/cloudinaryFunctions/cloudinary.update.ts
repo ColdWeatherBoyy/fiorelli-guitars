@@ -5,7 +5,10 @@ import { cloudinary } from "../cloudinary";
 // https://stackoverflow.com/questions/53853827/async-await-for-cloudinary-upload-not-working
 // Thanks to this for solution when async/await wasn't working
 
-export const addTagToResource = async (public_id: string, tag: string) => {
+export const addTagToResource = async (
+	public_id: string,
+	tag: string
+): Promise<string | Error> => {
 	return new Promise((resolve, reject) => {
 		cloudinary.uploader.add_tag(tag, [public_id], (err, result) => {
 			if (err) return reject(err);
@@ -14,7 +17,10 @@ export const addTagToResource = async (public_id: string, tag: string) => {
 	});
 };
 
-export const removeTagFromResource = async (public_id: string, tag: string) => {
+export const removeTagFromResource = async (
+	public_id: string,
+	tag: string
+): Promise<string | Error> => {
 	return new Promise((resolve, reject) => {
 		cloudinary.uploader.remove_tag(tag, [public_id], (err, result) => {
 			if (err) return reject(err);
@@ -27,7 +33,7 @@ export const removeFromOneResourceAndThenAddToAnother = async (
 	oldPublicId: string,
 	newPublicId: string,
 	tag: string
-) => {
+): Promise<string | Error> => {
 	return new Promise((resolve, reject) => {
 		cloudinary.uploader.remove_tag(tag, [oldPublicId], (removeErr, removeResult) => {
 			if (removeErr) return reject(removeErr);

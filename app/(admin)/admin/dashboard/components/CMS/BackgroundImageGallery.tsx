@@ -87,8 +87,10 @@ const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
 				currentBackground.public_id,
 				selectedTag
 			);
+			console.log(removedResource);
 		}
 		const addedResource = await addTagToResource(publicId, selectedTag);
+		console.log(addedResource);
 
 		// Retrigger the fetch
 		hasFetched.current = false;

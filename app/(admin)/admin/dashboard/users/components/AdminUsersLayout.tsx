@@ -11,6 +11,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import { useFormState } from "react-dom";
 import NotificationModal from "../../components/notifications/NotificationModal";
 import AddAuthUserForm from "./AddAuthUserForm";
+import AdminModalWrapper from "../../components/notifications/AdminModalWrapper";
 
 interface UserLayoutProps {
 	authUsers: Array<Record<string, any>>;
@@ -101,7 +102,9 @@ const AdminUsersLayout: FC<UserLayoutProps> = ({ authUsers, isMobile }) => {
 				tableInteractionProps={tableInteractionProps}
 			/>
 			{open && (
-				<NotificationModal setOpen={setOpen} notificationContent={notificationContent} />
+				<AdminModalWrapper setOpen={setOpen}>
+					<NotificationModal notificationContent={notificationContent} />
+				</AdminModalWrapper>
 			)}
 		</>
 	);

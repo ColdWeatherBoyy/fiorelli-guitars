@@ -17,6 +17,7 @@ import NotificationModal from "../notifications/NotificationModal";
 import EditableContent from "./EditableContent";
 import ToggleGalleryFeature from "./ToggleGalleryFeature";
 import UpdateUnusedSpec from "./UpdateUnusedSpec";
+import AdminModalWrapper from "../notifications/AdminModalWrapper";
 
 interface EditableGuitarSpecLayoutProps {
 	models: GuitarModelWithSpec[];
@@ -209,7 +210,9 @@ const EditableGuitarSpecLayout: FC<EditableGuitarSpecLayoutProps> = ({
 			)}
 
 			{open && (
-				<NotificationModal setOpen={setOpen} notificationContent={notificationContent} />
+				<AdminModalWrapper setOpen={setOpen}>
+					<NotificationModal notificationContent={notificationContent} />
+				</AdminModalWrapper>
 			)}
 		</>
 	);

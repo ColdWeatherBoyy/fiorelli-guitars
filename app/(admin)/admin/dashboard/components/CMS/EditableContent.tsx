@@ -8,6 +8,7 @@ import { NotificationContentType } from "@/app/utilities/types";
 import { GuitarSpec, PageContent } from "@prisma/client";
 import { FC, useState } from "react";
 import NotificationModal from "../notifications/NotificationModal";
+import AdminModalWrapper from "../notifications/AdminModalWrapper";
 
 interface EditableContentProps {
 	contentObj: Record<string, string>;
@@ -161,11 +162,9 @@ const EditableContent: FC<EditableContentProps> = ({
 			</div>
 
 			{open && (
-				<NotificationModal
-					setOpen={setOpen}
-					notificationContent={notificationContent}
-					onSuccess={success ? onSuccess : undefined}
-				/>
+				<AdminModalWrapper setOpen={setOpen} onSuccess={success ? onSuccess : undefined}>
+					<NotificationModal notificationContent={notificationContent} />
+				</AdminModalWrapper>
 			)}
 		</div>
 	);

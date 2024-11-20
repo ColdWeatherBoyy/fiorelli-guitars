@@ -5,10 +5,12 @@ import { deleteResource } from "@/app/utilities/cloudinaryFunctions/cloudinary.d
 import { getResources } from "@/app/utilities/cloudinaryFunctions/cloudinary.get";
 import { sortResourcesByPriority } from "@/app/utilities/helpers";
 import { hasPositiveResult } from "@/app/utilities/typeguardFunctions";
-import { CloudinaryResource } from "@/app/utilities/types";
+import { CloudinaryResource, NotificationContentType } from "@/app/utilities/types";
 import { CldImage } from "next-cloudinary";
 import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from "react";
+import AdminModalWrapper from "../notifications/AdminModalWrapper";
 import AboutImageModal from "./AboutImageModal";
+import NotificationModal from "../notifications/NotificationModal";
 
 interface AboutFeatureImageGalleryProps {
 	galleryTag: string;
@@ -27,6 +29,14 @@ const AboutFeatureImageGallery: FC<AboutFeatureImageGalleryProps> = ({
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 	const [open, setOpen] = useState(false);
+	const [notificationContent, setNotificationContent] = useState<NotificationContentType>(
+		{
+			key: "string",
+			content: "",
+		}
+	);
+	const [success, setSuccess] = useState(false);
+	const [complete, setComplete] = useState(false);
 	const hasFetched = useRef(false);
 
 	useEffect(() => {
@@ -65,12 +75,27 @@ const AboutFeatureImageGallery: FC<AboutFeatureImageGalleryProps> = ({
 		}
 	}, [updateCount, galleryTag]);
 
+	const onSuccess = () => {
+		hasFetched.current = false;
+		setUpdateCount((prev) => prev + 1);
+	};
+
 	const handleDelete = async (publicId: string) => {
 		const deletedResource = await deleteResource(publicId);
 		if (hasPositiveResult(deletedResource)) {
 			setUpdateCount((prev) => prev - 1);
 		}
 	};
+
+	useEffect(() => {
+		if (complete) {
+			setComplete(false);
+			setNotificationContent({
+				key: "string",
+				content: "",
+			});
+		}
+	}, [open]);
 
 	return (
 		<>
@@ -118,7 +143,7 @@ const AboutFeatureImageGallery: FC<AboutFeatureImageGalleryProps> = ({
 						))}
 						<div className="w-full flex justify-center my-4 col-span-3">
 							<AdminButtonLink
-								text="Select Images"
+								text="Select Featured Images"
 								isMobile={isMobile}
 								handleClick={() => setOpen(true)}
 							/>
@@ -127,11 +152,19 @@ const AboutFeatureImageGallery: FC<AboutFeatureImageGalleryProps> = ({
 				)}
 			</div>
 			{open && (
-				<AboutImageModal
-					fullResources={fullResources}
-					setOpen={setOpen}
-					isMobile={isMobile}
-				/>
+				<AdminModalWrapper setOpen={setOpen} onSuccess={success ? onSuccess : undefined}>
+					{!complete ? (
+						<AboutImageModal
+							fullResources={fullResources}
+							setComplete={setComplete}
+							setNotificationContent={setNotificationContent}
+							setSuccess={setSuccess}
+							isMobile={isMobile}
+						/>
+					) : (
+						<NotificationModal notificationContent={notificationContent} />
+					)}
+				</AdminModalWrapper>
 			)}
 		</>
 	);

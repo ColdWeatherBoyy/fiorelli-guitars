@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import AdminButtonLink from "../../../../../components/components/AdminButtonLink";
 import { NotificationContentType } from "@/app/utilities/types";
 import NotificationModal from "../../../components/notifications/NotificationModal";
+import AdminModalWrapper from "../../../components/notifications/AdminModalWrapper";
 
 interface SearchBarProps {
 	placeholder: string;
@@ -48,7 +49,9 @@ const SearchBar: FC<SearchBarProps> = ({ placeholder, isMobile }) => {
 				<AdminButtonLink text="Search" isMobile={isMobile} />
 			</form>
 			{open && (
-				<NotificationModal setOpen={setOpen} notificationContent={notificationContent} />
+				<AdminModalWrapper setOpen={setOpen}>
+					<NotificationModal notificationContent={notificationContent} />
+				</AdminModalWrapper>
 			)}
 		</>
 	);
