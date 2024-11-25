@@ -12,7 +12,7 @@ export default async function About() {
 
 	const fullResources = await getResources("about");
 
-	const priorityTags = ["about_1", "about_2", "about_3", "about_4"];
+	const priorityTags = ["about_0", "about_1", "about_2", "about_3"];
 	sortResourcesByPriority(priorityTags, fullResources);
 
 	return (
