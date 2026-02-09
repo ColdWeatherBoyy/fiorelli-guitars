@@ -7,9 +7,14 @@ import { isCustomer, isMessage } from "@/app/utilities/typeguardFunctions";
 
 export const handleForm = async (
 	prevState: boolean | Error,
-	formData: FormData
+	formData: FormData,
 ): Promise<boolean | Error> => {
 	try {
+		// Honeypot check - reject if hidden field is filled
+		if (formData.get("website")) {
+			return true; // Silently succeed to not alert bots
+		}
+
 		const newCustomer = await createCustomer(formData);
 		if (!isCustomer(newCustomer)) {
 			return {

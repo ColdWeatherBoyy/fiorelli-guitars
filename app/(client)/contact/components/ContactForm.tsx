@@ -11,6 +11,13 @@ const ContactForm = () => {
 		<>
 			{!data ? (
 				<form action={formAction} className="flex flex-col w-full">
+					<input
+						type="text"
+						name="website"
+						style={{ display: "none" }}
+						tabIndex={-1}
+						autoComplete="off"
+					/>
 					<label className="mb-2 font-semibold">Name:</label>
 					<input
 						type="text"
