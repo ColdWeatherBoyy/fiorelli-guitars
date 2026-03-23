@@ -79,18 +79,16 @@ const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
 	const handleSetBackground = async (publicId: string, resource: CloudinaryResource) => {
 		if (resource.tags.includes(selectedTag)) return;
 		const currentBackground = fullResources.find((resource) =>
-			resource.tags.includes(selectedTag)
+			resource.tags.includes(selectedTag),
 		);
 		setLoading(true);
 		if (currentBackground) {
 			const removedResource = await removeTagFromResource(
 				currentBackground.public_id,
-				selectedTag
+				selectedTag,
 			);
-			console.log(removedResource);
 		}
 		const addedResource = await addTagToResource(publicId, selectedTag);
-		console.log(addedResource);
 
 		// Retrigger the fetch
 		hasFetched.current = false;
@@ -134,7 +132,7 @@ const BackgroundImageGallery: FC<BackgroundImageGalleryProps> = ({
 									: `border border-slate-500 dark:border-slate-300 opacity-70 transition-all duration-100 ease-in-out active:scale-[95%] cursor-pointer ${
 											!isMobile &&
 											"hover:border-cyan-400 dark:hover:border-cyan-500 hover:opacity-100"
-									  }`
+										}`
 							} shadow shadow-slate-600`}
 						/>
 					</div>

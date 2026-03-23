@@ -1,16 +1,64 @@
 "use client";
 
+import { useEffect, useCallback } from "react";
 import { useFormState } from "react-dom";
 import CardButtonLink from "../../components/components/CardButtonLink";
 import { handleForm } from "../utilities/handleForm";
 
+declare global {
+	interface Window {
+		grecaptcha: any;
+	}
+}
+
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+
 const ContactForm = () => {
 	const [data, formAction] = useFormState(handleForm, false);
+
+	useEffect(() => {
+		const scriptId = "recaptcha-v3-script";
+		if (document.getElementById(scriptId)) return;
+
+		const script = document.createElement("script");
+		script.id = scriptId;
+		script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+		script.async = true;
+		document.head.appendChild(script);
+
+		return () => {
+			const existing = document.getElementById(scriptId);
+			if (existing) existing.remove();
+		};
+	}, []);
+
+	const handleSubmit = useCallback(
+		async (formData: FormData) => {
+			try {
+				const token = await new Promise<string>((resolve, reject) => {
+					if (!window.grecaptcha) {
+						return reject(new Error("reCAPTCHA not loaded"));
+					}
+					window.grecaptcha.ready(() => {
+						window.grecaptcha
+							.execute(RECAPTCHA_SITE_KEY, { action: "contact_form" })
+							.then(resolve)
+							.catch(reject);
+					});
+				});
+				formData.append("recaptchaToken", token);
+			} catch {
+				// Submit without token — server will handle missing token gracefully
+			}
+			formAction(formData);
+		},
+		[formAction],
+	);
 
 	return (
 		<>
 			{!data ? (
-				<form action={formAction} className="flex flex-col w-full">
+				<form action={handleSubmit} className="flex flex-col w-full">
 					<input
 						type="text"
 						name="website"

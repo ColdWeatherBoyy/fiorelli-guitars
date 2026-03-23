@@ -15,6 +15,17 @@ export const handleForm = async (
 			return true; // Silently succeed to not alert bots
 		}
 
+		// reCAPTCHA verification
+		const token = formData.get("recaptchaToken") as string;
+		if (!token) {
+			return true; // No token, likely a bot
+		}
+
+		const recaptchaScore = await verifyRecaptcha(token);
+		if (recaptchaScore < 0.5) {
+			return true; // Likely a bot (low score)
+		}
+
 		const newCustomer = await createCustomer(formData);
 		if (!isCustomer(newCustomer)) {
 			return {
@@ -49,11 +60,32 @@ export const handleForm = async (
 		}
 
 		return true;
-	} catch (error) {
+	} catch {
 		return {
 			name: "Unexpected Error",
 			message: "An unexpected error occurred in the Contact form. Please try again.",
-			cause: error,
+			cause: "Internal error",
 		};
 	}
 };
+
+// Verify reCAPTCHA token with Google's API
+async function verifyRecaptcha(token: string): Promise<number> {
+	try {
+		const params = new URLSearchParams();
+		params.append("secret", process.env.RECAPTCHA_SECRET_KEY || "");
+		params.append("response", token);
+
+		const response = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+			method: "POST",
+			headers: { "Content-Type": "application/x-www-form-urlencoded" },
+			body: params.toString(),
+		});
+
+		const data = await response.json();
+		if (!data.success) return 0;
+		return data.score || 0;
+	} catch {
+		return 0; // Default to rejecting on error
+	}
+}

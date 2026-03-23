@@ -33,7 +33,7 @@ const AboutFeatureImageGallery: FC<AboutFeatureImageGalleryProps> = ({
 		{
 			key: "string",
 			content: "",
-		}
+		},
 	);
 	const [success, setSuccess] = useState(false);
 	const [complete, setComplete] = useState(false);
@@ -125,7 +125,7 @@ const AboutFeatureImageGallery: FC<AboutFeatureImageGalleryProps> = ({
 									</div>
 								)}
 								<CldImage
-									onClick={() => console.log("clicked")}
+									// onClick={() => console.log("clicked")}
 									width={250}
 									height={250}
 									src={resource.secure_url}

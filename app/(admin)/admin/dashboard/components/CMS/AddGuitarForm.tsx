@@ -34,14 +34,14 @@ const AddGuitarForm: FC<AddGuitarFormProps> = ({ isMobile }) => {
 		(keyof BaseGuitarNeeds)[] | (keyof VariantGuitarNeeds)[]
 	>([]);
 	const [content, setContent] = useState<BaseGuitarNeeds | VariantGuitarNeeds>(
-		baseGuitarDefault
+		baseGuitarDefault,
 	);
 	const [open, setOpen] = useState(false);
 	const [notificationContent, setNotificationContent] = useState<NotificationContentType>(
 		{
 			key: "string",
 			content: "",
-		}
+		},
 	);
 
 	useEffect(() => {
@@ -49,14 +49,10 @@ const AddGuitarForm: FC<AddGuitarFormProps> = ({ isMobile }) => {
 		setGuitarNeeds(
 			guitarType === GuitarType.base
 				? (Object.keys(baseGuitarDefault) as (keyof BaseGuitarNeeds)[])
-				: (Object.keys(VariantGuitarDefault) as (keyof VariantGuitarNeeds)[])
+				: (Object.keys(VariantGuitarDefault) as (keyof VariantGuitarNeeds)[]),
 		);
 		setContent(guitarType === GuitarType.base ? baseGuitarDefault : VariantGuitarDefault);
 	}, [guitarType]);
-
-	// useEffect(() => {
-	// 	console.log(content);
-	// }, [content]);
 
 	return (
 		<>

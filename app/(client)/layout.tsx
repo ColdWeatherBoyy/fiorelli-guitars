@@ -1,4 +1,5 @@
 import "../style/globals.css";
+import "../style/recaptcha.css";
 import { getResources } from "../utilities/cloudinaryFunctions/cloudinary.get";
 import { useDeviceType } from "../utilities/hooks.server";
 import BackgroundImage from "./components/components/BackgroundImage";
